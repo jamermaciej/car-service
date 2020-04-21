@@ -2,6 +2,7 @@ import { RegistrationRoutingModule } from './registration-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { MaterialModule } from '../material.module';
 
 
 
@@ -9,7 +10,8 @@ import { RegistrationComponent } from './components/registration/registration.co
   declarations: [RegistrationComponent],
   imports: [
     CommonModule,
-    RegistrationRoutingModule
+    RegistrationRoutingModule,
+    MaterialModule
   ]
 })
 export class RegistrationModule { }
