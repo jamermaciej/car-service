@@ -1,8 +1,9 @@
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { RegistrationRoutingModule } from './registration-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { MaterialModule } from '../material.module';
+
 
 
 
@@ -11,7 +12,7 @@ import { MaterialModule } from '../material.module';
   imports: [
     CommonModule,
     RegistrationRoutingModule,
-    MaterialModule
+    MatFormFieldModule
   ]
 })
 export class RegistrationModule { }
