@@ -1,3 +1,6 @@
 {
-    "emailDomain": "gmail.com"
+    "emailDomain": [
+        "gmail.com",
+        "hotmail.com"
+    ]
 }
