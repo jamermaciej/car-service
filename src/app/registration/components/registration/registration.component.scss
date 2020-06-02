@@ -1,0 +1,67 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+.signup {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8f8f8;
+
+    &__container {
+        width: 900px;
+        background: #FFF;
+        border-radius: 20px;
+        box-shadow: 0 15px 16.83px .17px rgba(0,0,0,.05);
+        display: flex;
+        overflow: hidden;
+    }
+
+    h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+
+    .signup-form {
+        padding: 75px 45px;
+        width: 40%;
+
+        mat-form-field {
+            width: 100%;
+        }
+
+        ::ng-deep {
+            .mat-checkbox-layout {
+                margin: 15px 0 30px;
+            }
+        }
+    }
+
+    .signup-image {
+        background-image: url('../../../../assets/images/signup-panel.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 60%;
+        position: relative;
+
+        height: 600px;
+
+        &-content {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            bottom: 100px;
+        }
+
+        h2 {
+            color: #FFF;
+        }
+
+        a {
+            color: #FFF;
+            border-color: #FFF;
+            border-width: 2px;
+            padding: 0 30px;
+        }
+    }
+}
