@@ -11,14 +11,16 @@
                     <mat-label>Your Email</mat-label>
                     <input type="email" name="email" formControlName="email" matInput>
                 </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Password</mat-label>
-                    <input type="password" name="password" formControlName="password" matInput>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Repeat your password</mat-label>
-                    <input type="password" name="password" formControlName="password2" matInput>
-                </mat-form-field>
+                <div formGroupName="passwordGroup">
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input type="password" name="password" formControlName="password" matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Repeat your password</mat-label>
+                        <input type="password" name="confirmPassword" formControlName="confirmPassword" matInput>
+                    </mat-form-field>
+                </div>
                 <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a routerLink="/terms">Terms of service</a></mat-checkbox>
                 <button mat-raised-button color="primary">Register</button>
             </form>
