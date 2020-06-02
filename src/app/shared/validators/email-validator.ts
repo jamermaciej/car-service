@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 
-export class EmailDomainValidator {
-    static validateEmailDomain(domainName: string[]) {
+export class EmailValidator {
+    static matchEmailDomain(domainName: string[]) {
         return (control: FormControl): { [key: string]: {} } | null => {
             const email = control.value;
             const domain = email.substring(email.lastIndexOf('@') + 1);
