@@ -14,11 +14,17 @@
                 <div formGroupName="passwordGroup">
                     <mat-form-field>
                         <mat-label>Password</mat-label>
-                        <input type="password" name="password" formControlName="password" matInput>
+                        <input [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password" matInput>
+                        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Repeat your password</mat-label>
-                        <input type="password" name="confirmPassword" formControlName="confirmPassword" matInput>
+                        <input [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword" formControlName="confirmPassword" matInput>
+                        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
                 </div>
                 <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a routerLink="/terms">Terms of service</a></mat-checkbox>
