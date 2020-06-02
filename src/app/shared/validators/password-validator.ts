@@ -11,4 +11,9 @@ export class PasswordValidator {
             { passwordMismatch: true } :
             null;
     }
+
+    static validatePassword(control: FormControl): ValidationErrors {
+        const isValid = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(control.value);
+        return isValid ? null : { invalid: true };
+    }
 }
