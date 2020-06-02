@@ -1,4 +1,4 @@
-import { NoWhitespaceValidator } from './../../../shared/validators/no-whitespace-validator';
+import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { PasswordValidator } from './../../../shared/validators/password-validator';
 import { EmailValidator } from './../../../shared/validators/email-validator';
 import { Component, OnInit } from '@angular/core';
@@ -19,10 +19,10 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(15), NoWhitespaceValidator.validateNoWhitespace]],
+      name: ['', [RequiredValidator.required, Validators.minLength(2), Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.email, EmailValidator.matchEmailDomain(emailDomain)]],
       passwordGroup: this.formBuilder.group({
-        password: ['', [Validators.required, NoWhitespaceValidator.validateNoWhitespace]],
+        password: ['', [Validators.required]],
         confirmPassword: ['', Validators.required]
       }, { validator: PasswordValidator.matchPassword }),
       terms: ['', [Validators.required]]
