@@ -14,7 +14,10 @@
                     <app-error-message [control]="registrationForm.get('email')"></app-error-message>
                 </mat-form-field>
                 <div formGroupName="passwordGroup">
-                    <mat-form-field>
+                    <mat-form-field
+                        matTooltip="Password must contain at least 8 characters, one uppercase, lowercase, number and non aplhanumeric."
+                        matTooltipClass="password-tooltip"
+                        matTooltipPosition="left">
                         <mat-label>Password *</mat-label>
                         <input [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password" matInput>
                         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">

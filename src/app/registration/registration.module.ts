@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [RegistrationComponent],
@@ -21,7 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    MatTooltipModule
   ]
 })
 export class RegistrationModule { }
