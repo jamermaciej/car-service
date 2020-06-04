@@ -1,5 +1,5 @@
-import { TermsComponent } from './terms/terms.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TermsComponent } from './core/terms/terms.component';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
