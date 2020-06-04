@@ -30,10 +30,9 @@
             width: 100%;
         }
 
-        ::ng-deep {
-            .mat-checkbox-layout {
-                margin: 15px 0 30px;
-            }
+        .checkbox-container {
+            position: relative;
+            margin: 10px 0 40px;
         }
     }
 

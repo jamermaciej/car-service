@@ -6,28 +6,36 @@
                 <mat-form-field>
                     <mat-label>Your Name</mat-label>
                     <input name="name" formControlName="name" matInput>
+                    <app-error-message [control]="registrationForm.get('name')"></app-error-message>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Your Email</mat-label>
+                    <mat-label>Your Email *</mat-label>
                     <input type="email" name="email" formControlName="email" matInput>
+                    <app-error-message [control]="registrationForm.get('email')"></app-error-message>
                 </mat-form-field>
                 <div formGroupName="passwordGroup">
                     <mat-form-field>
-                        <mat-label>Password</mat-label>
+                        <mat-label>Password *</mat-label>
                         <input [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password" matInput>
                         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
+                        <app-error-message [control]="registrationForm.get('passwordGroup').get('password')"></app-error-message>
                     </mat-form-field>
                     <mat-form-field>
-                        <mat-label>Repeat your password</mat-label>
+                        <mat-label>Repeat your password *</mat-label>
                         <input [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword" formControlName="confirmPassword" matInput>
                         <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
                             <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
+                        <app-error-message [control]="registrationForm.get('passwordGroup.confirmPassword')"></app-error-message>
+                        <app-error-message *ngIf="registrationForm.get('passwordGroup.confirmPassword').valid" [control]="registrationForm.get('passwordGroup')"></app-error-message>
                     </mat-form-field>
                 </div>
-                <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a routerLink="/terms">Terms of service</a></mat-checkbox>
+                <div class="checkbox-container">
+                    <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a routerLink="/terms">Terms of service</a></mat-checkbox>
+                    <app-error-message [control]="registrationForm.get('terms')"></app-error-message>
+                </div>              
                 <button mat-raised-button color="primary">Register</button>
             </form>
         </div>

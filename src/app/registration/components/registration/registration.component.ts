@@ -3,7 +3,7 @@ import { RequiredValidator } from './../../../shared/validators/required-validat
 import { PasswordValidator } from './../../../shared/validators/password-validator';
 import { EmailValidator } from './../../../shared/validators/email-validator';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl, FormControl } from '@angular/forms';
 import { emailDomain } from '../../../../assets/config.json';
 
 @Component({
@@ -15,22 +15,48 @@ export class RegistrationComponent implements OnInit {
   hidePassword = true;
   hideConfirmPassword = true;
   registrationForm: FormGroup;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
-      name: ['', [RequiredValidator.required, Validators.minLength(2), Validators.maxLength(15)]],
+      name: ['', [Validators.minLength(3), Validators.maxLength(15)]],
       email: ['', [RequiredValidator.required, Validators.email, EmailValidator.matchEmailDomain(emailDomain)]],
       passwordGroup: this.formBuilder.group({
-        password: ['', [RequiredValidator.required, NoWhitespaceValidator.checkWhitespace, PasswordValidator.validatePassword]],
+        password: ['',
+        [
+          RequiredValidator.required,
+          Validators.minLength(8),
+          NoWhitespaceValidator.checkWhitespace,
+          PasswordValidator.validatePassword]
+        ],
         confirmPassword: ['', RequiredValidator.required]
       }, { validator: PasswordValidator.matchPassword }),
-      terms: ['', [Validators.required]]
+      terms: ['', [Validators.requiredTrue]]
+    });
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
     });
   }
 
   onSubmit() {
-    console.log(this.registrationForm);
+    this.submitted = true;
+
+    if (this.registrationForm.valid) {
+      console.log(this.registrationForm);
+    } else {
+      // alternative for validateAllFormFields, markAllAsTouched mark form as toutch too
+      this.registrationForm.markAllAsTouched();
+      console.log(this.registrationForm);
+    }
   }
 }

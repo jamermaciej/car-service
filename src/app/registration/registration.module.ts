@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RegistrationRoutingModule } from './registration-routing.module';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
+    SharedModule
   ]
 })
 export class RegistrationModule { }
