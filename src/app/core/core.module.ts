@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { TermsComponent } from './terms/terms.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { TermsComponent } from './components/terms/terms.component';
 
 
 
