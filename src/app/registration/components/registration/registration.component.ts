@@ -1,3 +1,4 @@
+import { UserService } from './../../../core/services/user/user.service';
 import { NoWhitespaceValidator } from './../../../shared/validators/no-whitespace-validator';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { PasswordValidator } from './../../../shared/validators/password-validator';
@@ -17,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
@@ -52,7 +53,7 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
 
     if (this.registrationForm.valid) {
-      console.log(this.registrationForm);
+      this.userService.register(this.registrationForm.value);
     } else {
       // alternative for validateAllFormFields, markAllAsTouched mark form as toutch too
       this.registrationForm.markAllAsTouched();
