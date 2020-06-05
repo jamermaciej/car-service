@@ -10,9 +10,8 @@ export class UserService {
 
   constructor(private af: AngularFireAuth, private router: Router) { }
 
-  register(userData) {
-    const password = userData.passwordGroup?.password;
-    const { name, email } = userData;
+  register(userData: User) {
+    const { name, email, password } = userData;
 
     this.af.createUserWithEmailAndPassword(email, password).then((user) => {
       console.log(user);
