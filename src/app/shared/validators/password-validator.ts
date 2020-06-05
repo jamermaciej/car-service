@@ -1,15 +1,15 @@
-import { FormControl, ValidationErrors, Form } from '@angular/forms';
+import { FormControl, ValidationErrors, FormGroup } from '@angular/forms';
 
 export class PasswordValidator {
-    static matchPassword(control: FormControl): ValidationErrors {
-        const password = control.get('password');
-        const confirmPassword = control.get('confirmPassword');
-        if (password.pristine || confirmPassword.pristine) {
-            return null;
-        }
-        return password && confirmPassword && password.value !== confirmPassword.value ?
-            { passwordMismatch: true } :
-            null;
+    static matchPassword(formGroup: FormGroup) {
+        const password = formGroup.get('password');
+        const confirmPassword = formGroup.get('confirmPassword');
+
+        if (confirmPassword.errors && !confirmPassword.errors.passwordMismatch) return;
+
+        password && confirmPassword && password.value !== confirmPassword.value ?
+            confirmPassword.setErrors({ passwordMismatch: true }) :
+            confirmPassword.setErrors(null);
     }
 
     static validatePassword(control: FormControl): ValidationErrors {

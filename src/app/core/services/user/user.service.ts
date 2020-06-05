@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private af: AngularFireAuth, private router: Router) { }
 
-  register(userData: User) {
+  register(userData) {
     const password = userData.passwordGroup?.password;
     const { name, email } = userData;
 

@@ -26,9 +26,7 @@ export class ValidationService {
         'whitespace': 'Password has white space on start or end.'
       },
       'confirmPassword': {
-        'required': 'Repeat password.'
-      },
-      'passwordGroup': {
+        'required': 'Repeat password.',
         'passwordMismatch': 'Passwords must be the same.'
       },
       'terms': {

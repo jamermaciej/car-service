@@ -13,28 +13,27 @@
                     <input type="email" name="email" formControlName="email" matInput>
                     <app-error-message [control]="registrationForm.get('email')"></app-error-message>
                 </mat-form-field>
-                <div formGroupName="passwordGroup">
-                    <mat-form-field
-                        matTooltip="Password must contain at least 8 characters, one uppercase, lowercase, number and non aplhanumeric."
-                        matTooltipClass="password-tooltip"
-                        matTooltipPosition="left">
-                        <mat-label>Password *</mat-label>
-                        <input [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password" matInput>
-                        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                        <app-error-message [control]="registrationForm.get('passwordGroup').get('password')"></app-error-message>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Repeat your password *</mat-label>
-                        <input [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword" formControlName="confirmPassword" matInput>
-                        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
-                            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                        <app-error-message [control]="registrationForm.get('passwordGroup.confirmPassword')"></app-error-message>
-                        <app-error-message *ngIf="registrationForm.get('passwordGroup.confirmPassword').valid" [control]="registrationForm.get('passwordGroup')"></app-error-message>
-                    </mat-form-field>
-                </div>
+                <mat-form-field
+                    matTooltip="Password must contain at least 8 characters, one uppercase, lowercase, number and non aplhanumeric."
+                    matTooltipClass="password-tooltip" matTooltipPosition="left">
+                    <mat-label>Password *</mat-label>
+                    <input [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password" matInput>
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <app-error-message [control]="registrationForm.get('password')"></app-error-message>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Repeat your password *</mat-label>
+                    <input [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword" formControlName="confirmPassword"
+                        matInput>
+                    <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <app-error-message [control]="registrationForm.get('confirmPassword')"></app-error-message>
+                </mat-form-field>
                 <div class="checkbox-container">
                     <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a routerLink="/terms">Terms of service</a></mat-checkbox>
                     <app-error-message [control]="registrationForm.get('terms')"></app-error-message>

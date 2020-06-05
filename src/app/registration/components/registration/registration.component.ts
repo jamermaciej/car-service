@@ -24,18 +24,16 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm = this.formBuilder.group({
       name: ['', [Validators.minLength(3), Validators.maxLength(15)]],
       email: ['', [RequiredValidator.required, Validators.email, EmailValidator.matchEmailDomain(emailDomain)]],
-      passwordGroup: this.formBuilder.group({
-        password: ['',
+      password: ['',
         [
           RequiredValidator.required,
           Validators.minLength(8),
           NoWhitespaceValidator.checkWhitespace,
           PasswordValidator.validatePassword]
         ],
-        confirmPassword: ['', RequiredValidator.required]
-      }, { validator: PasswordValidator.matchPassword }),
+      confirmPassword: ['', RequiredValidator.required],
       terms: ['', [Validators.requiredTrue]]
-    });
+    }, { validator: PasswordValidator.matchPassword });
   }
 
   validateAllFormFields(formGroup: FormGroup) {
