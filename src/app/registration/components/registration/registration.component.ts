@@ -58,4 +58,8 @@ export class RegistrationComponent implements OnInit {
       console.log(this.registrationForm);
     }
   }
+
+  signInWithGoogle() {
+    this.userService.signInWithGoogle();
+  }
 }
