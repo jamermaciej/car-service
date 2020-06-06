@@ -45,7 +45,9 @@
             <div class="signup-image-content">
                 <h2>Have an account?</h2>
                 <a routerLink="/login" mat-stroked-button>Log in</a>
-                <button type="button" (click)="signInWithGoogle()" mat-raised-button color="primary">Sign in with Google</button>
+                <div class="social-buttons">
+                    <button type="button" class="google-btn" (click)="signInWithGoogle()" mat-raised-button>Sign in with Google</button>
+                </div>
             </div>
         </div>
     </div>
