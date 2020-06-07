@@ -16,7 +16,7 @@ export class UserService {
     provider.addScope('profile');
     provider.addScope('email');
     const user = await this.af.signInWithPopup(provider);
-    this.router.navigate(['']);
+    this.router.navigate(['/dashboard']);
     console.log(user);
   }
 
