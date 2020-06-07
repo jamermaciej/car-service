@@ -52,6 +52,36 @@
             bottom: 100px;
         }
 
+        &-separator {
+            color: #FFF;
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 25px auto;
+            position: relative;
+            width: 30px;
+
+            &:before,
+            &:after {
+                content: '';
+                display: block;
+                width: 150px;
+                height: 2px;
+                background-color: #FFF;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            &:before {
+                left: 35px;
+            }
+
+            &:after {
+                right: 35px;
+            }
+        }
+
         h2 {
             color: #FFF;
         }
@@ -64,7 +94,7 @@
         }
 
         .social-buttons {
-            margin: 25px 0;
+            margin: 0 0 25px;
 
             .google-btn {
                 padding-left: 40px;
