@@ -1,0 +1,28 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-image {
+        max-width: 75px;
+        margin-right: 20px;
+    }
+
+    &-text {
+        text-transform: uppercase;
+        font-weight: 700;
+
+        .logo-text-top {
+            color: #e91e63;
+            font-size: 60px;
+            line-height: 60px;
+        }
+
+        .logo-text-bottom {
+            display: block;
+            font-size: 30px;
+            line-height: 35px;
+            margin-top: -10px;
+        }
+    }
+}

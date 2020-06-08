@@ -55,9 +55,8 @@
 
         &-content {
             text-align: center;
-            position: absolute;
             width: 100%;
-            bottom: 100px;
+            padding: 100px 0;
         }
 
         &-separator {
@@ -93,7 +92,7 @@
         h2 {
             color: #FFF;
             font-size: 36px;
-            margin: 0 0 50px;
+            margin: 145px 0 50px;
         }
 
         a {
