@@ -17,13 +17,6 @@
         overflow: hidden;
     }
 
-    h2 {
-        text-transform: uppercase;
-        font-size: 24px;
-        margin-bottom: 24px;
-        color: #e91e63;
-    }
-
     hr {
         width: 50px;
         border-top: 3px solid #e91e63;
@@ -33,6 +26,13 @@
     .signup-form {
         padding: 75px 45px;
         width: 40%;
+
+        h2 {
+            text-transform: uppercase;
+            font-size: 24px;
+            margin-bottom: 24px;
+            color: #e91e63;
+        }
 
         mat-form-field {
             width: 100%;
@@ -92,6 +92,8 @@
 
         h2 {
             color: #FFF;
+            font-size: 36px;
+            margin: 0 0 50px;
         }
 
         a {
