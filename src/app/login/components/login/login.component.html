@@ -1,1 +1,28 @@
-<p>login works!</p>
+<section class="signin">
+    <div class="signin__container">
+        <div class="signin-form">
+            <h2>Sign in</h2>
+            <hr>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <mat-form-field>
+                    <mat-label>Your Email *</mat-label>
+                    <input type="email" name="email" formControlName="email" matInput>
+                    <app-error-message [control]="loginForm.get('email')"></app-error-message>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Your Password *</mat-label>
+                    <input type="password" name="password" formControlName="password" matInput>
+                    <app-error-message [control]="loginForm.get('password')"></app-error-message>
+                </mat-form-field>
+                <button type="submit" mat-raised-button color="primary">Login</button>
+                <div class="forgot-password"><a routerLink="/">Forgot your password?</a></div>
+                <div class="or">
+                    <span>or</span>
+                    <hr>
+                </div>
+                <button type="button" class="google-btn" mat-raised-button>Sign in with Google</button>
+                <div class="donot">Don't have an account? <a routerLink="/registration">Create a new account</a></div>
+            </form>
+        </div>
+    </div>
+</section>

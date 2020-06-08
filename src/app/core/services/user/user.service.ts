@@ -28,4 +28,10 @@ export class UserService {
       this.router.navigate(['/login']);
     });
   }
+
+  async login(email: string, password: string) {
+    const user = await this.af.signInWithEmailAndPassword(email, password);
+    this.router.navigate(['/dashboard']);
+    console.log(user);
+  }
 }
