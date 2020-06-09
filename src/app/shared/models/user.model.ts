@@ -1,5 +1,10 @@
 export interface User {
-    name: string;
+    uid: string;
+    displayName: string;
     email: string;
-    password: string;
+    photoURL?: string;
+    emailVefified: boolean;
+    phoneNumber?: string;
+    createdAt?: string;
+    lastLoginAt?: string;
 }

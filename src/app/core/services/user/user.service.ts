@@ -1,3 +1,5 @@
+import { RegisterData } from './../../../shared/models/register-data.model';
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../../../shared/models/user.model';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -9,7 +11,7 @@ import { auth } from 'firebase';
 })
 export class UserService {
 
-  constructor(private af: AngularFireAuth, private router: Router) { }
+  constructor(private af: AngularFireAuth, private afs: AngularFirestore, private router: Router) { }
 
   async signInWithGoogle() {
     const provider = new auth.GoogleAuthProvider();
@@ -20,13 +22,25 @@ export class UserService {
     console.log(user);
   }
 
-  register(userData: User) {
-    const { name, email, password } = userData;
+  async register(registerData: RegisterData) {
+    const { name, email, password } = registerData;
+    const user = (await this.af.createUserWithEmailAndPassword(email, password)).user;
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    this.af.createUserWithEmailAndPassword(email, password).then((user) => {
-      console.log(user);
-      this.router.navigate(['/login']);
-    });
+    const data = {
+      uid: user.uid,
+      email: user.email,
+      displayName: name || user.displayName,
+      photoURL: user.photoURL,
+      emailVefified: user.emailVerified,
+      phoneNumber: user.photoURL,
+      createdAt: user.metadata.creationTime,
+      lastLoginAt: user.metadata.lastSignInTime
+    };
+
+    userRef.set(data, { merge: true });
+
+    this.router.navigate(['/dashboard']);
   }
 
   async login(email: string, password: string) {
