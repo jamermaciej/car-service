@@ -7,11 +7,12 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

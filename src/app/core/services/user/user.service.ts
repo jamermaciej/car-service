@@ -54,4 +54,9 @@ export class UserService {
   async sendEmailVerification() {
     (await this.af.currentUser).sendEmailVerification();
   }
+
+  async sendPasswordResetEmail(email: string) {
+    await this.af.sendPasswordResetEmail(email);
+    this.router.navigate(['login']);
+  }
 }
