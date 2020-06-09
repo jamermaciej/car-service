@@ -40,6 +40,8 @@ export class UserService {
 
     userRef.set(data, { merge: true });
 
+    this.sendEmailVerification();
+
     this.router.navigate(['/dashboard']);
   }
 
@@ -47,5 +49,9 @@ export class UserService {
     const user = await this.af.signInWithEmailAndPassword(email, password);
     this.router.navigate(['/dashboard']);
     console.log(user);
+  }
+
+  async sendEmailVerification() {
+    (await this.af.currentUser).sendEmailVerification();
   }
 }
