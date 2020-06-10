@@ -5,13 +5,25 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { auth } from 'firebase';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  user$: Observable<User>;
 
-  constructor(private af: AngularFireAuth, private afs: AngularFirestore, private router: Router) { }
+  constructor(private af: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+    this.user$ = this.af.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+    }));
+  }
 
   async signInWithGoogle() {
     const provider = new auth.GoogleAuthProvider();
@@ -48,7 +60,6 @@ export class UserService {
   async login(email: string, password: string) {
     const user = await this.af.signInWithEmailAndPassword(email, password);
     this.router.navigate(['/dashboard']);
-    console.log(user);
   }
 
   async sendEmailVerification() {
@@ -71,5 +82,10 @@ export class UserService {
     } catch (error) {
       console.error(error.message);
     }
+  }
+
+  async signOut() {
+    this.af.signOut();
+    this.router.navigate(['login']);
   }
 }
