@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="mode | async">
+    <ng-container *ngSwitchCase="'resetPassword'">
+        <app-confirm-password-reset></app-confirm-password-reset>
+      </ng-container>
+    
+      <ng-container *ngSwitchCase="'verifyEmail'">
+        <app-confirm-email></app-confirm-email>
+      </ng-container>
+    
+      <ng-container *ngSwitchDefault>
+        Error
+      </ng-container>
+</ng-container>

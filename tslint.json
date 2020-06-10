@@ -87,7 +87,8 @@
     "curly": [
       true, 
       "ignore-same-line"
-    ]
+    ],
+    "no-string-literal": false
   },
   "rulesDirectory": [
     "codelyzer"

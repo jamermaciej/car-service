@@ -59,4 +59,17 @@ export class UserService {
     await this.af.sendPasswordResetEmail(email);
     this.router.navigate(['login']);
   }
+
+  async updatePassword(code: string, password: string) {
+    await this.af.confirmPasswordReset(code, password);
+    this.router.navigate(['login']);
+  }
+
+  async confirmEmail(code: string) {
+    try {
+      await this.af.applyActionCode(code);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 }

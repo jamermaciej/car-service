@@ -1,3 +1,4 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from './../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginRoutingModule } from './login-routing.module';
@@ -8,11 +9,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { FirebaseModeContainerComponent } from './components/firebase-mode-container/firebase-mode-container.component';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
+import { ConfirmPasswordResetComponent } from './components/confirm-password-reset/confirm-password-reset.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
 @NgModule({
-  declarations: [LoginComponent, ForgotPasswordComponent],
+  declarations: [
+    LoginComponent,
+    ForgotPasswordComponent,
+    FirebaseModeContainerComponent,
+    ConfirmEmailComponent,
+    ConfirmPasswordResetComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -20,7 +31,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    SharedModule
+    SharedModule,
+    MatIconModule,
+    MatTooltipModule
   ]
 })
 export class LoginModule { }
