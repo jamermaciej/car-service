@@ -44,7 +44,7 @@ export class UserService {
       email: user.email,
       displayName: name || user.displayName,
       photoURL: user.photoURL,
-      emailVefified: user.emailVerified,
+      emailVerified: user.emailVerified,
       phoneNumber: user.photoURL,
       createdAt: user.metadata.creationTime,
       lastLoginAt: user.metadata.lastSignInTime

@@ -3,7 +3,7 @@ export interface User {
     displayName: string;
     email: string;
     photoURL?: string;
-    emailVefified: boolean;
+    emailVerified: boolean;
     phoneNumber?: string;
     createdAt?: string;
     lastLoginAt?: string;
