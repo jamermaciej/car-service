@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { auth } from 'firebase';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,26 @@ export class UserService {
           return of(null);
         }
     }));
+    this.af.authState.pipe(take(1)).subscribe(user => {
+      if (user) {
+        const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+        userRef.ref.get().then(value => {
+          if (value.exists) {
+            const data: User = {
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName || value.get('displayName'),
+              photoURL: user.photoURL,
+              emailVerified: user.emailVerified,
+              phoneNumber: user.photoURL,
+              createdAt: user.metadata.creationTime,
+              lastLoginAt: user.metadata.lastSignInTime
+            };
+            this.updateUserData(data);
+          }
+        });
+      }
+    });
   }
 
   async signInWithGoogle() {
@@ -87,5 +107,25 @@ export class UserService {
   async signOut() {
     this.af.signOut();
     this.router.navigate(['login']);
+  }
+
+  public getUsersData() {
+    return this.afs.collection(`users`).valueChanges();
+  }
+
+  public getUserData(uid: string) {
+    return this.afs.collection('users').doc(uid).valueChanges();
+  }
+
+  public setUserData(user: User) {
+    return this.afs.doc(`users/${user.uid}`).set(user);
+  }
+
+  public updateUserData(user: User) {
+    return this.afs.doc(`users/${user.uid}`).update(user);
+  }
+
+  public deleteUserData(uid: string) {
+    return this.afs.doc(`users/${uid}`).delete();
   }
 }
