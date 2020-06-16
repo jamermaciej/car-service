@@ -1,3 +1,4 @@
+import { AuthGuard } from './core/services/auth-guard/auth-guard.service';
 import { TermsComponent } from './core/components/terms/terms.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { NgModule } from '@angular/core';
@@ -20,7 +21,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'terms',
