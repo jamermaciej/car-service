@@ -157,7 +157,11 @@ export class UserService {
 
   async confirmEmail(code: string) {
     try {
-      return await this.af.applyActionCode(code);
+      await this.af.applyActionCode(code);
+      this.snackBar.open(`Your email address has been verified successfully.`, '', {
+        duration: 2000,
+        panelClass: 'success'
+      });
     } catch (error) {
       const errorMessage = FirebaseErrors.Parse(error.code);
       this.snackBar.open(errorMessage, '', {
@@ -165,6 +169,7 @@ export class UserService {
         panelClass: 'error'
       });
     }
+    this.router.navigate(['dashboard']);
   }
 
   async signOut() {
