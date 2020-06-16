@@ -1,3 +1,4 @@
+import { FlowRoutes } from './../../../core/enums/flow';
 import { UserService } from './../../../core/services/user/user.service';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  flowRoutes = FlowRoutes;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 

@@ -1,3 +1,4 @@
+import { FlowRoutes } from './../../../core/enums/flow';
 import { UserService } from './../../../core/services/user/user.service';
 import { NoWhitespaceValidator } from './../../../shared/validators/no-whitespace-validator';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
@@ -17,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   hideConfirmPassword = true;
   registrationForm: FormGroup;
   submitted = false;
+  flowRoutes = FlowRoutes;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 

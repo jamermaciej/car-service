@@ -16,9 +16,9 @@
                     <input type="password" name="password" formControlName="password" matInput>
                     <app-error-message [control]="loginForm.get('password')"></app-error-message>
                 </mat-form-field>
-                <div class="forgot-password"><a routerLink="/login/forgot-password">Forgot your password?</a></div>
+                <div class="forgot-password"><a [routerLink]="flowRoutes.FORGOT_PASSWORD">Forgot your password?</a></div>
                 <button type="submit" mat-raised-button color="primary">Login</button>
-                <div class="donot">Don't have an account? <a routerLink="/registration">Create a new account</a></div>
+                <div class="donot">Don't have an account? <a [routerLink]="flowRoutes.REGISTRAION">Create a new account</a></div>
             </form>
         </div>
     </div>

@@ -1,3 +1,4 @@
+import { FlowRoutes } from './../../enums/flow';
 import { FirebaseErrors } from './../firebase-errors/firebase-errors.service';
 import { RegisterData } from './../../../shared/models/register-data.model';
 import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
@@ -52,7 +53,7 @@ export class UserService {
     provider.addScope('profile');
     provider.addScope('email');
     const user = await this.af.signInWithPopup(provider);
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([FlowRoutes.DASHBOARD]);
   }
 
   async register(registerData: RegisterData) {
@@ -76,7 +77,7 @@ export class UserService {
 
       this.sendEmailVerification();
 
-      this.router.navigate(['/dashboard']);
+      this.router.navigate([FlowRoutes.DASHBOARD]);
 
       this.snackBar.open(`You have successfully registered and logged in. Please verify your email address.`, '', {
         duration: 15000,
@@ -94,7 +95,7 @@ export class UserService {
   async login(email: string, password: string) {
     try {
       const user = await this.af.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate([FlowRoutes.DASHBOARD]);
     } catch (error) {
       const errorMessage = FirebaseErrors.Parse(error.code);
       this.snackBar.open(errorMessage, '', {
@@ -119,7 +120,7 @@ export class UserService {
   async sendPasswordResetEmail(email: string) {
     try {
       await this.af.sendPasswordResetEmail(email);
-      this.router.navigate(['login']);
+      this.router.navigate([FlowRoutes.LOGIN]);
 
       this.snackBar.open(`The email with further instructions was
       sent to the submitted email address ${email}. If you don’t receive a
@@ -140,7 +141,7 @@ export class UserService {
   async updatePassword(code: string, password: string) {
     try {
       await this.af.confirmPasswordReset(code, password);
-      this.router.navigate(['login']);
+      this.router.navigate([FlowRoutes.LOGIN]);
       this.snackBar.open(`Your password has been changed successfully, you can login now.`, '', {
         duration: 15000,
         panelClass: 'success'
@@ -169,12 +170,12 @@ export class UserService {
         panelClass: 'error'
       });
     }
-    this.router.navigate(['dashboard']);
+    this.router.navigate([FlowRoutes.DASHBOARD]);
   }
 
   async signOut() {
     this.af.signOut();
-    this.router.navigate(['login']);
+    this.router.navigate([FlowRoutes.LOGIN]);
   }
 
   public getUsersData() {

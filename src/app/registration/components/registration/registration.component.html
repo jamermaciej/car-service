@@ -36,7 +36,7 @@
                     <app-error-message [control]="registrationForm.get('confirmPassword')"></app-error-message>
                 </mat-form-field>
                 <div class="checkbox-container">
-                    <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a routerLink="/terms">Terms of service</a></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a [routerLink]="flowRoutes.TERMS">Terms of service</a></mat-checkbox>
                     <app-error-message [control]="registrationForm.get('terms')"></app-error-message>
                 </div>              
                 <button type="submit" mat-raised-button color="primary">Register</button>
@@ -46,7 +46,7 @@
             <div class="signup-image-content">
                 <app-logo color="white"></app-logo>
                 <h2>Have an account?</h2>
-                <a routerLink="/login" mat-stroked-button>Log in</a>
+                <a [routerLink]="flowRoutes.LOGIN" mat-stroked-button>Log in</a>
             </div>
         </div>
     </div>
