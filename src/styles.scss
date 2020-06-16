@@ -37,3 +37,15 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px #FFF inset;
 }
+
+.mat-snack-bar-container {
+    &.error {
+        background: #bd2130;
+        color: #FFF;
+    }
+
+    &.success {
+        background: #28a745;
+        color: #FFF;
+    }
+}

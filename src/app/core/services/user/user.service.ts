@@ -1,3 +1,4 @@
+import { FirebaseErrors } from './../firebase-errors/firebase-errors.service';
 import { RegisterData } from './../../../shared/models/register-data.model';
 import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../../../shared/models/user.model';
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
 import { auth } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ import { switchMap, take } from 'rxjs/operators';
 export class UserService {
   user$: Observable<User>;
 
-  constructor(private af: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+  constructor(private af: AngularFireAuth, private afs: AngularFirestore, private router: Router, private snackBar: MatSnackBar) {
     this.user$ = this.af.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -51,56 +53,117 @@ export class UserService {
     provider.addScope('email');
     const user = await this.af.signInWithPopup(provider);
     this.router.navigate(['/dashboard']);
-    console.log(user);
   }
 
   async register(registerData: RegisterData) {
-    const { name, email, password } = registerData;
-    const user = (await this.af.createUserWithEmailAndPassword(email, password)).user;
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    try {
+      const { name, email, password } = registerData;
+      const user = (await this.af.createUserWithEmailAndPassword(email, password)).user;
+      const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    const data = {
-      uid: user.uid,
-      email: user.email,
-      displayName: name || user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      phoneNumber: user.photoURL,
-      createdAt: user.metadata.creationTime,
-      lastLoginAt: user.metadata.lastSignInTime
-    };
+      const data = {
+        uid: user.uid,
+        email: user.email,
+        displayName: name || user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        phoneNumber: user.photoURL,
+        createdAt: user.metadata.creationTime,
+        lastLoginAt: user.metadata.lastSignInTime
+      };
 
-    userRef.set(data, { merge: true });
+      userRef.set(data, { merge: true });
 
-    this.sendEmailVerification();
+      this.sendEmailVerification();
 
-    this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard']);
+
+      this.snackBar.open(`You have successfully registered and logged in. Please verify your email address.`, '', {
+        duration: 15000,
+        panelClass: 'success'
+      });
+    } catch (error) {
+      const errorMessage = FirebaseErrors.Parse(error.code);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
   }
 
   async login(email: string, password: string) {
-    const user = await this.af.signInWithEmailAndPassword(email, password);
-    this.router.navigate(['/dashboard']);
+    try {
+      const user = await this.af.signInWithEmailAndPassword(email, password);
+      this.router.navigate(['/dashboard']);
+    } catch (error) {
+      const errorMessage = FirebaseErrors.Parse(error.code);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
   }
 
   async sendEmailVerification() {
-    (await this.af.currentUser).sendEmailVerification();
+    try {
+      (await this.af.currentUser).sendEmailVerification();
+    } catch (error) {
+      const errorMessage = FirebaseErrors.Parse(error.code);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
   }
 
   async sendPasswordResetEmail(email: string) {
-    await this.af.sendPasswordResetEmail(email);
-    this.router.navigate(['login']);
+    try {
+      await this.af.sendPasswordResetEmail(email);
+      this.router.navigate(['login']);
+
+      this.snackBar.open(`The email with further instructions was
+      sent to the submitted email address ${email}. If you don’t receive a
+      message in 5 minutes, check the junk folder.If you are still
+      experiencing any problems, contact support at support@domain.com`, '', {
+        duration: 15000,
+        panelClass: 'success'
+      });
+    } catch (error) {
+      const errorMessage = FirebaseErrors.Parse(error.code);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
   }
 
   async updatePassword(code: string, password: string) {
-    await this.af.confirmPasswordReset(code, password);
-    this.router.navigate(['login']);
+    try {
+      await this.af.confirmPasswordReset(code, password);
+      this.router.navigate(['login']);
+      this.snackBar.open(`Your password has been changed successfully, you can login now.`, '', {
+        duration: 15000,
+        panelClass: 'success'
+      });
+    } catch (error) {
+      console.log(error.code);
+      const errorMessage = FirebaseErrors.Parse(error.code);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
   }
 
   async confirmEmail(code: string) {
     try {
-      await this.af.applyActionCode(code);
+      return await this.af.applyActionCode(code);
     } catch (error) {
-      console.error(error.message);
+      const errorMessage = FirebaseErrors.Parse(error.code);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
     }
   }
 

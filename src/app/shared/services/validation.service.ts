@@ -13,7 +13,7 @@ export class ValidationService {
       },
       'email': {
         'required': 'Email is required.',
-        'email': 'Invalid email address,',
+        'email': 'Invalid email address.',
         'emailDomain': `We accept only ${validatorValue.acceptDomain && validatorValue.acceptDomain.join(', ')} domain.`
       },
       'password': {

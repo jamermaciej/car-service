@@ -28,6 +28,8 @@ export class ConfirmPasswordResetComponent implements OnInit {
           PasswordValidator.validatePassword]
         ],
       confirmPassword: ['', RequiredValidator.required],
+    }, {
+      validator: PasswordValidator.matchPassword
     });
   }
 
