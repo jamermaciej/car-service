@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { UserService } from './../../../core/services/user/user.service';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private location: Location) { }
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({
@@ -22,5 +23,9 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit() {
     const { email } = this.forgotPasswordForm.value;
     this.userService.sendPasswordResetEmail(email);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
