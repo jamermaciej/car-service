@@ -1,3 +1,4 @@
+import { LoggedInAuthGuard } from './core/services/loggedin-auth-guard/loggedin-auth-guard.service';
 import { AuthGuard } from './core/services/auth-guard/auth-guard.service';
 import { TermsComponent } from './core/components/terms/terms.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
@@ -13,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'registration',
-    loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule)
+    loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule),
+    canLoad: [LoggedInAuthGuard]
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+    canLoad: [LoggedInAuthGuard]
   },
   {
     path: 'dashboard',
