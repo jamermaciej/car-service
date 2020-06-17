@@ -28,22 +28,26 @@ export class UserService {
     }));
     this.af.authState.pipe(take(1)).subscribe(user => {
       if (user) {
-        const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-        userRef.ref.get().then(value => {
-          if (value.exists) {
-            const data: User = {
-              uid: user.uid,
-              email: user.email,
-              displayName: user.displayName || value.get('displayName'),
-              photoURL: user.photoURL,
-              emailVerified: user.emailVerified,
-              phoneNumber: user.photoURL,
-              createdAt: user.metadata.creationTime,
-              lastLoginAt: user.metadata.lastSignInTime
-            };
-            this.updateUserData(data);
-          }
-        });
+        this.updateUser(user);
+      }
+    });
+  }
+
+  updateUser(user: firebase.User) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    userRef.ref.get().then(value => {
+      if (value.exists) {
+        const data: User = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName || value.get('displayName'),
+          photoURL: user.photoURL,
+          emailVerified: user.emailVerified,
+          phoneNumber: user.photoURL,
+          createdAt: user.metadata.creationTime,
+          lastLoginAt: user.metadata.lastSignInTime
+        };
+        this.updateUserData(data);
       }
     });
   }
@@ -97,6 +101,7 @@ export class UserService {
     try {
       const user = (await this.af.signInWithEmailAndPassword(email, password)).user;
       localStorage.setItem('user', JSON.stringify(user));
+      this.updateUser(user);
       this.router.navigate([FlowRoutes.DASHBOARD]);
     } catch (error) {
       const errorMessage = FirebaseErrors.Parse(error.code);
