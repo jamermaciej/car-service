@@ -1,3 +1,4 @@
+import { LoggedInAuthGuard } from './../core/services/loggedin-auth-guard/loggedin-auth-guard.service';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
@@ -11,7 +12,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: LoginComponent
+            component: LoginComponent,
+            canActivate: [LoggedInAuthGuard]
           },
           {
             path: 'auth',
