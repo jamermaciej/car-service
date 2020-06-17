@@ -60,6 +60,7 @@ export class UserService {
     try {
       const { name, email, password } = registerData;
       const user = (await this.af.createUserWithEmailAndPassword(email, password)).user;
+      localStorage.setItem('user', JSON.stringify(user));
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
       const data = {
@@ -94,7 +95,8 @@ export class UserService {
 
   async login(email: string, password: string) {
     try {
-      const user = await this.af.signInWithEmailAndPassword(email, password);
+      const user = (await this.af.signInWithEmailAndPassword(email, password)).user;
+      localStorage.setItem('user', JSON.stringify(user));
       this.router.navigate([FlowRoutes.DASHBOARD]);
     } catch (error) {
       const errorMessage = FirebaseErrors.Parse(error.code);
@@ -175,6 +177,7 @@ export class UserService {
 
   async signOut() {
     this.af.signOut();
+    localStorage.removeItem('user');
     this.router.navigate([FlowRoutes.LOGIN]);
   }
 
