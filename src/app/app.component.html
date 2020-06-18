@@ -1,1 +1,7 @@
+<mat-select class="lang" #langSelect [value]="translate.currentLang" (selectionChange)="translate.use(langSelect.value)" name="" id="">
+    <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
+       {{ lang }}
+    </mat-option>
+</mat-select>
+
 <router-outlet></router-outlet>

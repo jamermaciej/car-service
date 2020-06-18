@@ -1,23 +1,23 @@
 <section class="signup">
     <div class="signup__container">
         <div class="signup-form">
-            <h2>Sign up</h2>
+            <h2>{{'register.title' | translate}}</h2>
             <hr>
             <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                 <mat-form-field>
-                    <mat-label>Your Name</mat-label>
+                    <mat-label>{{'register.label.name' | translate}}</mat-label>
                     <input name="name" formControlName="name" matInput>
                     <app-error-message [control]="registrationForm.get('name')"></app-error-message>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Your Email *</mat-label>
+                    <mat-label>{{'register.label.email' | translate}}</mat-label>
                     <input type="email" name="email" formControlName="email" matInput>
                     <app-error-message [control]="registrationForm.get('email')"></app-error-message>
                 </mat-form-field>
                 <mat-form-field
-                    matTooltip="Password must contain at least 8 characters, one uppercase, lowercase, number and non aplhanumeric."
+                    matTooltip="{{'register.hint.password' | translate}}"
                     matTooltipClass="password-tooltip" matTooltipPosition="left">
-                    <mat-label>Password *</mat-label>
+                    <mat-label>{{'register.label.password' | translate}}</mat-label>
                     <input [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password" matInput>
                     <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hidePassword">
@@ -26,7 +26,7 @@
                     <app-error-message [control]="registrationForm.get('password')"></app-error-message>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Repeat your password *</mat-label>
+                    <mat-label>{{'register.label.repeat_password' | translate}}</mat-label>
                     <input [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword" formControlName="confirmPassword"
                         matInput>
                     <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
@@ -36,17 +36,17 @@
                     <app-error-message [control]="registrationForm.get('confirmPassword')"></app-error-message>
                 </mat-form-field>
                 <div class="checkbox-container">
-                    <mat-checkbox color="primary" formControlName="terms">I agree all statements in <a [routerLink]="flowRoutes.TERMS">Terms of service</a></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="terms">{{'register.label.terms' | translate}} <a [routerLink]="flowRoutes.TERMS">{{'register.link.terms' | translate}}</a></mat-checkbox>
                     <app-error-message [control]="registrationForm.get('terms')"></app-error-message>
                 </div>              
-                <button type="submit" mat-raised-button color="primary">Register</button>
+                <button type="submit" mat-raised-button color="primary">{{'register.button.register' | translate}}</button>
             </form>
         </div>
         <div class="signup-image">
             <div class="signup-image-content">
                 <app-logo color="white"></app-logo>
-                <h2>Have an account?</h2>
-                <a [routerLink]="flowRoutes.LOGIN" mat-stroked-button>Log in</a>
+                <h2>{{'register.have_account' | translate}}</h2>
+                <a [routerLink]="flowRoutes.LOGIN" mat-stroked-button>{{'register.button.login' | translate}}</a>
             </div>
         </div>
     </div>

@@ -13,6 +13,7 @@ import { FirebaseModeContainerComponent } from './components/firebase-mode-conta
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { ConfirmPasswordResetComponent } from './components/confirm-password-reset/confirm-password-reset.component';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -33,7 +34,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     SharedModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TranslateModule
   ]
 })
 export class LoginModule { }

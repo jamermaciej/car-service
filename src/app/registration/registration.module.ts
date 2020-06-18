@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from './../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RegistrationRoutingModule } from './registration-routing.module';
@@ -23,7 +24,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCheckboxModule,
     MatIconModule,
     SharedModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TranslateModule
   ]
 })
 export class RegistrationModule { }

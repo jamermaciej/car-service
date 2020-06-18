@@ -1,0 +1,82 @@
+{
+	"forgot_password": {
+		"button": {
+			"back": "Back",
+			"recover": "Recover password",
+			"reset": "Reset password"
+		},
+		"label": {
+			"email": "Your Email *",
+			"password": "New password *",
+			"repeat_password": "Repeat new password *"
+		},
+		"subtitle": {
+			"new_password": "Please enter and confirm your new password"
+		},
+		"title": {
+			"forgot_password": "Password assistance",
+			"new_password": "Set a new password"
+		}
+	},
+	"login": {
+		"button": {
+			"login": "Login"
+		},
+		"create_account": "Create a new account",
+		"forgot_password": "Forgot your password?",
+		"label": {
+			"email": "Yor Email *",
+			"password": "Your password *"
+		},
+		"no_account": "Don't have an account?",
+		"title": "Sign in"
+	},
+	"register": {
+		"button": {
+			"login": "Log in",
+			"register": "Register"
+		},
+		"error": {
+			"confirm_password": {
+				"password_mismatch": "Passwords must be the same.",
+				"required": "Repeat password."
+			},
+			"email": {
+				"domain": "We accept only {{ domain }} domain.",
+				"invalid": "Invalid email address.",
+				"required": "Email is required."
+			},
+			"name": {
+				"maxLength": "Name must be less than 15 characters.",
+				"minLength": "Name must be greater than 3 characters."
+			},
+			"password": {
+				"minLength": "Password must be greater than {{ minLength }} characters.",
+				"noAlphanumeric": "Password must contain at least one special character.",
+				"noLowercase": "Password must contain at least one lowercase letter.",
+				"noNumber": "Password must contain at least one number.",
+				"noUppercase": "Password must contain at least uppercase letter.",
+				"required": "Password is required.",
+				"whitespace": "Password has white space on start or end."
+			},
+			"terms": {
+				"required": "Accept terms of service is required."
+			}
+		},
+		"have_account": "Have an account?",
+		"hint": {
+			"password": "Password must contain at least 8 characters, one uppercase, lowercase, number and non aplhanumeric."
+		},
+		"label": {
+			"email": "Your email *",
+			"name": "Your Name",
+			"password": "Password *",
+			"repeat_password": "Repeat your password *",
+			"terms": "I agree all statements in"
+		},
+		"link": {
+			"terms": "Terms of service"
+		},
+		"title": "Sing up"
+	}
+}

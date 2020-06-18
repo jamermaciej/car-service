@@ -1,0 +1,82 @@
+{
+	"forgot_password": {
+		"button": {
+			"back": "Wróć",
+			"recover": "Odzyskaj hasło",
+			"reset": "Zmień hasło"
+		},
+		"label": {
+			"email": "Twój adres email *",
+			"password": "Nowe hasło *",
+			"repeat_password": "Powtórz nowe hasło *"
+		},
+		"subtitle": {
+			"new_password": "Wpisz i potwierdź nowe hasło"
+		},
+		"title": {
+			"forgot_password": "Nie pamiętasz hasła?",
+			"new_password": "Zmień hasło"
+		}
+	},
+	"login": {
+		"button": {
+			"login": "Zaloguj"
+		},
+		"create_account": "Zarejestruj się teraz",
+		"forgot_password": "Nie pamiętasz hasła?",
+		"label": {
+			"email": "Twój adres email *",
+			"password": "Twoje hasło *"
+		},
+		"no_account": "Nie masz konta?",
+		"title": "Zaloguj się"
+	},
+	"register": {
+		"button": {
+			"login": "Zaloguj się",
+			"register": "Załóż konto"
+		},
+		"error": {
+			"confirm_password": {
+				"password_mismatch": "Hasła muszą być takie same.",
+				"required": "Powtórz hasło."
+			},
+			"email": {
+				"domain": "Akceptujemy tylko domeny {{ domain }}.",
+				"invalid": "Niepoprawny adres email.",
+				"required": "Adres email jest wymagany."
+			},
+			"name": {
+				"maxLength": "Imię może mieć maksymalnie 15 znaków.",
+				"minLength": "Imię musi mieć minimum 3 znaki."
+			},
+			"password": {
+				"minLength": "Hasło musi mieć minimum {{ minLength }} znaków.",
+				"noAlphanumeric": "Hasło musi zawierać minimum 1 znak specjalny.",
+				"noLowercase": "Hasło musi zawierać minimum 1 małą literę.",
+				"noNumber": "Hasło musi zawierać minimum 1 cyfrę.",
+				"noUppercase": "Hasło musi zawierać minimum 1 dużą literę.",
+				"required": "Hasło jest wymagane.",
+				"whitespace": "Hasło zawiera pusty znak na początku lub końcu."
+			},
+			"terms": {
+				"required": "Zaakceptuj regulamin."
+			}
+		},
+		"have_account": "Masz już konto?",
+		"hint": {
+			"password": "Hasło musi zawierać przynajmniej 8 znaków, 1 dużą i małą literę, 1 cyfrę oraz 1 znak specjalny."
+		},
+		"label": {
+			"email": "Twój adres email *",
+			"name": "Imię",
+			"password": "Hasło *",
+			"repeat_password": "Powtórz hasło *",
+			"terms": "Akceptuję"
+		},
+		"link": {
+			"terms": "Warunki świadczenia usług"
+		},
+		"title": "Zarejestruj się"
+	}
+}
