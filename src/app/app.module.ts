@@ -1,5 +1,6 @@
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,12 +15,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSelectModule } from '@angular/material/select';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppInitService } from './core/services/app-init.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
+}
+
+export function initApp(appInitService: AppInitService) {
+  return (): Promise<any> => appInitService.Init();
 }
 
 @NgModule({
@@ -34,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    FormsModule,
     MatSelectModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -42,9 +49,17 @@ export function HttpLoaderFactory(http: HttpClient) {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  })
+    })
   ],
-  providers: [],
+  providers: [
+    AppInitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      deps: [AppInitService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   exports: [TranslateModule]
 })
