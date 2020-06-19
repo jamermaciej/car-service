@@ -1,0 +1,9 @@
+mat-form-field {
+    width: 50px;
+}
+
+::ng-deep {
+    .lang-flag {
+        max-width: 25px;
+    }
+}

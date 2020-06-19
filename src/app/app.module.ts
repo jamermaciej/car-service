@@ -41,7 +41,6 @@ export function initApp(appInitService: AppInitService) {
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
-    MatSelectModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

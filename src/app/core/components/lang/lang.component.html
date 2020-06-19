@@ -1,0 +1,10 @@
+<mat-form-field>
+    <mat-select class="lang" #langSelect [value]="translate.currentLang" (selectionChange)="changeLang()" name="lang" id="lang">
+        <mat-select-trigger>
+            <img class="lang-flag" [src]='"../../../../assets/images/flags/" + translate.currentLang + ".svg"' [alt]="translate.currentLang">
+        </mat-select-trigger>
+        <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
+           <img class="lang-flag" [src]='"../../../../assets/images/flags/" + lang + ".svg"' [alt]="lang">
+        </mat-option>
+    </mat-select>
+</mat-form-field>
