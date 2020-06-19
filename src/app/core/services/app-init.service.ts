@@ -1,20 +1,16 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { getBrowserLang } from '@ngneat/transloco';
 
 @Injectable()
 export class AppInitService {
-    constructor(private translate: TranslateService) {}
+     constructor(private translocoService: TranslocoService) {}
 
     Init(): Promise<any> {
-        const defaultLocale = 'pl';
-
         return new Promise<void>(resolve => {
-          this.translate.addLangs(['en', 'pl']);
-          this.translate.setDefaultLang(defaultLocale);
-          const browserLang = this.translate.getBrowserLang();
-          this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
-
+          const browserLang = getBrowserLang();
+          this.translocoService.setActiveLang(browserLang.match(/en|pl/) ? browserLang : 'pl');
           resolve();
-        });
+      });
     }
 }

@@ -13,9 +13,7 @@ import { FirebaseModeContainerComponent } from './components/firebase-mode-conta
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { ConfirmPasswordResetComponent } from './components/confirm-password-reset/confirm-password-reset.component';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
-
-
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [
@@ -35,7 +33,7 @@ import { TranslateModule } from '@ngx-translate/core';
     SharedModule,
     MatIconModule,
     MatTooltipModule,
-    TranslateModule
+    TranslocoModule
   ]
 })
 export class LoginModule { }

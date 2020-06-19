@@ -1,4 +1,3 @@
-import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from './../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RegistrationRoutingModule } from './registration-routing.module';
@@ -11,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [RegistrationComponent],
@@ -25,7 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     SharedModule,
     MatTooltipModule,
-    TranslateModule
+    TranslocoModule
   ]
 })
 export class RegistrationModule { }

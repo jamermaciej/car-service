@@ -1,6 +1,7 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { MatSelect } from '@angular/material/select';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-lang',
@@ -9,14 +10,19 @@ import { MatSelect } from '@angular/material/select';
 })
 export class LangComponent implements OnInit {
   @ViewChild('langSelect') langSelect: MatSelect;
+  currentLang: string;
+  langs: string[] | object[];
 
-  constructor(public translate: TranslateService) { }
+  constructor(public translocoService: TranslocoService) { }
 
   ngOnInit(): void {
+    this.currentLang = this.translocoService.getActiveLang();
+    this.langs = this.translocoService.getAvailableLangs();
   }
 
   changeLang() {
     const lang = this.langSelect.value;
-    this.translate.use(lang);
+    this.currentLang = lang;
+    this.translocoService.setActiveLang(lang);
   }
 }

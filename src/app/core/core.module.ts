@@ -1,3 +1,4 @@
+import { TranslocoModule } from '@ngneat/transloco';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -12,7 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
     imports: [
         CommonModule,
         MatSnackBarModule,
-        MatSelectModule
+        MatSelectModule,
+        TranslocoModule
     ],
     exports: [LangComponent]
 })

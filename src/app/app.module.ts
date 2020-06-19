@@ -13,16 +13,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatSelectModule } from '@angular/material/select';
-
-import { TranslateModule, TranslateLoader, TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppInitService } from './core/services/app-init.service';
-
-export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http);
-}
+import { TranslocoRootModule } from './transloco-root.module';
 
 export function initApp(appInitService: AppInitService) {
   return (): Promise<any> => appInitService.Init();
@@ -42,13 +35,7 @@ export function initApp(appInitService: AppInitService) {
     AngularFirestoreModule,
     FormsModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-      }
-    })
+    TranslocoRootModule
   ],
   providers: [
     AppInitService,
@@ -59,7 +46,6 @@ export function initApp(appInitService: AppInitService) {
       multi: true
     }
   ],
-  bootstrap: [AppComponent],
-  exports: [TranslateModule]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

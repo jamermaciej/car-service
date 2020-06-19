@@ -3,22 +3,22 @@
     <div class="signin__container">
         <div class="signin-form">
             <app-logo color="black"></app-logo>
-            <h2>{{'login.title' | translate}}</h2>
+            <h2>{{'login.title' | transloco}}</h2>
             <hr>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <mat-form-field>
-                    <mat-label>{{'login.label.email' | translate}}</mat-label>
+                    <mat-label>{{'login.label.email' | transloco}}</mat-label>
                     <input type="email" name="email" formControlName="email" matInput>
                     <app-error-message [control]="loginForm.get('email')"></app-error-message>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{'login.label.password' | translate}}</mat-label>
+                    <mat-label>{{'login.label.password' | transloco}}</mat-label>
                     <input type="password" name="password" formControlName="password" matInput>
                     <app-error-message [control]="loginForm.get('password')"></app-error-message>
                 </mat-form-field>
-                <div class="forgot-password"><a [routerLink]="flowRoutes.FORGOT_PASSWORD">{{'login.forgot_password' | translate}}</a></div>
-                <button type="submit" mat-raised-button color="primary">{{'login.button.login' | translate}}</button>
-                <div class="donot">{{'login.no_account' | translate}} <a [routerLink]="flowRoutes.REGISTRAION">{{'login.create_account' | translate}}</a></div>
+                <div class="forgot-password"><a [routerLink]="flowRoutes.FORGOT_PASSWORD">{{'login.forgot_password' | transloco}}</a></div>
+                <button type="submit" mat-raised-button color="primary">{{'login.button.login' | transloco}}</button>
+                <div class="donot">{{'login.no_account' | transloco}} <a [routerLink]="flowRoutes.REGISTRAION">{{'login.create_account' | transloco}}</a></div>
             </form>
         </div>
     </div>
