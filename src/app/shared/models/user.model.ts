@@ -7,4 +7,5 @@ export interface User {
     phoneNumber?: string;
     createdAt?: string;
     lastLoginAt?: string;
+    roles: string[];
 }

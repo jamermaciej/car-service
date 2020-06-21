@@ -12,7 +12,7 @@ export class LoggedInAuthGuard implements CanLoad, CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(
-    next: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     return true;
   }

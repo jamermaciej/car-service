@@ -1,3 +1,4 @@
+import { Roles } from './../../enums/roles';
 import { FlowRoutes } from './../../enums/flow';
 import { FirebaseErrors } from './../firebase-errors/firebase-errors.service';
 import { RegisterData } from './../../../shared/models/register-data.model';
@@ -45,7 +46,8 @@ export class UserService {
           emailVerified: user.emailVerified,
           phoneNumber: user.photoURL,
           createdAt: user.metadata.creationTime,
-          lastLoginAt: user.metadata.lastSignInTime
+          lastLoginAt: user.metadata.lastSignInTime,
+          roles: value.get('roles')
         };
         this.updateUserData(data);
       }
@@ -75,7 +77,8 @@ export class UserService {
         emailVerified: user.emailVerified,
         phoneNumber: user.photoURL,
         createdAt: user.metadata.creationTime,
-        lastLoginAt: user.metadata.lastSignInTime
+        lastLoginAt: user.metadata.lastSignInTime,
+        roles: [Roles.CUSTOMER]
       };
 
       userRef.set(data, { merge: true });
