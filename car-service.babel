@@ -1,4 +1,4 @@
-<babeledit_project version="1.2" be_version="2.7.0">
+<babeledit_project be_version="2.7.0" version="1.2">
     <!--
 
     BabelEdit project file
@@ -15,6 +15,33 @@
     <folder_node>
         <name></name>
         <children>
+            <folder_node>
+                <name>confirm_email</name>
+                <children>
+                    <folder_node>
+                        <name>message</name>
+                        <children>
+                            <concept_node>
+                                <name>success</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description></description>
+                                <comment></comment>
+                                <default_text></default_text>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>pl-PL</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
+                </children>
+            </folder_node>
             <folder_node>
                 <name>forgot_password</name>
                 <children>
@@ -128,6 +155,50 @@
                                     </translation>
                                 </translations>
                             </concept_node>
+                        </children>
+                    </folder_node>
+                    <folder_node>
+                        <name>message</name>
+                        <children>
+                            <folder_node>
+                                <name>succes</name>
+                                <children>
+                                    <concept_node>
+                                        <name>send</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>pl-PL</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>update</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description></description>
+                                        <comment></comment>
+                                        <default_text></default_text>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>pl-PL</language>
+                                                <approved>false</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                </children>
+                            </folder_node>
                         </children>
                     </folder_node>
                     <folder_node>
@@ -788,6 +859,28 @@
                         <children>
                             <concept_node>
                                 <name>terms</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description></description>
+                                <comment></comment>
+                                <default_text></default_text>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>pl-PL</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
+                    <folder_node>
+                        <name>message</name>
+                        <children>
+                            <concept_node>
+                                <name>success</name>
                                 <definition_loaded>false</definition_loaded>
                                 <description></description>
                                 <comment></comment>

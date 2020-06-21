@@ -1,4 +1,9 @@
 {
+	"confirm_email": {
+		"message": {
+			"success": "Twój adres email został pomyślnie zweryfikowany."
+		}
+	},
 	"forgot_password": {
 		"button": {
 			"back": "Wróć",
@@ -9,6 +14,12 @@
 			"email": "Twój adres email *",
 			"password": "Nowe hasło *",
 			"repeat_password": "Powtórz nowe hasło *"
+		},
+		"message": {
+			"succes": {
+				"send": "E-mail z dalszymi instrukcjami został wysłany na podany adres e-mail {{ email }}. Jeśli nie otrzymasz wiadomości w ciągu 5 minut, sprawdź folder spam. Jeśli nadal występują problemy, skontaktuj się z pomocą techniczną pod adresem support@domain.com.",
+				"update": "Twoje hasło zostało zmienione pomyślnie, teraz możesz się zalogować."
+			}
 		},
 		"subtitle": {
 			"new_password": "Wpisz i potwierdź nowe hasło"
@@ -76,6 +87,9 @@
 		},
 		"link": {
 			"terms": "Warunki świadczenia usług"
+		},
+		"message": {
+			"success": "Twoje konto zostało założone pomyślnie i zostałeś zalogowany. Prosimy zweryfikować adres email."
 		},
 		"title": "Zarejestruj się"
 	}

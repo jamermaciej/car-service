@@ -1,4 +1,9 @@
 {
+	"confirm_email": {
+		"message": {
+			"success": "Your email address has been verified successfully."
+		}
+	},
 	"forgot_password": {
 		"button": {
 			"back": "Back",
@@ -9,6 +14,12 @@
 			"email": "Your Email *",
 			"password": "New password *",
 			"repeat_password": "Repeat new password *"
+		},
+		"message": {
+			"succes": {
+				"send": "The email with further instructions was sent to the submitted email address {{ email }}. If you don’t receive a message in 5 minutes, check the junk folder.If you are still experiencing any problems, contact support at support@domain.com.",
+				"update": "Your password has been changed successfully, you can login now."
+			}
 		},
 		"subtitle": {
 			"new_password": "Please enter and confirm your new password"
@@ -76,6 +87,9 @@
 		},
 		"link": {
 			"terms": "Terms of service"
+		},
+		"message": {
+			"success": "You have successfully registered and logged in. Please verify your email address."
 		},
 		"title": "Sing up"
 	}

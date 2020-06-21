@@ -1,3 +1,4 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { Roles } from './../../enums/roles';
 import { FlowRoutes } from './../../enums/flow';
 import { FirebaseErrors } from './../firebase-errors/firebase-errors.service';
@@ -18,7 +19,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserService {
   user$: Observable<User>;
 
-  constructor(private af: AngularFireAuth, private afs: AngularFirestore, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private af: AngularFireAuth,
+              private afs: AngularFirestore,
+              private router: Router,
+              private snackBar: MatSnackBar,
+              private translocoService: TranslocoService) {
     this.user$ = this.af.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -87,7 +92,8 @@ export class UserService {
 
       this.router.navigate([FlowRoutes.DASHBOARD]);
 
-      this.snackBar.open(`You have successfully registered and logged in. Please verify your email address.`, '', {
+      const successMessage = this.translocoService.translate('register.message.success');
+      this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'
       });
@@ -132,10 +138,8 @@ export class UserService {
       await this.af.sendPasswordResetEmail(email);
       this.router.navigate([FlowRoutes.LOGIN]);
 
-      this.snackBar.open(`The email with further instructions was
-      sent to the submitted email address ${email}. If you don’t receive a
-      message in 5 minutes, check the junk folder.If you are still
-      experiencing any problems, contact support at support@domain.com`, '', {
+      const successMessage = this.translocoService.translate('forgot_password.message.succes.send', { email });
+      this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'
       });
@@ -152,12 +156,12 @@ export class UserService {
     try {
       await this.af.confirmPasswordReset(code, password);
       this.router.navigate([FlowRoutes.LOGIN]);
-      this.snackBar.open(`Your password has been changed successfully, you can login now.`, '', {
+      const successMessage = this.translocoService.translate('forgot_password.message.succes.update');
+      this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'
       });
     } catch (error) {
-      console.log(error.code);
       const errorMessage = FirebaseErrors.Parse(error.code);
       this.snackBar.open(errorMessage, '', {
         duration: 2000,
@@ -169,7 +173,8 @@ export class UserService {
   async confirmEmail(code: string) {
     try {
       await this.af.applyActionCode(code);
-      this.snackBar.open(`Your email address has been verified successfully.`, '', {
+      const successMessage = this.translocoService.translate('confirm_email.message.success'; )
+      this.snackBar.open(successMessage, '', {
         duration: 2000,
         panelClass: 'success'
       });
