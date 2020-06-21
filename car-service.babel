@@ -387,7 +387,7 @@
                         <name>message</name>
                         <children>
                             <folder_node>
-                                <name>succes</name>
+                                <name>success</name>
                                 <children>
                                     <concept_node>
                                         <name>send</name>

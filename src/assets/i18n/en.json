@@ -31,7 +31,7 @@
 			"repeat_password": "Repeat new password *"
 		},
 		"message": {
-			"succes": {
+			"success": {
 				"send": "The email with further instructions was sent to the submitted email address {{ email }}. If you don’t receive a message in 5 minutes, check the junk folder.If you are still experiencing any problems, contact support at support@domain.com.",
 				"update": "Your password has been changed successfully, you can login now."
 			}
@@ -73,11 +73,11 @@
 				"required": "Email is required."
 			},
 			"name": {
-				"maxLength": "Name must be less than 15 characters.",
-				"minLength": "Name must be greater than 3 characters."
+				"maxLength": "Name must be less than {{ requiredLength }} characters.",
+				"minLength": "Name must be greater than {{ requiredLength }} characters."
 			},
 			"password": {
-				"minLength": "Password must be greater than {{ minLength }} characters.",
+				"minLength": "Password must be greater than {{ requiredLength }} characters.",
 				"noAlphanumeric": "Password must contain at least one special character.",
 				"noLowercase": "Password must contain at least one lowercase letter.",
 				"noNumber": "Password must contain at least one number.",

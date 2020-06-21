@@ -142,7 +142,7 @@ export class UserService {
       await this.af.sendPasswordResetEmail(email);
       this.router.navigate([FlowRoutes.LOGIN]);
 
-      const successMessage = this.translocoService.translate('forgot_password.message.succes.send', { email });
+      const successMessage = this.translocoService.translate('forgot_password.message.success.send', { email });
       this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'
@@ -161,7 +161,7 @@ export class UserService {
     try {
       await this.af.confirmPasswordReset(code, password);
       this.router.navigate([FlowRoutes.LOGIN]);
-      const successMessage = this.translocoService.translate('forgot_password.message.succes.update');
+      const successMessage = this.translocoService.translate('forgot_password.message.success.update');
       this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'

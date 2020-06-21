@@ -1,3 +1,3 @@
 <div *ngIf="errorMessage !== null" class="error-container">
-    <span class="error-text">{{ errorMessage }}</span>
+    <span class="error-text">{{ errorMessage | transloco: params }}</span>
 </div>

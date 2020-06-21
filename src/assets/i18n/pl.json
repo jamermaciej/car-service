@@ -31,7 +31,7 @@
 			"repeat_password": "Powtórz nowe hasło *"
 		},
 		"message": {
-			"succes": {
+			"success": {
 				"send": "E-mail z dalszymi instrukcjami został wysłany na podany adres e-mail {{ email }}. Jeśli nie otrzymasz wiadomości w ciągu 5 minut, sprawdź folder spam. Jeśli nadal występują problemy, skontaktuj się z pomocą techniczną pod adresem support@domain.com.",
 				"update": "Twoje hasło zostało zmienione pomyślnie, teraz możesz się zalogować."
 			}
@@ -73,11 +73,11 @@
 				"required": "Adres email jest wymagany."
 			},
 			"name": {
-				"maxLength": "Imię może mieć maksymalnie 15 znaków.",
-				"minLength": "Imię musi mieć minimum 3 znaki."
+				"maxLength": "Imię może mieć maksymalnie {{ requiredLength }} znaków.",
+				"minLength": "Imię musi mieć minimum {{ requiredLength }} znaki."
 			},
 			"password": {
-				"minLength": "Hasło musi mieć minimum {{ minLength }} znaków.",
+				"minLength": "Hasło musi mieć minimum {{ requiredLength }} znaków.",
 				"noAlphanumeric": "Hasło musi zawierać minimum 1 znak specjalny.",
 				"noLowercase": "Hasło musi zawierać minimum 1 małą literę.",
 				"noNumber": "Hasło musi zawierać minimum 1 cyfrę.",

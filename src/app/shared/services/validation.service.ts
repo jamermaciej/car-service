@@ -10,30 +10,30 @@ export class ValidationService {
   static getValidationMessage(control: string, validator: string, validatorValue?: any) {
     const messages = {
       'name': {
-        'required': 'Name is required.',
-        'minlength': `Name must be greater than ${validatorValue.requiredLength} characters.`,
-        'maxlength': `Name must be less than ${validatorValue.requiredLength} characters.`
+        'required': 'register.error.name.required',
+        'minlength': `register.error.name.minLength`,
+        'maxlength': `register.error.name.maxLength`
       },
       'email': {
-        'required': 'Email is required.',
-        'email': 'Invalid email address.',
-        'emailDomain': `We accept only ${validatorValue.acceptDomain && validatorValue.acceptDomain.join(', ')} domain.`
+        'required': 'register.error.email.required',
+        'email': 'register.error.email.invalid',
+        'emailDomain': `register.error.email.domain`
       },
       'password': {
-        'required': 'Password is required.',
-        'minlength': `Password must be greater than ${validatorValue.requiredLength} characters.`,
-        'noUppercase': 'Password must contain at least uppercase letter.',
-        'noLowercase': 'Password must contain at least one lowercase letter.',
-        'noNumber': 'Password must contain at least one number.',
-        'noAplhanumberic': 'Password must contain at least one special character.',
-        'whitespace': 'Password has white space on start or end.'
+        'required': 'register.error.password.required',
+        'minlength': `register.error.password.minLength`,
+        'noUppercase': 'register.error.password.noUppercase',
+        'noLowercase': 'register.error.password.noLowercase',
+        'noNumber': 'register.error.password.noNumber',
+        'noAplhanumberic': 'register.error.password.noAlphanumeric',
+        'whitespace': 'register.error.password.whitespace'
       },
       'confirmPassword': {
-        'required': 'Repeat password.',
-        'passwordMismatch': 'Passwords must be the same.'
+        'required': 'register.error.confirm_password.required',
+        'passwordMismatch': 'register.error.confirm_password.password_mismatch'
       },
       'terms': {
-        'required': 'Accept terms of service is required.'
+        'required': 'register.error.terms.required'
       }
     };
 
