@@ -98,7 +98,9 @@ export class UserService {
         panelClass: 'success'
       });
     } catch (error) {
-      const errorMessage = FirebaseErrors.Parse(error.code);
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
+      console.log(errorMessage);
       this.snackBar.open(errorMessage, '', {
         duration: 2000,
         panelClass: 'error'
@@ -113,7 +115,8 @@ export class UserService {
       this.updateUser(user);
       this.router.navigate([FlowRoutes.DASHBOARD]);
     } catch (error) {
-      const errorMessage = FirebaseErrors.Parse(error.code);
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
       this.snackBar.open(errorMessage, '', {
         duration: 2000,
         panelClass: 'error'
@@ -125,7 +128,8 @@ export class UserService {
     try {
       (await this.af.currentUser).sendEmailVerification();
     } catch (error) {
-      const errorMessage = FirebaseErrors.Parse(error.code);
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
       this.snackBar.open(errorMessage, '', {
         duration: 2000,
         panelClass: 'error'
@@ -144,7 +148,8 @@ export class UserService {
         panelClass: 'success'
       });
     } catch (error) {
-      const errorMessage = FirebaseErrors.Parse(error.code);
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
       this.snackBar.open(errorMessage, '', {
         duration: 2000,
         panelClass: 'error'
@@ -162,7 +167,8 @@ export class UserService {
         panelClass: 'success'
       });
     } catch (error) {
-      const errorMessage = FirebaseErrors.Parse(error.code);
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
       this.snackBar.open(errorMessage, '', {
         duration: 2000,
         panelClass: 'error'
@@ -173,13 +179,14 @@ export class UserService {
   async confirmEmail(code: string) {
     try {
       await this.af.applyActionCode(code);
-      const successMessage = this.translocoService.translate('confirm_email.message.success'; )
+      const successMessage = this.translocoService.translate('confirm_email.message.success');
       this.snackBar.open(successMessage, '', {
         duration: 2000,
         panelClass: 'success'
       });
     } catch (error) {
-      const errorMessage = FirebaseErrors.Parse(error.code);
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
       this.snackBar.open(errorMessage, '', {
         duration: 2000,
         panelClass: 'error'

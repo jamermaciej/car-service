@@ -5,46 +5,43 @@ export class FirebaseErrors {
 
       switch (errorCode) {
         case 'auth/wrong-password':
-          message = 'Invalid login credentials.';
+          message = 'firebase_errors.wrong_password';
           break;
         case 'auth/network-request-failed':
-          message = 'Please check your internet connection';
+          message = 'firebase_errors.network_request_failed';
           break;
         case 'auth/too-many-requests':
-          message =
-            'We have detected too many requests from your device. Take a break please!';
+          message = 'firebase_errors.too_many_requests';
           break;
         case 'auth/user-disabled':
-          message =
-            'Your account has been disabled or deleted. Please contact the system administrator.';
+          message = 'firebase_errors.user_disabled';
           break;
         case 'auth/requires-recent-login':
-          message = 'Please login again and try again!';
+          message = 'firebase_errors.requires_recent_login';
           break;
         case 'auth/email-already-exists':
-          message = 'Email address is already in use by an existing user.';
+          message = 'firebase_errors.email_already_exists';
           break;
         case 'auth/email-already-in-use':
-          message = 'Email address is already in use by an existing user.';
+          message = 'firebase_errors.email_already_in_use';
           break;
         case 'auth/user-not-found':
-          message =
-            'We could not find user account associated with the email address or phone number.';
+          message = 'firebase_errors.user_not_found';
           break;
         case 'auth/phone-number-already-exists':
-          message = 'The phone number is already in use by an existing user.';
+          message = 'firebase_errors.phone_number_already_exists';
           break;
         case 'auth/invalid-phone-number':
-          message = 'The phone number is not a valid phone number!';
+          message = 'firebase_errors.invalid_phone_number';
           break;
         case 'auth/invalid-email  ':
-          message = 'The email address is not a valid email address!';
+          message = 'firebase_errors.invalid_email';
           break;
         case 'auth/invalid-action-code':
-          message = 'The activation code is invalid!';
+          message = 'firebase_errors.invalid_action_code';
           break;
         case 'auth/cannot-delete-own-user-account':
-          message = 'You cannot delete your own user account.';
+          message = 'firebase_errors.cannot_delete_own_user_account';
           break;
          default:
           message = 'Oops! Something went wrong. Try again later.';

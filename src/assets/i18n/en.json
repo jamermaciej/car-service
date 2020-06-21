@@ -4,6 +4,21 @@
 			"success": "Your email address has been verified successfully."
 		}
 	},
+	"firebase_errors": {
+		"cannot_delete_own_user_account": "You cannot delete your own user account.",
+		"email_already_exists": "Email address is already in use by an existing user.",
+		"email_already_in_use": "Email address is already in use by an existing user.",
+		"invalid_action_code": "The activation code is invalid!",
+		"invalid_email": "The email address is not a valid email address!",
+		"invalid_phone_number": "The phone number is not a valid phone number!",
+		"network_request_failed": "Please check your internet connection.",
+		"phone_number_already_exists": "The phone number is already in use by an existing user.",
+		"requires_recent_login": "Please login again and try again!",
+		"too_many_requests": "We have detected too many requests from your device. Take a break please!",
+		"user_disabled": "Your account has been disabled or deleted. Please contact the system administrator.",
+		"user_not_found": "We could not find user account associated with the email address or phone number.",
+		"wrong_password": "Invalid login credentials."
+	},
 	"forgot_password": {
 		"button": {
 			"back": "Back",

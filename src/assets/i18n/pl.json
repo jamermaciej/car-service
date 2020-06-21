@@ -4,6 +4,21 @@
 			"success": "Twój adres email został pomyślnie zweryfikowany."
 		}
 	},
+	"firebase_errors": {
+		"cannot_delete_own_user_account": "Nie można usunąć swojego własnego konta.",
+		"email_already_exists": "Konto o takim adresie email już istnieje.",
+		"email_already_in_use": "Konto o takim adresie email już istnieje.",
+		"invalid_action_code": "Niepoprawny kod kod aktywacyjny!",
+		"invalid_email": "Niepoprawny adres email!",
+		"invalid_phone_number": "Niepoprawny format numeru telefonu!",
+		"network_request_failed": "Sprawdź swoje połączenie z internetem.",
+		"phone_number_already_exists": "Konto o takim numerze telefonu już istnieje.",
+		"requires_recent_login": "Zaloguj się i spróbuj ponownie!",
+		"too_many_requests": "Wykryliśmy za dużo żądań z twojego urządzenia, spróbuj ponownie za chwilę.",
+		"user_disabled": "Twoje konto zostało zablokowane lub usunięte, skontaktuj się z administratorem.",
+		"user_not_found": "Użytkownik o takim adresie email lub numerze telefonu nie istnieje.",
+		"wrong_password": "Niepoprawne dane logowania."
+	},
 	"forgot_password": {
 		"button": {
 			"back": "Wróć",
