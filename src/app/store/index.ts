@@ -1,1 +1,3 @@
-export * from './reducers/router.reducer';
+export * from './reducers';
+export * from './actions';
+export * from './effects';
