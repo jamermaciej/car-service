@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppInitService } from './core/services/app-init.service';
 import { TranslocoRootModule } from './transloco-root.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 export function initApp(appInitService: AppInitService) {
   return (): Promise<any> => appInitService.Init();
@@ -35,7 +37,9 @@ export function initApp(appInitService: AppInitService) {
     AngularFirestoreModule,
     FormsModule,
     HttpClientModule,
-    TranslocoRootModule
+    TranslocoRootModule,
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     AppInitService,
