@@ -18,6 +18,8 @@ import { AppInitService } from './core/services/app-init.service';
 import { TranslocoRootModule } from './transloco-root.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './store';
 
 export function initApp(appInitService: AppInitService) {
   return (): Promise<any> => appInitService.Init();
@@ -39,7 +41,10 @@ export function initApp(appInitService: AppInitService) {
     HttpClientModule,
     TranslocoRootModule,
     StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer
+    })
   ],
   providers: [
     AppInitService,
