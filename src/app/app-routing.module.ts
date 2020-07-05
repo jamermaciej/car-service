@@ -4,13 +4,30 @@ import { TermsComponent } from './core/components/terms/terms.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LayoutComponent } from './core/components/layout/layout.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+        canLoad: [AuthGuard]
+      },
+      {
+        path: 'cars',
+        loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
+        canLoad: [AuthGuard]
+      },
+    ]
   },
   {
     path: 'registration',
@@ -20,11 +37,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    canLoad: [AuthGuard]
   },
   {
     path: 'terms',
@@ -37,7 +49,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
