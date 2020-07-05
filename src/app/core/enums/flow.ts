@@ -4,5 +4,6 @@ export enum FlowRoutes {
     LOGIN = '/login',
     DASHBOARD = '/dashboard',
     FORGOT_PASSWORD = '/login/forgot-password',
-    TERMS = '/terms'
+    TERMS = '/terms',
+    CONTACT = '/contact'
 }

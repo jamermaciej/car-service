@@ -49,3 +49,18 @@ input:-webkit-autofill:active  {
         color: #FFF;
     }
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #2C2C2C;
+
+    &:hover {
+        text-decoration: none;
+        color: #2C2C2C;
+    }
+}
