@@ -20,27 +20,42 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-        canLoad: [AuthGuard]
+        canLoad: [AuthGuard],
+        data: {
+          title: 'Dashboard'
+        }
       },
       {
         path: 'cars',
         loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
-        canLoad: [AuthGuard]
+        canLoad: [AuthGuard],
+        data: {
+          title: 'Cars'
+        }
       },
     ]
   },
   {
     path: 'registration',
     loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule),
-    canLoad: [LoggedInAuthGuard]
+    canLoad: [LoggedInAuthGuard],
+    data: {
+      title: 'Registration'
+    }
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+    data: {
+      title: 'Login'
+    }
   },
   {
     path: 'terms',
-    component: TermsComponent
+    component: TermsComponent,
+    data: {
+      title: 'Terms'
+    }
   },
   {
     path: '**',
