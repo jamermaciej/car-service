@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { LayoutComponent } from './components/layout/layout.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
         PageNotFoundComponent,
         LangComponent,
         LayoutComponent,
-        FooterComponent
+        FooterComponent,
+        HeaderComponent
     ],
     imports: [
         CommonModule,
