@@ -10,7 +10,27 @@
         background: #66615b;
 
         &.menu-close {
-            width: 70px;
+            width: 80px;
+
+            ::ng-deep {
+                .logo h1 {
+                    display: none;
+                }
+                
+                .mat-list-item .label {
+                    display: none;
+                }
+
+                .avatar {
+                    width: 60px;
+                    height: 60px;
+                }
+
+                .name,
+                .email {
+                    display: none;
+                }
+            }
         }
 
         &.menu-open {

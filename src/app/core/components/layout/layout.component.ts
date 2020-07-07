@@ -20,7 +20,7 @@ export class LayoutComponent implements OnInit {
     this.isMenuOpen = isMenuOpen;
 
     if (!this.isMenuOpen) {
-      this.contentMargin = 70;
+      this.contentMargin = 80;
     } else {
       this.contentMargin = 260;
     }

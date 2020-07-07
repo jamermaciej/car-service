@@ -1,5 +1,6 @@
 <div class="logo">
-    Car Service
+    <img src="../../../../assets//images/logo.svg" alt="Car Service">
+    <h1>Car Service</h1>
 </div>
 <div class="user">
     <div class="avatar" style="background-image: url('../../../../assets/images/signup-panel.jpg')"></div>
@@ -13,15 +14,39 @@
             <button mat-icon-button>
                 <mat-icon>dashboard</mat-icon>
             </button>
-            Dashboard
+            <span class="label">Dashboard</span>
+        </a>
+     </mat-list-item>
+     <mat-list-item routerLinkActive="active">
+        <a [routerLink]="'/profile'">
+            <button mat-icon-button>
+                <mat-icon>person</mat-icon>
+            </button>
+            <span class="label">Profile</span>
+        </a>
+     </mat-list-item>
+     <mat-list-item routerLinkActive="active">
+        <a [routerLink]="'/orders'">
+            <button mat-icon-button>
+                <mat-icon>calendar_today</mat-icon>
+            </button>
+            <span class="label">Orders service</span>
         </a>
      </mat-list-item>
      <mat-list-item routerLinkActive="active">
         <a [routerLink]="'/cars'">
             <button mat-icon-button>
-                <mat-icon>car</mat-icon>
+                <mat-icon>directions_cars</mat-icon>
             </button>
-            Cars
+            <span class="label">Cars</span>
+        </a>
+     </mat-list-item>
+     <mat-list-item routerLinkActive="active">
+        <a [routerLink]="'/customers'">
+            <button mat-icon-button>
+                <mat-icon>people</mat-icon>
+            </button>
+            <span class="label">Customers</span>
         </a>
      </mat-list-item>
      <mat-list-item routerLinkActive="active">
@@ -29,7 +54,7 @@
             <button mat-icon-button>
                 <mat-icon>settings</mat-icon>
             </button>
-            Settings
+            <span class="label">Settings</span>
         </a>
      </mat-list-item>
 </mat-nav-list>
