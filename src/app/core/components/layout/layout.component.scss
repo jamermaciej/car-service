@@ -6,7 +6,6 @@
     right: 0;
 
     .sidenav {
-        width: 260px;
         background: #66615b;
 
         &.menu-close {
@@ -17,7 +16,7 @@
                     display: none;
                 }
                 
-                .mat-list-item .label {
+                .mat-list-item .nav-caption {
                     display: none;
                 }
 

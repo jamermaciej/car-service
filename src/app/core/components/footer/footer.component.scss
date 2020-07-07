@@ -1,6 +1,7 @@
 footer {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     padding: 30px 30px;
     background: #f4f3ef;
 
@@ -23,5 +24,9 @@ footer {
     .copyright {
         color: #2C2C2C;
         font-weight: 100;
+
+        @media (max-width: 768px) {
+            padding-top: 20px;
+        }
     }
 }
