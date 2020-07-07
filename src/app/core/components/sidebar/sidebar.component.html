@@ -1,0 +1,35 @@
+<div class="logo">
+    Car Service
+</div>
+<div class="user">
+    <div class="avatar" style="background-image: url('../../../../assets/images/signup-panel.jpg')"></div>
+    <div class="name">Maciej Jamer</div>
+    <div class="email">maciek77jamer@gmail.com</div>
+</div>
+
+<mat-nav-list>
+    <mat-list-item routerLinkActive="active">
+        <a [routerLink]="'/dashboard'">
+            <button mat-icon-button>
+                <mat-icon>dashboard</mat-icon>
+            </button>
+            Dashboard
+        </a>
+     </mat-list-item>
+     <mat-list-item routerLinkActive="active">
+        <a [routerLink]="'/settings'">
+            <button mat-icon-button>
+                <mat-icon>settings_application<</mat-icon>
+            </button>
+            Settings
+        </a>
+     </mat-list-item>
+     <mat-list-item routerLinkActive="active">
+        <a [routerLink]="'/cars'">
+            <button mat-icon-button>
+                <mat-icon>settings_application<</mat-icon>
+            </button>
+            Cars
+        </a>
+     </mat-list-item>
+</mat-nav-list>

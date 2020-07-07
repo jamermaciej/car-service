@@ -1,0 +1,108 @@
+.logo {
+    padding: 30px 16px;
+    font-size: 24px;
+    color: #FFF;
+    font-weight: 100;
+    text-transform: uppercase;
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 15px;
+        bottom: 0;
+        width: calc(100% - 32px);
+        height: 1px;
+        background: rgba(255,255,255,.5)
+    }
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFF;
+    position: relative;
+    padding: 30px 16px;
+    margin-bottom: 15px;
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 15px;
+        bottom: 0;
+        width: calc(100% - 32px);
+        height: 1px;
+        background: rgba(255,255,255,.5)
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .name {
+        padding: 25px 0 5px;
+    }
+}
+
+mat-nav-list {
+    position: relative;
+
+    a {
+        color: rgba(255,255,255,.5);
+        font-size: 14px;
+        text-transform: uppercase;
+        width: 100%;
+    }
+
+    mat-list-item.active {
+
+        a {
+            color: #ef8157;
+    
+            &:after {
+                content: '';
+                display: inline-block;
+                position: absolute;
+                border-right: 17px solid #ddd;
+                border-top: 17px solid transparent;
+                border-bottom: 17px solid transparent;
+                right: 0;
+                top: 7px;
+            }
+        }
+    
+        mat-icon {
+            color: #ef8157;
+        }
+    }
+
+    .mat-icon-button {
+        margin-right: 12px;
+    }
+
+    mat-icon {
+        color: rgba(255,255,255,.5);
+        font-size: 24px;
+
+        font-size: 30px;
+        line-height: 30px;
+        width: 30px;
+        height: 30px;
+    }
+}
+
+::ng-deep {
+    .mat-drawer-side {
+        border-right: none;
+    }
+}
+
+button:focus {
+    outline: none;
+}

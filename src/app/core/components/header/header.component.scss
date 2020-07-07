@@ -1,7 +1,18 @@
 header {
-    padding: 20px 0;
+    padding: 20px 30px;
     border-bottom: 1px solid #ddd;
     background: #f4f3ef;
+    display: flex;
+    align-items: center;
+
+    mat-icon {
+        cursor: pointer;
+        color: #66615b;
+        margin-right: 30px;
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+    }
 
     .breadcrumbs {
         color: #2C2C2C;

@@ -1,12 +1,24 @@
 <div class="wrapper">
-    <div class="sidebar">
-        <!-- sidebar component -->
-    </div>
-    <div class="main-panel">
-        <app-header></app-header>
-        <div class="main-content">
-            <router-outlet></router-outlet>
-        </div>
-        <app-footer></app-footer>
-    </div>
+    <mat-sidenav-container class="sidenav-container" [class.animate-navbar]="animateNavbar">
+        <mat-sidenav 
+            #sidenav
+            mode="side"
+            opened
+            class="sidenav"
+            [ngClass]="{
+                'menu-open': isMenuOpen,
+                'menu-close': !isMenuOpen
+            }">
+           <app-sidebar></app-sidebar>
+        </mat-sidenav>
+        <mat-sidenav-content [ngStyle]="{'margin-left.px': contentMargin }">
+            <div class="main-panel">
+                <app-header (toolbarMenuToggle)="onToolbarMenuToggle($event)"></app-header>
+                <div class="main-content">
+                    <router-outlet></router-outlet>
+                </div>
+                <app-footer></app-footer>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>

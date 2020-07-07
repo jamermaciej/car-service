@@ -1,0 +1,31 @@
+.sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .sidenav {
+        width: 260px;
+        background: #66615b;
+
+        &.menu-close {
+            width: 70px;
+        }
+
+        &.menu-open {
+            width: 260px;
+        }
+    }
+
+    &.animate-navbar {
+        .sidenav,
+        mat-sidenav-content {
+            transition: all .3s ease-in-out;
+        }
+    }
+}
+
+.main-content {
+    padding: 30px;
+}
