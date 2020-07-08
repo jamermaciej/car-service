@@ -2,10 +2,10 @@
     <img src="../../../../assets//images/logo.svg" alt="Car Service">
     <h1>Car Service</h1>
 </div>
-<div class="user">
-    <div class="avatar" style="background-image: url('../../../../assets/images/signup-panel.jpg')"></div>
-    <div class="name">Maciej Jamer</div>
-    <div class="email">maciek77jamer@gmail.com</div>
+<div class="user" *ngIf="user | async as user">
+    <div class="avatar" [style.background-image]="user.photoURL ? 'url(' + user.photoURL + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
+    <div class="name">{{ user.displayName }}</div>
+    <div class="email">{{ user.email }}</div>
 </div>
 
 <mat-nav-list>
