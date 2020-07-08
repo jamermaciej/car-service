@@ -65,6 +65,7 @@
 
 mat-nav-list {
     position: relative;
+    margin-bottom: 20px;
 
     a {
         color: rgba(255,255,255,.5);
@@ -72,6 +73,7 @@ mat-nav-list {
         text-transform: uppercase;
         width: 100%;
         white-space: nowrap;
+        outline: none;
     }
 
     mat-list-item.active {
@@ -79,15 +81,17 @@ mat-nav-list {
         a {
             color: #ef8157;
     
-            &:after {
-                content: '';
-                display: inline-block;
-                position: absolute;
-                border-right: 17px solid #ddd;
-                border-top: 17px solid transparent;
-                border-bottom: 17px solid transparent;
-                right: 0;
-                top: 7px;
+            @media (min-width: 768px) {
+                &:after {
+                    content: '';
+                    display: inline-block;
+                    position: absolute;
+                    border-right: 17px solid #f4f3ef;
+                    border-top: 17px solid transparent;
+                    border-bottom: 17px solid transparent;
+                    right: 0;
+                    top: 7px;
+                }
             }
         }
     

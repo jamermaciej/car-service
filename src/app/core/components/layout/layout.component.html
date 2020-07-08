@@ -2,14 +2,14 @@
     <mat-sidenav-container class="sidenav-container" [class.animate-navbar]="animateNavbar">
         <mat-sidenav 
             #sidenav
-            mode="side"
-            opened
+            [mode]="mode"
+            [opened]="opened"
             class="sidenav"
             [ngClass]="{
                 'menu-open': isMenuOpen,
                 'menu-close': !isMenuOpen
             }">
-           <app-sidebar></app-sidebar>
+           <app-sidebar (closeSidenav)="sidenav.mode === 'side' || sidenav.close()"></app-sidebar>
         </mat-sidenav>
         <mat-sidenav-content [ngStyle]="{'margin-left.px': contentMargin }">
             <div class="main-panel">
