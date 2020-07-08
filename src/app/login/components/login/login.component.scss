@@ -12,6 +12,10 @@
         box-shadow: 0 15px 16.83px .17px rgba(0,0,0,.05);
         display: flex;
         overflow: hidden;
+
+        @media (max-width: 768px) {
+            margin: 15px;
+        }
     }
 
     h2 {
@@ -30,6 +34,10 @@
 
     .signin-form {
         padding: 45px;
+
+        @media (max-width: 768px) {
+            padding: 35px 25px;
+        }
 
         mat-form-field {
             width: 100%;

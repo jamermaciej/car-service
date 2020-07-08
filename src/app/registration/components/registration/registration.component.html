@@ -40,9 +40,10 @@
                     <app-error-message [control]="registrationForm.get('terms')"></app-error-message>
                 </div>              
                 <button type="submit" mat-raised-button color="primary">{{'register.button.register' | transloco}}</button>
+                <div *ngIf="isMobile" class="have-account">{{'register.have_account' | transloco}} <a [routerLink]="flowRoutes.LOGIN">{{'register.button.login' | transloco}}</a></div>
             </form>
         </div>
-        <div class="signup-image">
+        <div *ngIf="!isMobile" class="signup-image">
             <div class="signup-image-content">
                 <app-logo color="white"></app-logo>
                 <h2>{{'register.have_account' | transloco}}</h2>

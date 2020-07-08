@@ -15,6 +15,10 @@
         box-shadow: 0 15px 16.83px .17px rgba(0,0,0,.05);
         display: flex;
         overflow: hidden;
+
+        @media (max-width: 768px) {
+            margin: 0 15px;
+        }
     }
 
     hr {
@@ -26,6 +30,11 @@
     .signup-form {
         padding: 75px 45px;
         width: 40%;
+
+        @media (max-width: 768px) {
+            padding: 35px 25px;
+            width: 100%;
+        }
 
         h2 {
             text-transform: uppercase;
@@ -41,6 +50,23 @@
         .checkbox-container {
             position: relative;
             margin: 10px 0 40px;
+        }
+
+        button {
+            @media (max-width: 768px) {
+                width: 100%;
+            }
+        }
+       
+        @media (max-width: 768px) {
+            .have-account {
+                text-align: center;
+                margin: 20px 0 0;
+
+                a {
+                    color: #e91e63;
+                }
+            }
         }
     }
 

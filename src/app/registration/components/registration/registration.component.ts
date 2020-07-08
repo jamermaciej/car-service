@@ -7,6 +7,7 @@ import { EmailValidator } from './../../../shared/validators/email-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl, FormControl } from '@angular/forms';
 import { emailDomain } from '../../../../assets/config.json';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-registration',
@@ -19,8 +20,11 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   submitted = false;
   flowRoutes = FlowRoutes;
+  isMobile: boolean;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private platform: Platform) {
+    this.isMobile = this.platform.ANDROID || this.platform.IOS;
+  }
 
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
