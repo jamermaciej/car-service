@@ -66,61 +66,10 @@
 mat-nav-list {
     position: relative;
     margin-bottom: 20px;
-
-    a {
-        color: rgba(255,255,255,.5);
-        font-size: 14px;
-        text-transform: uppercase;
-        width: 100%;
-        white-space: nowrap;
-        outline: none;
-    }
-
-    mat-list-item.active {
-
-        a {
-            color: #ef8157;
-    
-            @media (min-width: 768px) {
-                &:after {
-                    content: '';
-                    display: inline-block;
-                    position: absolute;
-                    border-right: 17px solid #f4f3ef;
-                    border-top: 17px solid transparent;
-                    border-bottom: 17px solid transparent;
-                    right: 0;
-                    top: 7px;
-                }
-            }
-        }
-    
-        mat-icon {
-            color: #ef8157;
-        }
-    }
-
-    .mat-icon-button {
-        margin-right: 12px;
-    }
-
-    mat-icon {
-        color: rgba(255,255,255,.5);
-        font-size: 24px;
-
-        font-size: 30px;
-        line-height: 30px;
-        width: 30px;
-        height: 30px;
-    }
 }
 
 ::ng-deep {
     .mat-drawer-side {
         border-right: none;
     }
-}
-
-button:focus {
-    outline: none;
 }

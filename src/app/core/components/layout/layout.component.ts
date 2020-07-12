@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { MatSidenav } from '@angular/material/sidenav';
+import { SidenavService } from '../../services/sidenav/sidenav.service';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, AfterViewInit {
   isMenuOpen = true;
   contentMargin = 260;
   animateNavbar = false;
@@ -16,13 +17,17 @@ export class LayoutComponent implements OnInit {
   mode: string;
   opened: boolean;
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform, private sidenavService: SidenavService) {
     this.isMobile = this.platform.IOS || this.platform.ANDROID;
     this.mode = this.isMobile ? '' : 'side';
     this.opened = this.isMobile ? false : true;
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.sidenavService.sidenav = this.sidenav;
   }
 
   onToolbarMenuToggle(isMenuOpen: boolean) {

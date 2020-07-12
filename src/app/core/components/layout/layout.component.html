@@ -9,7 +9,7 @@
                 'menu-open': isMenuOpen,
                 'menu-close': !isMenuOpen
             }">
-           <app-sidebar (closeSidenav)="sidenav.mode === 'side' || sidenav.close()"></app-sidebar>
+           <app-sidebar></app-sidebar>
         </mat-sidenav>
         <mat-sidenav-content [ngStyle]="{'margin-left.px': contentMargin }">
             <div class="main-panel">

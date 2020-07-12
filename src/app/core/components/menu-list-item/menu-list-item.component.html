@@ -1,0 +1,16 @@
+<mat-list-item [ngStyle]="{'padding-left': (25 * depth) + 'px' }" [ngClass]="{'expanded': expanded, 'active': item.route ? router.isActive(item.route, true) : false}">
+    <a (click)="onItemSelected(item)">
+        <button mat-icon-button>
+            <mat-icon>{{ item.iconName }}</mat-icon>
+        </button>
+        <span class="nav-caption">{{ item.displayName }}</span>
+        <span class="expand-more" *ngIf="item.children && item.children.length">
+            <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
+              expand_more
+            </mat-icon>
+          </span>
+    </a>
+</mat-list-item>
+<div *ngIf="expanded">
+    <app-menu-list-item *ngFor="let child of item.children" [item]="child" [depth]="depth + 1"></app-menu-list-item>
+</div>

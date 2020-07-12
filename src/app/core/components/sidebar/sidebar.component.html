@@ -9,52 +9,5 @@
 </div>
 
 <mat-nav-list>
-    <mat-list-item routerLinkActive="active">
-        <a [routerLink]="flowRoutes.DASHBOARD" (click)="onClose()">
-            <button mat-icon-button>
-                <mat-icon>dashboard</mat-icon>
-            </button>
-            <span class="nav-caption">Dashboard</span>
-        </a>
-     </mat-list-item>
-     <mat-list-item routerLinkActive="active">
-        <a [routerLink]="flowRoutes.PROFILE" (click)="onClose()">
-            <button mat-icon-button>
-                <mat-icon>person</mat-icon>
-            </button>
-            <span class="nav-caption">Profile</span>
-        </a>
-     </mat-list-item>
-     <mat-list-item routerLinkActive="active">
-        <a [routerLink]="flowRoutes.ORDERS">
-            <button mat-icon-button>
-                <mat-icon>calendar_today</mat-icon>
-            </button>
-            <span class="nav-caption">Orders service</span>
-        </a>
-     </mat-list-item>
-     <mat-list-item routerLinkActive="active">
-        <a [routerLink]="flowRoutes.CARS" (click)="onClose()">
-            <button mat-icon-button>
-                <mat-icon>directions_cars</mat-icon>
-            </button>
-            <span class="nav-caption">Cars</span>
-        </a>
-     </mat-list-item>
-     <mat-list-item routerLinkActive="active">
-        <a [routerLink]="flowRoutes.CUSTOMERS" (click)="onClose()">
-            <button mat-icon-button>
-                <mat-icon>people</mat-icon>
-            </button>
-            <span class="nav-caption">Customers</span>
-        </a>
-     </mat-list-item>
-     <mat-list-item routerLinkActive="active">
-        <a [routerLink]="flowRoutes.SETTINGS" (click)="onClose()">
-            <button mat-icon-button>
-                <mat-icon>settings</mat-icon>
-            </button>
-            <span class="nav-caption">Settings</span>
-        </a>
-     </mat-list-item>
+    <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
 </mat-nav-list>

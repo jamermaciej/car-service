@@ -69,3 +69,7 @@ a {
         color: #2C2C2C;
     }
 }
+
+button:focus {
+    outline: none;
+}

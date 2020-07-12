@@ -17,6 +17,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
         LayoutComponent,
         FooterComponent,
         HeaderComponent,
-        SidebarComponent
+        SidebarComponent,
+        MenuListItemComponent
     ],
     imports: [
         CommonModule,

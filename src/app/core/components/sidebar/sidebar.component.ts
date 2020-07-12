@@ -1,3 +1,5 @@
+import { navItem } from './nav-items';
+import { NavItem } from './../../../shared/models/nav-item.model';
 import { User } from './../../../shared/models/user.model';
 import { UserService } from './../../services/user/user.service';
 import { FlowRoutes } from './../../enums/flow';
@@ -11,16 +13,13 @@ import { Observable } from 'rxjs';
 })
 export class SidebarComponent implements OnInit {
   flowRoutes = FlowRoutes;
-  @Output() closeSidenav = new EventEmitter<void>();
   user: Observable<User>;
+
+  navItems: NavItem[] = navItem;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.user = this.userService.user$;
-  }
-
-  onClose() {
-    this.closeSidenav.emit();
   }
 }
