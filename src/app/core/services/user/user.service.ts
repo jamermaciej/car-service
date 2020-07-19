@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserService {
   user$: Observable<User>;
+  userFirebase: firebase.User;
 
   constructor(private af: AngularFireAuth,
               private afs: AngularFirestore,
@@ -34,6 +35,7 @@ export class UserService {
     }));
     this.af.authState.pipe(take(1)).subscribe(user => {
       if (user) {
+        this.userFirebase = user;
         this.updateUser(user);
       }
     });
@@ -49,7 +51,7 @@ export class UserService {
           displayName: user.displayName || value.get('displayName'),
           photoURL: user.photoURL,
           emailVerified: user.emailVerified,
-          phoneNumber: user.photoURL,
+          phoneNumber: user.phoneNumber,
           createdAt: user.metadata.creationTime,
           lastLoginAt: user.metadata.lastSignInTime,
           roles: value.get('roles')
@@ -80,7 +82,7 @@ export class UserService {
         displayName: name || user.displayName,
         photoURL: user.photoURL,
         emailVerified: user.emailVerified,
-        phoneNumber: user.photoURL,
+        phoneNumber: user.phoneNumber,
         createdAt: user.metadata.creationTime,
         lastLoginAt: user.metadata.lastSignInTime,
         roles: [Roles.CUSTOMER]

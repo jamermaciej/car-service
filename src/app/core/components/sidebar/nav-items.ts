@@ -5,13 +5,13 @@ export const navItem = [
         displayName: 'Dashboard',
         iconName: 'dashboard',
         route: FlowRoutes.DASHBOARD,
-        children: [
-          {
-            displayName: 'Car List',
-            iconName: 'list',
-            route: '/dashboard/admin',
-          }
-        ]
+        // children: [
+        //   {
+        //     displayName: 'Car List',
+        //     iconName: 'list',
+        //     route: '/dashboard/admin',
+        //   }
+        // ]
       },
       {
         displayName: 'Profile',

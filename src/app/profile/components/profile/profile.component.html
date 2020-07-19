@@ -1,0 +1,26 @@
+<section class="profile">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-4 profile__preview">
+                <mat-card class="card card-profile" *ngIf="user">
+                    <mat-card-header>
+                      <div mat-card-avatar (click)="editPhoto()" class="header-image" [style.background-image]="user.photoURL ? 'url(' + user.photoURL + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
+                      <mat-card-title>{{ user.displayName }}</mat-card-title>
+                      <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+                      <div class="email-verify" [ngClass]="user.emailVerified ? 'verified' : 'unverified'">
+                        <mat-icon>{{ user.emailVerified ? 'check' : 'close' }}</mat-icon>
+                        <span>{{ user.emailVerified ? 'Email verified' : 'Email unverified' }}</span>
+                      </div>
+                    </mat-card-header>
+                    <mat-card-actions>
+                      <button mat-raised-button color="primary" (click)="editPhoto()">{{ user.photoURL ? 'Change photo' : 'Add Photo' }}</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-12 col-lg-8">
+                <mat-card class="card card-profile">
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</section>

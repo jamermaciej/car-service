@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ photoURL ? 'Edit' : 'Add' }} photo</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="image-preview" [style.background-image]="downloadURL ? 'url(' + downloadURL + ')' : 'url(' + (photoURL ? photoURL : '') + ')'"></div>
+    <ul>
+        <li *ngFor="let file of files">
+            <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+        </li>
+    </ul>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+    <button type="button" mat-raised-button color="primary" (click)="uploadFile();">
+        <mat-icon>file_upload</mat-icon>  
+        Upload
+    </button>
+</mat-dialog-actions>
+<input class="d-none" #fileInput id="fileUpload" name="fileUpload" type="file" accept="image/*">
