@@ -51,7 +51,7 @@ export class UserService {
           displayName: user.displayName || value.get('displayName'),
           photoURL: user.photoURL,
           emailVerified: user.emailVerified,
-          phoneNumber: user.phoneNumber,
+          phoneNumber: user.phoneNumber || value.get('phoneNumber'),
           createdAt: user.metadata.creationTime,
           lastLoginAt: user.metadata.lastSignInTime,
           roles: value.get('roles')
