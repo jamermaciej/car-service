@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
@@ -10,16 +11,20 @@ import { UserService } from 'src/app/core/services/user/user.service';
 export class ChangePasswordComponent implements OnInit {
   changePassword: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private dialogRef: MatDialogRef<ChangePasswordComponent>) { }
 
   ngOnInit(): void {
     this.changePassword = this.formBuilder.group({
-      password: ['', [Validators.required]]
+      oldPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.required]]
     });
   }
 
   onSubmit() {
-    const { password } = this.changePassword.value;
-    this.userService.changePassword(password);
+    const { oldPassword, newPassword } = this.changePassword.value;
+    this.userService.changePassword(oldPassword, newPassword);
+    this.dialogRef.close();
   }
 }

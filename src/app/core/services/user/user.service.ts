@@ -135,7 +135,7 @@ export class UserService {
       this.deleteUserData(this.userFirebase.uid);
       localStorage.removeItem('user');
       this.router.navigate([FlowRoutes.LOGIN]);
-      const successMessage = this.translocoService.translate('konto usuniete');
+      const successMessage = this.translocoService.translate('Account deleted!');
       this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'
@@ -184,11 +184,12 @@ export class UserService {
     }
   }
 
-  async changePassword(password: string) {
+  async changePassword(oldPassword: string, newPassword: string) {
     try {
-      await this.userFirebase.updatePassword(password);
+      await this.refresh(oldPassword);
+      await this.userFirebase.updatePassword(newPassword);
 
-      const successMessage = this.translocoService.translate('haslo zapdejtowany');
+      const successMessage = this.translocoService.translate('Password updated!');
       this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'
