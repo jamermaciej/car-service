@@ -12,6 +12,7 @@ import { auth } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -126,6 +127,82 @@ export class UserService {
     }
   }
 
+  async deleteAccount(password: string) {
+    // Refreshes the authentication
+    try {
+      await this.refresh(password);
+      this.userFirebase.delete();
+      this.deleteUserData(this.userFirebase.uid);
+      localStorage.removeItem('user');
+      this.router.navigate([FlowRoutes.LOGIN]);
+      const successMessage = this.translocoService.translate('konto usuniete');
+      this.snackBar.open(successMessage, '', {
+        duration: 15000,
+        panelClass: 'success'
+      });
+    } catch (error) {
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
+  }
+
+  async refresh(password: string): Promise<firebase.User> {
+    // Gets fresh credentials for the current user
+    const { email } = this.userFirebase;
+    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    // Re-authenticate the user with the fresh credentials
+    const cred = await this.userFirebase.reauthenticateWithCredential(credential);
+    return cred.user;
+  }
+
+  async updateEmail(password: string, email: string) {
+    try {
+      await this.userFirebase.updateEmail(email);
+      const user = {
+        ...this.userFirebase,
+        email
+      };
+      this.updateUser(user);
+
+      this.router.navigate([FlowRoutes.LOGIN]);
+      const successMessage = this.translocoService.translate('email zapdejtowany');
+      this.snackBar.open(successMessage, '', {
+        duration: 15000,
+        panelClass: 'success'
+      });
+    } catch (error) {
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
+  }
+
+  async changePassword(password: string) {
+    try {
+      await this.userFirebase.updatePassword(password);
+
+      const successMessage = this.translocoService.translate('haslo zapdejtowany');
+      this.snackBar.open(successMessage, '', {
+        duration: 15000,
+        panelClass: 'success'
+      });
+    } catch (error) {
+      const errorKey = FirebaseErrors.Parse(error.code);
+      const errorMessage = this.translocoService.translate(errorKey);
+      this.snackBar.open(errorMessage, '', {
+        duration: 2000,
+        panelClass: 'error'
+      });
+    }
+  }
+
   async sendEmailVerification() {
     try {
       (await this.af.currentUser).sendEmailVerification();
@@ -181,18 +258,22 @@ export class UserService {
   async confirmEmail(code: string) {
     try {
       await this.af.applyActionCode(code);
-      const successMessage = this.translocoService.translate('confirm_email.message.success');
-      this.snackBar.open(successMessage, '', {
-        duration: 2000,
-        panelClass: 'success'
-      });
+      setTimeout(() => {
+        const successMessage = this.translocoService.translate('confirm_email.message.success');
+        this.snackBar.open(successMessage, '', {
+          duration: 2000,
+          panelClass: 'success'
+        });
+      }, 100);
     } catch (error) {
       const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      setTimeout(() => {
+        const errorMessage = this.translocoService.translate(errorKey);
+        this.snackBar.open(errorMessage, '', {
+          duration: 2000,
+          panelClass: 'error'
+        });
+      }, 100);
     }
     this.router.navigate([FlowRoutes.DASHBOARD]);
   }

@@ -1,0 +1,14 @@
+<div class="delete-account">
+    <h2 mat-dialog-title>Delete account</h2>
+    <p>WARNING! Confirmimg with your password the account will be permanently deleted</p>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>{{'login.label.password' | transloco}}</mat-label>
+                <input type="password" name="password" matInput formControlName="password">
+                <app-error-message [control]="passwordForm.get('password')"></app-error-message>
+            </mat-form-field>
+            <button [disabled]="passwordForm.invalid" type="submit" mat-raised-button color="warn">Delete account</button>
+        </form>
+    </mat-dialog-content>
+</div>

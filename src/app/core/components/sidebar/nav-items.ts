@@ -19,6 +19,11 @@ export const navItem = [
         route: FlowRoutes.PROFILE
       },
       {
+        displayName: 'Account',
+        iconName: 'lock',
+        route: FlowRoutes.ACCOUNT
+      },
+      {
         displayName: 'Orders service',
         iconName: 'calendar_today',
         route: FlowRoutes.ORDERS

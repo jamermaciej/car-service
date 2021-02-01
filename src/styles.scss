@@ -73,3 +73,9 @@ a {
 button:focus {
     outline: none;
 }
+
+.delete-account-dialog,
+.change-email-dialog,
+.change-password-dialog {
+    max-width: 400px !important;
+}

@@ -29,6 +29,12 @@
             margin-top: 30px;
         }
     }
+
+    @media (max-width: 992px) {
+        .row {
+            flex-wrap: wrap-reverse;
+        }
+    }
 }
 
 .card {
