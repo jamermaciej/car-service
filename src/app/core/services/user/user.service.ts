@@ -161,6 +161,7 @@ export class UserService {
 
   async updateEmail(password: string, email: string) {
     try {
+      await this.refresh(password);
       await this.userFirebase.updateEmail(email);
       const user = {
         ...this.userFirebase,
@@ -168,8 +169,7 @@ export class UserService {
       };
       this.updateUser(user);
 
-      this.router.navigate([FlowRoutes.LOGIN]);
-      const successMessage = this.translocoService.translate('email zapdejtowany');
+      const successMessage = this.translocoService.translate('Email updated!');
       this.snackBar.open(successMessage, '', {
         duration: 15000,
         panelClass: 'success'

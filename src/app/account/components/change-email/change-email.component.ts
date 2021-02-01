@@ -4,6 +4,7 @@ import { EmailValidator } from './../../../shared/validators/email-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailDomain } from '../../../../assets/config.json';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-change-email',
@@ -13,10 +14,11 @@ import { emailDomain } from '../../../../assets/config.json';
 export class ChangeEmailComponent implements OnInit {
   changeEmail: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private dialogRef: MatDialogRef<ChangeEmailComponent>) { }
 
   ngOnInit(): void {
     this.changeEmail = this.formBuilder.group({
+      password: ['', [Validators.required]],
       email: ['', [RequiredValidator.required, Validators.email, EmailValidator.matchEmailDomain(emailDomain)]]
     });
   }
@@ -24,5 +26,6 @@ export class ChangeEmailComponent implements OnInit {
   onSubmit() {
     const { password, email } = this.changeEmail.value;
     this.userService.updateEmail(password, email);
+    this.dialogRef.close();
   }
 }
