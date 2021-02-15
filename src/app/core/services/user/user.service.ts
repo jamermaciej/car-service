@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { TranslocoService } from '@ngneat/transloco';
 import { Roles } from './../../enums/roles';
 import { FlowRoutes } from './../../enums/flow';
@@ -42,24 +43,46 @@ export class UserService {
     });
   }
 
-  updateUser(user: firebase.User) {
+  async updateUser(user: firebase.User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-    userRef.ref.get().then(value => {
-      if (value.exists) {
-        const data: User = {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName || value.get('displayName'),
-          photoURL: user.photoURL,
-          emailVerified: user.emailVerified,
-          phoneNumber: user.phoneNumber || value.get('phoneNumber'),
-          createdAt: user.metadata.creationTime,
-          lastLoginAt: user.metadata.lastSignInTime,
-          roles: value.get('roles')
-        };
-        this.updateUserData(data);
-      }
-    });
+    // userRef.ref.get().then(value => {
+    //   if (value.exists) {
+    //     const data: User = {
+    //       uid: user.uid,
+    //       email: user.email,
+    //       displayName: user.displayName || value.get('displayName'),
+    //       photoURL: user.photoURL,
+    //       emailVerified: user.emailVerified,
+    //       phoneNumber: user.phoneNumber || value.get('phoneNumber'),
+    //       createdAt: user.metadata.creationTime,
+    //       lastLoginAt: user.metadata.lastSignInTime,
+    //       roles: value.get('roles')
+    //     };
+    //     this.updateUserData(data);
+    //     return data;
+    //   }
+    // });
+    const userData = await userRef.ref.get();
+
+    let data: User;
+
+    if (userData.exists) {
+      data = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || userData.get('displayName'),
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        phoneNumber: user.phoneNumber || userData.get('phoneNumber'),
+        createdAt: user.metadata.creationTime,
+        lastLoginAt: user.metadata.lastSignInTime,
+        roles: userData.get('roles')
+      };
+    }
+
+    this.updateUserData(data);
+
+    return data;
   }
 
   async signInWithGoogle() {
@@ -114,16 +137,18 @@ export class UserService {
   async login(email: string, password: string) {
     try {
       const user = (await this.af.signInWithEmailAndPassword(email, password)).user;
-      localStorage.setItem('user', JSON.stringify(user));
-      this.updateUser(user);
-      this.router.navigate([FlowRoutes.DASHBOARD]);
+      // localStorage.setItem('user', JSON.stringify(user));
+      const userData = await this.updateUser(user);
+      // this.router.navigate([FlowRoutes.DASHBOARD]);
+      return userData;
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      // const errorKey = FirebaseErrors.Parse(error.code);
+      // const errorMessage = this.translocoService.translate(errorKey);
+      // this.snackBar.open(errorMessage, '', {
+      //   duration: 2000,
+      //   panelClass: 'error'
+      // });
+      throw error;
     }
   }
 
@@ -280,9 +305,9 @@ export class UserService {
   }
 
   async signOut() {
-    this.af.signOut();
-    localStorage.removeItem('user');
-    this.router.navigate([FlowRoutes.LOGIN]);
+    await this.af.signOut();
+    // localStorage.removeItem('user');
+    // this.router.navigate([FlowRoutes.LOGIN]);
   }
 
   public getUsersData() {
