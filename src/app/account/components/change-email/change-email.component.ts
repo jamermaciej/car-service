@@ -31,7 +31,6 @@ export class ChangeEmailComponent implements OnInit {
   onSubmit() {
     const { password, email } = this.changeEmail.value;
     this.store.dispatch(updateEmail({ password, email }));
-    // this.userService.updateEmail(password, email);
     this.dialogRef.close();
   }
 }

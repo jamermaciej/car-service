@@ -45,23 +45,6 @@ export class UserService {
 
   async updateUser(user: firebase.User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-    // userRef.ref.get().then(value => {
-    //   if (value.exists) {
-    //     const data: User = {
-    //       uid: user.uid,
-    //       email: user.email,
-    //       displayName: user.displayName || value.get('displayName'),
-    //       photoURL: user.photoURL,
-    //       emailVerified: user.emailVerified,
-    //       phoneNumber: user.phoneNumber || value.get('phoneNumber'),
-    //       createdAt: user.metadata.creationTime,
-    //       lastLoginAt: user.metadata.lastSignInTime,
-    //       roles: value.get('roles')
-    //     };
-    //     this.updateUserData(data);
-    //     return data;
-    //   }
-    // });
     const userData = await userRef.ref.get();
 
     let data: User;
@@ -97,7 +80,6 @@ export class UserService {
     try {
       const { name, email, password } = registerData;
       const user = (await this.af.createUserWithEmailAndPassword(email, password)).user;
-      // localStorage.setItem('user', JSON.stringify(user));
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
       const data = {
@@ -114,26 +96,8 @@ export class UserService {
 
       userRef.set(data, { merge: true });
 
-      // this.sendEmailVerification();
-
-      // this.router.navigate([FlowRoutes.DASHBOARD]);
-
-      // const successMessage = this.translocoService.translate('register.message.success');
-      // this.snackBar.open(successMessage, '', {
-      //   duration: 15000,
-      //   panelClass: 'success'
-      // });
-
       return data;
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // console.log(errorMessage);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
-
       throw error;
     }
   }
@@ -141,17 +105,9 @@ export class UserService {
   async login(email: string, password: string) {
     try {
       const user = (await this.af.signInWithEmailAndPassword(email, password)).user;
-      // localStorage.setItem('user', JSON.stringify(user));
       const userData = await this.updateUser(user);
-      // this.router.navigate([FlowRoutes.DASHBOARD]);
       return userData;
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
       throw error;
     }
   }
@@ -162,20 +118,7 @@ export class UserService {
       await this.refresh(password);
       this.userFirebase.delete();
       this.deleteUserData(this.userFirebase.uid);
-      // localStorage.removeItem('user');
-      // this.router.navigate([FlowRoutes.LOGIN]);
-      // const successMessage = this.translocoService.translate('Account deleted!');
-      // this.snackBar.open(successMessage, '', {
-      //   duration: 15000,
-      //   panelClass: 'success'
-      // });
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
       throw error;
     }
   }
@@ -200,19 +143,7 @@ export class UserService {
       const newUser = await this.updateUser(user);
 
       return newUser;
-
-      // const successMessage = this.translocoService.translate('Email updated!');
-      // this.snackBar.open(successMessage, '', {
-      //   duration: 15000,
-      //   panelClass: 'success'
-      // });
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
       throw error;
     }
   }
@@ -221,19 +152,7 @@ export class UserService {
     try {
       await this.refresh(oldPassword);
       await this.userFirebase.updatePassword(newPassword);
-
-      // const successMessage = this.translocoService.translate('Password updated!');
-      // this.snackBar.open(successMessage, '', {
-      //   duration: 15000,
-      //   panelClass: 'success'
-      // });
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
       throw error;
     }
   }
@@ -243,32 +162,13 @@ export class UserService {
       (await this.af.currentUser).sendEmailVerification();
     } catch (error) {
       throw error;
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
     }
   }
 
   async sendPasswordResetEmail(email: string) {
     try {
       await this.af.sendPasswordResetEmail(email);
-      // this.router.navigate([FlowRoutes.LOGIN]);
-
-      // const successMessage = this.translocoService.translate('forgot_password.message.success.send', { email });
-      // this.snackBar.open(successMessage, '', {
-      //   duration: 15000,
-      //   panelClass: 'success'
-      // });
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
       throw error;
     }
   }
@@ -276,19 +176,7 @@ export class UserService {
   async updatePassword(code: string, password: string) {
     try {
       await this.af.confirmPasswordReset(code, password);
-      // this.router.navigate([FlowRoutes.LOGIN]);
-      // const successMessage = this.translocoService.translate('forgot_password.message.success.update');
-      // this.snackBar.open(successMessage, '', {
-      //   duration: 15000,
-      //   panelClass: 'success'
-      // });
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // const errorMessage = this.translocoService.translate(errorKey);
-      // this.snackBar.open(errorMessage, '', {
-      //   duration: 2000,
-      //   panelClass: 'error'
-      // });
       throw error;
     }
   }
@@ -296,31 +184,13 @@ export class UserService {
   async confirmEmail(code: string) {
     try {
       await this.af.applyActionCode(code);
-      // setTimeout(() => {
-      //   const successMessage = this.translocoService.translate('confirm_email.message.success');
-      //   this.snackBar.open(successMessage, '', {
-      //     duration: 2000,
-      //     panelClass: 'success'
-      //   });
-      // }, 100);
     } catch (error) {
-      // const errorKey = FirebaseErrors.Parse(error.code);
-      // setTimeout(() => {
-      //   const errorMessage = this.translocoService.translate(errorKey);
-      //   this.snackBar.open(errorMessage, '', {
-      //     duration: 2000,
-      //     panelClass: 'error'
-      //   });
-      // }, 100);
       throw error;
     }
-    // this.router.navigate([FlowRoutes.DASHBOARD]);
   }
 
   async signOut() {
     await this.af.signOut();
-    // localStorage.removeItem('user');
-    // this.router.navigate([FlowRoutes.LOGIN]);
   }
 
   public getUsersData() {

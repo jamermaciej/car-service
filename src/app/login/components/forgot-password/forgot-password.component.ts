@@ -27,7 +27,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit() {
     const email = this.forgotPasswordForm.value;
-    // this.userService.sendPasswordResetEmail(email);
     this.store.dispatch(sendPasswordResetEmail(email));
   }
 

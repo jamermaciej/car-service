@@ -19,7 +19,6 @@ export class ConfirmEmailComponent implements OnInit {
   ngOnInit(): void {
     this.code = this.activatedRoute.snapshot.queryParams['oobCode'];
     if (!this.code) return;
-    // this.userService.confirmEmail(this.code);
     const code = this.code;
     this.store.dispatch(confirmEmail({ code }));
   }

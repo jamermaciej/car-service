@@ -42,7 +42,6 @@ export class ConfirmPasswordResetComponent implements OnInit {
     if (this.newPasswordForm.valid) {
       const code = this.activatedRoute.snapshot.queryParams['oobCode'];
       const { password } = this.newPasswordForm.value;
-      // this.userService.updatePassword(code, password);
       this.store.dispatch(updatePassword({ code, password }));
     } else {
       this.newPasswordForm.markAllAsTouched();

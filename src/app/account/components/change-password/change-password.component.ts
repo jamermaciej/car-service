@@ -27,7 +27,6 @@ export class ChangePasswordComponent implements OnInit {
 
   onSubmit() {
     const { oldPassword, newPassword } = this.changePassword.value;
-    // this.userService.changePassword(oldPassword, newPassword);
     this.store.dispatch(changePassword({ oldPassword, newPassword }));
     this.dialogRef.close();
   }

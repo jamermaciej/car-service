@@ -30,7 +30,6 @@ export class DeleteAccountComponent implements OnInit {
     if (this.passwordForm.valid ) {
       const { password } = this.passwordForm.value;
       this.store.dispatch(deleteAccount({ password }));
-      // this.userService.deleteAccount(password);
       this.dialogRef.close();
     }
   }
