@@ -1,3 +1,5 @@
+import { RegisterData } from './../../../shared/models/register-data.model';
+import { Store } from '@ngrx/store';
 import { FlowRoutes } from './../../../core/enums/flow';
 import { UserService } from './../../../core/services/user/user.service';
 import { NoWhitespaceValidator } from './../../../shared/validators/no-whitespace-validator';
@@ -8,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl, FormControl } from '@angular/forms';
 import { emailDomain } from '../../../../assets/config.json';
 import { Platform } from '@angular/cdk/platform';
+import { register } from '../../../store/actions';
 
 @Component({
   selector: 'app-registration',
@@ -22,7 +25,10 @@ export class RegistrationComponent implements OnInit {
   flowRoutes = FlowRoutes;
   isMobile: boolean;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private platform: Platform) {
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private platform: Platform,
+              private store: Store) {
     this.isMobile = this.platform.ANDROID || this.platform.IOS;
   }
 
@@ -57,7 +63,13 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
 
     if (this.registrationForm.valid) {
-      this.userService.register(this.registrationForm.value);
+      const { name, email, password } = this.registrationForm.value;
+      const registerData: RegisterData = {
+        name,
+        email,
+        password
+      };
+      this.store.dispatch(register(registerData));
     } else {
       // alternative for validateAllFormFields, markAllAsTouched mark form as toutch too
       this.registrationForm.markAllAsTouched();

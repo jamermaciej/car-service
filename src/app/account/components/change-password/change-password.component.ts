@@ -1,3 +1,5 @@
+import { changePassword } from './../../../store/actions/auth.actions';
+import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +15,8 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private dialogRef: MatDialogRef<ChangePasswordComponent>) { }
+              private dialogRef: MatDialogRef<ChangePasswordComponent>,
+              private store: Store) { }
 
   ngOnInit(): void {
     this.changePassword = this.formBuilder.group({
@@ -24,7 +27,8 @@ export class ChangePasswordComponent implements OnInit {
 
   onSubmit() {
     const { oldPassword, newPassword } = this.changePassword.value;
-    this.userService.changePassword(oldPassword, newPassword);
+    // this.userService.changePassword(oldPassword, newPassword);
+    this.store.dispatch(changePassword({ oldPassword, newPassword }));
     this.dialogRef.close();
   }
 }

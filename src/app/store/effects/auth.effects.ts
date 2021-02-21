@@ -1,3 +1,5 @@
+import { sendPasswordResetEmailFailure } from './../actions/auth.actions';
+import { RegisterData } from './../../shared/models/register-data.model';
 import { AlertService } from './../../core/services/alert/alert-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
@@ -9,7 +11,7 @@ import { Injectable } from '@angular/core';
 import * as authActions from '../actions/auth.actions';
 import * as routerActions from '../actions/router.actions';
 
-import { map, exhaustMap, switchMap, mergeMap, tap, catchError, share, flatMap } from 'rxjs/operators';
+import { map, exhaustMap, switchMap, mergeMap, tap, catchError, share, flatMap, delay, timeout } from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -81,5 +83,268 @@ export class AuthEffects {
         })
     ), {
         dispatch: false
+    });
+
+    register$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.register),
+        switchMap((registerData: RegisterData) => from(this.userService.register(registerData)).pipe(
+                map( (user) => authActions.registerSuccess({ user })),
+                catchError(error => of(authActions.registerFailure({ error })))
+            )
+        )
+    ), {
+        dispatch: true
+    });
+
+    registerSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.registerSuccess),
+        tap(({ user }) => localStorage.setItem('user', JSON.stringify(user))),
+        mergeMap(() => {
+            const errorMessage = this.translocoService.translate('register.message.success');
+            this.alertService.showAlert(errorMessage, 'success');
+            return [
+                routerActions.go({ path: [FlowRoutes.DASHBOARD] }),
+                authActions.sendEmailVerification()
+            ];
+        })
+    ), {
+        dispatch: true
+    });
+
+    registerFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.registerFailure),
+        map(payload => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+            return authActions.authError({error: errorMessage});
+        })
+    ), {
+        dispatch: true
+    });
+
+    sendEmailVerification$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.sendEmailVerification),
+        switchMap(() => from(this.userService.sendEmailVerification()).pipe(
+            map(() => authActions.sendEmailVerificationSuccess()),
+            catchError((error) => of(authActions.sendEmailVerificationFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+    sendEmailVerificationFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.sendEmailVerificationFailure),
+        map((payload) => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+        })
+    ), {
+        dispatch: false
+    });
+
+    sendPasswordResetEmail$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.sendPasswordResetEmail),
+        switchMap(({ email }) => from(this.userService.sendPasswordResetEmail(email)).pipe(
+            map(() => authActions.sendPasswordResetEmailSuccess({ email })),
+            catchError((error) => of(authActions.sendPasswordResetEmailFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+    sendPasswordResetEmailSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.sendPasswordResetEmailSuccess),
+        map((email) => {
+            const successMessage = this.translocoService.translate('forgot_password.message.success.send', email);
+            this.alertService.showAlert(successMessage, 'success', 5000);
+            return routerActions.go({ path: [FlowRoutes.LOGIN] });
+        })
+    ), {
+        dispatch: true
+    });
+
+    sendPasswordResetEmailFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.sendPasswordResetEmailFailure),
+        map((payload) => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+            return authActions.authError({error: errorMessage});
+        })
+    ), {
+        dispatch: true
+    });
+
+    updatePassword$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.updatePassword),
+        switchMap((payload) => from(this.userService.updatePassword(payload.code, payload.password)).pipe(
+            map(() => authActions.updatePasswordSuccess()),
+            catchError((error) => of(authActions.updatePasswordFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+
+    updatePasswordSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.updatePasswordSuccess),
+        map(() => {
+            const successMessage = this.translocoService.translate('forgot_password.message.success.update');
+            this.alertService.showAlert(successMessage, 'success', 2000);
+            return routerActions.go({ path: [FlowRoutes.LOGIN] });
+        })
+    ), {
+        dispatch: true
+    });
+
+    updatePasswordFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.updatePasswordFailure),
+        map((payload) => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+            return authActions.authError({error: errorMessage});
+        })
+    ), {
+        dispatch: true
+    });
+
+    confirmEmail$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.confirmEmail),
+        switchMap((payload) => from(this.userService.confirmEmail(payload.code)).pipe(
+            map(() => authActions.confirmEmailSuccess()),
+            catchError((error) => of(authActions.confirmEmailFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+
+    confirmEmailSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.confirmEmailSuccess),
+        tap(() => this.router.navigate([FlowRoutes.DASHBOARD])),
+        delay(100),
+        map(() => {
+            const successMessage = this.translocoService.translate('confirm_email.message.success');
+            this.alertService.showAlert(successMessage, 'success', 2000);
+        })
+    ), {
+        dispatch: false
+    });
+
+    confirmEmailFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.confirmEmailFailure),
+        tap(() => this.router.navigate([FlowRoutes.DASHBOARD])),
+        delay(100),
+        mergeMap((payload) => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+            return [
+                authActions.authError({error: errorMessage})
+            ];
+        })
+    ), {
+        dispatch: true
+    });
+
+    changePassword$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.changePassword),
+        switchMap((payload) => from(this.userService.changePassword(payload.oldPassword, payload.newPassword)).pipe(
+            map(() => authActions.changePasswordSuccess()),
+            catchError((error) => of(authActions.changePasswordFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+    changePasswordSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.changePasswordSuccess),
+        map(() => {
+            const successMessage = this.translocoService.translate('Password updated!');
+            this.alertService.showAlert(successMessage, 'success', 2000);
+        })
+    ), {
+        dispatch: false
+    });
+
+    changePasswordFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.changePasswordFailure),
+        map((payload) => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+            return authActions.authError({error: errorMessage});
+        })
+    ), {
+        dispatch: true
+    });
+
+    deleteAcctount$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.deleteAccount),
+        switchMap((payload) => from(this.userService.deleteAccount(payload.password)).pipe(
+            map(() => authActions.deleteAccountSuccess()),
+            catchError((error) => of(authActions.deleteAccountFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+    deleteAcctountSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.deleteAccountSuccess),
+        map(() => {
+            const successMessage = this.translocoService.translate('Account deleted!');
+            this.alertService.showAlert(successMessage, 'success', 2000);
+            localStorage.removeItem('user');
+            return routerActions.go({ path: [FlowRoutes.LOGIN] });
+        })
+    ), {
+        dispatch: true
+    });
+
+    deleteAcctountFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.deleteAccountFailure),
+        map((payload) => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+            return authActions.authError({error: errorMessage});
+        })
+    ), {
+        dispatch: true
+    });
+
+    updateEmail$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.updateEmail),
+        switchMap((payload) => from(this.userService.updateEmail(payload.password, payload.email)).pipe(
+            map(() => authActions.updateEmailSuccess()),
+            catchError((error) => of(authActions.updateEmailFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+    updateEmailSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.updateEmailSuccess),
+        map(() => {
+            const successMessage = this.translocoService.translate('Email updated!');
+            this.alertService.showAlert(successMessage, 'success', 2000);
+        })
+    ), {
+        dispatch: false
+    });
+
+    updateEmailFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(authActions.updateEmailFailure),
+        map((payload) => {
+            const errorKey = FirebaseErrors.Parse(payload.error.code);
+            const errorMessage = this.translocoService.translate(errorKey);
+            this.alertService.showAlert(errorMessage, 'error');
+            return authActions.authError({error: errorMessage});
+        })
+    ), {
+        dispatch: true
     });
 }

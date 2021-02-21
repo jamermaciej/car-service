@@ -9,8 +9,8 @@ export interface State {
 }
 
 export const initialState = {
-    isLoggedIn: false,
-    user: null,
+    isLoggedIn: !!JSON.parse(localStorage.getItem('user')) || false,
+    user: JSON.parse(localStorage.getItem('user')) || null,
     errorMessage: null
 };
 
@@ -42,8 +42,22 @@ const authReducer = createReducer(
         isLoggedIn: false,
         user: null,
         errorMessage: error
-    }))
-
+    })),
+    on(authActions.register, (state, payload) => ({
+        ...state
+    })),
+    on(authActions.registerSuccess, (state, { user } ) => ({
+        ...state,
+        isLoggedIn: true,
+        user,
+        errorMessage: null
+    })),
+    on(authActions.registerFailure, (state, { error } ) => ({
+        ...state,
+        isLoggedIn: false,
+        user: null,
+        errorMessage: null
+    })),
   );
 
 export function reducer(state: State | undefined, action: Action) {
