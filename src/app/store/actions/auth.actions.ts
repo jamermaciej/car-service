@@ -140,7 +140,8 @@ export const updateEmail = createAction(
 );
 
 export const updateEmailSuccess = createAction(
-    '[Auth] Update Email Success'
+    '[Auth] Update Email Success',
+    props<{ user: User }>()
 );
 
 export const updateEmailFailure = createAction(

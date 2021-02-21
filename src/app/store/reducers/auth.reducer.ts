@@ -1,3 +1,4 @@
+import { updateEmailSuccess } from './../actions/auth.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { User } from '../../shared/models/user.model';
 import * as authActions from '../actions/auth.actions';
@@ -57,6 +58,10 @@ const authReducer = createReducer(
         isLoggedIn: false,
         user: null,
         errorMessage: null
+    })),
+    on(authActions.updateEmailSuccess, (state, { user } ) => ({
+        ...state,
+        user
     })),
   );
 

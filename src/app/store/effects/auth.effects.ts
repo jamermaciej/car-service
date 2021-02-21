@@ -319,7 +319,7 @@ export class AuthEffects {
     updateEmail$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.updateEmail),
         switchMap((payload) => from(this.userService.updateEmail(payload.password, payload.email)).pipe(
-            map(() => authActions.updateEmailSuccess()),
+            map((user: User) => authActions.updateEmailSuccess({ user })),
             catchError((error) => of(authActions.updateEmailFailure({ error })))
         ))
     ), {
@@ -328,9 +328,10 @@ export class AuthEffects {
 
     updateEmailSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.updateEmailSuccess),
-        map(() => {
+        map((payload) => {
             const successMessage = this.translocoService.translate('Email updated!');
             this.alertService.showAlert(successMessage, 'success', 2000);
+            localStorage.setItem('user', JSON.stringify(payload.user));
         })
     ), {
         dispatch: false

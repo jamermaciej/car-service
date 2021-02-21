@@ -197,7 +197,9 @@ export class UserService {
         ...this.userFirebase,
         email
       };
-      this.updateUser(user);
+      const newUser = await this.updateUser(user);
+
+      return newUser;
 
       // const successMessage = this.translocoService.translate('Email updated!');
       // this.snackBar.open(successMessage, '', {
