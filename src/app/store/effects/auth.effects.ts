@@ -1,4 +1,4 @@
-import { sendPasswordResetEmailFailure } from './../actions/auth.actions';
+import { Store } from '@ngrx/store';
 import { RegisterData } from './../../shared/models/register-data.model';
 import { AlertService } from './../../core/services/alert/alert-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 import * as authActions from '../actions/auth.actions';
 import * as routerActions from '../actions/router.actions';
 
-import { map, exhaustMap, switchMap, mergeMap, tap, catchError, share, flatMap, delay, timeout } from 'rxjs/operators';
+import { map, switchMap, mergeMap, tap, catchError, delay} from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';

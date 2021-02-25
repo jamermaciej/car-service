@@ -1,3 +1,6 @@
+import { AlertService } from './../../../core/services/alert/alert-service';
+import { sendEmailVerification } from './../../../store/actions/auth.actions';
+import { Store } from '@ngrx/store';
 import { ChangeEmailComponent } from './../change-email/change-email.component';
 import { ChangePasswordComponent } from './../change-password/change-password.component';
 import { DeleteAccountComponent } from './../delete-account/delete-account.component';
@@ -16,18 +19,19 @@ import { MatDialog } from '@angular/material/dialog';
 export class AccountComponent implements OnInit {
   user$: Observable<User>;
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+  constructor(private userService: UserService,
+              private snackBar: MatSnackBar,
+              private dialog: MatDialog,
+              private store: Store,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.user$ = this.userService.user$;
   }
 
-  async sendEmailVerification() {
-    await this.userService.sendEmailVerification();
-    this.snackBar.open('Email verification has been send.', '', {
-      duration: 15000,
-      panelClass: 'success'
-    });
+  sendEmailVerification() {
+    this.store.dispatch(sendEmailVerification());
+    this.alertService.showAlert('Email verification has been send.', 'success');
   }
 
   changeEmail() {
