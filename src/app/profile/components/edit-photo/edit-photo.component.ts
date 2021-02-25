@@ -1,3 +1,5 @@
+import { updateUser } from './../../store/actions/profile.actions';
+import { Store } from '@ngrx/store';
 import { User } from './../../../shared/models/user.model';
 import { UserService } from './../../../core/services/user/user.service';
 import { DialogData } from './../profile/profile.component';
@@ -23,7 +25,8 @@ export class EditPhotoComponent implements OnInit {
               private dialogRef: MatDialogRef<EditPhotoComponent>,
               private afStorage: AngularFireStorage,
               private userService: UserService,
-              private af: AngularFireAuth) { }
+              private af: AngularFireAuth,
+              private store: Store) { }
 
   ngOnInit(): void {
     this.user = this.data.user;
@@ -73,10 +76,14 @@ export class EditPhotoComponent implements OnInit {
             this.userService.userFirebase.updateProfile({
               photoURL: url
             });
-            this.userService.updateUserData({
+
+            const user = {
               ...this.user,
               photoURL: url
-            });
+            };
+
+            this.store.dispatch(updateUser({ user }));
+
             this.dialogRef.close({ data: 'success' });
           });
         })

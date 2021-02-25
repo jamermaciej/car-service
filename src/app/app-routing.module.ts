@@ -28,6 +28,7 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+        canLoad: [AuthGuard],
         data: {
           title: 'Profile'
         }
@@ -35,6 +36,7 @@ const routes: Routes = [
       {
         path: 'account',
         loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        canLoad: [AuthGuard],
         data: {
           title: 'Account'
         }

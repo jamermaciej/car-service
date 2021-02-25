@@ -198,15 +198,19 @@ export class UserService {
   }
 
   public getUserData(uid: string) {
-    return this.afs.collection('users').doc(uid).valueChanges();
+    return this.afs.collection<User>('users').doc(uid).valueChanges();
   }
 
   public setUserData(user: User) {
     return this.afs.doc(`users/${user.uid}`).set(user);
   }
 
-  public updateUserData(user: User) {
-    return this.afs.doc(`users/${user.uid}`).update(user);
+  public async updateUserData(user: User) {
+    try {
+      await this.afs.doc(`users/${user.uid}`).update(user);
+    } catch (error) {
+      throw error;
+    }
   }
 
   public deleteUserData(uid: string) {

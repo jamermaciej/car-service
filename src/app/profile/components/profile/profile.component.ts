@@ -1,9 +1,12 @@
+import * as profileActions from './../../store/actions/profile.actions';
+import { Store } from '@ngrx/store';
 import { EditPhotoComponent } from './../edit-photo/edit-photo.component';
 import { User } from './../../../shared/models/user.model';
 import { UserService } from './../../../core/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { getUser } from 'src/app/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +17,13 @@ export class ProfileComponent implements OnInit {
   user: User;
   profileForm: FormGroup;
 
-  constructor(private userService: UserService, private dialog: MatDialog, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService,
+              private dialog: MatDialog,
+              private formBuilder: FormBuilder,
+              private store: Store) {
+                const uid = JSON.parse(localStorage.getItem('user')).uid;
+                store.dispatch(profileActions.getUser({ uid }));
+              }
 
   ngOnInit(): void {
     this.profileForm = this.formBuilder.group({
@@ -22,12 +31,12 @@ export class ProfileComponent implements OnInit {
       phoneNumber: ['']
     });
 
-    this.userService.user$.subscribe(user => {
+    this.store.select(getUser).subscribe(user => {
       this.user = user;
 
       this.profileForm.patchValue({
         ...user,
-        name: user.displayName
+        name: user?.displayName
       });
     });
   }
@@ -47,11 +56,13 @@ export class ProfileComponent implements OnInit {
   onSubmit() {
     if (this.profileForm.valid) {
       const { name, phoneNumber } = this.profileForm.value;
-      this.userService.updateUserData({
+      const user = {
         ...this.user,
         displayName: name,
         phoneNumber
-      });
+      };
+      this.store.dispatch(profileActions.updateUser({ user }));
+
       this.userService.userFirebase.updateProfile({
         displayName: name
       });
