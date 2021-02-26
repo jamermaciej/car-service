@@ -1,15 +1,17 @@
+import { Store } from '@ngrx/store';
+import { isLoggedIn } from './../../../store/selectors/auth.selectors';
 import { FlowRoutes } from '../../enums/flow';
 import { UserService } from '../user/user.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanLoad, Router, Route } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoggedInAuthGuard implements CanLoad, CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private store: Store) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -29,16 +31,11 @@ export class LoggedInAuthGuard implements CanLoad, CanActivate {
   }
 
   canLoad(route: Route): Observable<boolean> {
-    return this.userService.user$.pipe(
+    return this.store.select(isLoggedIn).pipe(
       take(1),
-      map(user => {
-        const loggedIn = !!user;
-        if (loggedIn) {
-          this.router.navigate([FlowRoutes.DASHBOARD]);
-          return false;
-        } else {
-          return true;
-        }
+      map((isLogged) => isLogged),
+      tap(loggedIn => {
+        if (!loggedIn) this.router.navigate([FlowRoutes.DASHBOARD]);
       })
     );
   }
