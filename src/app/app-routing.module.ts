@@ -3,7 +3,7 @@ import { AuthGuard } from './core/services/auth-guard/auth-guard.service';
 import { TermsComponent } from './core/components/terms/terms.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate, CanLoad } from '@angular/router';
 import { LayoutComponent } from './core/components/layout/layout.component';
 
 
@@ -11,6 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -20,7 +21,6 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-        canLoad: [AuthGuard],
         data: {
           title: 'Dashboard'
         }
@@ -28,7 +28,6 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
-        canLoad: [AuthGuard],
         data: {
           title: 'Profile'
         }
@@ -36,7 +35,6 @@ const routes: Routes = [
       {
         path: 'account',
         loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
-        canLoad: [AuthGuard],
         data: {
           title: 'Account'
         }
@@ -44,7 +42,6 @@ const routes: Routes = [
       {
         path: 'cars',
         loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
-        canLoad: [AuthGuard],
         data: {
           title: 'Cars'
         }

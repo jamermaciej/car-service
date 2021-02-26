@@ -49,9 +49,9 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
   }
 
   canActivateChild(): Observable<boolean> {
-    return this.userService.user$.pipe(
+    return this.store.select(isLoggedIn).pipe(
       take(1),
-      map(user => !!user),
+      map((isLogged) => isLogged),
       tap(loggedIn => {
         if (!loggedIn) this.router.navigate([FlowRoutes.LOGIN]);
       })
