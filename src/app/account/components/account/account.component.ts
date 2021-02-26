@@ -10,6 +10,7 @@ import { UserService } from './../../../core/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { getUser } from 'src/app/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-account',
@@ -19,14 +20,12 @@ import { MatDialog } from '@angular/material/dialog';
 export class AccountComponent implements OnInit {
   user$: Observable<User>;
 
-  constructor(private userService: UserService,
-              private snackBar: MatSnackBar,
-              private dialog: MatDialog,
+  constructor(private dialog: MatDialog,
               private store: Store,
               private alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.user$ = this.userService.user$;
+    this.user$ = this.store.select(getUser);
   }
 
   sendEmailVerification() {
