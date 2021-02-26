@@ -1,4 +1,3 @@
-import { Store } from '@ngrx/store';
 import { RegisterData } from './../../shared/models/register-data.model';
 import { AlertService } from './../../core/services/alert/alert-service';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -21,8 +21,6 @@ export class ProfileComponent implements OnInit {
               private dialog: MatDialog,
               private formBuilder: FormBuilder,
               private store: Store) {
-                const uid = JSON.parse(localStorage.getItem('user')).uid;
-                store.dispatch(profileActions.getUser({ uid }));
               }
 
   ngOnInit(): void {
