@@ -230,7 +230,7 @@ export class AuthEffects {
 
     confirmEmailSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.confirmEmailSuccess),
-        tap(() => this.router.navigate([FlowRoutes.DASHBOARD])),
+        tap(() => this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }))),
         delay(100),
         map(() => {
             const successMessage = this.translocoService.translate('confirm_email.message.success');
@@ -242,7 +242,7 @@ export class AuthEffects {
 
     confirmEmailFailure$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.confirmEmailFailure),
-        tap(() => this.router.navigate([FlowRoutes.DASHBOARD])),
+        tap(() => this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }))),
         delay(100),
         mergeMap((payload) => {
             const errorKey = FirebaseErrors.Parse(payload.error.code);
