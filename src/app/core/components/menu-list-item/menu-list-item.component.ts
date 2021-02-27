@@ -1,8 +1,11 @@
+import { Store } from '@ngrx/store';
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidenavService } from '../../services/sidenav/sidenav.service';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 import { NavItem } from 'src/app/shared/models/nav-item.model';
+import * as routerActions from './../../../store/actions/router.actions';
+import { FlowRoutes } from '../../enums/flow';
 
 @Component({
   selector: 'app-menu-list-item',
@@ -24,7 +27,7 @@ export class MenuListItemComponent implements OnInit {
   @Input() item: NavItem;
   @Input() depth = 0;
 
-  constructor(public router: Router, private sidenavService: SidenavService) {}
+  constructor(public router: Router, private sidenavService: SidenavService, private store: Store) {}
 
   ngOnInit(): void {
     this.sidenavService.currentUrlSubject$.subscribe((url: string) => {
@@ -37,7 +40,7 @@ export class MenuListItemComponent implements OnInit {
 
   onItemSelected(item: NavItem) {
     if ( !item.children || !item.children.length ) {
-      this.router.navigate([item.route]);
+      this.store.dispatch(routerActions.go({ path: [item.route] }));
 
       if ( !this.sidenavService.sidenav.mode ) {
         this.sidenavService.closeSidenav();

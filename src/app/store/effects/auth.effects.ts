@@ -85,7 +85,7 @@ export class AuthEffects {
         ofType(authActions.logoutSuccess),
         tap(() => {
             localStorage.removeItem('user');
-            this.router.navigate([FlowRoutes.LOGIN]);
+            routerActions.go({ path: [FlowRoutes.LOGIN] });
         })
     ), {
         dispatch: false

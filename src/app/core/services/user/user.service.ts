@@ -14,6 +14,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
+import * as routerActions from './../../../store/actions/router.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class UserService {
 
   constructor(private af: AngularFireAuth,
               private afs: AngularFirestore,
+              private store: Store,
               private router: Router,
               private snackBar: MatSnackBar,
               private translocoService: TranslocoService) {
@@ -73,7 +75,7 @@ export class UserService {
     provider.addScope('profile');
     provider.addScope('email');
     const user = await this.af.signInWithPopup(provider);
-    this.router.navigate([FlowRoutes.DASHBOARD]);
+    this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
   }
 
   async register(registerData: RegisterData) {

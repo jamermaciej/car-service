@@ -7,6 +7,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Rout
 import { Observable, of } from 'rxjs';
 import { map, take, tap, filter, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as profileActions from 'src/app/profile/store/actions/profile.actions';
+import * as routerActions from './../../../store/actions/router.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
           if (user && route.data && roles.indexOf(route.data.roles) !== -1) {
             return true;
           } else {
-            this.router.navigate([FlowRoutes.DASHBOARD]);
+            this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
             return false;
           }
         })
@@ -43,7 +44,9 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
         return isLogged;
       }),
       tap(loggedIn => {
-        if (!loggedIn) this.router.navigate([FlowRoutes.LOGIN], { queryParams: { returnUrl: route.path }});
+        if (!loggedIn) {
+          this.store.dispatch(routerActions.go({path: [FlowRoutes.LOGIN], extras: { queryParams: { returnUrl: route.path } } }));
+        }
       })
     );
   }
@@ -53,7 +56,7 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
       take(1),
       map((isLogged) => isLogged),
       tap(loggedIn => {
-        if (!loggedIn) this.router.navigate([FlowRoutes.LOGIN]);
+        if (!loggedIn) this.store.dispatch(routerActions.go({ path: [FlowRoutes.LOGIN] }));
       })
     );
   }

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanLoad, Router, Route } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
+import * as routerActions from './../../../store/actions/router.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class LoggedInAuthGuard implements CanLoad, CanActivate {
         map(user => {
           const loggedIn = !!user;
           if (loggedIn) {
-            this.router.navigate([FlowRoutes.DASHBOARD]);
+            this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
             return false;
           } else {
             return true;
@@ -33,10 +34,8 @@ export class LoggedInAuthGuard implements CanLoad, CanActivate {
   canLoad(route: Route): Observable<boolean> {
     return this.store.select(isLoggedIn).pipe(
       take(1),
-      map((isLogged) => isLogged),
-      tap(loggedIn => {
-        if (!loggedIn) this.router.navigate([FlowRoutes.DASHBOARD]);
-      })
+      map((isLogged) => !isLogged),
+      tap(() => this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] })))
     );
   }
 }
