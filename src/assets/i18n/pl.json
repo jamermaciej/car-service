@@ -108,5 +108,14 @@
 			"success": "Twoje konto zostało założone pomyślnie i zostałeś zalogowany. Prosimy zweryfikować adres email."
 		},
 		"title": "Zarejestruj się"
+	},
+	"account": {
+		"change_password": {
+			"error": {
+				"new_password": {
+					"same_passwords": "Hasła muszą być różne."
+				}
+			}
+		}
 	}
 }

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/core/services/user/user.service';
 import * as fromRoot from './../../../store/reducers';
+import { PasswordValidator } from 'src/app/shared/validators/password-validator';
 
 @Component({
   selector: 'app-change-password',
@@ -23,7 +24,7 @@ export class ChangePasswordComponent implements OnInit {
     this.changePassword = this.formBuilder.group({
       oldPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required]]
-    });
+    }, { validator: PasswordValidator.differentPasswords });
   }
 
   onSubmit() {

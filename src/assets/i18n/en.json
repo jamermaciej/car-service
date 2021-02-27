@@ -108,5 +108,14 @@
 			"success": "You have successfully registered and logged in. Please verify your email address."
 		},
 		"title": "Sing up"
+	},
+	"account": {
+		"change_password": {
+			"error": {
+				"new_password": {
+					"same_passwords": "Passwords must be different."
+				}
+			}
+		}
 	}
 }

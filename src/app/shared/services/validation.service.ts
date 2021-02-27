@@ -34,6 +34,9 @@ export class ValidationService {
       },
       'terms': {
         'required': 'register.error.terms.required'
+      },
+      'newPassword': {
+        'samePasswords': 'account.change_password.error.new_password.same_passwords'
       }
     };
 
