@@ -52,7 +52,8 @@
 		"forgot_password": "Nie pamiętasz hasła?",
 		"label": {
 			"email": "Twój adres email *",
-			"password": "Twoje hasło *"
+			"password": "Twoje hasło *",
+			"newPassword": "Twoje nowe hasło *"
 		},
 		"no_account": "Nie masz konta?",
 		"title": "Zaloguj się"

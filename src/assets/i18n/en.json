@@ -52,7 +52,8 @@
 		"forgot_password": "Forgot your password?",
 		"label": {
 			"email": "Yor Email *",
-			"password": "Your password *"
+			"password": "Your password *",
+			"newPassword": "Your new password *"
 		},
 		"no_account": "Don't have an account?",
 		"title": "Sign in"
