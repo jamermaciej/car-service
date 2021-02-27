@@ -65,6 +65,7 @@ export class ProfileComponent implements OnInit {
       this.userService.userFirebase.updateProfile({
         displayName: name
       });
+      this.profileForm.markAsPristine();
     } else {
       this.profileForm.markAllAsTouched();
     }
