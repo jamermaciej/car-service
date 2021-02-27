@@ -16,7 +16,7 @@ export class PasswordValidator {
         const oldPassword = formGroup.get('oldPassword');
         const newPassword = formGroup.get('newPassword');
 
-        if (newPassword.errors && !newPassword.errors.passwordMismatch) return;
+        if (newPassword.errors && !newPassword.errors.samePasswords) return;
 
         oldPassword && newPassword && oldPassword.value === newPassword.value ?
             newPassword.setErrors({ samePasswords: true }) :
