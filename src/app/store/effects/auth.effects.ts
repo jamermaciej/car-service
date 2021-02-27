@@ -1,3 +1,5 @@
+import { getRouterState } from './../selectors/router.selectors';
+import { Store } from '@ngrx/store';
 import { RegisterData } from './../../shared/models/register-data.model';
 import { AlertService } from './../../core/services/alert/alert-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +12,7 @@ import { Injectable } from '@angular/core';
 import * as authActions from '../actions/auth.actions';
 import * as routerActions from '../actions/router.actions';
 
-import { map, switchMap, mergeMap, tap, catchError, delay} from 'rxjs/operators';
+import { map, switchMap, mergeMap, tap, catchError, delay, withLatestFrom} from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -27,7 +29,8 @@ export class AuthEffects {
         private router: Router,
         private translocoService: TranslocoService,
         private snackBar: MatSnackBar,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private store: Store
     ) {}
 
     login$ = createEffect(() => this.actions$.pipe(
@@ -44,7 +47,11 @@ export class AuthEffects {
     loginSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.loginSuccess),
         tap(({ user }) => localStorage.setItem('user', JSON.stringify(user))),
-        map(() => routerActions.go({ path: [FlowRoutes.DASHBOARD] }))
+        withLatestFrom(this.store.select(getRouterState)),
+        map(([, router]) => {
+            const url = router.state.queryParams['returnUrl'];
+            return routerActions.go({ path: [ url ? url : FlowRoutes.DASHBOARD ] });
+        })
     ), {
         dispatch: true
     });
