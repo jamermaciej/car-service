@@ -86,6 +86,7 @@ export class AuthEffects {
         ofType(authActions.logoutSuccess),
         map(() => {
             localStorage.removeItem('user');
+            this.alertService.showAlert('Zostałeś wylogowany', 'success');
             return routerActions.go({ path: [FlowRoutes.LOGIN] });
         })
     ), {
