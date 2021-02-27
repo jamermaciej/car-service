@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
 import * as authActions from '../actions/auth.actions';
 import * as routerActions from '../actions/router.actions';
 
-import { map, switchMap, mergeMap, tap, catchError, delay, withLatestFrom} from 'rxjs/operators';
+import { map, switchMap, mergeMap, tap, catchError, delay, withLatestFrom, filter} from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -20,6 +20,7 @@ import { from, of } from 'rxjs';
 import { FlowRoutes } from 'src/app/core/enums/flow';
 import { FirebaseErrors } from 'src/app/core/services/firebase-errors/firebase-errors.service';
 import * as fromRoot from './../reducers';
+import { getUser } from '../selectors/auth.selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -326,10 +327,19 @@ export class AuthEffects {
 
     updateEmail$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.updateEmail),
-        switchMap((payload) => from(this.userService.updateEmail(payload.password, payload.email)).pipe(
+        withLatestFrom(this.store.select(getUser)),
+        switchMap(([payload, currentUser]) => {
+            if ( currentUser.email === payload.email ) {
+                const errorMessage = 'Podany email jest taki sam jak obecny.';
+                this.alertService.showAlert(errorMessage, 'error');
+                return of(authActions.authError({error: errorMessage}));
+            }
+            return from(this.userService.updateEmail(payload.password, payload.email)).pipe(
             map((user: User) => authActions.updateEmailSuccess({ user })),
             catchError((error) => of(authActions.updateEmailFailure({ error })))
-        ))
+        );
+        }
+        )
     ), {
         dispatch: true
     });
