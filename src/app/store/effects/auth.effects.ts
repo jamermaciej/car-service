@@ -84,12 +84,12 @@ export class AuthEffects {
 
     logoutSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.logoutSuccess),
-        tap(() => {
+        map(() => {
             localStorage.removeItem('user');
-            routerActions.go({ path: [FlowRoutes.LOGIN] });
+            return routerActions.go({ path: [FlowRoutes.LOGIN] });
         })
     ), {
-        dispatch: false
+        dispatch: true
     });
 
     register$ = createEffect(() => this.actions$.pipe(
