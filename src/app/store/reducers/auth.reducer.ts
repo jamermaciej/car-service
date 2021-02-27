@@ -41,8 +41,6 @@ const authReducer = createReducer(
     })),
     on(authActions.authError, (state, {error} ) => ({
         ...state,
-        isLoggedIn: false,
-        user: null,
         errorMessage: error
     })),
     on(authActions.register, (state, payload) => ({
