@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { UserService } from './../../../../core/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { logout } from '../../../../store/actions/auth.actions';
+import * as fromRoot from './../../../../store/reducers';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ import { logout } from '../../../../store/actions/auth.actions';
 export class DashboardComponent implements OnInit {
   $users: Observable<User[]>;
 
-  constructor(public userService: UserService, private store: Store) { }
+  constructor(public userService: UserService, private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.$users = this.userService.getUsersData();

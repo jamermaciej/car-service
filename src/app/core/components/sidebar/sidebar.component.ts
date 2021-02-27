@@ -7,6 +7,7 @@ import { FlowRoutes } from './../../enums/flow';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,7 +20,7 @@ export class SidebarComponent implements OnInit {
 
   navItems: NavItem[] = navItem;
 
-  constructor(private userService: UserService, private store: Store) { }
+  constructor(private userService: UserService, private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.user$ = this.store.select(getUser);

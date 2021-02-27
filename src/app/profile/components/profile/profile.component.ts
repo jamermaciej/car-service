@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,7 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
               private dialog: MatDialog,
               private formBuilder: FormBuilder,
-              private store: Store) {
+              private store: Store<fromRoot.State>) {
               }
 
   ngOnInit(): void {

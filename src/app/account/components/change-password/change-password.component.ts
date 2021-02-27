@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/core/services/user/user.service';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-change-password',
@@ -16,7 +17,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private dialogRef: MatDialogRef<ChangePasswordComponent>,
-              private store: Store) { }
+              private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.changePassword = this.formBuilder.group({

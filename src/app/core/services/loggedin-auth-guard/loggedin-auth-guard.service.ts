@@ -7,12 +7,13 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanL
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import * as routerActions from './../../../store/actions/router.actions';
+import * as fromRoot from './../../../store/reducers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoggedInAuthGuard implements CanLoad, CanActivate {
-  constructor(private userService: UserService, private router: Router, private store: Store) {}
+  constructor(private userService: UserService, private router: Router, private store: Store<fromRoot.State>) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

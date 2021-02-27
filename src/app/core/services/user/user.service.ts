@@ -15,6 +15,7 @@ import { switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
 import * as routerActions from './../../../store/actions/router.actions';
+import * as fromRoot from './../../../store/reducers';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class UserService {
 
   constructor(private af: AngularFireAuth,
               private afs: AngularFirestore,
-              private store: Store,
+              private store: Store<fromRoot.State>,
               private router: Router,
               private snackBar: MatSnackBar,
               private translocoService: TranslocoService) {

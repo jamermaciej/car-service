@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailDomain } from '../../../../assets/config.json';
 import { MatDialogRef } from '@angular/material/dialog';
 import { updateEmail } from 'src/app/store';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-change-email',
@@ -19,7 +20,7 @@ export class ChangeEmailComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private dialogRef: MatDialogRef<ChangeEmailComponent>,
-              private store: Store) { }
+              private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.changeEmail = this.formBuilder.group({

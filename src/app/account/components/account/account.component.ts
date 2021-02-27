@@ -1,16 +1,15 @@
 import { AlertService } from './../../../core/services/alert/alert-service';
 import { sendEmailVerification } from './../../../store/actions/auth.actions';
-import { Store } from '@ngrx/store';
 import { ChangeEmailComponent } from './../change-email/change-email.component';
 import { ChangePasswordComponent } from './../change-password/change-password.component';
 import { DeleteAccountComponent } from './../delete-account/delete-account.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from './../../../shared/models/user.model';
-import { UserService } from './../../../core/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
+import * as fromRoot from './../../../store/reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-account',
@@ -21,7 +20,7 @@ export class AccountComponent implements OnInit {
   user$: Observable<User>;
 
   constructor(private dialog: MatDialog,
-              private store: Store,
+              private store: Store<fromRoot.State>,
               private alertService: AlertService) { }
 
   ngOnInit(): void {

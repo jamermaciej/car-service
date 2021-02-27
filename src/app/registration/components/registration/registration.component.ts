@@ -11,6 +11,7 @@ import { FormBuilder, Validators, FormGroup, AbstractControl, FormControl } from
 import { emailDomain } from '../../../../assets/config.json';
 import { Platform } from '@angular/cdk/platform';
 import { register } from '../../../store/actions';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-registration',
@@ -28,7 +29,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private platform: Platform,
-              private store: Store) {
+              private store: Store<fromRoot.State>) {
     this.isMobile = this.platform.ANDROID || this.platform.IOS;
   }
 

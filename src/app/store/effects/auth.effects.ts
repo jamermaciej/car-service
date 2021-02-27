@@ -19,6 +19,7 @@ import { ofType } from '@ngrx/effects';
 import { from, of } from 'rxjs';
 import { FlowRoutes } from 'src/app/core/enums/flow';
 import { FirebaseErrors } from 'src/app/core/services/firebase-errors/firebase-errors.service';
+import * as fromRoot from './../reducers';
 
 @Injectable()
 export class AuthEffects {
@@ -30,7 +31,7 @@ export class AuthEffects {
         private translocoService: TranslocoService,
         private snackBar: MatSnackBar,
         private alertService: AlertService,
-        private store: Store
+        private store: Store<fromRoot.State>
     ) {}
 
     login$ = createEffect(() => this.actions$.pipe(

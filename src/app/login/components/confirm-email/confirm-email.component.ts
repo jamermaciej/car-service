@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { UserService } from './../../../core/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-confirm-email',
@@ -14,7 +15,7 @@ export class ConfirmEmailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private store: Store) { }
+              private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.code = this.activatedRoute.snapshot.queryParams['oobCode'];

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoWhitespaceValidator } from 'src/app/shared/validators/no-whitespace-validator';
 import { PasswordValidator } from 'src/app/shared/validators/password-validator';
 import { ActivatedRoute } from '@angular/router';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-confirm-password-reset',
@@ -21,7 +22,7 @@ export class ConfirmPasswordResetComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private store: Store) { }
+              private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.newPasswordForm = this.fb.group({

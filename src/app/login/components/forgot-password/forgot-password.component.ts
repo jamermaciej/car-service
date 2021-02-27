@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { sendPasswordResetEmail } from '../../../store/actions/auth.actions';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,7 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private userService: UserService,
               private location: Location,
-              private store: Store) { }
+              private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({

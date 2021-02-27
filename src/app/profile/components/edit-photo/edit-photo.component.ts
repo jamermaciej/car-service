@@ -8,6 +8,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-edit-photo',
@@ -26,7 +27,7 @@ export class EditPhotoComponent implements OnInit {
               private afStorage: AngularFireStorage,
               private userService: UserService,
               private af: AngularFireAuth,
-              private store: Store) { }
+              private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.user = this.data.user;

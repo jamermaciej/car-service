@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { login } from 'src/app/store/actions';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   flowRoutes = FlowRoutes;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private store: Store<{}>) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({

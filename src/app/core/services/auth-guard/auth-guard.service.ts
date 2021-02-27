@@ -6,14 +6,14 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Router, Route, CanActivateChild } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, take, tap, filter, switchMap, withLatestFrom } from 'rxjs/operators';
-import * as profileActions from 'src/app/profile/store/actions/profile.actions';
+import * as fromRoot from './../../../store/reducers';
 import * as routerActions from './../../../store/actions/router.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
-  constructor(private userService: UserService, private router: Router, private store: Store) {}
+  constructor(private userService: UserService, private router: Router, private store: Store<fromRoot.State>) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

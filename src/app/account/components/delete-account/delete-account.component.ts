@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EditPhotoComponent } from 'src/app/profile/components/edit-photo/edit-photo.component';
 import { deleteAccount } from 'src/app/store';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-delete-account',
@@ -17,7 +18,7 @@ export class DeleteAccountComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private dialogRef: MatDialogRef<EditPhotoComponent>,
-              private store: Store
+              private store: Store<fromRoot.State>
             ) { }
 
   ngOnInit(): void {
