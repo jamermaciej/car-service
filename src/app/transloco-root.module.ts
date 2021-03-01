@@ -11,6 +11,11 @@ import { Injectable, NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { locales } from './../assets/config.json';
 
+import {
+  TranslocoPersistTranslationsModule,
+  PERSIST_TRANSLATIONS_STORAGE
+} from '@ngneat/transloco-persist-translations';
+
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) {}
@@ -31,8 +36,16 @@ export class TranslocoHttpLoader implements TranslocoLoader {
         reRenderOnLangChange: true,
         prodMode: environment.production,
       })
-    },
-    { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader }
-  ]
+    }
+  ],
+  imports: [
+    TranslocoPersistTranslationsModule.init({
+      loader: TranslocoHttpLoader,
+      storage: {
+        provide: PERSIST_TRANSLATIONS_STORAGE,
+        useValue: localStorage
+      }
+    })
+],
 })
 export class TranslocoRootModule {}
