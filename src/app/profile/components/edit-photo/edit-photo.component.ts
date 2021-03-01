@@ -90,6 +90,10 @@ export class EditPhotoComponent implements OnInit {
         })
     ).subscribe(() => {});
   }
+
+  get header() {
+    return this.photoURL ? 'profile.edit_photo.header.edit_photo' : 'profile.edit_photo.header.add_photo';
+  }
 }
 
 export interface FileData {

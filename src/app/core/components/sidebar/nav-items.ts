@@ -2,7 +2,7 @@ import { FlowRoutes } from './../../enums/flow';
 
 export const navItem = [
     {
-        displayName: 'Dashboard',
+        displayName: 'sidebar.nav_item.dashboard',
         iconName: 'dashboard',
         route: FlowRoutes.DASHBOARD,
         // children: [
@@ -14,32 +14,32 @@ export const navItem = [
         // ]
       },
       {
-        displayName: 'Profile',
+        displayName: 'sidebar.nav_item.profile',
         iconName: 'person',
         route: FlowRoutes.PROFILE
       },
       {
-        displayName: 'Account',
+        displayName: 'sidebar.nav_item.account',
         iconName: 'lock',
         route: FlowRoutes.ACCOUNT
       },
       {
-        displayName: 'Orders service',
+        displayName: 'sidebar.nav_item.orders_service',
         iconName: 'calendar_today',
         route: FlowRoutes.ORDERS
       },
       {
-        displayName: 'Cars',
+        displayName: 'sidebar.nav_item.cars',
         iconName: 'directions_cars',
         route: FlowRoutes.CARS
       },
       {
-        displayName: 'Customers',
+        displayName: 'sidebar.nav_item.customers',
         iconName: 'people',
         route: FlowRoutes.CUSTOMERS
       },
       {
-        displayName: 'Settings',
+        displayName: 'sidebar.nav_item.settings',
         iconName: 'settings',
         route: FlowRoutes.SETTINGS
       }

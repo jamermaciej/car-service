@@ -1,36 +1,36 @@
 <section class="account" *ngIf="user$ | async as user">
   <div class="account-block">
-    <h2>Account</h2>
+    <h2>{{'account.header.my_account' | transloco}}</h2>
     <mat-divider></mat-divider>
-    <p>Your account has been created on <b>{{ user.createdAt | date }}</b>.</p>
+    <p>{{'account.created_at' | transloco}}<b> {{ user.createdAt | date }}</b>.</p>
   </div>
   <div class="account-block">
-    <h2>Verify email</h2>
+    <h2>{{'account.header.verify_email' | transloco}}</h2>
     <mat-divider></mat-divider>
-    <p>Your email {{ user.emailVerified ? 'is already verified' : 'is not verified yet. Please proceed at your convenience' }}.</p>
+    <p>{{emailStatus(user.emailVerified) | transloco}}</p>
     <button mat-stroked-button color="primary" [disabled]="user.emailVerified" (click)="sendEmailVerification()">
-      Verify your email
+      {{'account.button.verify_email' | transloco}}
     </button>
   </div>
   <div class="account-block">
-    <h2>Change email / password</h2>
+    <h2>{{'account.header.change_email_password' | transloco}}</h2>
     <mat-divider></mat-divider>
-    <p>This will change the credentials used for signin-in.</p>
+    <p>{{'account.subheader.change_email_password' | transloco}}</p>
     
       <button class="mr-5" mat-stroked-button color="primary" (click)="changeEmail()">
-        Change your email
+        {{'account.button.change_email' | transloco}}
       </button>
       <button mat-stroked-button color="primary" (click)="changePassword()">
-        Change your password
+        {{'account.button.change_password' | transloco}}
       </button>
   
   </div>
   <div class="account-block">
-    <h2>Delete account</h2>
+    <h2>{{'account.header.delete_account' | transloco}}</h2>
     <mat-divider></mat-divider>
-    <p>By proceeding you'll permanently delete all your data.</p>
+    <p>{{'account.subheader.delete_account' | transloco}}</p>
     <button mat-stroked-button color="warn" (click)="deleteAccount()">
-      Delete your account
+      {{'account.button.delete_account' | transloco}}
     </button>
   </div>
 </section>

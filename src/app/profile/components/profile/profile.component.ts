@@ -70,6 +70,14 @@ export class ProfileComponent implements OnInit {
       this.profileForm.markAllAsTouched();
     }
   }
+
+  get emailStatus() {
+    return this.user.emailVerified ? 'profile.email_status.verified' : 'profile.email_status.unverified';
+  }
+
+  get button() {
+    return this.user.photoURL ? 'profile.update_profile.button.change_photo' : 'profile.update_profile.button.add_photo';
+  }
 }
 
 export interface DialogData {

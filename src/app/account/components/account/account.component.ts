@@ -1,3 +1,4 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { AlertService } from './../../../core/services/alert/alert-service';
 import { sendEmailVerification } from './../../../store/actions/auth.actions';
 import { ChangeEmailComponent } from './../change-email/change-email.component';
@@ -21,7 +22,8 @@ export class AccountComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private store: Store<fromRoot.State>,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private translocoService: TranslocoService) { }
 
   ngOnInit(): void {
     this.user$ = this.store.select(getUser);
@@ -29,7 +31,8 @@ export class AccountComponent implements OnInit {
 
   sendEmailVerification() {
     this.store.dispatch(sendEmailVerification());
-    this.alertService.showAlert('Email verification has been send.', 'success');
+    const successMessage = this.translocoService.translate('account.message.success.verify_email');
+    this.alertService.showAlert(successMessage, 'success');
   }
 
   changeEmail() {
@@ -51,5 +54,9 @@ export class AccountComponent implements OnInit {
       panelClass: 'delete-account-dialog',
       autoFocus: false
     });
+  }
+
+  emailStatus(status: boolean) {
+    return status ? 'account.subheader.verify_email.verified' : 'account.subheader.verify_email.unverified';
   }
 }

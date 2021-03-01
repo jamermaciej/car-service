@@ -1,6 +1,6 @@
 <div class="delete-account">
-    <h2 mat-dialog-title>Delete account</h2>
-    <p>WARNING! Confirmimg with your password the account will be permanently deleted</p>
+    <h2 mat-dialog-title>{{'account.delete_account.header' | transloco}}</h2>
+    <p>{{'account.delete_account.subheader' | transloco}}</p>
     <mat-dialog-content class="mat-typography">
         <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
             <mat-form-field>
@@ -8,7 +8,7 @@
                 <input type="password" name="password" matInput formControlName="password">
                 <app-error-message [control]="passwordForm.get('password')"></app-error-message>
             </mat-form-field>
-            <button [disabled]="passwordForm.invalid" type="submit" mat-raised-button color="warn">Delete account</button>
+            <button [disabled]="passwordForm.invalid" type="submit" mat-raised-button color="warn">{{'account.delete_account.button.delete_account' | transloco}}</button>
         </form>
     </mat-dialog-content>
 </div>

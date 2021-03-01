@@ -87,7 +87,8 @@ export class AuthEffects {
         ofType(authActions.logoutSuccess),
         map(() => {
             localStorage.removeItem('user');
-            this.alertService.showAlert('Zostałeś wylogowany', 'success');
+            const successMessage = this.translocoService.translate('account.logout.message.success');
+            this.alertService.showAlert(successMessage, 'success');
             return routerActions.go({ path: [FlowRoutes.LOGIN] });
         })
     ), {
@@ -272,7 +273,7 @@ export class AuthEffects {
     changePasswordSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.changePasswordSuccess),
         map(() => {
-            const successMessage = this.translocoService.translate('Password updated!');
+            const successMessage = this.translocoService.translate('account.change_password.message.success');
             this.alertService.showAlert(successMessage, 'success', 2000);
         })
     ), {
@@ -304,7 +305,7 @@ export class AuthEffects {
     deleteAcctountSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.deleteAccountSuccess),
         map(() => {
-            const successMessage = this.translocoService.translate('Account deleted!');
+            const successMessage = this.translocoService.translate('account.delete_account.message.success');
             this.alertService.showAlert(successMessage, 'success', 2000);
             localStorage.removeItem('user');
             return routerActions.go({ path: [FlowRoutes.LOGIN] });
@@ -330,7 +331,7 @@ export class AuthEffects {
         withLatestFrom(this.store.select(getUser)),
         switchMap(([payload, currentUser]) => {
             if ( currentUser.email === payload.email ) {
-                const errorMessage = 'Podany email jest taki sam jak obecny.';
+                const errorMessage = this.translocoService.translate('account.update_email.message.error');
                 this.alertService.showAlert(errorMessage, 'error');
                 return of(authActions.authError({error: errorMessage}));
             }
@@ -347,7 +348,7 @@ export class AuthEffects {
     updateEmailSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.updateEmailSuccess),
         map((payload) => {
-            const successMessage = this.translocoService.translate('Email updated!');
+            const successMessage = this.translocoService.translate('account.update_email.message.success');
             this.alertService.showAlert(successMessage, 'success', 2000);
             localStorage.setItem('user', JSON.stringify(payload.user));
         })

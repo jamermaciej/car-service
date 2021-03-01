@@ -1,6 +1,6 @@
 <div class="change-email">
-    <h2 mat-dialog-title>Change email</h2>
-    <p>Please confirm by re-authenticating</p>
+    <h2 mat-dialog-title>{{'account.update_email.header' | transloco}}</h2>
+    <p>{{'account.update_email.subheader' | transloco}}</p>
     <mat-dialog-content class="mat-typography">
         <form [formGroup]="changeEmail" (ngSubmit)="onSubmit()">
             <mat-form-field>
@@ -13,7 +13,7 @@
                 <input type="email" name="email" formControlName="email" matInput>
                 <app-error-message [control]="changeEmail.get('email')"></app-error-message>
             </mat-form-field>
-            <button [disabled]="changeEmail.invalid" type="submit" mat-raised-button color="warn">Change email</button>
+            <button [disabled]="changeEmail.invalid" type="submit" mat-raised-button color="warn">{{'account.update_email.button.change_email' | transloco}}</button>
         </form>
     </mat-dialog-content>
 </div>

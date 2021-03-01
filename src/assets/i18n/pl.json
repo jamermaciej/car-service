@@ -1,4 +1,15 @@
 {
+	"sidebar": {
+		"nav_item": {
+			"dashboard": "Panel główny",
+			"profile": "Mój profil",
+			"account": "Moje konto",
+			"orders_service": "Zlecenia",
+			"cars": "Samochody",
+			"customers": "Klienci",
+			"settings": "Ustawienia"
+		}
+	},
 	"confirm_email": {
 		"message": {
 			"success": "Twój adres email został pomyślnie zweryfikowany."
@@ -109,12 +120,100 @@
 		},
 		"title": "Zarejestruj się"
 	},
+	"profile": {
+		"update_profile": {
+			"header": "Edytuj profil",
+			"label": {
+				"name": "Imię",
+				"phone_number": "Numer telefonu"
+			},
+			"button": {
+				"update_profile": "Aktualizuj",
+				"change_photo": "Edytuj zdjęcie",
+				"add_photo": "Dodaj zdjęcie"
+			}
+		},
+		"edit_photo": {
+			"header": {
+				"add_photo": "Dodaj zdjęcie",
+				"edit_photo": "Edytuj zdjęcie"
+			},
+			"button": {
+				"upload": "Wyślij",
+				"close": "Zamknij"
+			}
+		},
+		"email_status": {
+			"verified": "Email zweryfikowany",
+			"unverified": "Email niezweryfikowany"
+		}
+	},
 	"account": {
+		"header": {
+			"my_account": "Moje konto",
+			"verify_email": "Zweryfikuj swój email",
+			"change_email_password": "Zmień email / hasło",
+			"delete_account": "Usuń konto"
+		},
+		"subheader": {
+			"verify_email": {
+				"verified": "Twój adres email jest juz zweryfikowany.",
+				"unverified": "Twój adres email nie został jeszcze zweryfikowany. Proszę to zrobić w dowolnym momencie."
+			},
+			"change_email_password": "Dane logowania do twojego konta zostana zmienione.",
+			"delete_account": "Postępując w ten sposób trwale usuniesz wszystkie swoje dane."	
+		},
+		"button": {
+			"verify_email": "Weryfikuje email",
+			"change_email": "Zmień email",
+			"change_password": "Zmień hasło",
+			"delete_account": "Usuń konto"
+		},
+		"message": {
+			"success": {
+				"verify_email": "Email eryfikacyjny został wysłany."
+			}
+		},
+		"created_at": "Twoje konto zostało założone",
+		"logout": {
+			"message": {
+				"success": "Zostałeś wylogowany."
+			}
+		},
 		"change_password": {
+			"header": "Zmień email",
+			"subheader": "Podaj swoje hasło aby potwierdzić twoje dane",
+			"button": {
+				"change_password": "Zmień email"
+			},
+			"message": {
+				"success": "Hasło zaktualizowane."
+			},
 			"error": {
 				"new_password": {
 					"same_passwords": "Hasła muszą być różne."
 				}
+			}
+		},
+		"update_email": {
+			"header": "Zmień email",
+			"subheader": "Podaj swoje hasło aby potwierdzić twoje dane",
+			"button": {
+				"change_email": "Zmień email"
+			},
+			"message": {
+				"success": "Email zaktualizowany!",
+				"error": "Podany email jest taki sam jak obecny."
+			}
+		},
+		"delete_account": {
+			"header": "Usuń konto",
+			"subheader": "OSTRZEŻENIE! Potwierdź OSTRZEŻENIE! Potwierdź swoje hasło, konto zostanie trwale usunięte",
+			"button": {
+				"delete_account": "Usuń"
+			},
+			"message": {
+				"success": "Konto usunięte!"
 			}
 		}
 	}
