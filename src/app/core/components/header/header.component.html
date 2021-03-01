@@ -1,6 +1,11 @@
-<header>
+<header class="header">
     <mat-icon (click)="onToolbarMenuToggle()">subject</mat-icon>
-    <button mat-icon-button color="accent" aria-label="Logout" (click)="logout()">
-        <mat-icon>logout</mat-icon>
-    </button>
+    <div class="header__right">
+        <button mat-icon-button color="accent" aria-label="Logout" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+        </button>
+        <div class="lang-switcher-wrapper">
+            <app-lang></app-lang>
+        </div>
+    </div>
 </header>
