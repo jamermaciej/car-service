@@ -184,7 +184,7 @@
 			"header": "Change password",
 			"subheader": "Please confirm by re-authenticating",
 			"button": {
-				"change_email": "Change password"
+				"change_password": "Change password"
 			},
 			"message": {
 				"success": "Password updated!"
