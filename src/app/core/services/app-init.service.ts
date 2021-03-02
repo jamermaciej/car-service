@@ -10,8 +10,8 @@ export class AppInitService {
 
     Init(): Promise<any> {
         return new Promise<void>(resolve => {
-          const browserLang = getBrowserLang();
-          this.translocoService.setActiveLang(browserLang.match(/en|pl/) ? browserLang : 'pl');
+          // const browserLang = getBrowserLang();
+          // this.translocoService.setActiveLang(browserLang.match(/en|pl/) ? browserLang : 'pl');
 
           // const uid = JSON.parse(localStorage.getItem('user')).uid;
           // this.store.dispatch(profileActions.getUser({ uid }));
