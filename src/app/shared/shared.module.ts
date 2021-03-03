@@ -5,10 +5,9 @@ import { ErrorMessageComponent } from './components/error-message/error-message/
 import { HintComponent } from './components/hint/hint/hint.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { TranslocoModule } from '@ngneat/transloco';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
-    declarations: [ErrorMessageComponent, HintComponent, LogoComponent, LoadingSpinnerComponent],
+    declarations: [ErrorMessageComponent, HintComponent, LogoComponent],
     imports: [
         CommonModule,
         TranslocoModule

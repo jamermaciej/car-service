@@ -1,5 +1,3 @@
-import { RegisterData } from './../../shared/models/register-data.model';
-import { Creditionals } from './../../shared/models/creditionals.model';
 import { User } from './../../shared/models/user.model';
 import { createAction, props } from '@ngrx/store';
 

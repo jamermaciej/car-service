@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
+import { LoadingSpinnerComponent } from '../shared/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,8 @@ import { MenuListItemComponent } from './components/menu-list-item/menu-list-ite
         FooterComponent,
         HeaderComponent,
         SidebarComponent,
-        MenuListItemComponent
+        MenuListItemComponent,
+        LoadingSpinnerComponent
     ],
     imports: [
         CommonModule,
@@ -41,8 +44,9 @@ import { MenuListItemComponent } from './components/menu-list-item/menu-list-ite
         MatBadgeModule,
         MatListModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressSpinnerModule
     ],
-    exports: [LangComponent]
+    exports: [LangComponent, LoadingSpinnerComponent]
 })
 export class CoreModule {}
