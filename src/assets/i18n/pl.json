@@ -2,6 +2,8 @@
 	"sidebar": {
 		"nav_item": {
 			"dashboard": "Panel główny",
+			"admin": "Panel administracyjny",
+			"users": "Użytkownicy",
 			"profile": "Mój profil",
 			"account": "Moje konto",
 			"orders_service": "Zlecenia",

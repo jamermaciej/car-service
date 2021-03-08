@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { TranslocoService } from '@ngneat/transloco';
-import { Roles } from './../../enums/roles';
+import { Role } from './../../enums/roles';
 import { FlowRoutes } from './../../enums/flow';
 import { FirebaseErrors } from './../firebase-errors/firebase-errors.service';
 import { RegisterData } from './../../../shared/models/register-data.model';
@@ -94,7 +94,7 @@ export class UserService {
         phoneNumber: user.phoneNumber,
         createdAt: user.metadata.creationTime,
         lastLoginAt: user.metadata.lastSignInTime,
-        roles: [Roles.CUSTOMER]
+        roles: [Role.CUSTOMER]
       };
 
       userRef.set(data, { merge: true });

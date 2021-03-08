@@ -4,14 +4,19 @@ export const navItem = [
     {
         displayName: 'sidebar.nav_item.dashboard',
         iconName: 'dashboard',
-        route: FlowRoutes.DASHBOARD,
-        // children: [
-        //   {
-        //     displayName: 'Car List',
-        //     iconName: 'list',
-        //     route: '/dashboard/admin',
-        //   }
-        // ]
+        route: FlowRoutes.DASHBOARD
+      },
+      {
+        displayName: 'sidebar.nav_item.admin',
+        iconName: 'admin_panel_settings',
+        route: FlowRoutes.ADMIN,
+        children: [
+          {
+            displayName: 'sidebar.nav_item.users',
+            iconName: 'list',
+            route: FlowRoutes.USERS,
+          }
+        ]
       },
       {
         displayName: 'sidebar.nav_item.profile',

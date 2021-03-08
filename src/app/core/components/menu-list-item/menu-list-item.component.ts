@@ -22,7 +22,7 @@ import * as fromRoot from './../../../store/reducers';
   ]
 })
 export class MenuListItemComponent implements OnInit {
-  expanded: boolean;
+  expanded = false;
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
   @Input() item: NavItem;
   @Input() depth = 0;

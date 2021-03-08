@@ -5,9 +5,11 @@ import { User } from './../../../shared/models/user.model';
 import { UserService } from './../../services/user/user.service';
 import { FlowRoutes } from './../../enums/flow';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
 import * as fromRoot from './../../../store/reducers';
+import { map } from 'rxjs/operators';
+import { Role } from '../../enums/roles';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,5 +26,15 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.store.select(getUser);
+  }
+
+  isAdminItem(item: string) {
+    return item === FlowRoutes.ADMIN ? this.isAdmin : of(true);
+  }
+
+  get isAdmin(): Observable<boolean> {
+    return this.user$.pipe(
+      map(user => user && user.roles.some(role => role === Role.ADMIN))
+    );
   }
 }

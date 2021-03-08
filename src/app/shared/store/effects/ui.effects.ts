@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 
 import * as authActions from './../../../store/actions/auth.actions';
+import * as usersActions from './../../../admin/store/actions';
 
 import { tap } from 'rxjs/operators';
 
@@ -21,7 +22,8 @@ export class UIEffects {
     showSpinner$ = createEffect(() => this.actions$.pipe(
         ofType(
             authActions.login,
-            authActions.register
+            authActions.register,
+            usersActions.getUsers
         ),
         tap(() => this.store.dispatch(uiActions.startLoading()))
     ), {
@@ -33,7 +35,9 @@ export class UIEffects {
             authActions.loginSuccess,
             authActions.loginFailure,
             authActions.registerSuccess,
-            authActions.registerFailure
+            authActions.registerFailure,
+            usersActions.getUsersSuccess,
+            usersActions.getUsersFailure
         ),
         tap(() => this.store.dispatch(uiActions.stopLoading()))
     ), {

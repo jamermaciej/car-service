@@ -9,5 +9,7 @@
 </div>
 
 <mat-nav-list>
-    <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+    <ng-container *ngFor="let item of navItems">
+        <app-menu-list-item *ngIf="isAdminItem(item.route) | async" [item]="item"></app-menu-list-item>
+    </ng-container>
 </mat-nav-list>

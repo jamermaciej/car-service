@@ -5,6 +5,8 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate, CanLoad } from '@angular/router';
 import { LayoutComponent } from './core/components/layout/layout.component';
+import { Role } from './core/enums/roles';
+import { UserRoleGuard } from './core/services/user-role-guard/user-role-guard.service';
 
 
 const routes: Routes = [
@@ -23,6 +25,15 @@ const routes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
         data: {
           title: 'Dashboard'
+        }
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        canLoad: [UserRoleGuard],
+        data: {
+          title: 'Admin',
+          roles: Role.ADMIN
         }
       },
       {

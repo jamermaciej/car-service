@@ -3,6 +3,8 @@ export enum FlowRoutes {
     REGISTRAION = '/registration',
     LOGIN = '/login',
     DASHBOARD = '/dashboard',
+    ADMIN = '/admin',
+    USERS = '/admin/users',
     PROFILE = '/profile',
     ACCOUNT = '/account',
     ORDERS = '/orders',

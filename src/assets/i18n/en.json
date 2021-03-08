@@ -2,6 +2,8 @@
 	"sidebar": {
 		"nav_item": {
 			"dashboard": "Dashboard",
+			"admin": "Admin",
+			"users": "Users",
 			"profile": "Profile",
 			"account": "Account",
 			"orders_service": "Orders service",
