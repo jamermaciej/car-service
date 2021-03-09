@@ -8,6 +8,7 @@ export enum FlowRoutes {
     PROFILE = '/profile',
     ACCOUNT = '/account',
     ORDERS = '/orders',
+    ADD_ORDERS = '/orders/add',
     CARS = '/cars',
     CUSTOMERS = '/customers',
     SETTINGS = '/settings',
