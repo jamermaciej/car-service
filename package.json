@@ -44,6 +44,7 @@
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
     "bootstrap": "^4.5.0",
+    "c": "^1.1.1",
     "firebase": "^7.14.0",
     "jquery": "^3.5.1",
     "ngrx-store-localstorage": "^11.0.0",

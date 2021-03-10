@@ -64,6 +64,13 @@ const routes: Routes = [
           title: 'Cars'
         }
       },
+      {
+        path: 'customers',
+        loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule),
+        data: {
+          title: 'Customers'
+        }
+      }
     ]
   },
   {

@@ -1,0 +1,46 @@
+<div class="add-new-customer">
+    <h2 mat-dialog-title>Add new customer</h2>
+    <p>After add new customer you see him on customers <br> list and in customer select on order service screen.</p>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input type="text" name="name" matInput formControlName="name">
+                <!-- <app-error-message [control]="changeEmail.get('password')"></app-error-message> -->
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Surname</mat-label>
+                <input type="text" name="surname" matInput formControlName="surname">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone number</mat-label>
+                <input type="tel" name="phoneNumber" matInput formControlName="phoneNumber">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Street</mat-label>
+                <input type="text" name="street" matInput formControlName="street">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>City</mat-label>
+                <input type="text" name="city" matInput formControlName="city">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>ID number</mat-label>
+                <input type="text" name="idNumber" matInput formControlName="idNumber">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Postcode</mat-label>
+                <input type="text" name="postcode" matInput formControlName="postcode">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input type="email" name="email" matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Notes</mat-label>
+                <textarea name="notes" matInput formControlName="notes"></textarea>
+            </mat-form-field>
+            <button type="submit" mat-raised-button color="warn">Add customer</button>
+        </form>
+    </mat-dialog-content>
+</div>

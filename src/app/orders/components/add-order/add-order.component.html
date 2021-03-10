@@ -1,3 +1,15 @@
 <section class="add_order">
-    <form></form>
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-select class="lang" #langSelect [value]="1" name="lang" id="lang">
+                <mat-option>
+                    <button (click)="addCustomer()">Add new customer</button>
+                </mat-option>
+                <mat-option *ngFor="let customer of customers" [value]="customer.name">
+                    {{ customer.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary">add order</button>
+    </form>
 </section>
