@@ -6,28 +6,28 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CarrService {
+export class CarService {
   customer$: Observable<Car>;
 
   constructor(private http: HttpClient) { }
 
-  getCustomers(): Observable<Car[]> {
+  getCars(): Observable<Car[]> {
     return this.http.get<Car[]>('http://localhost:3001/cars');
   }
 
-  getCustomer(uid: string): Observable<Car> {
+  getCar(uid: string): Observable<Car> {
     return this.http.get<Car>(`http://localhost:3001/cars/${uid}`);
   }
 
-  addCustomer(car: Car): Observable<Car> {
+  addCar(car: Car): Observable<Car> {
     return this.http.post<Car>('http://localhost:3001/cars', car);
   }
 
-  updateCustomer(uid: string, car: Car): Observable<Car> {
+  updateCar(uid: string, car: Car): Observable<Car> {
     return this.http.put<Car>(`http://localhost:3001/cars/${uid}`, car);
   }
 
-  deleteCustomer(uid: string): Observable<Car> {
+  deleteCar(uid: string): Observable<Car> {
     return this.http.delete<Car>(`http://localhost:3001/cars/${uid}`);
   }
 

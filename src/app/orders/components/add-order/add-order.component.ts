@@ -12,6 +12,7 @@ import { MatSelect } from '@angular/material/select';
 import { map } from 'rxjs/internal/operators/map';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Car } from 'src/app/shared/models/car.model';
+import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
 
 @Component({
   selector: 'app-add-order',
@@ -42,6 +43,9 @@ export class AddOrderComponent implements OnInit {
 
     this.customers$ = this.store.select(getCustomers);
     this.filteredCustomers$ = this.customers$;
+
+    this.cars$ = this.store.select(getCars);
+    this.filteredCars$ = this.cars$;
   }
 
   onSubmit() {
@@ -57,14 +61,13 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
-
   changeCar() {
-    // const id = this.carsSelect.value;
-    // this.store.select(getCar, { id }).subscribe((car: Car) => {
-    //   this.selectedCar = car;
+    const id = this.carsSelect.value;
+    this.store.select(getCar, { id }).subscribe((car: Car) => {
+      this.selectedCar = car;
 
-    //   this.orderForm.get('car_id').setValue(id);
-    // });
+      this.orderForm.get('car_id').setValue(id);
+    });
   }
 
   addCustomer() {

@@ -23,7 +23,9 @@ import { LoadingSpinnerComponent } from '../shared/components/loading-spinner/lo
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as customersReducer from './../customers/store/reducer';
+import * as carsReducer from './../cars/store/reducer';
 import { CustomersEffects } from './../customers/store/effects';
+import { CarsEffects } from './../cars/store/effects';
 
 @NgModule({
     declarations: [
@@ -51,7 +53,8 @@ import { CustomersEffects } from './../customers/store/effects';
         MatButtonModule,
         MatProgressSpinnerModule,
         StoreModule.forFeature('customers', customersReducer.reducer),
-        EffectsModule.forFeature([CustomersEffects])
+        StoreModule.forFeature('cars', carsReducer.reducer),
+        EffectsModule.forFeature([CustomersEffects, CarsEffects])
     ],
     exports: [LangComponent, LoadingSpinnerComponent]
 })

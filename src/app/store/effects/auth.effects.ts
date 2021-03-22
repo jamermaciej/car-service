@@ -12,6 +12,7 @@ import { Injectable } from '@angular/core';
 import * as authActions from '../actions/auth.actions';
 import * as routerActions from '../actions/router.actions';
 import * as customersActions from '../../customers/store/actions';
+import * as carsActions from '../../cars/store/actions';
 
 import { map, switchMap, mergeMap, tap, catchError, delay, filter, concatMap, withLatestFrom } from 'rxjs/operators';
 
@@ -55,6 +56,7 @@ export class AuthEffects {
             const url = router.state.queryParams['returnUrl'];
             return [
                 customersActions.loadCustomers(),
+                carsActions.loadCars(),
                 routerActions.go({ path: [ url ? url : FlowRoutes.DASHBOARD ] })
             ];
         })

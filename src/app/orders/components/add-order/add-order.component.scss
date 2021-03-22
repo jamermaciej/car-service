@@ -4,7 +4,8 @@ mat-icon {
 }
 
 .add-order {
-    .add-customer {
+    .add-customer,
+    .add-car {
         padding: 20px 0;
         width: 300px;
         margin-right: 15px;
@@ -16,7 +17,8 @@ mat-icon {
     }
 }
 
-.search-customer {
+.search-customer,
+.search-car {
     padding-top: 10px;
     margin: 0 16px;
     width: calc(100% - 32px);
