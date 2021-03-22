@@ -1,0 +1,54 @@
+<form [formGroup]="carForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col col-6">
+            <mat-form-field>
+                <mat-label>Brand *</mat-label>
+                <input type="text" name="brand" matInput formControlName="brand">
+                <app-error-message [control]="carForm.get('brand')"></app-error-message>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Model *</mat-label>
+                <input type="text" name="model" matInput formControlName="model">
+                <app-error-message [control]="carForm.get('model')"></app-error-message>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Type *</mat-label>
+                <input type="text" name="type" matInput formControlName="type">
+                <app-error-message [control]="carForm.get('type')"></app-error-message>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Year *</mat-label>
+                <input type="text" name="year" matInput formControlName="year">
+                <app-error-message [control]="carForm.get('year')"></app-error-message>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Registration *</mat-label>
+                <input type="text" name="registration" matInput formControlName="registration">
+                <app-error-message [control]="carForm.get('registration')"></app-error-message>
+            </mat-form-field>
+        </div>
+        <div class="col col-6" formGroupName="address">
+            <mat-form-field>
+                <mat-label>Mileage</mat-label>
+                <input type="text" name="mileage" matInput formControlName="mileage">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>VIN</mat-label>
+                <input type="text" name="vin" matInput formControlName="vin">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Capacity</mat-label>
+                <input type="text" name="capacity" matInput formControlName="capacity">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Power</mat-label>
+                <input type="text" name="power" matInput formControlName="power">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Fuel</mat-label>
+                <input type="text" name="fuel" matInput formControlName="fuel">
+            </mat-form-field>
+        </div>
+        <button *ngIf="!car" [disabled]="carForm.invalid" type="submit" mat-raised-button color="warn">Add car</button>
+    </div>
+</form>
