@@ -21,7 +21,7 @@ import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
 })
 export class AddOrderComponent implements OnInit {
   @ViewChild('customersSelect') customersSelect: MatSelect;
-  @ViewChild('carSelect') carsSelect: MatSelect;
+  @ViewChild('carsSelect') carsSelect: MatSelect;
   orderForm: FormGroup;
   customerForm: FormGroup;
   customers$: Observable<Customer[]>;

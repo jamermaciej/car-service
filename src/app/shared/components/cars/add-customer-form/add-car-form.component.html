@@ -26,15 +26,15 @@
                 <input type="text" name="registration" matInput formControlName="registration">
                 <app-error-message [control]="carForm.get('registration')"></app-error-message>
             </mat-form-field>
+            <mat-form-field>
+                <mat-label>VIN</mat-label>
+                <input type="text" name="vin" matInput formControlName="vin">
+            </mat-form-field>
         </div>
         <div class="col col-6">
             <mat-form-field>
                 <mat-label>Mileage</mat-label>
                 <input type="text" name="mileage" matInput formControlName="mileage">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>VIN</mat-label>
-                <input type="text" name="vin" matInput formControlName="vin">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Capacity</mat-label>
