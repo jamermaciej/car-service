@@ -1,5 +1,5 @@
 export interface Car {
-    uid: string;
+    _id: string;
     brand: string;
     model: string;
     type: string; // kombi, sedan

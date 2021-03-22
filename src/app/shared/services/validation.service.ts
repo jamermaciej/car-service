@@ -23,6 +23,21 @@ export class ValidationService {
       'idNumber': {
         'required': 'customer.error.idNumber.required',
       },
+      'brand': {
+        'required': 'customer.error.brand.required',
+      },
+      'model': {
+        'required': 'customer.error.model.required',
+      },
+      'type': {
+        'required': 'customer.error.type.required',
+      },
+      'year': {
+        'required': 'customer.error.year.required',
+      },
+      'registration': {
+        'required': 'customer.error.registration.required',
+      },
       'email': {
         'required': 'register.error.email.required',
         'email': 'register.error.email.invalid',

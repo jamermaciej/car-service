@@ -31,7 +31,22 @@
                 <mat-card-title>Add new car or select existing from select list</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                car
+                <mat-form-field class="add-car">
+                    <mat-select #carsSelect (selectionChange)="changeCar()" name="cars" id="cars" placeholder="Add car or select exist">
+                        <mat-option class="add-car__label" (click)="addCar()">
+                            <mat-icon>add</mat-icon>
+                            <span>Add new car</span>
+                        </mat-option>
+                        <mat-form-field class="search-car">
+                            <input type="text" name="search" matInput (keyup)="filterCars($event.target.value)" placeholder="Search car...">
+                        </mat-form-field>
+                        <mat-option *ngFor="let car of filteredCars$ | async" [value]="car._id">
+                            {{ car.brand }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button [hidden]="!customersSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelect()">clear select</button>
+    
             </mat-card-content>
         </mat-card>
 

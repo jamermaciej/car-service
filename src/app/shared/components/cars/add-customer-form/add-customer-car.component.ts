@@ -24,17 +24,16 @@ export class AddCarFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {
     this.carForm = this.formBuilder.group({
-      name: ['', [RequiredValidator.required]],
-      surname: ['', [RequiredValidator.required]],
-      phoneNumber: ['', [RequiredValidator.required]],
-      address: this.formBuilder.group({
-        street: [''],
-        city: [''],
-        province: [''],
-        postcode: ['']
-      }),
-      idNumber: ['', [RequiredValidator.required]],
-      email: ['', [RequiredValidator.required]]
+      brand: ['', [RequiredValidator.required]],
+      model: ['', [RequiredValidator.required]],
+      type: ['', [RequiredValidator.required]],
+      year: ['', [RequiredValidator.required]],
+      registration: ['', [RequiredValidator.required]],
+      mileage: ['', [RequiredValidator.required]],
+      vin: ['', [RequiredValidator.required]],
+      capacity: ['', [RequiredValidator.required]],
+      power: ['', [RequiredValidator.required]],
+      fuel: ['', [RequiredValidator.required]]
     });
   }
 

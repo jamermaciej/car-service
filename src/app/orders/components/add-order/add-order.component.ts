@@ -1,3 +1,4 @@
+import { AddCarModalComponent } from './../../../cars/components/add-car-modal/add-car-modal.component';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -10,6 +11,7 @@ import { Customer } from 'src/app/shared/models/customer.model';
 import { MatSelect } from '@angular/material/select';
 import { map } from 'rxjs/internal/operators/map';
 import { tap } from 'rxjs/internal/operators/tap';
+import { Car } from 'src/app/shared/models/car.model';
 
 @Component({
   selector: 'app-add-order',
@@ -18,11 +20,15 @@ import { tap } from 'rxjs/internal/operators/tap';
 })
 export class AddOrderComponent implements OnInit {
   @ViewChild('customersSelect') customersSelect: MatSelect;
+  @ViewChild('carSelect') carsSelect: MatSelect;
   orderForm: FormGroup;
   customerForm: FormGroup;
   customers$: Observable<Customer[]>;
+  cars$: Observable<Car[]>;
   selectedCustomer: Customer;
+  selectedCar: Car;
   filteredCustomers$: Observable<Customer[]>;
+  filteredCars$: Observable<Car[]>;
 
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private store: Store) { }
 
@@ -51,9 +57,26 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
+
+  changeCar() {
+    // const id = this.carsSelect.value;
+    // this.store.select(getCar, { id }).subscribe((car: Car) => {
+    //   this.selectedCar = car;
+
+    //   this.orderForm.get('car_id').setValue(id);
+    // });
+  }
+
   addCustomer() {
     this.dialog.open(AddCustomerModalComponent, {
       panelClass: 'add-customer-dialog',
+      autoFocus: false
+    });
+  }
+
+  addCar() {
+    this.dialog.open(AddCarModalComponent, {
+      panelClass: 'add-car-dialog',
       autoFocus: false
     });
   }
@@ -65,6 +88,12 @@ export class AddOrderComponent implements OnInit {
   filterCustomers(value) {
     this.filteredCustomers$ = this.customers$.pipe(
       map(customers => customers.filter(customer => customer.surname.toLowerCase().startsWith(value)))
+    );
+  }
+
+  filterCars(value) {
+    this.filteredCars$ = this.cars$.pipe(
+      map(cars => cars.filter(car => car.brand.toLowerCase().startsWith(value)))
     );
   }
 }

@@ -1,6 +1,6 @@
-import { CarsComponent } from './cars/cars.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CarsComponent } from './components/cars/cars.component';
 
 
 const routes: Routes = [
