@@ -19,7 +19,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <button [hidden]="!customersSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelect()">clear select</button>
+                <button [hidden]="!customersSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelectCustomer()">clear select</button>
     
                 <app-add-customer-form *ngIf="customersSelect.value" [customer]="selectedCustomer"></app-add-customer-form>
                 
@@ -45,7 +45,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <button [hidden]="!carsSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelect()">clear select</button>
+                <button [hidden]="!carsSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelectCar()">clear select</button>
     
                 <app-add-car-form *ngIf="carsSelect.value" [car]="selectedCar"></app-add-car-form>
 

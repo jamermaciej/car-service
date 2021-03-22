@@ -84,8 +84,12 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
-  clearSelect() {
+  clearSelectCustomer() {
     this.customersSelect.value = null;
+  }
+
+  clearSelectCar() {
+    this.carsSelect.value = null;
   }
 
   filterCustomers(value) {
