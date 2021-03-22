@@ -1,6 +1,9 @@
+import { Customer } from './../../../shared/models/customer.model';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { CustomerService } from '../../services/customer.service';
+import * as fromCustomers from '../../store';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-customer-modal',
@@ -8,27 +11,19 @@ import { CustomerService } from '../../services/customer.service';
   styleUrls: ['./add-customer-modal.component.scss']
 })
 export class AddCustomerModalComponent implements OnInit {
-  customerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService,
+              private store: Store<fromCustomers.State>,
+              private dialogRef: MatDialogRef<AddCustomerModalComponent>,
+            ) { }
 
   ngOnInit(): void {
-    this.customerForm = this.formBuilder.group({
-      name: [''],
-      surname: [''],
-      phoneNumber: [''],
-      street: [''],
-      city: [''],
-      idNumber: [''],
-      postcode: [''],
-      email: [''],
-      notes: ['']
-    });
+
   }
 
-  onSubmit() {
-    console.log(this.customerForm.value);
-    this.customerService.addCustomer(this.customerForm.value);
+  addCustomer(customer: Customer) {
+    this.store.dispatch(fromCustomers.addCustomer({ customer }));
+    this.dialogRef.close();
   }
 
 }

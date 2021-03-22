@@ -1,15 +1,51 @@
-<section class="add_order">
+<section class="add-order">
     <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-        <mat-form-field>
-            <mat-select class="lang" #langSelect [value]="1" name="lang" id="lang">
-                <mat-option>
-                    <button (click)="addCustomer()">Add new customer</button>
-                </mat-option>
-                <mat-option *ngFor="let customer of customers" [value]="customer.name">
-                    {{ customer.name }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <button type="submit" mat-raised-button color="primary">add order</button>
+        <mat-card class="customer-card">
+            <mat-card-header>
+                <mat-card-title>Add new customer or select existing from select list</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field class="add-customer">
+                    <mat-select #customersSelect (selectionChange)="changeCustomer()" name="customers" id="customers" placeholder="Add customer or select exist">
+                        <mat-option class="add-customer__label" (click)="addCustomer()">
+                            <mat-icon>add</mat-icon>
+                            <span>Add new customer</span>
+                        </mat-option>
+                        <mat-form-field class="search-customer">
+                            <input type="text" name="search" matInput (keyup)="filterCustomers($event.target.value)" placeholder="Search customer...">
+                        </mat-form-field>
+                        <mat-option *ngFor="let customer of filteredCustomers$ | async" [value]="customer._id">
+                            {{ customer.name }} {{ customer.surname }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button [hidden]="!customersSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelect()">clear select</button>
+    
+                <app-add-customer-form *ngIf="customersSelect.value" [customer]="selectedCustomer"></app-add-customer-form>
+                
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="car-card">
+            <mat-card-header>
+                <mat-card-title>Add new car or select existing from select list</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                car
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-form-field>
+                <mat-label>Date *</mat-label>
+                <input type="text" name="date" matInput formControlName="date">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Notes</mat-label>
+                <textarea name="notes" matInput formControlName="notes"></textarea>
+            </mat-form-field>
+        </mat-card>
+
+        <button [disabled]="orderForm.invalid" type="submit" mat-raised-button color="primary" class="btn-add-order">add order</button>
     </form>
 </section>

@@ -20,7 +20,13 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-    return localStorageSync({keys: ['auth'], rehydrate: true})(reducer);
+    return localStorageSync({
+      keys: [
+        'auth',
+        'customers'
+      ],
+      rehydrate: true
+    })(reducer);
   }
 
 export const metaReducers: MetaReducer<any>[] = !environment.production

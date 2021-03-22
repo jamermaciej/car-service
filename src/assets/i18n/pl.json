@@ -87,6 +87,7 @@
 				"required": "Adres email jest wymagany."
 			},
 			"name": {
+				"required": "Imię jest wymagane.",
 				"maxLength": "Imię może mieć maksymalnie {{ requiredLength }} znaków.",
 				"minLength": "Imię musi mieć minimum {{ requiredLength }} znaki."
 			},
@@ -216,6 +217,19 @@
 			},
 			"message": {
 				"success": "Konto usunięte!"
+			}
+		}
+	},
+	"customer": {
+		"error": {
+			"surname": {
+				"required": "Nazwisko jest wymagane."
+			},
+			"phoneNumber": {
+				"required": "Numer telefonu jest wymagany."
+			},
+			"idNumber": {
+				"required": "Number dowodu osobistego jest wymagany."
 			}
 		}
 	}

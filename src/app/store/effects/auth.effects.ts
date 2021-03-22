@@ -11,8 +11,9 @@ import { Injectable } from '@angular/core';
 
 import * as authActions from '../actions/auth.actions';
 import * as routerActions from '../actions/router.actions';
+import * as customersActions from '../../customers/store/actions';
 
-import { map, switchMap, mergeMap, tap, catchError, delay, withLatestFrom, filter} from 'rxjs/operators';
+import { map, switchMap, mergeMap, tap, catchError, delay, filter, concatMap, withLatestFrom } from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -50,9 +51,12 @@ export class AuthEffects {
         ofType(authActions.loginSuccess),
         tap(({ user }) => localStorage.setItem('user', JSON.stringify(user))),
         withLatestFrom(this.store.select(getRouterState)),
-        map(([, router]) => {
+        concatMap(([, router]) => {
             const url = router.state.queryParams['returnUrl'];
-            return routerActions.go({ path: [ url ? url : FlowRoutes.DASHBOARD ] });
+            return [
+                customersActions.loadCustomers(),
+                routerActions.go({ path: [ url ? url : FlowRoutes.DASHBOARD ] })
+            ];
         })
     ), {
         dispatch: true

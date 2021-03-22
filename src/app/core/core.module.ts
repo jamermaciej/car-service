@@ -20,6 +20,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
 import { LoadingSpinnerComponent } from '../shared/components/loading-spinner/loading-spinner.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import * as customersReducer from './../customers/store/reducer';
+import { CustomersEffects } from './../customers/store/effects';
 
 @NgModule({
     declarations: [
@@ -45,7 +49,9 @@ import { LoadingSpinnerComponent } from '../shared/components/loading-spinner/lo
         MatListModule,
         MatCardModule,
         MatButtonModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        StoreModule.forFeature('customers', customersReducer.reducer),
+        EffectsModule.forFeature([CustomersEffects])
     ],
     exports: [LangComponent, LoadingSpinnerComponent]
 })

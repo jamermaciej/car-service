@@ -1,4 +1,3 @@
-import { metaReducers } from './store/reducer/';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -26,7 +25,7 @@ import { StoreModule } from '@ngrx/store';
     MatInputModule,
     MatIconModule,
     MatSortModule,
-    StoreModule.forFeature('users', fromUsers.reducer, { metaReducers }),
+    StoreModule.forFeature('users', fromUsers.reducer),
     EffectsModule.forFeature([fromUsers.UsersEffects])
   ]
 })

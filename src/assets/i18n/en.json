@@ -87,6 +87,7 @@
 				"required": "Email is required."
 			},
 			"name": {
+				"required": "Name is required.",
 				"maxLength": "Name must be less than {{ requiredLength }} characters.",
 				"minLength": "Name must be greater than {{ requiredLength }} characters."
 			},
@@ -216,6 +217,19 @@
 			},
 			"message": {
 				"success": "Account deleted!"
+			}
+		}
+	},
+	"customer": {
+		"error": {
+			"surname": {
+				"required": "Surname is required."
+			},
+			"phoneNumber": {
+				"required": "Phone number is required."
+			},
+			"idNumber": {
+				"required": "ID number is required."
 			}
 		}
 	}

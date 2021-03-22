@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,8 +10,6 @@ import { CustomersRoutingModule } from './customers-routing.module';
 import { AddCustomerModalComponent } from './components/add-customer-modal/add-customer-modal.component';
 import { MatInputModule } from '@angular/material/input';
 
-
-
 @NgModule({
   declarations: [CustomersComponent, AddCustomerModalComponent],
   imports: [
@@ -20,7 +19,8 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    SharedModule
   ]
 })
 export class CustomersModule { }

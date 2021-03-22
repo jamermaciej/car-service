@@ -1,3 +1,5 @@
+import { SharedModule } from './../shared/shared.module';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,7 +37,9 @@ import { MatInputModule } from '@angular/material/input';
     MatSortModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    SharedModule
   ]
 })
 export class OrdersModule { }

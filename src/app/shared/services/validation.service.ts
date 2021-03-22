@@ -14,6 +14,15 @@ export class ValidationService {
         'minlength': `register.error.name.minLength`,
         'maxlength': `register.error.name.maxLength`
       },
+      'surname': {
+        'required': 'customer.error.surname.required',
+      },
+      'phoneNumber': {
+        'required': 'customer.error.phoneNumber.required',
+      },
+      'idNumber': {
+        'required': 'customer.error.idNumber.required',
+      },
       'email': {
         'required': 'register.error.email.required',
         'email': 'register.error.email.invalid',
