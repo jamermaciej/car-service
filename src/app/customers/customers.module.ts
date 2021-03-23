@@ -1,3 +1,6 @@
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from './../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +23,10 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
-    SharedModule
+    MatTableModule,
+    MatPaginatorModule,
+    SharedModule,
+    MatIconModule
   ]
 })
 export class CustomersModule { }
