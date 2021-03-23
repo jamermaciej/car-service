@@ -13,6 +13,7 @@ import * as authActions from '../actions/auth.actions';
 import * as routerActions from '../actions/router.actions';
 import * as customersActions from '../../customers/store/actions';
 import * as carsActions from '../../cars/store/actions';
+import * as usersActions from '../../admin/store/actions';
 
 import { map, switchMap, mergeMap, tap, catchError, delay, filter, concatMap, withLatestFrom } from 'rxjs/operators';
 
@@ -57,6 +58,7 @@ export class AuthEffects {
             return [
                 customersActions.loadCustomers(),
                 carsActions.loadCars(),
+                usersActions.getUsers(),
                 routerActions.go({ path: [ url ? url : FlowRoutes.DASHBOARD ] })
             ];
         })

@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(fromUsers.getUsers());
+    // this.store.dispatch(fromUsers.getUsers());
   }
 
   ngAfterViewInit() {
