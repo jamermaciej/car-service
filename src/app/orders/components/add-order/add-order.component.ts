@@ -13,6 +13,9 @@ import { map } from 'rxjs/internal/operators/map';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Car } from 'src/app/shared/models/car.model';
 import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
+import { User } from 'src/app/shared/models/user.model';
+import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-order',
@@ -31,14 +34,29 @@ export class AddOrderComponent implements OnInit {
   filteredCustomers$: Observable<Customer[]>;
   filteredCars$: Observable<Car[]>;
 
+  users$: Observable<User[]>;
+
+  statuses = [
+    {
+      name: 'status',
+    },
+    {
+      name: 'status2'
+    }
+  ];
+
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private store: Store) { }
 
   ngOnInit(): void {
     this.orderForm = this.formBuilder.group({
       customer_id: ['', RequiredValidator.required],
       car_id: ['', RequiredValidator.required],
-      date: '',
-      notes: ''
+      delivery_date: [''],
+      deadline: [''],
+      user: [''],
+      status: [''],
+      notes: [''],
+      test_drive_agree: ['']
     });
 
     this.customers$ = this.store.select(getCustomers);
@@ -46,6 +64,8 @@ export class AddOrderComponent implements OnInit {
 
     this.cars$ = this.store.select(getCars);
     this.filteredCars$ = this.cars$;
+
+    this.users$ = this.store.select(getUsers);
   }
 
   onSubmit() {

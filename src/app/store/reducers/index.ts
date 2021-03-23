@@ -24,7 +24,8 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
       keys: [
         'auth',
         'customers',
-        'cars'
+        'cars',
+        'users'
       ],
       rehydrate: true
     })(reducer);

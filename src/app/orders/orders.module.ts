@@ -1,3 +1,4 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SharedModule } from './../shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -15,7 +16,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -39,6 +41,9 @@ import { MatInputModule } from '@angular/material/input';
     MatSelectModule,
     MatDialogModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     SharedModule
   ]
 })
