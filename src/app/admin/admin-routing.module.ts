@@ -1,3 +1,4 @@
+import { StatusesComponent } from './components/statuses/statuses.component';
 import { UsersComponent } from './components/users/users.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,10 @@ const routes: Routes = [
     {
       path: 'users',
       component: UsersComponent
+    },
+    {
+      path: 'statuses',
+      component: StatusesComponent
     }
 ];
 

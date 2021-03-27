@@ -14,7 +14,7 @@ const carsReducer = createReducer(
     initialState,
     on(carsActions.addCarSuccess, (state, { car } ) => ({
         ...state,
-        customers: [...state.cars, car]
+        cars: [...state.cars, car]
     })),
     on(carsActions.laodCarsSuccess, (state, { cars } ) => ({
         ...state,

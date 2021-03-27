@@ -16,6 +16,8 @@ import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
 import { User } from 'src/app/shared/models/user.model';
 import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
 import { filter } from 'rxjs/operators';
+import { Status } from 'src/app/shared/models/status.model';
+import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 
 @Component({
   selector: 'app-add-order',
@@ -36,14 +38,7 @@ export class AddOrderComponent implements OnInit {
 
   users$: Observable<User[]>;
 
-  statuses = [
-    {
-      name: 'status',
-    },
-    {
-      name: 'status2'
-    }
-  ];
+  statuses$: Observable<Status[]>;
 
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private store: Store) { }
 
@@ -66,6 +61,8 @@ export class AddOrderComponent implements OnInit {
     this.filteredCars$ = this.cars$;
 
     this.users$ = this.store.select(getUsers);
+
+    this.statuses$ = this.store.select(getStatuses);
   }
 
   onSubmit() {

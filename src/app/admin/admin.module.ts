@@ -1,3 +1,7 @@
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from './../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -9,12 +13,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
-import * as fromUsers from './store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
+import { StatusesComponent } from './components/statuses/statuses.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AdminComponent, UsersComponent],
+  declarations: [AdminComponent, UsersComponent, StatusesComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -25,8 +28,11 @@ import { StoreModule } from '@ngrx/store';
     MatInputModule,
     MatIconModule,
     MatSortModule,
-    StoreModule.forFeature('users', fromUsers.reducer),
-    EffectsModule.forFeature([fromUsers.UsersEffects])
+    MatButtonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    MatListModule,
+    MatCardModule
   ]
 })
 export class AdminModule { }

@@ -35,6 +35,12 @@ export class ValidationService {
       'year': {
         'required': 'customer.error.year.required',
       },
+      'label': {
+        'required': 'customer.error.label.required',
+      },
+      'value': {
+        'required': 'customer.error.value.required',
+      },
       'registration': {
         'required': 'customer.error.registration.required',
       },

@@ -26,6 +26,11 @@ import * as customersReducer from './../customers/store/reducer';
 import * as carsReducer from './../cars/store/reducer';
 import { CustomersEffects } from './../customers/store/effects';
 import { CarsEffects } from './../cars/store/effects';
+import { UsersEffects } from './../admin/store/effects';
+import { StatusesEffects } from './../admin/store/effects';
+import * as fromAdmin from './../admin/store';
+import * as usersReducer from './../admin/store/reducer/users.reducer';
+import * as statusesReducer from './../admin/store/reducer/statuses.reducer';
 
 @NgModule({
     declarations: [
@@ -54,7 +59,9 @@ import { CarsEffects } from './../cars/store/effects';
         MatProgressSpinnerModule,
         StoreModule.forFeature('customers', customersReducer.reducer),
         StoreModule.forFeature('cars', carsReducer.reducer),
-        EffectsModule.forFeature([CustomersEffects, CarsEffects])
+        StoreModule.forFeature('users', usersReducer.reducer),
+        StoreModule.forFeature('statuses', statusesReducer.reducer),
+        EffectsModule.forFeature([CustomersEffects, CarsEffects, UsersEffects, StatusesEffects])
     ],
     exports: [LangComponent, LoadingSpinnerComponent]
 })

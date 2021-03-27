@@ -15,6 +15,11 @@ export const navItem = [
             displayName: 'sidebar.nav_item.users',
             iconName: 'list',
             route: FlowRoutes.USERS,
+          },
+          {
+            displayName: 'sidebar.nav_item.statuses',
+            iconName: 'list',
+            route: FlowRoutes.STATUSES,
           }
         ]
       },
