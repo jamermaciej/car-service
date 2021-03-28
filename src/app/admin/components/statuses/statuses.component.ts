@@ -1,3 +1,4 @@
+import { removeStatus } from './../../store/actions/statuses.actions';
 import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
@@ -26,12 +27,30 @@ export class StatusesComponent implements OnInit {
     });
 
     this.statuses$ = this.store.select(getStatuses);
+
+    this.statusesForm.get('label').valueChanges.subscribe((v) => {
+      this.createValue(v);
+    });
+  }
+
+  createValue(value: string) {
+    const label = value?.toLowerCase().split(' ').join('_');
+    this.statusesForm.get('value').setValue(label);
   }
 
   addStatus() {
     const status = this.statusesForm.value;
+    console.log(status);
     this.store.dispatch(addStatus({ status }));
     this.formDirective.resetForm();
+  }
+
+  removeStatus(id: number) {
+    this.store.dispatch(removeStatus({ id }));
+  }
+
+  editStatus(id: number) {
+
   }
 
 }

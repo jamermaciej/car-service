@@ -14,7 +14,8 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Order status value *</mat-label>
-                            <input type="text" name="value" matInput formControlName="value">
+                            <input type="text" name="value" matInput formControlName="value" readonly>
+                            <mat-hint>Create automatically</mat-hint>
                             <app-error-message [control]="statusesForm.get('value')"></app-error-message>
                         </mat-form-field>
                 
@@ -32,8 +33,8 @@
                     <mat-list role="list" *ngFor="let status of statuses$ | async">
                         <mat-list-item role="listitem">
                             <span class="status-label">{{ status.label }}</span>
-                            <mat-icon>edit</mat-icon>
-                            <mat-icon color="warn">delete</mat-icon>
+                            <mat-icon (click)="editStatus(status.id)">edit</mat-icon>
+                            <mat-icon color="warn" (click)="removeStatus(status.id)">delete</mat-icon>
                         </mat-list-item>
                     </mat-list>
                 </mat-card-content>

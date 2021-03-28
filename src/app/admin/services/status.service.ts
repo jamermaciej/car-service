@@ -20,7 +20,6 @@ export class StatusService {
 //   }
 
   addStatus(status: Status): Observable<Status> {
-    console.log(status);
     return this.http.post<Status>('http://localhost:3001/statuses', status);
   }
 
@@ -28,8 +27,8 @@ export class StatusService {
 //     return this.http.put<Car>(`http://localhost:3001/cars/${uid}`, car);
 //   }
 
-//   deleteCar(uid: string): Observable<Car> {
-//     return this.http.delete<Car>(`http://localhost:3001/cars/${uid}`);
-//   }
+  deleteStatus(id: number): Observable<Status> {
+    return this.http.delete<Status>(`http://localhost:3001/statuses/${id}`);
+  }
 
 }

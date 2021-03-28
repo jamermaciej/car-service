@@ -34,6 +34,16 @@ export class StatusesEffects {
         dispatch: true
     });
 
+    removeStatus$ = createEffect(() => this.actions$.pipe(
+        ofType(statusesActions.removeStatus),
+        switchMap((paylaod) => this.statusService.deleteStatus(paylaod.id).pipe(
+            map((status: Status) => statusesActions.removeStatusSuccess({ status })),
+            catchError((error) => of(statusesActions.removeStatusFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
     getStatuses$ = createEffect(() => this.actions$.pipe(
         ofType(statusesActions.getStatuses),
         switchMap(() => this.statusService.getStatuses().pipe(

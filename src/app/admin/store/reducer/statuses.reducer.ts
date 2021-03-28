@@ -16,6 +16,10 @@ const statusesReducer = createReducer(
         ...state,
         statuses: [ ...state.statuses, status ]
     })),
+    on(statusesActions.removeStatusSuccess, (state, { status }) => ({
+        ...state,
+        statuses: state.statuses.filter(s => s.id !== status.id)
+    })),
     on(statusesActions.getStatusesSuccess, (state, { statuses }) => ({
         ...state,
         statuses
