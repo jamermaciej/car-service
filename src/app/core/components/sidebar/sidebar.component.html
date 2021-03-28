@@ -2,12 +2,14 @@
     <img src="../../../../assets//images/logo.svg" alt="Car Service">
     <h1>Car Service</h1>
 </div>
-<div class="user" *ngIf="user | async as user">
+<div class="user" *ngIf="user$ | async as user">
     <div class="avatar" [style.background-image]="user.photoURL ? 'url(' + user.photoURL + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
     <div class="name">{{ user.displayName }}</div>
     <div class="email">{{ user.email }}</div>
 </div>
 
 <mat-nav-list>
-    <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+    <ng-container *ngFor="let item of navItems">
+        <app-menu-list-item *ngIf="isAdminItem(item.route) | async" [item]="item"></app-menu-list-item>
+    </ng-container>
 </mat-nav-list>

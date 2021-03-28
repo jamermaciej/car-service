@@ -1,0 +1,25 @@
+.statuses {
+
+    &__form {
+        form {
+            padding: 20px 0;
+            max-width: 300px;
+    
+            button {
+                display: block;
+                margin-top: 20px;
+            }
+        }
+    }
+
+    &__list {
+        .status-label {
+            width: 175px;
+        }
+
+        mat-icon {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    }
+}

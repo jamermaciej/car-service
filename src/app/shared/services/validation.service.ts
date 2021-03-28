@@ -14,6 +14,36 @@ export class ValidationService {
         'minlength': `register.error.name.minLength`,
         'maxlength': `register.error.name.maxLength`
       },
+      'surname': {
+        'required': 'customer.error.surname.required',
+      },
+      'phoneNumber': {
+        'required': 'customer.error.phoneNumber.required',
+      },
+      'idNumber': {
+        'required': 'customer.error.idNumber.required',
+      },
+      'brand': {
+        'required': 'customer.error.brand.required',
+      },
+      'model': {
+        'required': 'customer.error.model.required',
+      },
+      'type': {
+        'required': 'customer.error.type.required',
+      },
+      'year': {
+        'required': 'customer.error.year.required',
+      },
+      'label': {
+        'required': 'customer.error.label.required',
+      },
+      'value': {
+        'required': 'customer.error.value.required',
+      },
+      'registration': {
+        'required': 'customer.error.registration.required',
+      },
       'email': {
         'required': 'register.error.email.required',
         'email': 'register.error.email.invalid',
@@ -34,6 +64,9 @@ export class ValidationService {
       },
       'terms': {
         'required': 'register.error.terms.required'
+      },
+      'newPassword': {
+        'samePasswords': 'account.change_password.error.new_password.same_passwords'
       }
     };
 

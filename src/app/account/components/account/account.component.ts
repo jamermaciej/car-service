@@ -1,12 +1,16 @@
+import { TranslocoService } from '@ngneat/transloco';
+import { AlertService } from './../../../core/services/alert/alert-service';
+import { sendEmailVerification } from './../../../store/actions/auth.actions';
 import { ChangeEmailComponent } from './../change-email/change-email.component';
 import { ChangePasswordComponent } from './../change-password/change-password.component';
 import { DeleteAccountComponent } from './../delete-account/delete-account.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from './../../../shared/models/user.model';
-import { UserService } from './../../../core/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { getUser } from 'src/app/store/selectors/auth.selectors';
+import * as fromRoot from './../../../store/reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-account',
@@ -16,18 +20,19 @@ import { MatDialog } from '@angular/material/dialog';
 export class AccountComponent implements OnInit {
   user$: Observable<User>;
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,
+              private store: Store<fromRoot.State>,
+              private alertService: AlertService,
+              private translocoService: TranslocoService) { }
 
   ngOnInit(): void {
-    this.user$ = this.userService.user$;
+    this.user$ = this.store.select(getUser);
   }
 
-  async sendEmailVerification() {
-    await this.userService.sendEmailVerification();
-    this.snackBar.open('Email verification has been send.', '', {
-      duration: 15000,
-      panelClass: 'success'
-    });
+  sendEmailVerification() {
+    this.store.dispatch(sendEmailVerification());
+    const successMessage = this.translocoService.translate('account.message.success.verify_email');
+    this.alertService.showAlert(successMessage, 'success');
   }
 
   changeEmail() {
@@ -49,5 +54,9 @@ export class AccountComponent implements OnInit {
       panelClass: 'delete-account-dialog',
       autoFocus: false
     });
+  }
+
+  emailStatus(status: boolean) {
+    return status ? 'account.subheader.verify_email.verified' : 'account.subheader.verify_email.unverified';
   }
 }

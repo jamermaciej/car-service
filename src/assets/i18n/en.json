@@ -1,4 +1,18 @@
 {
+	"sidebar": {
+		"nav_item": {
+			"dashboard": "Dashboard",
+			"admin": "Admin",
+			"users": "Users",
+			"statuses": "Statuses",
+			"profile": "Profile",
+			"account": "Account",
+			"orders_service": "Orders service",
+			"cars": "Cars",
+			"customers": "Customers",
+			"settings": "Settings"
+		}
+	},
 	"confirm_email": {
 		"message": {
 			"success": "Your email address has been verified successfully."
@@ -52,7 +66,8 @@
 		"forgot_password": "Forgot your password?",
 		"label": {
 			"email": "Yor Email *",
-			"password": "Your password *"
+			"password": "Your password *",
+			"newPassword": "Your new password *"
 		},
 		"no_account": "Don't have an account?",
 		"title": "Sign in"
@@ -73,6 +88,7 @@
 				"required": "Email is required."
 			},
 			"name": {
+				"required": "Name is required.",
 				"maxLength": "Name must be less than {{ requiredLength }} characters.",
 				"minLength": "Name must be greater than {{ requiredLength }} characters."
 			},
@@ -107,5 +123,115 @@
 			"success": "You have successfully registered and logged in. Please verify your email address."
 		},
 		"title": "Sing up"
+	},
+	"profile": {
+		"update_profile": {
+			"header": "Edit Profile",
+			"label": {
+				"name": "Name",
+				"phone_number": "Phone number"
+			},
+			"button": {
+				"update_profile": "Update profile",
+				"change_photo": "Change photo",
+				"add_photo": "Add photo"
+			}
+		},
+		"edit_photo": {
+			"header": {
+				"add_photo": "Add photo",
+				"edit_photo": "Edit photo"
+			},
+			"button": {
+				"upload": "Upload",
+				"close": "Close"
+			}
+		},
+		"email_status": {
+			"verified": "Email verified",
+			"unverified": "Email unverified"
+		}
+	},
+	"account": {
+		"header": {
+			"my_account": "My account",
+			"verify_email": "Verify your email",
+			"change_email_password": "Change email / password",
+			"delete_account": "Delete account"
+		},
+		"subheader": {
+			"verify_email": {
+				"verified": "Your email is already verified.",
+				"unverified": "Your email is not verified yet. Please proceed at your convenience."
+			},
+			"change_email_password": "This will change the credentials used for signin-in.",
+			"delete_account": "By proceeding you'll permanently delete all your data."	
+		},
+		"button": {
+			"verify_email": "Verify your email",
+			"change_email": "Change your email",
+			"change_password": "Change your password",
+			"delete_account": "Delete your account"
+		},
+		"message": {
+			"success": {
+				"verify_email": "Email verification has been send."
+			}
+		},
+		"created_at": "Your account has been created on",
+		"logout": {
+			"message": {
+				"success": "You have been logged out."
+			}
+		},
+		"change_password": {
+			"header": "Change password",
+			"subheader": "Please confirm by re-authenticating",
+			"button": {
+				"change_password": "Change password"
+			},
+			"message": {
+				"success": "Password updated!"
+			},
+			"error": {
+				"new_password": {
+					"same_passwords": "Passwords must be different."
+				}
+			}
+		},
+		"update_email": {
+			"header": "Change email",
+			"subheader": "Please confirm by re-authenticating",
+			"button": {
+				"change_email": "Change email"
+			},
+			"message": {
+				"success": "Email updated!",
+				"error": "The email provided is the same as the current email."
+			}
+		},
+		"delete_account": {
+			"header": "Delete account",
+			"subheader": "WARNING! Confirmimg with your password the account will be permanently deleted",
+			"button": {
+				"delete_account": "Delete account"
+			},
+			"message": {
+				"success": "Account deleted!"
+			}
+		}
+	},
+	"customer": {
+		"error": {
+			"surname": {
+				"required": "Surname is required."
+			},
+			"phoneNumber": {
+				"required": "Phone number is required."
+			},
+			"idNumber": {
+				"required": "ID number is required."
+			}
+		}
 	}
 }

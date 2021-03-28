@@ -9,6 +9,13 @@ import {
 } from '@ngneat/transloco';
 import { Injectable, NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
+import { locales } from './../assets/config.json';
+
+import {
+  TranslocoPersistTranslationsModule,
+  PERSIST_TRANSLATIONS_STORAGE
+} from '@ngneat/transloco-persist-translations';
+import { TranslocoPersistLangModule, TRANSLOCO_PERSIST_LANG_STORAGE } from '@ngneat/transloco-persist-lang';
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
@@ -19,19 +26,41 @@ export class TranslocoHttpLoader implements TranslocoLoader {
   }
 }
 
+export function getLangFn({ cachedLang, browserLang, cultureLang, defaultLang }) {
+  // default return cachedLang or defaultLang
+  const isBrowserLangSupported = locales.supported_locales.some((local => local === browserLang));
+  const lang = isBrowserLangSupported ? browserLang : defaultLang;
+  return cachedLang ? cachedLang : lang;
+}
+
 @NgModule({
   exports: [ TranslocoModule ],
   providers: [
     {
       provide: TRANSLOCO_CONFIG,
       useValue: translocoConfig({
-        availableLangs: ['pl', 'en'],
-        defaultLang: 'pl',
+        availableLangs: locales.supported_locales,
+        defaultLang: locales.default_locale,
         reRenderOnLangChange: true,
         prodMode: environment.production,
       })
-    },
-    { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader }
-  ]
+    }
+  ],
+  imports: [
+    TranslocoPersistTranslationsModule.init({
+      loader: TranslocoHttpLoader,
+      storage: {
+        provide: PERSIST_TRANSLATIONS_STORAGE,
+        useValue: localStorage
+      }
+    }),
+    TranslocoPersistLangModule.init({
+      getLangFn,
+      storage: {
+        provide: TRANSLOCO_PERSIST_LANG_STORAGE,
+        useValue: localStorage
+      }
+    })
+],
 })
 export class TranslocoRootModule {}

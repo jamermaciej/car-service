@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { UserService } from './../../../core/services/user/user.service';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { EmailValidator } from './../../../shared/validators/email-validator';
@@ -5,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailDomain } from '../../../../assets/config.json';
 import { MatDialogRef } from '@angular/material/dialog';
+import { updateEmail } from 'src/app/store';
+import * as fromRoot from './../../../store/reducers';
 
 @Component({
   selector: 'app-change-email',
@@ -14,7 +17,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ChangeEmailComponent implements OnInit {
   changeEmail: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private dialogRef: MatDialogRef<ChangeEmailComponent>) { }
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private dialogRef: MatDialogRef<ChangeEmailComponent>,
+              private store: Store<fromRoot.State>) { }
 
   ngOnInit(): void {
     this.changeEmail = this.formBuilder.group({
@@ -25,7 +31,7 @@ export class ChangeEmailComponent implements OnInit {
 
   onSubmit() {
     const { password, email } = this.changeEmail.value;
-    this.userService.updateEmail(password, email);
+    this.store.dispatch(updateEmail({ password, email }));
     this.dialogRef.close();
   }
 }

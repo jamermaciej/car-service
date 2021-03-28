@@ -1,0 +1,50 @@
+.mat-row {
+    padding: 10px 0;
+}
+
+.mat-column-id {
+    flex: 0 1 75px;
+}
+
+.mat-column-photoURL {
+    flex: 0 1 100px;
+}
+
+.mat-column-displayName {
+    flex: 0 1 175px;
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mat-column-emailVerified {
+    justify-content: center;
+}
+
+.email-verify {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+        margin-right: 5px;
+    }
+    
+    &.verified {
+        .mat-icon {
+            color: green;
+        }
+    }
+
+    &.unverified {
+        .mat-icon {
+            color: red;
+        }
+    }
+}

@@ -1,15 +1,19 @@
+import { getUser, isLoggedIn } from './../../../store/selectors/auth.selectors';
+import { Store } from '@ngrx/store';
 import { FlowRoutes } from './../../enums/flow';
 import { UserService } from './../user/user.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Router, Route, CanActivateChild } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, take, tap, filter, switchMap, withLatestFrom } from 'rxjs/operators';
+import * as fromRoot from './../../../store/reducers';
+import * as routerActions from './../../../store/actions/router.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private store: Store<fromRoot.State>) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -21,7 +25,7 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
           if (user && route.data && roles.indexOf(route.data.roles) !== -1) {
             return true;
           } else {
-            this.router.navigate([FlowRoutes.DASHBOARD]);
+            this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
             return false;
           }
         })
@@ -29,21 +33,30 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
   }
 
   canLoad(route: Route): Observable<boolean> {
-    return this.userService.user$.pipe(
+    return this.store.select(isLoggedIn).pipe(
       take(1),
-      map(user => !!user),
+      withLatestFrom(this.store.select(getUser)),
+      map(([isLogged, user]) => {
+        // if ( isLogged && !user ) {
+        //   const uid = JSON.parse(localStorage.getItem('user')).uid;
+        //   this.store.dispatch(profileActions.getUser({uid}));
+        // }
+        return isLogged;
+      }),
       tap(loggedIn => {
-        if (!loggedIn) this.router.navigate([FlowRoutes.LOGIN], { queryParams: { returnUrl: route.path }});
+        if (!loggedIn) {
+          this.store.dispatch(routerActions.go({path: [FlowRoutes.LOGIN], extras: { queryParams: { returnUrl: route.path } } }));
+        }
       })
     );
   }
 
   canActivateChild(): Observable<boolean> {
-    return this.userService.user$.pipe(
+    return this.store.select(isLoggedIn).pipe(
       take(1),
-      map(user => !!user),
+      map((isLogged) => isLogged),
       tap(loggedIn => {
-        if (!loggedIn) this.router.navigate([FlowRoutes.LOGIN]);
+        if (!loggedIn) this.store.dispatch(routerActions.go({ path: [FlowRoutes.LOGIN] }));
       })
     );
   }

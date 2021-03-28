@@ -1,9 +1,19 @@
-header {
+.header {
     padding: 20px 30px;
     border-bottom: 1px solid #ddd;
     background: #f4f3ef;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    &__right {
+        display: flex;
+        align-items: center;
+
+        .lang-switcher-wrapper {
+            margin-left: 20px;
+        }
+    }
 
     mat-icon {
         cursor: pointer;

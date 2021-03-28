@@ -3,14 +3,17 @@ import { AuthGuard } from './core/services/auth-guard/auth-guard.service';
 import { TermsComponent } from './core/components/terms/terms.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate, CanLoad } from '@angular/router';
 import { LayoutComponent } from './core/components/layout/layout.component';
+import { Role } from './core/enums/roles';
+import { UserRoleGuard } from './core/services/user-role-guard/user-role-guard.service';
 
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -20,9 +23,17 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-        canLoad: [AuthGuard],
         data: {
           title: 'Dashboard'
+        }
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        canLoad: [UserRoleGuard],
+        data: {
+          title: 'Admin',
+          roles: Role.ADMIN
         }
       },
       {
@@ -40,13 +51,26 @@ const routes: Routes = [
         }
       },
       {
+        path: 'orders',
+        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+        data: {
+          title: 'Orders'
+        }
+      },
+      {
         path: 'cars',
         loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
-        canLoad: [AuthGuard],
         data: {
           title: 'Cars'
         }
       },
+      {
+        path: 'customers',
+        loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule),
+        data: {
+          title: 'Customers'
+        }
+      }
     ]
   },
   {
@@ -78,7 +102,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

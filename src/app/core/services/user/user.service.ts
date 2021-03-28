@@ -1,5 +1,6 @@
+import { Store } from '@ngrx/store';
 import { TranslocoService } from '@ngneat/transloco';
-import { Roles } from './../../enums/roles';
+import { Role } from './../../enums/roles';
 import { FlowRoutes } from './../../enums/flow';
 import { FirebaseErrors } from './../firebase-errors/firebase-errors.service';
 import { RegisterData } from './../../../shared/models/register-data.model';
@@ -13,6 +14,8 @@ import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
+import * as routerActions from './../../../store/actions/router.actions';
+import * as fromRoot from './../../../store/reducers';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,7 @@ export class UserService {
 
   constructor(private af: AngularFireAuth,
               private afs: AngularFirestore,
+              private store: Store<fromRoot.State>,
               private router: Router,
               private snackBar: MatSnackBar,
               private translocoService: TranslocoService) {
@@ -42,24 +46,29 @@ export class UserService {
     });
   }
 
-  updateUser(user: firebase.User) {
+  async updateUser(user: firebase.User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-    userRef.ref.get().then(value => {
-      if (value.exists) {
-        const data: User = {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName || value.get('displayName'),
-          photoURL: user.photoURL,
-          emailVerified: user.emailVerified,
-          phoneNumber: user.phoneNumber || value.get('phoneNumber'),
-          createdAt: user.metadata.creationTime,
-          lastLoginAt: user.metadata.lastSignInTime,
-          roles: value.get('roles')
-        };
-        this.updateUserData(data);
-      }
-    });
+    const userData = await userRef.ref.get();
+
+    let data: User;
+
+    if (userData.exists) {
+      data = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || userData.get('displayName'),
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        phoneNumber: user.phoneNumber || userData.get('phoneNumber'),
+        createdAt: user.metadata.creationTime,
+        lastLoginAt: user.metadata.lastSignInTime,
+        roles: userData.get('roles')
+      };
+    }
+
+    this.updateUserData(data);
+
+    return data;
   }
 
   async signInWithGoogle() {
@@ -67,14 +76,13 @@ export class UserService {
     provider.addScope('profile');
     provider.addScope('email');
     const user = await this.af.signInWithPopup(provider);
-    this.router.navigate([FlowRoutes.DASHBOARD]);
+    this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
   }
 
   async register(registerData: RegisterData) {
     try {
       const { name, email, password } = registerData;
       const user = (await this.af.createUserWithEmailAndPassword(email, password)).user;
-      localStorage.setItem('user', JSON.stringify(user));
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
       const data = {
@@ -86,44 +94,24 @@ export class UserService {
         phoneNumber: user.phoneNumber,
         createdAt: user.metadata.creationTime,
         lastLoginAt: user.metadata.lastSignInTime,
-        roles: [Roles.CUSTOMER]
+        roles: [Role.CUSTOMER]
       };
 
       userRef.set(data, { merge: true });
 
-      this.sendEmailVerification();
-
-      this.router.navigate([FlowRoutes.DASHBOARD]);
-
-      const successMessage = this.translocoService.translate('register.message.success');
-      this.snackBar.open(successMessage, '', {
-        duration: 15000,
-        panelClass: 'success'
-      });
+      return data;
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      console.log(errorMessage);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
   async login(email: string, password: string) {
     try {
       const user = (await this.af.signInWithEmailAndPassword(email, password)).user;
-      localStorage.setItem('user', JSON.stringify(user));
-      this.updateUser(user);
-      this.router.navigate([FlowRoutes.DASHBOARD]);
+      const userData = await this.updateUser(user);
+      return userData;
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
@@ -133,20 +121,8 @@ export class UserService {
       await this.refresh(password);
       this.userFirebase.delete();
       this.deleteUserData(this.userFirebase.uid);
-      localStorage.removeItem('user');
-      this.router.navigate([FlowRoutes.LOGIN]);
-      const successMessage = this.translocoService.translate('konto usuniete');
-      this.snackBar.open(successMessage, '', {
-        duration: 15000,
-        panelClass: 'success'
-      });
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
@@ -167,39 +143,20 @@ export class UserService {
         ...this.userFirebase,
         email
       };
-      this.updateUser(user);
+      const newUser = await this.updateUser(user);
 
-      const successMessage = this.translocoService.translate('Email updated!');
-      this.snackBar.open(successMessage, '', {
-        duration: 15000,
-        panelClass: 'success'
-      });
+      return newUser;
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
-  async changePassword(password: string) {
+  async changePassword(oldPassword: string, newPassword: string) {
     try {
-      await this.userFirebase.updatePassword(password);
-
-      const successMessage = this.translocoService.translate('haslo zapdejtowany');
-      this.snackBar.open(successMessage, '', {
-        duration: 15000,
-        panelClass: 'success'
-      });
+      await this.refresh(oldPassword);
+      await this.userFirebase.updatePassword(newPassword);
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
@@ -207,97 +164,56 @@ export class UserService {
     try {
       (await this.af.currentUser).sendEmailVerification();
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
   async sendPasswordResetEmail(email: string) {
     try {
       await this.af.sendPasswordResetEmail(email);
-      this.router.navigate([FlowRoutes.LOGIN]);
-
-      const successMessage = this.translocoService.translate('forgot_password.message.success.send', { email });
-      this.snackBar.open(successMessage, '', {
-        duration: 15000,
-        panelClass: 'success'
-      });
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
   async updatePassword(code: string, password: string) {
     try {
       await this.af.confirmPasswordReset(code, password);
-      this.router.navigate([FlowRoutes.LOGIN]);
-      const successMessage = this.translocoService.translate('forgot_password.message.success.update');
-      this.snackBar.open(successMessage, '', {
-        duration: 15000,
-        panelClass: 'success'
-      });
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      const errorMessage = this.translocoService.translate(errorKey);
-      this.snackBar.open(errorMessage, '', {
-        duration: 2000,
-        panelClass: 'error'
-      });
+      throw error;
     }
   }
 
   async confirmEmail(code: string) {
     try {
       await this.af.applyActionCode(code);
-      setTimeout(() => {
-        const successMessage = this.translocoService.translate('confirm_email.message.success');
-        this.snackBar.open(successMessage, '', {
-          duration: 2000,
-          panelClass: 'success'
-        });
-      }, 100);
     } catch (error) {
-      const errorKey = FirebaseErrors.Parse(error.code);
-      setTimeout(() => {
-        const errorMessage = this.translocoService.translate(errorKey);
-        this.snackBar.open(errorMessage, '', {
-          duration: 2000,
-          panelClass: 'error'
-        });
-      }, 100);
+      throw error;
     }
-    this.router.navigate([FlowRoutes.DASHBOARD]);
   }
 
   async signOut() {
-    this.af.signOut();
-    localStorage.removeItem('user');
-    this.router.navigate([FlowRoutes.LOGIN]);
+    await this.af.signOut();
   }
 
   public getUsersData() {
-    return this.afs.collection(`users`).valueChanges();
+    return this.afs.collection<User>(`users`).valueChanges();
   }
 
   public getUserData(uid: string) {
-    return this.afs.collection('users').doc(uid).valueChanges();
+    return this.afs.collection<User>('users').doc(uid).valueChanges();
   }
 
   public setUserData(user: User) {
     return this.afs.doc(`users/${user.uid}`).set(user);
   }
 
-  public updateUserData(user: User) {
-    return this.afs.doc(`users/${user.uid}`).update(user);
+  public async updateUserData(user: User) {
+    try {
+      await this.afs.doc(`users/${user.uid}`).update(user);
+    } catch (error) {
+      throw error;
+    }
   }
 
   public deleteUserData(uid: string) {

@@ -1,4 +1,3 @@
-import { UserService } from './../../../../core/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,18 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
+import { LoadingSpinnerComponent } from '../shared/components/loading-spinner/loading-spinner.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import * as customersReducer from './../customers/store/reducer';
+import * as carsReducer from './../cars/store/reducer';
+import { CustomersEffects } from './../customers/store/effects';
+import { CarsEffects } from './../cars/store/effects';
+import { UsersEffects } from './../admin/store/effects';
+import { StatusesEffects } from './../admin/store/effects';
+import * as fromAdmin from './../admin/store';
+import * as usersReducer from './../admin/store/reducer/users.reducer';
+import * as statusesReducer from './../admin/store/reducer/statuses.reducer';
 
 @NgModule({
     declarations: [
@@ -28,7 +41,8 @@ import { MenuListItemComponent } from './components/menu-list-item/menu-list-ite
         FooterComponent,
         HeaderComponent,
         SidebarComponent,
-        MenuListItemComponent
+        MenuListItemComponent,
+        LoadingSpinnerComponent
     ],
     imports: [
         CommonModule,
@@ -41,8 +55,14 @@ import { MenuListItemComponent } from './components/menu-list-item/menu-list-ite
         MatBadgeModule,
         MatListModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        StoreModule.forFeature('customers', customersReducer.reducer),
+        StoreModule.forFeature('cars', carsReducer.reducer),
+        StoreModule.forFeature('users', usersReducer.reducer),
+        StoreModule.forFeature('statuses', statusesReducer.reducer),
+        EffectsModule.forFeature([CustomersEffects, CarsEffects, UsersEffects, StatusesEffects])
     ],
-    exports: [LangComponent]
+    exports: [LangComponent, LoadingSpinnerComponent]
 })
 export class CoreModule {}

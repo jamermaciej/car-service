@@ -3,7 +3,7 @@
         <button mat-icon-button>
             <mat-icon>{{ item.iconName }}</mat-icon>
         </button>
-        <span class="nav-caption">{{ item.displayName }}</span>
+        <span class="nav-caption">{{item.displayName | transloco}}</span>
         <span class="expand-more" *ngIf="item.children && item.children.length">
             <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
               expand_more

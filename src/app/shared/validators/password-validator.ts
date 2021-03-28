@@ -12,6 +12,17 @@ export class PasswordValidator {
             confirmPassword.setErrors(null);
     }
 
+    static differentPasswords(formGroup: FormGroup) {
+        const oldPassword = formGroup.get('oldPassword');
+        const newPassword = formGroup.get('newPassword');
+
+        if (newPassword.errors && !newPassword.errors.samePasswords) return;
+
+        oldPassword && newPassword && oldPassword.value === newPassword.value ?
+            newPassword.setErrors({ samePasswords: true }) :
+            newPassword.setErrors(null);
+    }
+
     static validatePassword(control: FormControl): ValidationErrors {
         let errors = null;
         if (!(/[A-Z]/g.test(control.value))) {

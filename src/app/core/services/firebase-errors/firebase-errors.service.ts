@@ -43,7 +43,10 @@ export class FirebaseErrors {
         case 'auth/cannot-delete-own-user-account':
           message = 'firebase_errors.cannot_delete_own_user_account';
           break;
-         default:
+        case 'auth/weak-password':
+          message  = 'Password should be at least 6 characters';
+          break;
+        default:
           message = 'Oops! Something went wrong. Try again later.';
           break;
       }

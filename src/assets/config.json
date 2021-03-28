@@ -2,5 +2,9 @@
     "emailDomain": [
         "gmail.com",
         "hotmail.com"
-    ]
+    ],
+    "locales": {
+        "default_locale": "pl",
+        "supported_locales": ["pl", "en"]
+    }
 }

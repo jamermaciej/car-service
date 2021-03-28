@@ -1,0 +1,93 @@
+<section class="add-order">
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <mat-card class="customer-card">
+            <mat-card-header>
+                <mat-card-title>Add new customer or select existing from select list</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field class="add-customer">
+                    <mat-select #customersSelect (selectionChange)="changeCustomer()" name="customers" id="customers" placeholder="Add customer or select exist">
+                        <mat-option class="add-customer__label" (click)="addCustomer()">
+                            <mat-icon>add</mat-icon>
+                            <span>Add new customer</span>
+                        </mat-option>
+                        <mat-form-field class="search-customer">
+                            <input type="text" name="search" matInput (keyup)="filterCustomers($event.target.value)" placeholder="Search customer...">
+                        </mat-form-field>
+                        <mat-option *ngFor="let customer of filteredCustomers$ | async" [value]="customer._id">
+                            {{ customer.name }} {{ customer.surname }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button [hidden]="!customersSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelectCustomer()">clear select</button>
+    
+                <app-add-customer-form *ngIf="customersSelect.value" [customer]="selectedCustomer"></app-add-customer-form>
+                
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="car-card">
+            <mat-card-header>
+                <mat-card-title>Add new car or select existing from select list</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field class="add-car">
+                    <mat-select #carsSelect (selectionChange)="changeCar()" name="cars" id="cars" placeholder="Add car or select exist">
+                        <mat-option class="add-car__label" (click)="addCar()">
+                            <mat-icon>add</mat-icon>
+                            <span>Add new car</span>
+                        </mat-option>
+                        <mat-form-field class="search-car">
+                            <input type="text" name="search" matInput (keyup)="filterCars($event.target.value)" placeholder="Search car...">
+                        </mat-form-field>
+                        <mat-option *ngFor="let car of filteredCars$ | async" [value]="car._id">
+                            {{ car.brand }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button [hidden]="!carsSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelectCar()">clear select</button>
+    
+                <app-add-car-form *ngIf="carsSelect.value" [car]="selectedCar"></app-add-car-form>
+
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-form-field appearance="fill">
+                <mat-label>Delivery Date *</mat-label>
+                <input matInput [matDatepicker]="picker" name="delivery_date" formControlName="delivery_date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Deadline</mat-label>
+                <input matInput [matDatepicker]="picker1" name ="deadline" formControlName="deadline">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="add-user">
+                <mat-select #usersSelect (selectionChange)="changeCustomer()" name="users" id="users" placeholder="User *" formControlName="user">
+                    <mat-option *ngFor="let user of users$ | async" [value]="user.uid">
+                        {{ user.displayName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select #statusSelect name="status" id="status" placeholder="Status" formControlName="status">
+                    <mat-option *ngFor="let status of statuses$ | async" [value]="status.value">
+                        {{ status.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Notes</mat-label>
+                <textarea name="notes" matInput formControlName="notes"></textarea>
+            </mat-form-field>
+            <section class="checkbox-section">
+                <mat-checkbox name="test_drive_agree" formControlName="test_drive_agree">Test drive agree</mat-checkbox>
+              </section>
+        </mat-card>
+
+        <button [disabled]="orderForm.invalid" type="submit" mat-raised-button color="primary" class="btn-add-order">add order</button>
+    </form>
+</section>

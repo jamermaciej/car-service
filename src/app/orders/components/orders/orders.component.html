@@ -1,0 +1,27 @@
+<section class="orders">
+    <div class="orders__button">
+        <button mat-raised-button color="primary" [routerLink]='flowRoutes.ADD_ORDERS'>
+            <mat-icon>add</mat-icon>
+            Add order
+        </button>
+    </div>
+    <div class="orders__list">
+        <div class="table-filter">
+            <mat-form-field>
+                <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+        </div>
+        
+        <mat-table [dataSource]="orders" matSort>
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+                <mat-cell *matCellDef="let element; let i = index;">{{ i + 1 }}</mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    </div>
+</section>

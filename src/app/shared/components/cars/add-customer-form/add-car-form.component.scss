@@ -1,0 +1,26 @@
+form {
+    // max-width: 700px;
+    // margin: 0 auto;
+
+    // mat-form-field {
+    //     width: 100%;
+    // }
+
+    .row {
+        mat-form-field {
+            width: calc(50% - 10px);
+    
+            &:nth-child(odd):not(:last-child) {
+                margin-right: 20px;
+            }
+        }
+
+        button {
+            margin: 0 auto;
+        }
+    }
+}
+
+.w100 {
+    width: 100% !important;
+}
