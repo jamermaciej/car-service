@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Customer } from './../../shared/models/customer.model';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +13,23 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>('http://localhost:3001/customers');
+    return this.http.get<Customer[]>(`${environment.apiUrl}/customers`);
   }
 
   getCustomer(uid: string): Observable<Customer> {
-    return this.http.get<Customer>(`http://localhost:3001/customers/${uid}`);
+    return this.http.get<Customer>(`${environment.apiUrl}/customers/${uid}`);
   }
 
   addCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>('http://localhost:3001/customers', customer);
+    return this.http.post<Customer>(`${environment.apiUrl}/customers`, customer);
   }
 
   updateCustomer(uid: string, customer: Customer): Observable<Customer> {
-    return this.http.put<Customer>(`http://localhost:3001/customers/${uid}`, customer);
+    return this.http.put<Customer>(`${environment.apiUrl}/customers/${uid}`, customer);
   }
 
   deleteCustomer(uid: string): Observable<Customer> {
-    return this.http.delete<Customer>(`http://localhost:3001/customers/${uid}`);
+    return this.http.delete<Customer>(`${environment.apiUrl}/customers/${uid}`);
   }
 
 }

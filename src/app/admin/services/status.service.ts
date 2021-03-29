@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Status } from './../../shared/models/status.model';
 import { Car } from './../../shared/models/car.model';
 import { HttpClient } from '@angular/common/http';
@@ -12,7 +13,7 @@ export class StatusService {
   constructor(private http: HttpClient) { }
 
   getStatuses(): Observable<Status[]> {
-    return this.http.get<Status[]>('http://localhost:3001/statuses');
+    return this.http.get<Status[]>(`${environment.apiUrl}/statuses`);
   }
 
 //   getCar(uid: string): Observable<Car> {
@@ -20,7 +21,7 @@ export class StatusService {
 //   }
 
   addStatus(status: Status): Observable<Status> {
-    return this.http.post<Status>('http://localhost:3001/statuses', status);
+    return this.http.post<Status>(`${environment.apiUrl}/statuses`, status);
   }
 
 //   updateCar(uid: string, car: Car): Observable<Car> {
@@ -28,7 +29,7 @@ export class StatusService {
 //   }
 
   deleteStatus(id: number): Observable<Status> {
-    return this.http.delete<Status>(`http://localhost:3001/statuses/${id}`);
+    return this.http.delete<Status>(`${environment.apiUrl}/statuses/${id}`);
   }
 
 }

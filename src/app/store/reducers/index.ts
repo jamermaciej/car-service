@@ -46,4 +46,4 @@ export function clearState(reducer: ActionReducer<State>): ActionReducer<State> 
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? [storeFreeze, localStorageSyncReducer, clearState]
-  : [localStorageSyncReducer];
+  : [localStorageSyncReducer, clearState];
