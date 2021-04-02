@@ -20,6 +20,14 @@ const statusesReducer = createReducer(
         ...state,
         statuses: state.statuses.filter(s => s.id !== status.id)
     })),
+    on(statusesActions.updateStatusSuccess, (state, { status }) => {
+        const updatedStatus = state.statuses.map(s => s.id === status.id ? status : s);
+
+        return {
+            ...state,
+            statuses: updatedStatus
+        };
+    }),
     on(statusesActions.getStatusesSuccess, (state, { statuses }) => ({
         ...state,
         statuses

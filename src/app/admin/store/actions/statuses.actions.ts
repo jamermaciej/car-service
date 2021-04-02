@@ -31,6 +31,21 @@ export const removeStatusFailure = createAction(
     props<{ error: any }>()
 );
 
+export const updateStatus = createAction(
+    '[Statuses] Update Status',
+    props<{ status: Status }>()
+);
+
+export const updateStatusSuccess = createAction(
+    '[Statuses] Update Status Success',
+    props<{ status: Status }>()
+);
+
+export const updateStatusFailure = createAction(
+    '[Statuses] Update Status Failure',
+    props<{ error: any }>()
+);
+
 export const getStatuses = createAction(
     '[Statuses] Get Statuses'
 );

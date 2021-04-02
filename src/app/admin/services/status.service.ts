@@ -24,9 +24,9 @@ export class StatusService {
     return this.http.post<Status>(`${environment.apiUrl}/statuses`, status);
   }
 
-//   updateCar(uid: string, car: Car): Observable<Car> {
-//     return this.http.put<Car>(`http://localhost:3001/cars/${uid}`, car);
-//   }
+  updateStatus(status: Status): Observable<Status> {
+    return this.http.put<Status>(`${environment.apiUrl}/statuses/${status.id}`, status);
+  }
 
   deleteStatus(id: number): Observable<Status> {
     return this.http.delete<Status>(`${environment.apiUrl}/statuses/${id}`);
