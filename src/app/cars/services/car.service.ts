@@ -13,7 +13,7 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   getCars(): Observable<Car[]> {
-    return this.http.get<Car[]>(`${environment.apiUrl}`);
+    return this.http.get<Car[]>(`${environment.apiUrl}/cars`);
   }
 
   getCar(uid: string): Observable<Car> {

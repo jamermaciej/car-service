@@ -1,3 +1,4 @@
+import { MessageService } from './../../../core/services/message/message.service';
 import { AddCarModalComponent } from './../../../cars/components/add-car-modal/add-car-modal.component';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { Observable } from 'rxjs';
@@ -40,7 +41,7 @@ export class AddOrderComponent implements OnInit {
 
   statuses$: Observable<Status[]>;
 
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private store: Store) { }
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private store: Store, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.orderForm = this.formBuilder.group({
@@ -67,6 +68,8 @@ export class AddOrderComponent implements OnInit {
 
   onSubmit() {
     console.log(this.orderForm.value);
+    const status = this.orderForm.value;
+    this.messageService.sendMessage(status).subscribe();
   }
 
   changeCustomer() {
