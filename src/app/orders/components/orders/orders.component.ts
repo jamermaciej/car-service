@@ -11,6 +11,8 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from './../../../store';
 import * as fromUsers from './../../../admin/store';
+import { getOrders } from '../../store/selectors/orders.selectors';
+import { Order } from 'src/app/shared/models/order.model';
 
 @Component({
   selector: 'app-orders',
@@ -20,22 +22,21 @@ import * as fromUsers from './../../../admin/store';
 export class OrdersComponent implements OnInit, AfterViewInit {
   flowRoutes = FlowRoutes;
   users$: Observable<User[]>;
+  orders$: Observable<Order[]>;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns = ['id'];
-  orders = new MatTableDataSource<User>();
+  displayedColumns = ['id', 'status'];
+  orders = new MatTableDataSource<Order>();
 
   constructor(private store: Store<fromRoot.State>, private userService: UserService) {
-    // this.store.select(getUsers).pipe(
-    //   filter(data => !!data),
-    // ).subscribe((users: User[]) => {
-    //   this.orders.data = users;
-    // });
+
   }
 
   ngOnInit(): void {
-    // this.store.dispatch(fromUsers.getUsers());
+    this.store.select(getOrders).subscribe((orders: Order[]) => {
+      this.orders.data = orders;
+    });
   }
 
   ngAfterViewInit() {

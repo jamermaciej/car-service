@@ -10,7 +10,7 @@ export class MessageService {
 
   constructor(private http: HttpClient) { }
 
-  sendMessage(status: Status) {
+  sendMessage(status) {
     return this.http.post(`${environment.apiUrl}/messages/status`, status);
   }
 }

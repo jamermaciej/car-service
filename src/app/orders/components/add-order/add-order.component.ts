@@ -1,3 +1,4 @@
+import * as fromOrders from './../../store/';
 import { MessageService } from './../../../core/services/message/message.service';
 import { AddCarModalComponent } from './../../../cars/components/add-car-modal/add-car-modal.component';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
@@ -41,18 +42,21 @@ export class AddOrderComponent implements OnInit {
 
   statuses$: Observable<Status[]>;
 
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private store: Store, private messageService: MessageService) { }
+  constructor(private formBuilder: FormBuilder,
+              private dialog: MatDialog,
+              private store: Store<fromOrders.State>
+            ) { }
 
   ngOnInit(): void {
     this.orderForm = this.formBuilder.group({
       customer_id: ['', RequiredValidator.required],
       car_id: ['', RequiredValidator.required],
-      delivery_date: [''],
-      deadline: [''],
-      user: [''],
-      status: [''],
-      notes: [''],
-      test_drive_agree: ['']
+      delivery_date: [new Date()],
+      deadline: [new Date()],
+      user_id: ['', RequiredValidator.required],
+      status: ['Order accepted', RequiredValidator.required],
+      notes: ['', RequiredValidator.required],
+      test_drive_agree: [true]
     });
 
     this.customers$ = this.store.select(getCustomers);
@@ -68,8 +72,8 @@ export class AddOrderComponent implements OnInit {
 
   onSubmit() {
     console.log(this.orderForm.value);
-    const status = this.orderForm.value;
-    this.messageService.sendMessage(status).subscribe();
+    const order = this.orderForm.value;
+    this.store.dispatch(fromOrders.addOrder({ order }));
   }
 
   changeCustomer() {
