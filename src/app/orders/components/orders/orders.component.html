@@ -55,7 +55,11 @@
 
             <ng-container matColumnDef="test_drive_agree">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Test drive</mat-header-cell>
-                <mat-cell *matCellDef="let element;">{{ element.test_drive_agree }}</mat-cell>
+                <mat-cell *matCellDef="let element;">
+                    <div class="test-drive-agree" [ngClass]="element.test_drive_agree ? 'agreement' : 'disagreement'">
+                        <mat-icon>{{ element.test_drive_agree ? 'check' : 'close' }}</mat-icon>
+                    </div>
+                </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

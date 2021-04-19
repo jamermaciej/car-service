@@ -4,6 +4,26 @@
 
         .mat-row {
             cursor: pointer;
+
+            .test-drive-agree {
+                
+                &.agreement {
+                    .mat-icon {
+                        color: green;
+                    }
+                }
+        
+                &.disagreement {
+                    .mat-icon {
+                        color: red;
+                    }
+                }
+            }
         }
     }
+}
+
+.mat-column-test_drive_agree {
+    justify-content: center;     
+    padding: 0;      
 }
