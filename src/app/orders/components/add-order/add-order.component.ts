@@ -71,7 +71,6 @@ export class AddOrderComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.orderForm.value);
     const order = this.orderForm.value;
     this.store.dispatch(fromOrders.addOrder({ order }));
   }

@@ -1,8 +1,8 @@
 export interface Car {
-    _id: string;
+    id: number;
     brand: string;
     model: string;
-    type: string; // kombi, sedan
+    type: string;
     year: string;
     registration: string;
     mileage: string;

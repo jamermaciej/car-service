@@ -1,6 +1,7 @@
 export interface Order {
-    customer_id: string;
-    car_id: string;
+    id: number;
+    customer_id: number;
+    car_id: number;
     delivery_date: Date;
     deadline: Date;
     user_id: string;

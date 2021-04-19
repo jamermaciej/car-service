@@ -8,6 +8,6 @@ export const getCustomers = createSelector(getUsersState, (state: fromCustomers.
 export const getCustomer = createSelector(
     getCustomers,
     (customers: Customer[], { id }) => {
-        return customers.find((customer: Customer) => customer._id === id);
+        return customers.find((customer: Customer) => customer.id === id);
     }
 );

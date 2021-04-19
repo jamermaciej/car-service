@@ -14,7 +14,7 @@
                         <mat-form-field class="search-customer">
                             <input type="text" name="search" matInput (keyup)="filterCustomers($event.target.value)" placeholder="Search customer...">
                         </mat-form-field>
-                        <mat-option *ngFor="let customer of filteredCustomers$ | async" [value]="customer._id">
+                        <mat-option *ngFor="let customer of filteredCustomers$ | async" [value]="customer.id">
                             {{ customer.name }} {{ customer.surname }}
                         </mat-option>
                     </mat-select>
@@ -40,7 +40,7 @@
                         <mat-form-field class="search-car">
                             <input type="text" name="search" matInput (keyup)="filterCars($event.target.value)" placeholder="Search car...">
                         </mat-form-field>
-                        <mat-option *ngFor="let car of filteredCars$ | async" [value]="car._id">
+                        <mat-option *ngFor="let car of filteredCars$ | async" [value]="car.id">
                             {{ car.brand }}
                         </mat-option>
                     </mat-select>

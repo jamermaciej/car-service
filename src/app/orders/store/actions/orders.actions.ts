@@ -17,11 +17,11 @@ export const addOrderFailure = createAction(
 );
 
 export const loadOrders = createAction(
-    '[Order] Get Orders Failure'
+    '[Order] Get Orders'
 );
 
 export const loadOrdersSuccess = createAction(
-    '[Order] Get Orders Failure',
+    '[Order] Get Orders Success',
     props<{ orders: Order[] }>()
 );
 
