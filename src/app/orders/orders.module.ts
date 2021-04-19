@@ -18,10 +18,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { EditOrderComponent } from './components/edit-order/edit-order.component';
 
 
 @NgModule({
-  declarations: [OrdersComponent, AddOrderComponent],
+  declarations: [OrdersComponent, AddOrderComponent, EditOrderComponent],
   imports: [
     CommonModule,
     OrdersRoutingModule,

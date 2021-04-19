@@ -23,7 +23,7 @@ import { getUser } from 'src/app/store/selectors/auth.selectors';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
-  destroySubject: Subject<any> = new Subject();
+  destroySubject$: Subject<any> = new Subject();
   flowRoutes = FlowRoutes;
   users$: Observable<User[]>;
   orders$: Observable<Order[]>;
@@ -39,14 +39,13 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.select(getOrders).pipe(
-      takeUntil(this.destroySubject)
+      takeUntil(this.destroySubject$)
     ).subscribe((orders: Order[]) => {
       this.orders.data = orders;
     });
   }
 
   getCustomerData(id: number): Observable<string> {
-    console.log(id);
     return this.store.select(getCustomer, { id }).pipe(
       map(customer => `${customer.name} ${customer.surname}`));
   }
@@ -71,8 +70,8 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroySubject.next();
-    this.destroySubject.complete();
+    this.destroySubject$.next();
+    this.destroySubject$.complete();
   }
 
 }
