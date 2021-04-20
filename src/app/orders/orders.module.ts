@@ -1,3 +1,4 @@
+import { TranslocoModule } from '@ngneat/transloco';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SharedModule } from './../shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
@@ -45,7 +46,8 @@ import { EditOrderComponent } from './components/edit-order/edit-order.component
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    SharedModule
+    SharedModule,
+    TranslocoModule
   ]
 })
 export class OrdersModule { }

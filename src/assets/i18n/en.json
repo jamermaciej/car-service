@@ -233,5 +233,23 @@
 				"required": "ID number is required."
 			}
 		}
+	},
+	"orders": {
+		"button": {
+			"add_order": "Add order"
+		},
+		"table": {
+			"headers": {
+				"id": "ID",
+				"customer": "Customer" ,
+				"car": "Car",
+				"delivery_date": "Delivery date",
+				"deadline": "Deadline",
+				"worker": "Worker",
+				"status": "Status",
+				"notes": "Notes",
+				"test_drive": "Test drive"
+			}
+		}
 	}
 }
