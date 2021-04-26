@@ -29,3 +29,18 @@ export const loadOrdersFailure = createAction(
     '[Order] Get Orders Failure',
     props<{ error: any }>()
 );
+
+export const updateOrder = createAction(
+    '[Order] Update Order',
+    props<{ order: Order  }>()
+);
+
+export const updateOrderSuccess = createAction(
+    '[Order] Update Order Success',
+    props<{ order: Order }>()
+);
+
+export const updateOrderFailure = createAction(
+    '[Order] Update Order Failure',
+    props<{ error: any }>()
+);

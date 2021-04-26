@@ -54,4 +54,21 @@ export class CarsEffects {
     ), {
         dispatch: true
     });
+
+    updateOrders$ = createEffect(() => this.actions$.pipe(
+        ofType(ordersActions.updateOrder),
+        switchMap((paylaod) => this.orderService.updateOrder(paylaod.order).pipe(
+            map((order) => ordersActions.updateOrderSuccess({ order })),
+            catchError((error) => of(ordersActions.updateOrderFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
+    updateOrderSuccess = createEffect(() => this.actions$.pipe(
+        ofType(ordersActions.updateOrderSuccess),
+        switchMap((paylaod) => this.messageService.sendMessage(paylaod.order))
+    ), {
+        dispatch: false
+    });
 }

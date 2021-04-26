@@ -19,6 +19,10 @@ const orderReducer = createReducer(
     on(orderActions.loadOrdersSuccess, (state, { orders } ) => ({
         ...state,
         orders
+    })),
+    on(orderActions.updateOrderSuccess, (state, { order } ) => ({
+        ...state,
+        orders: state.orders.map(o => o.id === order.id ? order : o)
     }))
   );
 

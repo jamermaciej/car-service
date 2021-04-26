@@ -1,8 +1,11 @@
+import { updateOrder } from './../../store/actions/orders.actions';
+import { updateStatus } from './../../../admin/store/actions/statuses.actions';
+import { Status } from './../../../shared/models/status.model';
 import { getCustomer, getCustomers } from './../../../customers/store/selectors/customers.selectors';
 import { FlowRoutes } from 'src/app/core/enums/flow';
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
-import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,10 +15,11 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from './../../../store';
 import * as fromUsers from './../../../admin/store';
-import { getOrders } from '../../store/selectors/orders.selectors';
+import { getOrder, getOrders } from '../../store/selectors/orders.selectors';
 import { Order } from 'src/app/shared/models/order.model';
 import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
+import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 
 @Component({
   selector: 'app-orders',
@@ -27,6 +31,7 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   flowRoutes = FlowRoutes;
   users$: Observable<User[]>;
   orders$: Observable<Order[]>;
+  statuses$: Observable<Status[]>;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -43,6 +48,8 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     ).subscribe((orders: Order[]) => {
       this.orders.data = orders;
     });
+
+    this.statuses$ = this.store.select(getStatuses);
   }
 
   getCustomerData(id: number): Observable<string> {
@@ -67,6 +74,19 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   applyFilter(filterValue: string) {
     this.orders.filter = filterValue.trim().toLowerCase();
+  }
+
+  updateOrder(status: string, id: number) {
+    this.store.select(getOrder, { id }).pipe(
+      take(1),
+      takeUntil(this.destroySubject$)
+    ).subscribe(order => {
+      const newOrder = {
+        ...order,
+        status
+      };
+      this.store.dispatch(updateOrder({ order: newOrder }));
+    });
   }
 
   ngOnDestroy() {

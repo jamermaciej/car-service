@@ -23,9 +23,9 @@ export class OrderService {
     return this.http.post<Order>(`${environment.apiUrl}/orders`, order);
   }
 
-//   updateCar(uid: string, car: Car): Observable<Car> {
-//     return this.http.put<Car>(`${environment.apiUrl}/cars/${uid}`, car);
-//   }
+  updateOrder(order: Order): Observable<Order> {
+    return this.http.put<Order>(`${environment.apiUrl}/orders/${order.id}`, order);
+  }
 
 //   deleteCar(uid: string): Observable<Car> {
 //     return this.http.delete<Car>(`${environment.apiUrl}/cars/${uid}`);

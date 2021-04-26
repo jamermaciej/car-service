@@ -45,7 +45,13 @@
 
             <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.status' | transloco }}</mat-header-cell>
-                <mat-cell *matCellDef="let element;">{{ element.status }}</mat-cell>
+                <mat-cell *matCellDef="let element;" (click)="$event.stopPropagation();">
+                    <mat-select name="status" id="status" [value]="element.status" (selectionChange)="updateOrder($event.value, element.id)">
+                        <mat-option *ngFor="let status of statuses$ | async" [value]="status.label">
+                            {{ status.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="notes">
