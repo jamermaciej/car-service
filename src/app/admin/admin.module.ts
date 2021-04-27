@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,9 +16,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { StatusesComponent } from './components/statuses/statuses.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StatusEditModalComponent } from './components/status-edit-modal/status-edit-modal.component';
 
 @NgModule({
-  declarations: [AdminComponent, UsersComponent, StatusesComponent],
+  declarations: [AdminComponent, UsersComponent, StatusesComponent, StatusEditModalComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -32,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     ReactiveFormsModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ]
 })
 export class AdminModule { }

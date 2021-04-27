@@ -1,0 +1,17 @@
+<form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <mat-label>Order status name *</mat-label>
+        <input type="text" name="label" matInput formControlName="label">
+        <app-error-message [control]="statusForm.get('label')"></app-error-message>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Order status value *</mat-label>
+        <input type="text" name="value" matInput formControlName="value" readonly>
+        <mat-hint>Create automatically</mat-hint>
+        <app-error-message [control]="statusForm.get('value')"></app-error-message>
+    </mat-form-field>
+    <div class="btn-row">
+        <button [disabled]="statusForm.invalid || statusForm.untouched" type="submit" mat-raised-button color="primary" class="btn-add-order">{{ btnLabel }}</button>
+        <button *ngIf="status" type="button" mat-raised-button color="basic" (click)="onClose()">close</button>
+    </div>
+</form>

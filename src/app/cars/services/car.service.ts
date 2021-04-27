@@ -2,6 +2,7 @@ import { Car } from './../../shared/models/car.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +13,23 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   getCars(): Observable<Car[]> {
-    return this.http.get<Car[]>('http://localhost:3001/cars');
+    return this.http.get<Car[]>(`${environment.apiUrl}/cars`);
   }
 
   getCar(uid: string): Observable<Car> {
-    return this.http.get<Car>(`http://localhost:3001/cars/${uid}`);
+    return this.http.get<Car>(`${environment.apiUrl}/${uid}`);
   }
 
   addCar(car: Car): Observable<Car> {
-    return this.http.post<Car>('http://localhost:3001/cars', car);
+    return this.http.post<Car>(`${environment.apiUrl}/cars`, car);
   }
 
   updateCar(uid: string, car: Car): Observable<Car> {
-    return this.http.put<Car>(`http://localhost:3001/cars/${uid}`, car);
+    return this.http.put<Car>(`${environment.apiUrl}/cars/${uid}`, car);
   }
 
   deleteCar(uid: string): Observable<Car> {
-    return this.http.delete<Car>(`http://localhost:3001/cars/${uid}`);
+    return this.http.delete<Car>(`${environment.apiUrl}/cars/${uid}`);
   }
 
 }

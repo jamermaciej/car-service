@@ -1,0 +1,23 @@
+.edit-status {
+    text-align: center;
+    
+        ::ng-deep {
+            form {
+                max-width: 100%;
+            }
+
+            mat-form-field {
+                width: 100%;
+            }
+
+            .btn-row {
+                display: flex;
+                justify-content: center;
+
+                button {
+                    margin-left: 10px;
+                    margin-right: 10px;
+                }
+            }
+        }
+}

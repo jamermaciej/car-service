@@ -27,7 +27,9 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         'admin',
         'cars',
         'users',
-        'statuses'
+        'customers',
+        'statuses',
+        'orders'
       ],
       rehydrate: true
     })(reducer);
@@ -46,4 +48,4 @@ export function clearState(reducer: ActionReducer<State>): ActionReducer<State> 
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? [storeFreeze, localStorageSyncReducer, clearState]
-  : [localStorageSyncReducer];
+  : [localStorageSyncReducer, clearState];

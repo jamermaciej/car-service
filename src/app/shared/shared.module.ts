@@ -10,9 +10,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { AddCustomerFormComponent } from './components/customers/add-customer-form/add-customer-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { AddCarFormComponent } from './components/cars/add-customer-form/add-customer-car.component';
+import { StatusFormComponent } from './components/statuses/status-form/status-form.component';
 
 @NgModule({
-    declarations: [ErrorMessageComponent, HintComponent, LogoComponent, AddCustomerFormComponent, AddCarFormComponent],
+    declarations: [ErrorMessageComponent, HintComponent, LogoComponent, AddCustomerFormComponent, AddCarFormComponent, StatusFormComponent],
     imports: [
         CommonModule,
         TranslocoModule,
@@ -22,7 +23,14 @@ import { AddCarFormComponent } from './components/cars/add-customer-form/add-cus
         MatButtonModule
     ],
     exports: [
-        CommonModule, FormsModule, ErrorMessageComponent, HintComponent, LogoComponent, AddCustomerFormComponent, AddCarFormComponent
+        CommonModule,
+        FormsModule,
+        ErrorMessageComponent,
+        HintComponent,
+        LogoComponent,
+        AddCustomerFormComponent,
+        AddCarFormComponent,
+        StatusFormComponent
     ]
 })
 export class SharedModule {}

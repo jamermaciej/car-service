@@ -1,3 +1,4 @@
+import { EditOrderComponent } from './components/edit-order/edit-order.component';
 import { AddOrderComponent } from './components/add-order/add-order.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
       path: 'add',
       component: AddOrderComponent
+    },
+    {
+      path: ':id',
+      component: EditOrderComponent
     }
 ];
 

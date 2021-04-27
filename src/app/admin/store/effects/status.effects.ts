@@ -44,6 +44,16 @@ export class StatusesEffects {
         dispatch: true
     });
 
+    updateStatus$ = createEffect(() => this.actions$.pipe(
+        ofType(statusesActions.updateStatus),
+        switchMap((paylaod) => this.statusService.updateStatus(paylaod.status).pipe(
+            map((status: Status) => statusesActions.updateStatusSuccess({ status })),
+            catchError((error) => of(statusesActions.updateStatusFailure({ error })))
+        ))
+    ), {
+        dispatch: true
+    });
+
     getStatuses$ = createEffect(() => this.actions$.pipe(
         ofType(statusesActions.getStatuses),
         switchMap(() => this.statusService.getStatuses().pipe(

@@ -1,15 +1,11 @@
 .statuses {
 
-    &__form {
-        form {
-            padding: 20px 0;
-            max-width: 300px;
-    
-            button {
-                display: block;
-                margin-top: 20px;
-            }
-        }
+    // &__form {
+
+    // }
+
+    mat-card {
+        min-height: 300px;
     }
 
     &__list {
@@ -20,6 +16,10 @@
         mat-icon {
             margin: 0 5px;
             cursor: pointer;
+        }
+
+        @media (max-width: 991px) {
+            margin-top: 20px;
         }
     }
 }

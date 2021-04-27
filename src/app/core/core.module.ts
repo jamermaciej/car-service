@@ -31,6 +31,7 @@ import { StatusesEffects } from './../admin/store/effects';
 import * as fromAdmin from './../admin/store';
 import * as usersReducer from './../admin/store/reducer/users.reducer';
 import * as statusesReducer from './../admin/store/reducer/statuses.reducer';
+import * as fromOrders from './../orders/store';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import * as statusesReducer from './../admin/store/reducer/statuses.reducer';
         StoreModule.forFeature('cars', carsReducer.reducer),
         StoreModule.forFeature('users', usersReducer.reducer),
         StoreModule.forFeature('statuses', statusesReducer.reducer),
-        EffectsModule.forFeature([CustomersEffects, CarsEffects, UsersEffects, StatusesEffects])
+        StoreModule.forFeature('orders', fromOrders.reducer),
+        EffectsModule.forFeature([CustomersEffects, CarsEffects, UsersEffects, StatusesEffects, fromOrders.CarsEffects])
     ],
     exports: [LangComponent, LoadingSpinnerComponent]
 })

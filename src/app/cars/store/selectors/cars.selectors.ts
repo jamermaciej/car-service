@@ -8,6 +8,6 @@ export const getCars = createSelector(getCarsState, (state: fromCustomers.State)
 export const getCar = createSelector(
     getCars,
     (cars: Car[], { id }) => {
-        return cars.find((car: Car) => car._id === id);
+        return cars.find((car: Car) => car.id === id);
     }
 );

@@ -1,44 +1,32 @@
 <section class="statuses">
-    <div class="row">
-        <div class="col col-6 statuses__form">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Add new status</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <form [formGroup]="statusesForm" (ngSubmit)="addStatus()">
-                        <mat-form-field>
-                            <mat-label>Order status name *</mat-label>
-                            <input type="text" name="label" matInput formControlName="label">
-                            <app-error-message [control]="statusesForm.get('label')"></app-error-message>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Order status value *</mat-label>
-                            <input type="text" name="value" matInput formControlName="value" readonly>
-                            <mat-hint>Create automatically</mat-hint>
-                            <app-error-message [control]="statusesForm.get('value')"></app-error-message>
-                        </mat-form-field>
-                
-                        <button [disabled]="statusesForm.invalid" type="submit" mat-raised-button color="primary" class="btn-add-order">add status</button>
-                    </form>
-                </mat-card-content>
-            </mat-card>
-        </div>
-        <div class="col col-6 statuses__list">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Avaible statuses</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-list role="list" *ngFor="let status of statuses$ | async">
-                        <mat-list-item role="listitem">
-                            <span class="status-label">{{ status.label }}</span>
-                            <mat-icon (click)="editStatus(status.id)">edit</mat-icon>
-                            <mat-icon color="warn" (click)="removeStatus(status.id)">delete</mat-icon>
-                        </mat-list-item>
-                    </mat-list>
-                </mat-card-content>
-            </mat-card>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 statuses__form">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Add new status</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-status-form (triggerSubmit)="addStatus($event)"></app-status-form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-lg-6 statuses__list">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Avaible statuses</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-list role="list" *ngFor="let status of statuses$ | async">
+                            <mat-list-item role="listitem">
+                                <span class="status-label">{{ status.label }}</span>
+                                <mat-icon (click)="editStatus(status)">edit</mat-icon>
+                                <mat-icon color="warn" (click)="removeStatus(status.id)">delete</mat-icon>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </div>
 </section>

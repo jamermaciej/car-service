@@ -1,5 +1,43 @@
 .orders {
     &__list {
         margin-top: 70px;
+
+        .mat-row {
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+            }
+
+            .test-drive-agree {
+                
+                &.agreement {
+                    .mat-icon {
+                        color: green;
+                    }
+                }
+        
+                &.disagreement {
+                    .mat-icon {
+                        color: red;
+                    }
+                }
+            }
+        }
     }
+}
+
+.mat-column-status {
+    flex: 0 0 120px;
+}
+
+.mat-column-notes {
+    flex: 0 0 250px;
+    padding: 10px 0 10px 20px;
+}
+
+.mat-column-test_drive_agree {
+    flex: 0 0 100px;
+    justify-content: center;     
+    padding: 0;      
 }
