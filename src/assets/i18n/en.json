@@ -235,8 +235,28 @@
 		}
 	},
 	"orders": {
+		"header": {
+			"add_customer": "Add new customer or select existing from select list",
+			"add_car": "Add new car or select existing from select list"
+		},
 		"button": {
-			"add_order": "Add order"
+			"add_order": "Add order",
+			"add_customer": "Add new customer",
+			"add_car": "Add new car"
+		},
+		"placeholder": {
+			"add_customer": "Add customer or select exist",
+			"search_customer": "Search customer...",
+			"add_car": "Add car or select exist",
+			"search_car": "Search car..."
+		},
+		"label": {
+			"delivery_date": "Delivery Date *",
+			"deadline": "Deadline",
+			"user": "User *",
+			"notes": "Notes",
+			"status": "Status *",
+			"test_drive": "Test drive agree"
 		},
 		"table": {
 			"headers": {
