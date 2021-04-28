@@ -6,7 +6,13 @@
             </mat-card-header>
             <mat-card-content>
                 <mat-form-field class="add-customer">
-                    <mat-select #customersSelect (selectionChange)="changeCustomer()" name="customers" id="customers" placeholder="{{ 'orders.placeholder.add_customer' | transloco }}">
+                    <mat-select
+                        [(value)]="selectedCustomer"
+                        [compareWith]="compareCustomer"
+                        #customersSelect 
+                        (selectionChange)="changeCustomer()"
+                        name="customers" id="customers"
+                        placeholder="{{ 'orders.placeholder.add_customer' | transloco }}">
                         <mat-option class="add-customer__label" (click)="addCustomer()">
                             <mat-icon>add</mat-icon>
                             <span>{{ 'orders.button.add_customer' | transloco }}</span>
@@ -60,7 +66,7 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="fill">
-                <mat-label>{{ 'orders.label.dedline' | transloco }}</mat-label>
+                <mat-label>{{ 'orders.label.deadline' | transloco }}</mat-label>
                 <input matInput [matDatepicker]="picker1" name ="deadline" formControlName="deadline">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>

@@ -17,7 +17,7 @@ import { Car } from 'src/app/shared/models/car.model';
 import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
 import { User } from 'src/app/shared/models/user.model';
 import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
-import { filter } from 'rxjs/operators';
+import { filter, find, switchMap } from 'rxjs/operators';
 import { Status } from 'src/app/shared/models/status.model';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 
@@ -77,11 +77,7 @@ export class AddOrderComponent implements OnInit {
 
   changeCustomer() {
     const id = this.customersSelect.value;
-    this.store.select(getCustomer, { id }).subscribe((customer: Customer) => {
-      this.selectedCustomer = customer;
-
-      this.orderForm.get('customer_id').setValue(id);
-    });
+    this.orderForm.get('customer_id').setValue(id);
   }
 
   changeCar() {
@@ -94,10 +90,25 @@ export class AddOrderComponent implements OnInit {
   }
 
   addCustomer() {
-    this.dialog.open(AddCustomerModalComponent, {
+    const dialogRef = this.dialog.open(AddCustomerModalComponent, {
       panelClass: 'add-customer-dialog',
       autoFocus: false
     });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if ( res ) {
+        const idNumber = res.customer.idNumber;
+        this.customers$.pipe(
+          map(customers => customers.find(c => c.idNumber === idNumber))
+        ).subscribe(customer => {
+          this.selectedCustomer = customer;
+        });
+      }
+    });
+  }
+
+  compareCustomer(value: number, option: Customer) {
+    return value === +option?.id;
   }
 
   addCar() {

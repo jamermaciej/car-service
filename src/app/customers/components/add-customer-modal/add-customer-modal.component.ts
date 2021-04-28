@@ -23,7 +23,7 @@ export class AddCustomerModalComponent implements OnInit {
 
   addCustomer(customer: Customer) {
     this.store.dispatch(fromCustomers.addCustomer({ customer }));
-    this.dialogRef.close();
+    this.dialogRef.close({ customer });
   }
 
 }
