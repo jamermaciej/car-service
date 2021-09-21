@@ -21,7 +21,7 @@ export class AddCarModalComponent implements OnInit {
 
   addCar(car: Car) {
     this.store.dispatch(fromCars.addCar({ car }));
-    this.dialogRef.close();
+    this.dialogRef.close({ car });
   }
 
 }

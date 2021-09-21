@@ -7,12 +7,13 @@
             <mat-card-content>
                 <mat-form-field class="add-customer">
                     <mat-select
-                        [(value)]="selectedCustomer"
-                        [compareWith]="compareCustomer"
-                        #customersSelect 
-                        (selectionChange)="changeCustomer()"
-                        name="customers" id="customers"
-                        placeholder="{{ 'orders.placeholder.add_customer' | transloco }}">
+                            [value]="selectedCustomer | async"
+                            [compareWith]="compareCustomer"
+                            #customersSelect 
+                            (selectionChange)="changeCustomer()"
+                            name="customers"
+                            id="customers"
+                            placeholder="{{ 'orders.placeholder.add_customer' | transloco }}">
                         <mat-option class="add-customer__label" (click)="addCustomer()">
                             <mat-icon>add</mat-icon>
                             <span>{{ 'orders.button.add_customer' | transloco }}</span>
@@ -27,7 +28,7 @@
                 </mat-form-field>
                 <button [hidden]="!customersSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelectCustomer()">clear select</button>
     
-                <app-add-customer-form *ngIf="customersSelect.value" [customer]="selectedCustomer"></app-add-customer-form>
+                <app-add-customer-form *ngIf="customersSelect.value" [customer]="selectedCustomer | async"></app-add-customer-form>
                 
             </mat-card-content>
         </mat-card>
@@ -38,7 +39,14 @@
             </mat-card-header>
             <mat-card-content>
                 <mat-form-field class="add-car">
-                    <mat-select #carsSelect (selectionChange)="changeCar()" name="cars" id="cars" placeholder="{{ 'orders.placeholder.add_car' | transloco }}">
+                    <mat-select
+                            [value]="selectedCar | async"
+                            [compareWith]="compareCar"
+                            #carsSelect
+                            (selectionChange)="changeCar()"
+                            name="cars"
+                            id="cars"
+                            placeholder="{{ 'orders.placeholder.add_car' | transloco }}">
                         <mat-option class="add-car__label" (click)="addCar()">
                             <mat-icon>add</mat-icon>
                             <span>{{ 'orders.button.add_car' | transloco }}</span>
@@ -53,7 +61,7 @@
                 </mat-form-field>
                 <button [hidden]="!carsSelect.value" type="button" mat-raised-button color="primary" (click)="clearSelectCar()">clear select</button>
     
-                <app-add-car-form *ngIf="carsSelect.value" [car]="selectedCar"></app-add-car-form>
+                <app-add-car-form *ngIf="carsSelect.value" [car]="selectedCar | async"></app-add-car-form>
 
             </mat-card-content>
         </mat-card>
@@ -73,7 +81,7 @@
             </mat-form-field>
             <mat-form-field class="add-user">
                 <mat-label>{{ 'orders.label.user' | transloco }}</mat-label>
-                <mat-select #usersSelect (selectionChange)="changeCustomer()" name="users" id="users" formControlName="user_id">
+                <mat-select #usersSelect name="users" id="users" formControlName="user_id">
                     <mat-option *ngFor="let user of users$ | async" [value]="user.uid">
                         {{ user.displayName }}
                     </mat-option>

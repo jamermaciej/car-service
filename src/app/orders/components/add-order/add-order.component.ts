@@ -5,7 +5,7 @@ import { RequiredValidator } from './../../../shared/validators/required-validat
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCustomerModalComponent } from 'src/app/customers/components/add-customer-modal/add-customer-modal.component';
 import { getCustomer, getCustomers } from 'src/app/customers/store/selectors/customers.selectors';
@@ -17,7 +17,7 @@ import { Car } from 'src/app/shared/models/car.model';
 import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
 import { User } from 'src/app/shared/models/user.model';
 import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
-import { filter, find, switchMap } from 'rxjs/operators';
+import { filter, find, switchMap, take, delay, timeout } from 'rxjs/operators';
 import { Status } from 'src/app/shared/models/status.model';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 
@@ -33,8 +33,8 @@ export class AddOrderComponent implements OnInit {
   customerForm: FormGroup;
   customers$: Observable<Customer[]>;
   cars$: Observable<Car[]>;
-  selectedCustomer: Customer;
-  selectedCar: Car;
+  selectedCustomer: Observable<Customer>;
+  selectedCar: Observable<Car>;
   filteredCustomers$: Observable<Customer[]>;
   filteredCars$: Observable<Car[]>;
 
@@ -45,17 +45,17 @@ export class AddOrderComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private store: Store<fromOrders.State>
-            ) { }
+  ) { }
 
   ngOnInit(): void {
     this.orderForm = this.formBuilder.group({
-      customer_id: ['', RequiredValidator.required],
-      car_id: ['', RequiredValidator.required],
+      customer_id: ['', Validators.required],
+      car_id: ['', Validators.required],
       delivery_date: [new Date()],
       deadline: [new Date()],
-      user_id: ['', RequiredValidator.required],
-      status: ['Order accepted', RequiredValidator.required],
-      notes: ['', RequiredValidator.required],
+      user_id: ['', Validators.required],
+      status: ['Order accepted', Validators.required],
+      notes: ['', Validators.required],
       test_drive_agree: [true]
     });
 
@@ -72,21 +72,28 @@ export class AddOrderComponent implements OnInit {
 
   onSubmit() {
     const order = this.orderForm.value;
+    console.log(order);
     this.store.dispatch(fromOrders.addOrder({ order }));
   }
 
   changeCustomer() {
     const id = this.customersSelect.value;
+    this.selectedCustomer = this.store.select(getCustomer, { id });
+    // this.store.select(getCustomer, { id }).subscribe((customer: Customer) => {
+    //   this.selectedCustomer = customer;
+    //   this.orderForm.get('customer_id').setValue(id);
+    // });
     this.orderForm.get('customer_id').setValue(id);
   }
 
   changeCar() {
     const id = this.carsSelect.value;
-    this.store.select(getCar, { id }).subscribe((car: Car) => {
-      this.selectedCar = car;
-
-      this.orderForm.get('car_id').setValue(id);
-    });
+    this.selectedCar = this.store.select(getCar, { id });
+    // this.store.select(getCar, { id }).subscribe((car: Car) => {
+    //   this.selectedCar = car;
+    //   this.orderForm.get('car_id').setValue(id);
+    // });
+    this.orderForm.get('car_id').setValue(id);
   }
 
   addCustomer() {
@@ -96,26 +103,55 @@ export class AddOrderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      if ( res ) {
+      if (res) {
         const idNumber = res.customer.idNumber;
-        this.customers$.pipe(
-          map(customers => customers.find(c => c.idNumber === idNumber))
-        ).subscribe(customer => {
-          this.selectedCustomer = customer;
-        });
+        this.selectedCustomer = this.customers$.pipe(
+          map(customers => customers.find(c => c.idNumber === idNumber)),
+          tap(customer => this.orderForm.get('customer_id').setValue(customer?.id))
+        );
+        // this.customers$.pipe(
+        //   timeout(3000),
+        //   tap(c => console.log(c)),
+        //   map(customers => customers.find(c => c.idNumber === idNumber))
+        // ).subscribe(customer => {
+        //   console.log(idNumber);
+        //   this.selectedCustomer = customer;
+        //   this.orderForm.get('customer_id').setValue(customer.id);
+        // });
       }
     });
   }
 
-  compareCustomer(value: number, option: Customer) {
-    return value === +option?.id;
+  compareCustomer(value: number, customer: Customer) {
+    return value === +customer?.id;
   }
 
   addCar() {
-    this.dialog.open(AddCarModalComponent, {
+    const dialogRef = this.dialog.open(AddCarModalComponent, {
       panelClass: 'add-car-dialog',
       autoFocus: false
     });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        const vin = res.car.vin;
+        this.selectedCar = this.cars$.pipe(
+          map(cars => cars.find(c => c.vin === vin)),
+          tap(car => this.orderForm.get('car_id').setValue(car?.id))
+        );
+        // this.cars$.pipe(
+        //   map(cars => cars.find(c => c.vin === vin)),
+        // ).subscribe(car => {
+        //   console.log(car);
+        //   this.selectedCar = car;
+        //   this.orderForm.get('car_id').setValue(car.id); // formControlName ?
+        // });
+      }
+    });
+  }
+
+  compareCar(value: number, car: Car) {
+    return value === car?.id;
   }
 
   clearSelectCustomer() {
