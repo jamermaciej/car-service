@@ -4,7 +4,7 @@ import { AddCarModalComponent } from './../../../cars/components/add-car-modal/a
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCustomerModalComponent } from 'src/app/customers/components/add-customer-modal/add-customer-modal.component';
@@ -20,6 +20,7 @@ import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
 import { filter, find, switchMap, take, delay, timeout } from 'rxjs/operators';
 import { Status } from 'src/app/shared/models/status.model';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-add-order',
@@ -29,6 +30,8 @@ import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 export class AddOrderComponent implements OnInit {
   @ViewChild('customersSelect') customersSelect: MatSelect;
   @ViewChild('carsSelect') carsSelect: MatSelect;
+  // @ViewChild('searchCustomerInput') searchCustomerInput: MatInput;
+  @ViewChild('searchCustomerInput') searchCustomerInput: ElementRef;
   orderForm: FormGroup;
   customerForm: FormGroup;
   customers$: Observable<Customer[]>;
@@ -86,6 +89,11 @@ export class AddOrderComponent implements OnInit {
     this.orderForm.get('customer_id').setValue(id);
   }
 
+  closeCarSelect(searchCarInput: MatInput) {
+    this.filteredCars$ = this.cars$;
+    searchCarInput.value = null;
+  }
+
   changeCar() {
     const id = this.carsSelect.value;
     this.selectedCar = this.store.select(getCar, { id });
@@ -109,6 +117,8 @@ export class AddOrderComponent implements OnInit {
           map(customers => customers.find(c => c.idNumber === idNumber)),
           tap(customer => this.orderForm.get('customer_id').setValue(customer?.id))
         );
+        this.searchCustomerInput.nativeElement.value = null;
+        this.filteredCustomers$ = this.customers$;
         // this.customers$.pipe(
         //   timeout(3000),
         //   tap(c => console.log(c)),

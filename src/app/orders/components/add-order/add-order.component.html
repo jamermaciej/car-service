@@ -19,7 +19,7 @@
                             <span>{{ 'orders.button.add_customer' | transloco }}</span>
                         </mat-option>
                         <mat-form-field class="search-customer">
-                            <input type="text" name="search" matInput (keyup)="filterCustomers($event.target.value)" placeholder="{{ 'orders.placeholder.search_customer' | transloco }} ">
+                            <input type="text" name="search" matInput #searchCustomerInput (keyup)="filterCustomers($event.target.value)" placeholder="{{ 'orders.placeholder.search_customer' | transloco }} ">
                         </mat-form-field>
                         <mat-option *ngFor="let customer of filteredCustomers$ | async" [value]="customer.id">
                             {{ customer.name }} {{ customer.surname }}
@@ -44,6 +44,7 @@
                             [compareWith]="compareCar"
                             #carsSelect
                             (selectionChange)="changeCar()"
+                            (closed)="closeCarSelect(searchCarInput)"
                             name="cars"
                             id="cars"
                             placeholder="{{ 'orders.placeholder.add_car' | transloco }}">
@@ -52,7 +53,7 @@
                             <span>{{ 'orders.button.add_car' | transloco }}</span>
                         </mat-option>
                         <mat-form-field class="search-car">
-                            <input type="text" name="search" matInput (keyup)="filterCars($event.target.value)" placeholder="{{ 'orders.placeholder.search_car' | transloco }}">
+                            <input type="text" name="search" matInput #searchCarInput (keyup)="filterCars($event.target.value)" placeholder="{{ 'orders.placeholder.search_car' | transloco }}">
                         </mat-form-field>
                         <mat-option *ngFor="let car of filteredCars$ | async" [value]="car.id">
                             {{ car.brand }}
