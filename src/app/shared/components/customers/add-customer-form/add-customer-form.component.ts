@@ -1,5 +1,5 @@
 import { Customer } from './../../../models/customer.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 
@@ -42,9 +42,23 @@ export class AddCustomerFormComponent implements OnInit {
 
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if ( control instanceof FormControl ) {
+        control.markAsTouched({ onlySelf: true });
+      } else if ( control instanceof FormGroup ) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
   onSubmit() {
-    console.log(this.customerForm.value);
-    this.triggerSubmit.emit(this.customerForm.value);
+    if ( this.customerForm.valid ) {
+      this.triggerSubmit.emit(this.customerForm.value);
+    } else {
+      this.validateAllFormFields(this.customerForm);
+    }
   }
 
 }

@@ -45,6 +45,6 @@
                 <input type="text" name="postcode" matInput formControlName="postcode">
             </mat-form-field>
         </div>
-        <button *ngIf="!customer" [disabled]="customerForm.invalid" type="submit" mat-raised-button color="warn">{{ 'customer.button.add_customer' | transloco }}</button>
+        <button *ngIf="!customer" type="submit" mat-raised-button color="warn">{{ 'customer.button.add_customer' | transloco }}</button>
     </div>
 </form>
