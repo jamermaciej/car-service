@@ -249,7 +249,8 @@
 				"onlyAlpha": "The name can only contain letters."
 			},
 			"phoneNumber": {
-				"required": "Phone number is required."
+				"required": "Phone number is required.",
+				"invalidPhoneNumber": "Valid phone number is required."
 			},
 			"idNumber": {
 				"required": "ID number is required."

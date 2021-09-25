@@ -21,6 +21,7 @@ export class ValidationService {
       },
       'phoneNumber': {
         'required': 'customer.error.phoneNumber.required',
+        'invalidPhoneNumber': 'customer.error.phoneNumber.invalidPhoneNumber'
       },
       'idNumber': {
         'required': 'customer.error.idNumber.required',

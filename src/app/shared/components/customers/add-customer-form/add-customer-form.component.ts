@@ -1,3 +1,4 @@
+import { PhoneNumberValidator } from './../../../validators/phone-number-validator';
 import { AlphaOnlyValidator } from './../../../validators/alpha-only-validator';
 import { Customer } from './../../../models/customer.model';
 import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -27,7 +28,7 @@ export class AddCustomerFormComponent implements OnInit {
     this.customerForm = this.formBuilder.group({
       name: ['', [RequiredValidator.required, Validators.maxLength(30), AlphaOnlyValidator.alphaOnly]],
       surname: ['', [RequiredValidator.required, Validators.maxLength(30), AlphaOnlyValidator.alphaOnly]],
-      phoneNumber: ['', [RequiredValidator.required]],
+      phoneNumber: ['', [RequiredValidator.required, PhoneNumberValidator.checkPhoneNumber]],
       address: this.formBuilder.group({
         street: [''],
         city: [''],
