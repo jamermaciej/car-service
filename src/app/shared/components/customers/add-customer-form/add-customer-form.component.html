@@ -18,7 +18,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'customer.label.id_number' | transloco }}</mat-label>
-                <input type="text" name="idNumber" matInput formControlName="idNumber">
+                <input type="text" name="idNumber" matInput formControlName="idNumber" #idNumber (input)="idNumber.value = idNumber.value.toUpperCase()" placeholder="ABC123456" maxlength="9">
                 <app-error-message [control]="customerForm.get('idNumber')"></app-error-message>
             </mat-form-field>
             <mat-form-field class="w100">

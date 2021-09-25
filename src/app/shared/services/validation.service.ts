@@ -25,6 +25,7 @@ export class ValidationService {
       },
       'idNumber': {
         'required': 'customer.error.idNumber.required',
+        'invalidIdNumber': 'customer.error.idNumber.invalidIdNumber'
       },
       'brand': {
         'required': 'customer.error.brand.required',

@@ -253,7 +253,8 @@
 				"invalidPhoneNumber": "Valid phone number is required."
 			},
 			"idNumber": {
-				"required": "ID number is required."
+				"required": "ID number is required.",
+				"invalidIdNumber": "Invalid ID number"
 			}
 		}
 	},
