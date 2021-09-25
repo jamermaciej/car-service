@@ -17,6 +17,7 @@ export class ValidationService {
       },
       'surname': {
         'required': 'customer.error.surname.required',
+        'onlyAlpha': 'customer.error.surname.onlyAlpha'
       },
       'phoneNumber': {
         'required': 'customer.error.phoneNumber.required',

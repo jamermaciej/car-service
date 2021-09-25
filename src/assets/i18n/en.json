@@ -245,7 +245,8 @@
 				"onlyAlpha": "The name can only contain letters."
 			},
 			"surname": {
-				"required": "Surname is required."
+				"required": "Surname is required.",
+				"onlyAlpha": "The name can only contain letters."
 			},
 			"phoneNumber": {
 				"required": "Phone number is required."

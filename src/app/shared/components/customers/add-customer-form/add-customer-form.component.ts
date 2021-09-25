@@ -26,7 +26,7 @@ export class AddCustomerFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.customerForm = this.formBuilder.group({
       name: ['', [RequiredValidator.required, Validators.maxLength(30), AlphaOnlyValidator.alphaOnly]],
-      surname: ['', [RequiredValidator.required]],
+      surname: ['', [RequiredValidator.required, Validators.maxLength(30), AlphaOnlyValidator.alphaOnly]],
       phoneNumber: ['', [RequiredValidator.required]],
       address: this.formBuilder.group({
         street: [''],
