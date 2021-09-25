@@ -222,6 +222,24 @@
 		}
 	},
 	"customer": {
+		"add_customer": {
+			"header": "Dodaj nowego klienta",
+			"subheader": "Po dodaniu nowego klienta zaobczysz go na liście oraz zostanie automatycznie dodany do zgłoszenia serwisowego."
+		},
+		"button": {
+			"add_customer": "Dodaj klienta"
+		},
+		"label": {
+			"name": "Imię *",
+			"surname": "Nazwisko *",
+			"phone_number": "Number telefonu *",
+			"id_number": "Number dowodu *",
+			"email": "Email *",
+			"street": "Ulica",
+			"city": "Miasto",
+			"province": "Województwo",
+			"postcode": "Kod pocztowy"
+		},
 		"error": {
 			"surname": {
 				"required": "Nazwisko jest wymagane."

@@ -2,49 +2,49 @@
     <div class="row">
         <div class="col col-6">
             <mat-form-field>
-                <mat-label>Name *</mat-label>
+                <mat-label>{{ 'customer.label.name' | transloco }}</mat-label>
                 <input type="text" name="name" matInput formControlName="name">
-                <!-- <app-error-message [control]="customerForm.get('name')"></app-error-message> -->
+                <app-error-message [control]="customerForm.get('name')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Surname *</mat-label>
+                <mat-label>{{ 'customer.label.surname' | transloco }}</mat-label>
                 <input type="text" name="surname" matInput formControlName="surname">
-                <!-- <app-error-message [control]="customerForm.get('surname')"></app-error-message> -->
+                <app-error-message [control]="customerForm.get('surname')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Phone number *</mat-label>
+                <mat-label>{{ 'customer.label.phone_number' | transloco }}</mat-label>
                 <input type="tel" name="phoneNumber" matInput formControlName="phoneNumber">
-                <!-- <app-error-message [control]="customerForm.get('phoneNumber')"></app-error-message> -->
+                <app-error-message [control]="customerForm.get('phoneNumber')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>ID number *</mat-label>
+                <mat-label>{{ 'customer.label.id_number' | transloco }}</mat-label>
                 <input type="text" name="idNumber" matInput formControlName="idNumber">
-                <!-- <app-error-message [control]="customerForm.get('idNumber')"></app-error-message> -->
+                <app-error-message [control]="customerForm.get('idNumber')"></app-error-message>
             </mat-form-field>
             <mat-form-field class="w100">
-                <mat-label>Email *</mat-label>
+                <mat-label>{{ 'customer.label.email' | transloco }}</mat-label>
                 <input type="email" name="email" matInput formControlName="email">
-                <!-- <app-error-message [control]="customerForm.get('email')"></app-error-message> -->
+                <app-error-message [control]="customerForm.get('email')"></app-error-message>
             </mat-form-field>
         </div>
         <div class="col col-6" formGroupName="address">
             <mat-form-field>
-                <mat-label>Street</mat-label>
+                <mat-label>{{ 'customer.label.street' | transloco }}</mat-label>
                 <input type="text" name="street" matInput formControlName="street">
             </mat-form-field>
             <mat-form-field>
-                <mat-label>City</mat-label>
+                <mat-label>{{ 'customer.label.city' | transloco }}</mat-label>
                 <input type="text" name="city" matInput formControlName="city">
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Province</mat-label>
+                <mat-label>{{ 'customer.label.province' | transloco }}</mat-label>
                 <input type="text" name="province" matInput formControlName="province">
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Postcode</mat-label>
+                <mat-label>{{ 'customer.label.postcode' | transloco }}</mat-label>
                 <input type="text" name="postcode" matInput formControlName="postcode">
             </mat-form-field>
         </div>
-        <button *ngIf="!customer" [disabled]="customerForm.invalid" type="submit" mat-raised-button color="warn">Add customer</button>
+        <button *ngIf="!customer" [disabled]="customerForm.invalid" type="submit" mat-raised-button color="warn">{{ 'customer.button.add_customer' | transloco }}</button>
     </div>
 </form>

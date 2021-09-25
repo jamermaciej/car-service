@@ -1,6 +1,6 @@
 <div class="add-new-customer">
-    <h2 mat-dialog-title>Add new customer</h2>
-    <p>After add new customer you see him on customers <br> list and in customer select on order service screen.</p>
+    <h2 mat-dialog-title>{{ 'customer.add_customer.header' | transloco }}</h2>
+    <p>{{ 'customer.add_customer.subheader' | transloco }}</p>
     <mat-dialog-content class="mat-typography">
         <app-add-customer-form (triggerSubmit)="addCustomer($event)"></app-add-customer-form>
     </mat-dialog-content>

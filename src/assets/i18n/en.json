@@ -222,6 +222,24 @@
 		}
 	},
 	"customer": {
+		"add_customer": {
+			"header": "Add new customer",
+			"subheader": "After add new customer you see him on customers list and in customer select on order service screen."
+		},
+		"button": {
+			"add_customer": "Add customer"
+		},
+		"label": {
+			"name": "Name *",
+			"surname": "Surname *",
+			"phone_number": "Phone number *",
+			"id_number": "ID number *",
+			"email": "Email *",
+			"street": "Street",
+			"city": "City",
+			"province": "Province",
+			"postcode": "Postcode"
+		},
 		"error": {
 			"surname": {
 				"required": "Surname is required."
