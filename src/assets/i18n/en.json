@@ -241,6 +241,9 @@
 			"postcode": "Postcode"
 		},
 		"error": {
+			"name": {
+				"onlyAlpha": "The name can only contain letters."
+			},
 			"surname": {
 				"required": "Surname is required."
 			},

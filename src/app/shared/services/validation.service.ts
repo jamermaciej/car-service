@@ -12,7 +12,8 @@ export class ValidationService {
       'name': {
         'required': 'register.error.name.required',
         'minlength': `register.error.name.minLength`,
-        'maxlength': `register.error.name.maxLength`
+        'maxlength': `register.error.name.maxLength`,
+        'onlyAlpha': 'customer.error.name.onlyAlpha'
       },
       'surname': {
         'required': 'customer.error.surname.required',

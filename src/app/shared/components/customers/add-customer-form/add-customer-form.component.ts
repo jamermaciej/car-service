@@ -1,5 +1,6 @@
+import { AlphaOnlyValidator } from './../../../validators/alpha-only-validator';
 import { Customer } from './../../../models/customer.model';
-import { Form, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 
@@ -24,7 +25,7 @@ export class AddCustomerFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {
     this.customerForm = this.formBuilder.group({
-      name: ['', [RequiredValidator.required]],
+      name: ['', [RequiredValidator.required, Validators.maxLength(30), AlphaOnlyValidator.alphaOnly]],
       surname: ['', [RequiredValidator.required]],
       phoneNumber: ['', [RequiredValidator.required]],
       address: this.formBuilder.group({
