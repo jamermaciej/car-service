@@ -255,6 +255,9 @@
 			"idNumber": {
 				"required": "ID number is required.",
 				"invalidIdNumber": "Invalid ID number"
+			},
+			"postcode": {
+				"invalidPostcode": "Postalcode must be in the XX-XXX format."
 			}
 		}
 	},

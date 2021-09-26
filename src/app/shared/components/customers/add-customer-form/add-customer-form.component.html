@@ -42,7 +42,8 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'customer.label.postcode' | transloco }}</mat-label>
-                <input type="text" name="postcode" matInput formControlName="postcode">
+                <input type="text" name="postcode" matInput #postcode formControlName="postcode" maxlength="6" (keypress)="validPostcode($event)">
+                <app-error-message [control]="customerForm.get('address.postcode')"></app-error-message>
             </mat-form-field>
         </div>
         <button *ngIf="!customer" type="submit" mat-raised-button color="warn">{{ 'customer.button.add_customer' | transloco }}</button>

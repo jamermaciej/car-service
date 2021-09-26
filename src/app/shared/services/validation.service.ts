@@ -27,6 +27,9 @@ export class ValidationService {
         'required': 'customer.error.idNumber.required',
         'invalidIdNumber': 'customer.error.idNumber.invalidIdNumber'
       },
+      'postcode': {
+        'invalidPostcode': 'customer.error.postcode.invalidPostcode'
+      },
       'brand': {
         'required': 'customer.error.brand.required',
       },

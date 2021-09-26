@@ -1,10 +1,12 @@
+import { MatInput } from '@angular/material/input';
+import { PostcodeValidator } from './../../../validators/postcode-validation';
 import { EmailValidator } from './../../../validators/email-validator';
 import { IdNumberValidator } from './../../../validators/id_number.validator';
 import { PhoneNumberValidator } from './../../../validators/phone-number-validator';
 import { AlphaOnlyValidator } from './../../../validators/alpha-only-validator';
 import { Customer } from './../../../models/customer.model';
 import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 
 @Component({
@@ -13,6 +15,7 @@ import { RequiredValidator } from 'src/app/shared/validators/required-validator'
   styleUrls: ['./add-customer-form.component.scss']
 })
 export class AddCustomerFormComponent implements OnInit {
+  @ViewChild('postcode') postcode: ElementRef;
   customerForm: FormGroup;
   private _customer: Customer;
   @Output() triggerSubmit = new EventEmitter();
@@ -35,7 +38,7 @@ export class AddCustomerFormComponent implements OnInit {
         street: [''],
         city: [''],
         province: [''],
-        postcode: ['']
+        postcode: ['', [PostcodeValidator.checkPostcode]]
       }),
       idNumber: ['', [RequiredValidator.required, IdNumberValidator.checkIdNumber]],
       email: ['', [RequiredValidator.required, EmailValidator.validateEmail]]
@@ -44,6 +47,18 @@ export class AddCustomerFormComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  validPostcode(event) {
+    const isNumber = /[0-9]/.test(event.key);
+
+    if ( !isNumber) {
+      event.preventDefault();
+    }
+
+    if ( event.target.value.length === 2 ) {
+      this.postcode.nativeElement.value += '-';
+    }
   }
 
   validateAllFormFields(formGroup: FormGroup) {
