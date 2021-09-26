@@ -1,3 +1,4 @@
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,7 @@ import { AddCustomerFormComponent } from './components/customers/add-customer-fo
 import { MatInputModule } from '@angular/material/input';
 import { AddCarFormComponent } from './components/cars/add-customer-form/add-customer-car.component';
 import { StatusFormComponent } from './components/statuses/status-form/status-form.component';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
     declarations: [ErrorMessageComponent, HintComponent, LogoComponent, AddCustomerFormComponent, AddCarFormComponent, StatusFormComponent],
@@ -20,7 +22,9 @@ import { StatusFormComponent } from './components/statuses/status-form/status-fo
         ReactiveFormsModule,
         MatInputModule,
         MatFormFieldModule,
-        MatButtonModule
+        MatButtonModule,
+        MatAutocompleteModule,
+        MatOptionModule
     ],
     exports: [
         CommonModule,

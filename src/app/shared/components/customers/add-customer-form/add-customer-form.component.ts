@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { MatInput } from '@angular/material/input';
 import { PostcodeValidator } from './../../../validators/postcode-validation';
 import { EmailValidator } from './../../../validators/email-validator';
@@ -8,6 +9,8 @@ import { Customer } from './../../../models/customer.model';
 import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
+import { provinces } from 'src/assets/config.json';
+import { map, startWith, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-customer-form',
@@ -18,6 +21,8 @@ export class AddCustomerFormComponent implements OnInit {
   @ViewChild('postcode') postcode: ElementRef;
   customerForm: FormGroup;
   private _customer: Customer;
+  provinces = provinces;
+  filteredProvinces: Observable<string[]>;
   @Output() triggerSubmit = new EventEmitter();
   @Input() set customer(customer: Customer) {
     this.customerForm.patchValue(customer);
@@ -46,7 +51,17 @@ export class AddCustomerFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filteredProvinces = this.customerForm.get('address.province').valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
 
+  private _filter(name: string): string[] {
+    const filterValue = name.toLowerCase();
+
+    return this.provinces.filter(province => province.toLowerCase().includes(filterValue));
   }
 
   validPostcode(event) {

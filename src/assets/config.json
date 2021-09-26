@@ -6,5 +6,23 @@
     "locales": {
         "default_locale": "pl",
         "supported_locales": ["pl", "en"]
-    }
+    },
+    "provinces": [
+        "dolnośląskie",
+        "kujawsko-pomorskie",
+        "lubelskie",
+        "lubuskie",
+        "łódzkie",
+        "małopolskie",
+        "mazowieckie",
+        "opolskie",
+        "podkarpackie",
+        "podlaskie",
+        "pomorskie",
+        "śląskie",
+        "świętokrzyskie",
+        "warmińsko-mazurskie",
+        "wielkopolskie",
+        "zachodniopomorskie"
+    ]
 }
