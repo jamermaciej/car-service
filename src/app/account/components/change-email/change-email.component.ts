@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { UserService } from './../../../core/services/user/user.service';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
-import { EmailValidator } from './../../../shared/validators/email-validator';
+import { EmailDomainValidator } from '../../../shared/validators/email-domain-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailDomain } from '../../../../assets/config.json';
@@ -25,7 +25,7 @@ export class ChangeEmailComponent implements OnInit {
   ngOnInit(): void {
     this.changeEmail = this.formBuilder.group({
       password: ['', [Validators.required]],
-      email: ['', [RequiredValidator.required, Validators.email, EmailValidator.matchEmailDomain(emailDomain)]]
+      email: ['', [RequiredValidator.required, Validators.email, EmailDomainValidator.matchEmailDomain(emailDomain)]]
     });
   }
 

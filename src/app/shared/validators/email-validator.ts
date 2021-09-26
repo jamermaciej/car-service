@@ -1,19 +1,9 @@
 import { FormControl, ValidationErrors } from '@angular/forms';
 
 export class EmailValidator {
-    static matchEmailDomain(domainName: string[]) {
-        return (control: FormControl): ValidationErrors => {
-            const email = control.value;
-            const domain = email.substring(email.lastIndexOf('@') + 1);
-            for (const d of domainName) {
-                if (domain.toLowerCase() === d.toLowerCase()) return null;
-            }
-            return {
-                emailDomain: {
-                    domain,
-                    acceptDomain: domainName
-                }
-            };
-        };
+    static validateEmail(control: FormControl): ValidationErrors {
+        const isEmailValid = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(control.value);
+
+        return isEmailValid ? null : { email: true };
     }
 }

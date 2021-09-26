@@ -1,3 +1,4 @@
+import { EmailValidator } from './../../../validators/email-validator';
 import { IdNumberValidator } from './../../../validators/id_number.validator';
 import { PhoneNumberValidator } from './../../../validators/phone-number-validator';
 import { AlphaOnlyValidator } from './../../../validators/alpha-only-validator';
@@ -37,7 +38,7 @@ export class AddCustomerFormComponent implements OnInit {
         postcode: ['']
       }),
       idNumber: ['', [RequiredValidator.required, IdNumberValidator.checkIdNumber]],
-      email: ['', [RequiredValidator.required]]
+      email: ['', [RequiredValidator.required, EmailValidator.validateEmail]]
     });
   }
 
