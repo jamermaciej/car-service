@@ -16,7 +16,7 @@ export class ErrorMessageComponent {
     const controlName = this.getControlName(this.control);
 
     for (const key in this.control.errors) {
-      if (this.control.errors.hasOwnProperty(key) && this.control.invalid && (this.control.touched || this.control.dirty)) {
+      if (this.control.errors.hasOwnProperty(key) && this.control.invalid && this.control.touched) {
         switch (key) {
           case 'emailDomain':
             this.params = {
