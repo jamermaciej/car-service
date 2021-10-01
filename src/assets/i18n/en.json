@@ -264,6 +264,32 @@
 			"add_customer": "New customer added."
 		}
 	},
+	"car": {
+		"add_car": {
+			"header": "Add new car",
+			"subheader": "After add new car you see him on cars <br> list and in car select on order service screen."
+		},
+		"button": {
+			"add_car": "Add car"
+		},
+		"label": {
+			"brand": "Brand *",
+			"model": "Model *",
+			"type": "Type *",
+			"year": "Year *",
+			"registration": "Registration *",
+			"vin": "VIN",
+			"mileage": "Mileage",
+			"capacity": "Capacity",
+			"power": "Power",
+			"fuel": "Fuel"
+		},
+		"error": {
+		},
+		"success": {
+			"add_car": "New car added."
+		}
+	},
 	"orders": {
 		"header": {
 			"add_customer": "Add new customer or select existing from select list",

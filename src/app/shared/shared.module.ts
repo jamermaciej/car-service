@@ -34,7 +34,8 @@ import { MatOptionModule } from '@angular/material/core';
         LogoComponent,
         AddCustomerFormComponent,
         AddCarFormComponent,
-        StatusFormComponent
+        StatusFormComponent,
+        TranslocoModule
     ]
 })
 export class SharedModule {}
