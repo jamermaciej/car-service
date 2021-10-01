@@ -56,7 +56,7 @@
                             <input type="text" name="search" matInput #searchCarInput (keyup)="filterCars($event.target.value)" placeholder="{{ 'orders.placeholder.search_car' | transloco }}">
                         </mat-form-field>
                         <mat-option *ngFor="let car of filteredCars$ | async" [value]="car.id">
-                            {{ car.brand }}
+                            {{ car.brand }} {{ car.model }} {{ car.year }} - {{ car.registration }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

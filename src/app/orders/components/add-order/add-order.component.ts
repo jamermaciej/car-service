@@ -180,7 +180,7 @@ export class AddOrderComponent implements OnInit {
 
   filterCars(value) {
     this.filteredCars$ = this.cars$.pipe(
-      map(cars => cars.filter(car => car.brand.toLowerCase().startsWith(value)))
+      map(cars => cars.filter(car => (car.brand.toLowerCase().startsWith(value)) || car.registration.toLowerCase().startsWith(value)))
     );
   }
 }

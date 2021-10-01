@@ -278,13 +278,43 @@
 			"type": "Type *",
 			"year": "Year *",
 			"registration": "Registration *",
-			"vin": "VIN",
-			"mileage": "Mileage",
-			"capacity": "Capacity",
-			"power": "Power",
-			"fuel": "Fuel"
+			"vin": "VIN *",
+			"mileage": "Mileage *",
+			"capacity": "Capacity *",
+			"power": "Power *",
+			"fuel": "Fuel *"
 		},
 		"error": {
+			"brand": {
+				"required": "Brand is required"
+			},
+			"model": {
+				"required": "Model is required"
+			},
+			"type": {
+				"required": "Type is required"
+			},
+			"year": {
+				"required": "Year is required"
+			},
+			"registration": {
+				"required": "Registration is required"
+			},
+			"vin": {
+				"required": "VIN is required"
+			},
+			"mileage": {
+				"required": "Mileage is required"
+			},
+			"capacity": {
+				"required": "Capacity is required"
+			},
+			"power": {
+				"required": "Power is required"
+			},
+			"fuel": {
+				"required": "Fuel is required"
+			}
 		},
 		"success": {
 			"add_car": "New car added."
@@ -304,7 +334,7 @@
 			"add_customer": "Add customer or select exist",
 			"search_customer": "Search customer...",
 			"add_car": "Add car or select exist",
-			"search_car": "Search car..."
+			"search_car": "Search by car brand or registration..."
 		},
 		"label": {
 			"delivery_date": "Delivery Date *",

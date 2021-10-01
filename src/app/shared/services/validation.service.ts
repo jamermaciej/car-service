@@ -31,16 +31,16 @@ export class ValidationService {
         'invalidPostcode': 'customer.error.postcode.invalidPostcode'
       },
       'brand': {
-        'required': 'customer.error.brand.required',
+        'required': 'car.error.brand.required',
       },
       'model': {
-        'required': 'customer.error.model.required',
+        'required': 'car.error.model.required',
       },
       'type': {
-        'required': 'customer.error.type.required',
+        'required': 'car.error.type.required',
       },
       'year': {
-        'required': 'customer.error.year.required',
+        'required': 'car.error.year.required',
       },
       'label': {
         'required': 'customer.error.label.required',
@@ -49,7 +49,22 @@ export class ValidationService {
         'required': 'customer.error.value.required',
       },
       'registration': {
-        'required': 'customer.error.registration.required',
+        'required': 'car.error.registration.required',
+      },
+      'vin': {
+        'required': 'car.error.vin.required',
+      },
+      'mileage': {
+        'required': 'car.error.mileage.required',
+      },
+      'capacity': {
+        'required': 'car.error.capacity.required',
+      },
+      'power': {
+        'required': 'car.error.power.required',
+      },
+      'fuel': {
+        'required': 'car.error.fuel.required',
       },
       'email': {
         'required': 'register.error.email.required',

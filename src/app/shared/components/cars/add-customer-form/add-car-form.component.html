@@ -29,24 +29,29 @@
             <mat-form-field>
                 <mat-label>{{ 'car.label.vin' | transloco }}</mat-label>
                 <input type="text" name="vin" matInput formControlName="vin">
+                <app-error-message [control]="carForm.get('vin')"></app-error-message>
             </mat-form-field>
         </div>
         <div class="col col-6">
             <mat-form-field>
                 <mat-label>{{ 'car.label.mileage' | transloco }}</mat-label>
                 <input type="text" name="mileage" matInput formControlName="mileage">
+                <app-error-message [control]="carForm.get('mileage')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'car.label.capacity' | transloco }}</mat-label>
                 <input type="text" name="capacity" matInput formControlName="capacity">
+                <app-error-message [control]="carForm.get('capacity')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'car.label.power' | transloco }}</mat-label>
                 <input type="text" name="power" matInput formControlName="power">
+                <app-error-message [control]="carForm.get('power')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'car.label.fuel' | transloco }}</mat-label>
                 <input type="text" name="fuel" matInput formControlName="fuel">
+                <app-error-message [control]="carForm.get('fuel')"></app-error-message>
             </mat-form-field>
         </div>
         <button *ngIf="!car" type="submit" mat-raised-button color="warn">{{ 'car.button.add_car' | transloco }}</button>

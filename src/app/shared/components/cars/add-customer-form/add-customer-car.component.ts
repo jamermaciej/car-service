@@ -31,7 +31,7 @@ export class AddCarFormComponent implements OnInit {
       registration: ['', [RequiredValidator.required]],
       mileage: ['', [RequiredValidator.required]],
       vin: ['', [RequiredValidator.required]],
-      capacity: [''],
+      capacity: ['', [RequiredValidator.required]],
       power: ['', [RequiredValidator.required]],
       fuel: ['', [RequiredValidator.required]]
     });
