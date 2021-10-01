@@ -1,6 +1,6 @@
 import { Customer } from './../../../shared/models/customer.model';
 import { UserService } from 'src/app/core/services/user/user.service';
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 
 import * as customersActions from '../actions/customers.actions';
 import * as authActions from '../../../store/actions/auth.actions';
@@ -13,15 +13,18 @@ import { of } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert/alert-service';
 import { TranslocoService } from '@ngneat/transloco';
 import { CustomerService } from '../../services/customer.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { AddCustomerModalComponent } from '../../components/add-customer-modal/add-customer-modal.component';
 
 @Injectable()
 export class CustomersEffects {
+    // private dialogRef: MatDialogRef<AddCustomerModalComponent>;
 
     constructor(
         private actions$: Actions,
         private customerService: CustomerService,
         private alertService: AlertService,
-        private translocoService: TranslocoService
+        private translocoService: TranslocoService,
     ) {}
 
     addCustomer$ = createEffect(() => this.actions$.pipe(
@@ -33,6 +36,31 @@ export class CustomersEffects {
     ), {
         dispatch: true
     });
+
+    addCustomerSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(customersActions.addCustomerSuccess),
+        tap(({ customer }) => {
+            const successMessage = this.translocoService.translate('customer.success.add_customer');
+            this.alertService.showAlert(successMessage, 'success');
+        })
+    ), {
+        dispatch: false
+    });
+
+    // addCustomerSuccess$ = createEffect(() => this.actions$.pipe(
+    //     ofType(customersActions.addCustomerSuccess),
+    //     tap(({ customer }) => this.dialogRef.close({ customer }))
+    // ), {
+    //     dispatch: false
+    // });
+
+    addCustomerFailure$ = createEffect(() => this.actions$.pipe(
+        ofType(customersActions.addCustomerFailure),
+        tap(({ error }) => this.alertService.showAlert(error.error.message, 'error'))
+    ), {
+        dispatch: false
+    });
+
 
     // getCustomer$ = createEffect(() => this.actions$.pipe(
     //     ofType(customersActions.getCustomer),

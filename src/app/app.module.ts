@@ -13,7 +13,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInitService } from './core/services/app-init.service';
 import { TranslocoRootModule } from './transloco-root.module';
 import { StoreModule } from '@ngrx/store';
@@ -24,6 +24,7 @@ import { CustomSerializer } from './store/reducers/router.reducer';
 import { EffectsModule } from '@ngrx/effects';
 
 import { effects, reducers, metaReducers } from './store';
+import { HttpErrorInterceptor } from './core/interceptors/http/http.interceptor';
 
 export function initApp(appInitService: AppInitService) {
   return (): Promise<any> => appInitService.Init();
@@ -58,7 +59,12 @@ export function initApp(appInitService: AppInitService) {
       useFactory: initApp,
       deps: [AppInitService],
       multi: true
-    }
+    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: HttpErrorInterceptor,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

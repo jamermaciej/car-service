@@ -4,21 +4,28 @@ import * as customersActions from '../actions/customers.actions';
 
 export interface State {
     customers: Customer[];
+    error: string | null;
 }
 
 export const initialState: State = {
-    customers: []
+    customers: [],
+    error: null
 };
 
 const customersReducer = createReducer(
     initialState,
     on(customersActions.addCustomerSuccess, (state, { customer } ) => ({
         ...state,
-        customers: [...state.customers, customer]
+        customers: [...state.customers, customer],
+        error: null
     })),
     on(customersActions.laodCustomersSuccess, (state, { customers } ) => ({
         ...state,
         customers
+    })),
+    on(customersActions.addCustomerFailure, (state, { error }) => ({
+        ...state,
+        error: error.error.message
     }))
 );
 

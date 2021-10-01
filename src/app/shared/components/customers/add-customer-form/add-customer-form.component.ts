@@ -45,7 +45,7 @@ export class AddCustomerFormComponent implements OnInit {
         province: [''],
         postcode: ['', [PostcodeValidator.checkPostcode]]
       }),
-      idNumber: ['', [RequiredValidator.required, IdNumberValidator.checkIdNumber]],
+      idNumber: ['', [RequiredValidator.required]],
       email: ['', [RequiredValidator.required, EmailValidator.validateEmail]]
     });
   }

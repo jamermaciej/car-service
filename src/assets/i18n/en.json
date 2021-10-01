@@ -259,6 +259,9 @@
 			"postcode": {
 				"invalidPostcode": "Postalcode must be in the XX-XXX format."
 			}
+		},
+		"success": {
+			"add_customer": "New customer added."
 		}
 	},
 	"orders": {
