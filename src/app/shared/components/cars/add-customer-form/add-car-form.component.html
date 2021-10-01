@@ -49,6 +49,6 @@
                 <input type="text" name="fuel" matInput formControlName="fuel">
             </mat-form-field>
         </div>
-        <button *ngIf="!car" [disabled]="carForm.invalid" type="submit" mat-raised-button color="warn">{{ 'car.button.add_car' | transloco }}</button>
+        <button *ngIf="!car" type="submit" mat-raised-button color="warn">{{ 'car.button.add_car' | transloco }}</button>
     </div>
 </form>
