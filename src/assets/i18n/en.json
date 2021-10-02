@@ -318,6 +318,16 @@
 		},
 		"success": {
 			"add_car": "New car added."
+		},
+		"fuel": {
+			"petrol": "Petrol",
+			"petrol_cng": "Petrol+CNG",
+			"petrol_lpg": "Petrol+LPG",
+			"diesel": "Diesel",
+			"electric": "Electric",
+			"ethanol": "Ethanol", 
+			"hybrid": "Hybrid", 
+			"hydrogen": "Hydrogen"
 		}
 	},
 	"orders": {

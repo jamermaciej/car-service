@@ -24,5 +24,15 @@
         "warmińsko-mazurskie",
         "wielkopolskie",
         "zachodniopomorskie"
-    ]
+    ],
+    "fuel": [
+        "car.fuel.petrol",
+        "car.fuel.petrol_cng",
+        "car.fuel.petrol_lpg",
+        "car.fuel.diesel",
+        "car.fuel.electric",
+        "car.fuel.ethanol",
+        "car.fuel.hybrid",
+        "car.fuel.hydrogen"
+    ] 
 }

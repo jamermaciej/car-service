@@ -251,5 +251,17 @@
 				"required": "Number dowodu osobistego jest wymagany."
 			}
 		}
+	},
+	"car": {
+		"fuel": {
+			"petrol": "Benzyna",
+			"petrol_cng": "Benzyna+CNG",
+			"petrol_lpg": "Benzyna+LPG",
+			"diesel": "Diesel",
+			"electric": "Elektryczny",
+			"ethanol": "Etanol", 
+			"hybrid": "Hybryda", 
+			"hydrogen": "Wodór"
+		}
 	}
 }

@@ -2,6 +2,9 @@ import { Car } from '../../../models/car.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { fuel } from 'src/assets/config.json';
 
 @Component({
   selector: 'app-add-car-form',
@@ -11,6 +14,8 @@ import { RequiredValidator } from 'src/app/shared/validators/required-validator'
 export class AddCarFormComponent implements OnInit {
   carForm: FormGroup;
   private _car: Car;
+  fuel = fuel;
+  filteredFuels: Observable<string[]>;
   @Output() triggerSubmit = new EventEmitter();
   @Input() set car(car: Car) {
     this.carForm.patchValue(car);
@@ -38,7 +43,17 @@ export class AddCarFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filteredFuels = this.carForm.get('fuel').valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
 
+  private _filter(name: string): string[] {
+    const filterValue = name.toLowerCase();
+
+    return this.fuel.filter(f => f.toLowerCase().includes(filterValue));
   }
 
   validateAllFormFields(formGroup: FormGroup) {
