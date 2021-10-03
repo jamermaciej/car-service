@@ -1,6 +1,6 @@
 import { Car } from '../../../models/car.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import { fuel, carTypes } from 'src/assets/config.json';
   styleUrls: ['./add-car-form.component.scss']
 })
 export class AddCarFormComponent implements OnInit {
+  @ViewChild('capacity') capacity: ElementRef;
+  @ViewChild('mileage') mileage: ElementRef;
   carForm: FormGroup;
   private _car: Car;
   fuel = fuel;
@@ -73,6 +75,24 @@ export class AddCarFormComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+  addCapacitySeparator() {
+    const value = this.capacity.nativeElement.value.replace(/\s/g, '');
+    this.capacity.nativeElement.value = value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ' ');
+  }
+
+  addMileageSeparator() {
+    const value = this.mileage.nativeElement.value.replace(/\s/g, '');
+    this.mileage.nativeElement.value = value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ' ');
+  }
+
+  onlyNumber(event) {
+    const isNumber = /[0-9]/.test(event.key);
+
+    if ( !isNumber) {
+      event.preventDefault();
+    }
   }
 
   onSubmit() {
