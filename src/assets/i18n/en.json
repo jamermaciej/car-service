@@ -328,6 +328,17 @@
 			"ethanol": "Ethanol", 
 			"hybrid": "Hybrid", 
 			"hydrogen": "Hydrogen"
+		},
+		"car_type": {
+			"small_cars": "Small cars",
+			"city_cars": "City cars",
+			"coupe": "Coupe",
+			"cabrio": "Cabrio",
+			"combi": "Combi",
+			"compact": "Compact",
+			"minivan": "Minivan",
+			"sedan": "Sedan",
+			"suv": "SUV"
 		}
 	},
 	"orders": {

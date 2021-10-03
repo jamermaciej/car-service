@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { fuel } from 'src/assets/config.json';
+import { fuel, carTypes } from 'src/assets/config.json';
 
 @Component({
   selector: 'app-add-car-form',
@@ -16,6 +16,8 @@ export class AddCarFormComponent implements OnInit {
   private _car: Car;
   fuel = fuel;
   filteredFuels: Observable<string[]>;
+  carTypes = carTypes;
+  filteredCarTypes: Observable<string[]>;
   @Output() triggerSubmit = new EventEmitter();
   @Input() set car(car: Car) {
     this.carForm.patchValue(car);
@@ -46,14 +48,20 @@ export class AddCarFormComponent implements OnInit {
     this.filteredFuels = this.carForm.get('fuel').valueChanges
     .pipe(
       startWith(''),
-      map(value => this._filter(value))
+      map(value => this._filter(this.fuel, value))
+    );
+
+    this.filteredCarTypes = this.carForm.get('type').valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(this.carTypes, value))
     );
   }
 
-  private _filter(name: string): string[] {
+  private _filter(list: string[], name: string): string[] {
     const filterValue = name.toLowerCase();
 
-    return this.fuel.filter(f => f.toLowerCase().includes(filterValue));
+    return list.filter(v => v.toLowerCase().includes(filterValue));
   }
 
   validateAllFormFields(formGroup: FormGroup) {

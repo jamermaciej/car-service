@@ -263,5 +263,16 @@
 			"hybrid": "Hybryda", 
 			"hydrogen": "Wodór"
 		}
+	},
+	"car_type": {
+		"small_cars": "Auta małe",
+		"city_cars": "Auta miejskie",
+		"coupe": "Coupe",
+		"cabrio": "Kabriolet",
+		"combi": "Kombi",
+		"compact": "Kompakt",
+		"minivan": "Minivan",
+		"sedan": "Sedan",
+		"suv": "SUV"
 	}
 }

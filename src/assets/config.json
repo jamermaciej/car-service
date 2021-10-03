@@ -34,5 +34,16 @@
         "car.fuel.ethanol",
         "car.fuel.hybrid",
         "car.fuel.hydrogen"
-    ] 
+    ],
+    "carTypes": [
+        "car.car_type.small_cars",
+        "car.car_type.city_cars",
+        "car.car_type.coupe",
+        "car.car_type.cabrio",
+        "car.car_type.combi",
+        "car.car_type.compact",
+        "car.car_type.minivan",
+        "car.car_type.sedan",
+        "car.car_type.suv"
+    ]
 }
