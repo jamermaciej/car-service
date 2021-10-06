@@ -67,42 +67,50 @@
             </mat-card-content>
         </mat-card>
 
-        <mat-card>
-            <mat-form-field appearance="fill">
-                <mat-label>{{ 'orders.label.delivery_date' | transloco }}</mat-label>
-                <input matInput [matDatepicker]="picker" name="delivery_date" formControlName="delivery_date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>{{ 'orders.label.deadline' | transloco }}</mat-label>
-                <input matInput [matDatepicker]="picker1" name ="deadline" formControlName="deadline">
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field class="add-user">
-                <mat-label>{{ 'orders.label.user' | transloco }}</mat-label>
-                <mat-select #usersSelect name="users" id="users" formControlName="user_id">
-                    <mat-option *ngFor="let user of users$ | async" [value]="user.uid">
-                        {{ user.displayName }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ 'orders.label.status' | transloco }}</mat-label>
-                <mat-select #statusSelect name="status" id="status" formControlName="status">
-                    <mat-option *ngFor="let status of statuses$ | async" [value]="status.label">
-                        {{ status.label }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ 'orders.label.notes' | transloco }}</mat-label>
-                <textarea name="notes" matInput formControlName="notes"></textarea>
-            </mat-form-field>
-            <section class="checkbox-section">
-                <mat-checkbox name="test_drive_agree" formControlName="test_drive_agree">{{ 'orders.label.test_drive' | transloco }}</mat-checkbox>
-              </section>
+        <mat-card class="order-card">
+            <div class="row">
+                <div class="col col-6">
+                    <mat-form-field>
+                        <mat-label>{{ 'orders.label.delivery_date' | transloco }}</mat-label>
+                        <input matInput [matDatepicker]="picker" [min]="todayDate" name="delivery_date" (dateChange)="updateDeadline($event)" formControlName="delivery_date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col col-6">
+                    <mat-form-field>
+                        <mat-label>{{ 'orders.label.deadline' | transloco }}</mat-label>
+                        <input matInput [matDatepicker]="picker1" [min]="minDeadline" name ="deadline" formControlName="deadline">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col col-12">
+                    <mat-form-field class="add-user">
+                        <mat-label>{{ 'orders.label.user' | transloco }}</mat-label>
+                        <mat-select #usersSelect name="users" id="users" formControlName="user_id">
+                            <mat-option *ngFor="let user of users$ | async" [value]="user.uid">
+                                {{ user.displayName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>{{ 'orders.label.status' | transloco }}</mat-label>
+                        <mat-select #statusSelect name="status" id="status" formControlName="status">
+                            <mat-option *ngFor="let status of statuses$ | async" [value]="status.label">
+                                {{ status.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>{{ 'orders.label.notes' | transloco }}</mat-label>
+                        <textarea name="notes" matInput formControlName="notes"></textarea>
+                    </mat-form-field>
+                    <section class="checkbox-section">
+                        <mat-checkbox name="test_drive_agree" formControlName="test_drive_agree">{{ 'orders.label.test_drive' | transloco }}</mat-checkbox>
+                    </section>
+                </div>
+            </div>
         </mat-card>
 
         <button [disabled]="orderForm.invalid" type="submit" mat-raised-button color="primary" class="btn-add-order">{{ 'orders.button.add_order' | transloco }}</button>

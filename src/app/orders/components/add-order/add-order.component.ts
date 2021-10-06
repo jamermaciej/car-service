@@ -21,6 +21,7 @@ import { filter, find, switchMap, take, delay, timeout } from 'rxjs/operators';
 import { Status } from 'src/app/shared/models/status.model';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 import { MatInput } from '@angular/material/input';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-add-order',
@@ -40,6 +41,8 @@ export class AddOrderComponent implements OnInit {
   selectedCar: Observable<Car>;
   filteredCustomers$: Observable<Customer[]>;
   filteredCars$: Observable<Car[]>;
+  todayDate: Date = new Date();
+  minDeadline: Date = new Date();
 
   users$: Observable<User[]>;
 
@@ -71,6 +74,9 @@ export class AddOrderComponent implements OnInit {
     this.users$ = this.store.select(getUsers);
 
     this.statuses$ = this.store.select(getStatuses);
+
+    const deadlineDate = dayjs().add(1, 'day').format();
+    this.orderForm.get('deadline').setValue(deadlineDate);
   }
 
   onSubmit() {
@@ -182,5 +188,12 @@ export class AddOrderComponent implements OnInit {
     this.filteredCars$ = this.cars$.pipe(
       map(cars => cars.filter(car => (car.brand.toLowerCase().startsWith(value)) || car.registration.toLowerCase().startsWith(value)))
     );
+  }
+
+  updateDeadline(event) {
+    const deliveryDate = event.target.value;
+    const deadline = deliveryDate.add(1, 'day');
+    this.orderForm.get('deadline').setValue(deadline);
+    this.minDeadline = deliveryDate.subtract(1, 'day');
   }
 }

@@ -20,7 +20,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
+import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
 
+export const DATE_FORMAT = {
+  parse: {
+    dateInput: 'input',
+    },
+    display: {
+      dateInput: 'YYYY-MM-DD',
+      monthYearLabel: 'MMMM YYYY',
+      dateA11yLabel: 'MM/DD/YYYY',
+      monthYearA11yLabel: 'MMMM YYYY',
+    }
+};
 
 @NgModule({
   declarations: [OrdersComponent, AddOrderComponent, EditOrderComponent],
@@ -47,7 +60,12 @@ import { EditOrderComponent } from './components/edit-order/edit-order.component
     MatDatepickerModule,
     MatNativeDateModule,
     SharedModule,
-    TranslocoModule
+    TranslocoModule,
+    MomentDateModule
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT }
   ]
 })
 export class OrdersModule { }
