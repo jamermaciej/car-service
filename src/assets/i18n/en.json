@@ -298,10 +298,13 @@
 				"required": "Year is required"
 			},
 			"registration": {
-				"required": "Registration is required"
+				"required": "Registration is required",
+				"minLength": "Registration must have more than 5 characters.",
+				"maxLength": "Registration must have less than 7 characters."
 			},
 			"vin": {
-				"required": "VIN is required"
+				"required": "VIN is required",
+				"invalidFormat": "Invalid VIN format"
 			},
 			"mileage": {
 				"required": "Mileage is required"

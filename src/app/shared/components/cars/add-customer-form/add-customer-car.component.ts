@@ -1,5 +1,6 @@
+import { VinValidator } from './../../../validators/vin-validator';
 import { Car } from '../../../models/car.model';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 import { Observable } from 'rxjs';
@@ -20,6 +21,8 @@ export class AddCarFormComponent implements OnInit {
   filteredFuels: Observable<string[]>;
   carTypes = carTypes;
   filteredCarTypes: Observable<string[]>;
+  filteredYears: Observable<string[]>;
+  years: string[] = [];
   @Output() triggerSubmit = new EventEmitter();
   @Input() set car(car: Car) {
     this.carForm.patchValue(car);
@@ -37,9 +40,9 @@ export class AddCarFormComponent implements OnInit {
       model: ['', [RequiredValidator.required]],
       type: ['', [RequiredValidator.required]],
       year: ['', [RequiredValidator.required]],
-      registration: ['', [RequiredValidator.required]],
+      registration: ['', [RequiredValidator.required, Validators.minLength(5), Validators.maxLength(7)]],
       mileage: ['', [RequiredValidator.required]],
-      vin: ['', [RequiredValidator.required]],
+      vin: ['', [RequiredValidator.required, VinValidator.checkVin]],
       capacity: ['', [RequiredValidator.required]],
       power: ['', [RequiredValidator.required]],
       fuel: ['', [RequiredValidator.required]]
@@ -57,6 +60,16 @@ export class AddCarFormComponent implements OnInit {
     .pipe(
       startWith(''),
       map(value => this._filter(this.carTypes, value))
+    );
+
+    for (let i = new Date().getFullYear(); i >= 1950; i-- ) {
+      this.years.push(i.toString());
+    }
+
+    this.filteredYears = this.carForm.get('year').valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.years.filter(v => v.includes(value)))
     );
   }
 

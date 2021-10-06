@@ -50,9 +50,12 @@ export class ValidationService {
       },
       'registration': {
         'required': 'car.error.registration.required',
+        'minlength': 'car.error.registration.minLength',
+        'maxlength': 'car.error.registration.maxLength',
       },
       'vin': {
         'required': 'car.error.vin.required',
+        'invalidFormat': 'car.error.vin.invalidFormat'
       },
       'mileage': {
         'required': 'car.error.mileage.required',

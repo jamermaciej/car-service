@@ -23,17 +23,22 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'car.label.year' | transloco }}</mat-label>
-                <input type="text" name="year" matInput formControlName="year">
+                <input type="text" name="year" matInput formControlName="year" [matAutocomplete]="autoYear">
+                <mat-autocomplete #autoYear="matAutocomplete">
+                  <mat-option *ngFor="let year of filteredYears | async" [value]="year">
+                    {{ year }}
+                  </mat-option>
+                </mat-autocomplete>
                 <app-error-message [control]="carForm.get('year')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'car.label.registration' | transloco }}</mat-label>
-                <input type="text" name="registration" matInput formControlName="registration">
+                <input type="text" #registration name="registration" matInput formControlName="registration" (input)="registration.value = registration.value.toUpperCase()">
                 <app-error-message [control]="carForm.get('registration')"></app-error-message>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ 'car.label.vin' | transloco }}</mat-label>
-                <input type="text" name="vin" matInput formControlName="vin">
+                <input type="text" #vin name="vin" matInput formControlName="vin" (input)="vin.value = vin.value.toUpperCase()">
                 <app-error-message [control]="carForm.get('vin')"></app-error-message>
             </mat-form-field>
         </div>
