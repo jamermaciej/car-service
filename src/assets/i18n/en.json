@@ -361,11 +361,11 @@
 			"search_car": "Search by car brand or registration..."
 		},
 		"label": {
-			"delivery_date": "Delivery Date *",
+			"delivery_date": "Delivery Date",
 			"deadline": "Deadline",
 			"worker": "Worker",
 			"notes": "Notes",
-			"status": "Status *",
+			"status": "Status",
 			"test_drive": "Test drive agree"
 		},
 		"error": {

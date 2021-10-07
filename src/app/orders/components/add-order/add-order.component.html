@@ -74,7 +74,7 @@
                 <div class="col col-6">
                     <mat-form-field>
                         <mat-label>{{ 'orders.label.delivery_date' | transloco }}</mat-label>
-                        <input matInput [matDatepicker]="picker" [min]="todayDate" name="delivery_date" (dateChange)="updateDeadline($event)" formControlName="delivery_date">
+                        <input matInput [matDatepicker]="picker" [min]="todayDate" name="delivery_date" readonly (dateChange)="updateDeadline($event)" formControlName="delivery_date">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
