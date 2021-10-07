@@ -5,7 +5,7 @@ import { getCustomer, getCustomers } from './../../../customers/store/selectors/
 import { FlowRoutes } from 'src/app/core/enums/flow';
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
-import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
+import { filter, first, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -18,7 +18,7 @@ import * as fromUsers from './../../../admin/store';
 import { getOrder, getOrders } from '../../store/selectors/orders.selectors';
 import { Order } from 'src/app/shared/models/order.model';
 import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
-import { getUser } from 'src/app/store/selectors/auth.selectors';
+import { getUser } from 'src/app/admin/store/selectors/users.selectors';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 
 @Component({
@@ -62,8 +62,9 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
       map(car => `${car.model} ${car.brand}`));
   }
 
-  getUserData(id: number) {
-    return this.store.select(getUser, { id }).pipe(
+  getUserData(uid: string) {
+    return this.store.select(getUser, uid).pipe(
+      filter(user => !!user),
       map(user => `${user.displayName}`));
   }
 
