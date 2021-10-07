@@ -12,7 +12,7 @@
             </mat-form-field>
         </div> -->
         
-        <mat-table [dataSource]="orders" matSort>
+        <mat-table [dataSource]="orders" matSort matSortActive="id" matSortDirection="desc">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.id' | transloco }}</mat-header-cell>
                 <mat-cell *matCellDef="let element;">{{ element.id }}</mat-cell>
