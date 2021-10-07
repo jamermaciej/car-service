@@ -5,7 +5,7 @@ import { RequiredValidator } from './../../../shared/validators/required-validat
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCustomerModalComponent } from 'src/app/customers/components/add-customer-modal/add-customer-modal.component';
 import { getCustomer, getCustomers } from 'src/app/customers/store/selectors/customers.selectors';
@@ -79,10 +79,24 @@ export class AddOrderComponent implements OnInit {
     this.orderForm.get('deadline').setValue(deadlineDate);
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if ( control instanceof FormControl ) {
+        control.markAsTouched({ onlySelf: true });
+      } else if ( control instanceof FormGroup ) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
   onSubmit() {
-    const order = this.orderForm.value;
-    console.log(order);
-    this.store.dispatch(fromOrders.addOrder({ order }));
+    if ( this.orderForm.valid ) {
+      const order = this.orderForm.value;
+      this.store.dispatch(fromOrders.addOrder({ order }));
+    } else {
+      this.validateAllFormFields(this.orderForm);
+    }
   }
 
   changeCustomer() {
