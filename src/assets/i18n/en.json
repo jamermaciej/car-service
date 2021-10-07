@@ -363,7 +363,7 @@
 		"label": {
 			"delivery_date": "Delivery Date *",
 			"deadline": "Deadline",
-			"worker": "Worker *",
+			"worker": "Worker",
 			"notes": "Notes",
 			"status": "Status *",
 			"test_drive": "Test drive agree"
