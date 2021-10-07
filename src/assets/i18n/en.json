@@ -363,10 +363,21 @@
 		"label": {
 			"delivery_date": "Delivery Date *",
 			"deadline": "Deadline",
-			"user": "User *",
+			"worker": "Worker *",
 			"notes": "Notes",
 			"status": "Status *",
 			"test_drive": "Test drive agree"
+		},
+		"error": {
+			"customer": {
+				"required": "Choose customer from list or add new"
+			},
+			"car": {
+				"required": "Choose car from list or add new"
+			},
+			"worker": {
+				"required": "Worker is required"
+			}
 		},
 		"table": {
 			"headers": {

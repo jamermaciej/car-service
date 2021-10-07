@@ -92,6 +92,15 @@ export class ValidationService {
       },
       'newPassword': {
         'samePasswords': 'account.change_password.error.new_password.same_passwords'
+      },
+      'customer_id': {
+        'required': 'orders.error.customer.required'
+      },
+      'car_id': {
+        'required': 'orders.error.car.required'
+      },
+      'user_id': {
+        'required': 'orders.error.worker.required'
       }
     };
 
