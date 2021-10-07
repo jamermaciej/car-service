@@ -59,7 +59,7 @@ export class AddOrderComponent implements OnInit {
       car_id: ['', Validators.required],
       delivery_date: [new Date()],
       deadline: [new Date()],
-      user_id: [''],
+      user: [''],
       status: ['Order accepted', Validators.required],
       notes: [''],
       test_drive_agree: [true]

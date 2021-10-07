@@ -40,7 +40,7 @@
 
             <ng-container matColumnDef="user_id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.worker' | transloco }}</mat-header-cell>
-                <mat-cell *matCellDef="let element;">{{ getUserData(element.user_id) | async }}</mat-cell>
+                <mat-cell *matCellDef="let element;">{{ element.user?.displayName }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="status">

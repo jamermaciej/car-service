@@ -54,11 +54,13 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getCustomerData(id: number): Observable<string> {
     return this.store.select(getCustomer, { id }).pipe(
+      filter(customer => !!customer),
       map(customer => `${customer.name} ${customer.surname}`));
   }
 
   getCarData(id: number) {
     return this.store.select(getCar, { id }).pipe(
+      filter(car => !!car),
       map(car => `${car.model} ${car.brand}`));
   }
 

@@ -80,12 +80,12 @@
                     </mat-form-field>
                     <mat-form-field class="add-user">
                         <mat-label>{{ 'orders.label.worker' | transloco }}</mat-label>
-                        <mat-select #usersSelect name="users" id="users" formControlName="user_id">
-                            <mat-option *ngFor="let user of users$ | async" [value]="user.uid">
+                        <mat-select #usersSelect name="users" id="users" formControlName="user">
+                            <mat-option *ngFor="let user of users$ | async" [value]="user">
                                 {{ user.displayName }}
                             </mat-option>
                         </mat-select>
-                        <app-error-message [control]="orderForm.get('user_id')"></app-error-message>
+                        <app-error-message [control]="orderForm.get('user')"></app-error-message>
                     </mat-form-field>
                 </div>
                 <div class="col col-6">

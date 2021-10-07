@@ -99,7 +99,7 @@ export class ValidationService {
       'car_id': {
         'required': 'orders.error.car.required'
       },
-      'user_id': {
+      'user': {
         'required': 'orders.error.worker.required'
       }
     };
