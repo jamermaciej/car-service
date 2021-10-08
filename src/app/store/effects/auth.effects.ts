@@ -237,7 +237,15 @@ export class AuthEffects {
     confirmEmail$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.confirmEmail),
         switchMap((payload) => from(this.userService.confirmEmail(payload.code)).pipe(
-            map(() => authActions.confirmEmailSuccess()),
+            map(() => {
+                const user = JSON.parse(localStorage.getItem('user'));
+                const updatedUser = {
+                    ...user,
+                    emailVerified: true
+                };
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                return authActions.confirmEmailSuccess({ user });
+            }),
             catchError((error) => of(authActions.confirmEmailFailure({ error })))
         ))
     ), {
@@ -247,7 +255,7 @@ export class AuthEffects {
 
     confirmEmailSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.confirmEmailSuccess),
-        tap(() => this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }))),
+        tap(() => this.store.dispatch(routerActions.go({ path: [FlowRoutes.PROFILE] }))),
         delay(100),
         map(() => {
             const successMessage = this.translocoService.translate('confirm_email.message.success');

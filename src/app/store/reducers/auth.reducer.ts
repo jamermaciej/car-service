@@ -1,4 +1,4 @@
-import { updateEmailSuccess } from './../actions/auth.actions';
+import { updateEmailSuccess, confirmEmailSuccess } from './../actions/auth.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { User } from '../../shared/models/user.model';
 import * as authActions from '../actions/auth.actions';
@@ -62,6 +62,13 @@ const authReducer = createReducer(
         ...state,
         user
     })),
+    on(authActions.confirmEmailSuccess, state => ({
+        ...state,
+        user: {
+            ...state.user,
+            emailVerified: true
+        }
+    }))
   );
 
 export function reducer(state: State | undefined, action: Action) {

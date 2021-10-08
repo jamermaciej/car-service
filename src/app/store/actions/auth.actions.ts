@@ -96,7 +96,8 @@ export const confirmEmail = createAction(
 );
 
 export const confirmEmailSuccess = createAction(
-    '[Auth] Confirm Email Success'
+    '[Auth] Confirm Email Success',
+    props<{ user: User }>()
 );
 
 export const confirmEmailFailure = createAction(
