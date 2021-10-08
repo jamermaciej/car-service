@@ -42,7 +42,7 @@ export class AddOrderComponent implements OnInit {
   filteredCustomers$: Observable<Customer[]>;
   filteredCars$: Observable<Car[]>;
   todayDate: Date = new Date();
-  minDeadline: Date = new Date();
+  minDeadline = dayjs().format();
 
   users$: Observable<User[]>;
 
@@ -205,9 +205,9 @@ export class AddOrderComponent implements OnInit {
   }
 
   updateDeadline(event) {
-    const deliveryDate = event.target.value;
-    const deadline = deliveryDate.add(1, 'day');
+    const deliveryDate = dayjs(event.target.value);
+    const deadline = deliveryDate.add(1, 'day').format();
     this.orderForm.get('deadline').setValue(deadline);
-    this.minDeadline = deliveryDate.subtract(1, 'day');
+    this.minDeadline = deliveryDate.format();
   }
 }

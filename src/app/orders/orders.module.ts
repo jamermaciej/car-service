@@ -18,21 +18,23 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
-import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
+import { MatDayjsDateModule, MAT_DAYJS_DATE_ADAPTER_OPTIONS } from '@tabuckner/material-dayjs-adapter';
 
-export const DATE_FORMAT = {
+/**
+ * Custom Date-Formats and Adapter (using https://github.com/iamkun/dayjs)
+ */
+export const MAT_DAYJS_DATE_FORMATS: MatDateFormats = {
   parse: {
-    dateInput: 'input',
-    },
-    display: {
-      dateInput: 'YYYY-MM-DD',
-      monthYearLabel: 'MMMM YYYY',
-      dateA11yLabel: 'MM/DD/YYYY',
-      monthYearA11yLabel: 'MMMM YYYY',
-    }
+    dateInput: 'MM/DD/YYYY',
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  }
 };
 
 @NgModule({
@@ -61,11 +63,17 @@ export const DATE_FORMAT = {
     MatNativeDateModule,
     SharedModule,
     TranslocoModule,
-    MomentDateModule
+    MatDayjsDateModule
   ],
   providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT }
+    {
+      provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
+      useValue: { useUtc: true }
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: MAT_DAYJS_DATE_FORMATS
+    }
   ]
 })
 export class OrdersModule { }
