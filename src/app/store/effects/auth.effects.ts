@@ -121,10 +121,11 @@ export class AuthEffects {
     registerSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(authActions.registerSuccess),
         tap(({ user }) => localStorage.setItem('user', JSON.stringify(user))),
-        mergeMap(() => {
+        mergeMap(({ user }) => {
             const errorMessage = this.translocoService.translate('register.message.success');
             this.alertService.showAlert(errorMessage, 'success');
             return [
+                authActions.loginSuccess({ user }),
                 routerActions.go({ path: [FlowRoutes.DASHBOARD] }),
                 authActions.sendEmailVerification()
             ];
