@@ -1,3 +1,5 @@
+import { Role } from './../../core/enums/roles';
+import { loadOrdersByUser } from './../../orders/store/actions/orders.actions';
 import { getRouterState } from './../selectors/router.selectors';
 import { Store } from '@ngrx/store';
 import { RegisterData } from './../../shared/models/register-data.model';
@@ -55,16 +57,23 @@ export class AuthEffects {
         ofType(authActions.loginSuccess),
         tap(({ user }) => localStorage.setItem('user', JSON.stringify(user))),
         withLatestFrom(this.store.select(getRouterState)),
-        concatMap(([, router]) => {
+        concatMap(([user, router]) => {
+            const actions = [];
             const url = router.state.queryParams['returnUrl'];
-            return [
+            // if ( user.user.roles.includes(Role.ADMIN) || user.user.roles.includes(Role.MANAGER) ) {
+            //     actions.push(ordersActions.loadOrders());
+            // } else {
+            //     actions.push(ordersActions.loadOrdersByUser({ id: user.user.uid }));
+            // }
+            actions.push(ordersActions.loadOrders());
+            actions.push(
                 customersActions.loadCustomers(),
                 carsActions.loadCars(),
                 usersActions.getUsers(),
                 statusesActions.getStatuses(),
-                ordersActions.loadOrders(),
                 routerActions.go({ path: [ url ? url : FlowRoutes.DASHBOARD ] })
-            ];
+            );
+            return actions;
         })
     ), {
         dispatch: true

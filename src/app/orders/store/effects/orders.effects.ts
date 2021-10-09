@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import * as ordersActions from '../actions/orders.actions';
 import * as routerActions from './../../../store/actions/router.actions';
 
-import { catchError, flatMap, map, switchMap, tap, mergeMap } from 'rxjs/operators';
+import { catchError, flatMap, map, switchMap, tap, mergeMap, pluck } from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -70,5 +70,16 @@ export class CarsEffects {
         switchMap((paylaod) => this.messageService.sendMessage(paylaod.order))
     ), {
         dispatch: false
+    });
+
+    getOrdersByUser$ = createEffect(() => this.actions$.pipe(
+        ofType(ordersActions.loadOrdersByUser),
+        pluck('id'),
+        switchMap((id) => this.orderService.getOrdersByUser(id).pipe(
+            map((orders) => ordersActions.loadOrdersByUserSuccess({ orders })),
+            catchError((error) => of(ordersActions.loadOrdersByUserFailure({ error })))
+        ))
+    ), {
+        dispatch: true
     });
 }

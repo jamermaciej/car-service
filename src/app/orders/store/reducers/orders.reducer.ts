@@ -16,7 +16,7 @@ const orderReducer = createReducer(
         ...state,
         orders: [ ...state.orders, order ]
     })),
-    on(orderActions.loadOrdersSuccess, (state, { orders } ) => ({
+    on(orderActions.loadOrdersSuccess, orderActions.loadOrdersByUserSuccess, (state, { orders } ) => ({
         ...state,
         orders
     })),

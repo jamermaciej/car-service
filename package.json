@@ -43,7 +43,6 @@
     "@ngrx/router-store": "^9.2.0",
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
-    "@tabuckner/material-dayjs-adapter": "^2.0.0",
     "bootstrap": "^4.5.0",
     "c": "^1.1.1",
     "dayjs": "^1.10.7",

@@ -30,6 +30,21 @@ export const loadOrdersFailure = createAction(
     props<{ error: any }>()
 );
 
+export const loadOrdersByUser = createAction(
+    '[Order] Get Orders by User',
+    props<{ id: string }>()
+);
+
+export const loadOrdersByUserSuccess = createAction(
+    '[Order] Get Orders by User Success',
+    props<{ orders: Order[] }>()
+);
+
+export const loadOrdersByUserFailure = createAction(
+    '[Order] Get Orders by User Failure',
+    props<{ error: any }>()
+);
+
 export const updateOrder = createAction(
     '[Order] Update Order',
     props<{ order: Order  }>()

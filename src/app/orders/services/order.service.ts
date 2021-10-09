@@ -15,6 +15,11 @@ export class OrderService {
     return this.http.get<Order[]>(`${environment.apiUrl}/orders`);
   }
 
+  getOrdersByUser(id: string): Observable<Order[]> {
+    return this.http.get<Order[]>(`${environment.apiUrl}/orders/${id}`);
+  }
+
+
 //   getCar(uid: string): Observable<Car> {
 //     return this.http.get<Car>(`${environment.apiUrl}/${uid}`);
 //   }
