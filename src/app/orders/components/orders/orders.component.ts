@@ -1,3 +1,5 @@
+import { Role } from './../../../core/enums/roles';
+import { getUser } from './../../../store/selectors/auth.selectors';
 import { updateOrder } from './../../store/actions/orders.actions';
 import { updateStatus } from './../../../admin/store/actions/statuses.actions';
 import { Status } from './../../../shared/models/status.model';
@@ -15,10 +17,9 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from './../../../store';
 import * as fromUsers from './../../../admin/store';
-import { getOrder, getOrders } from '../../store/selectors/orders.selectors';
+import { getOrder, getOrders, getOrdersById, getOrdersLoggedUser } from '../../store/selectors/orders.selectors';
 import { Order } from 'src/app/shared/models/order.model';
 import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
-import { getUser } from 'src/app/admin/store/selectors/users.selectors';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 
 @Component({
@@ -43,11 +44,29 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.select(getOrders).pipe(
-      takeUntil(this.destroySubject$)
+    combineLatest([
+      this.store.select(getOrders),
+      this.store.select(getUser)
+    ]).pipe(
+      takeUntil(this.destroySubject$),
+      map(([orders, user]) => {
+        const isEmployee = user.roles.includes(Role.CUSTOMER);
+        if ( isEmployee ) {
+          return orders.filter(order => order.user?.uid === user.uid);
+        } else {
+          return orders;
+        }
+      })
     ).subscribe((orders: Order[]) => {
       this.orders.data = orders;
     });
+
+    // this.store.select(getUser).pipe(
+    //   takeUntil(this.destroySubject$),
+    //   switchMap((user: User) => this.store.select(getOrdersById, { id: user.uid }))
+    // ).subscribe(orders => {
+    //   this.orders.data = orders;
+    // });
 
     this.statuses$ = this.store.select(getStatuses);
   }
