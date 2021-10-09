@@ -94,7 +94,7 @@ export class UserService {
         phoneNumber: user.phoneNumber,
         createdAt: user.metadata.creationTime,
         lastLoginAt: user.metadata.lastSignInTime,
-        roles: [Role.CUSTOMER]
+        roles: [Role.EMPLOYEE]
       };
 
       userRef.set(data, { merge: true });
