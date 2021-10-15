@@ -24,6 +24,30 @@
                 }
             }
         }
+
+        .table-filter {
+            .active-filters {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: flex-end;
+                
+                button {
+                    margin: 0 15px;
+                    color: #FFF;
+
+                    mat-icon {
+                        margin-left: 10px;
+                        position: relative;
+                        top: -1px;
+                    }
+                }
+            }
+
+            mat-form-field {
+                margin: 0 15px;
+            }
+        }
     }
 }
 

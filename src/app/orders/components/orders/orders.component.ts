@@ -1,3 +1,4 @@
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Role } from './../../../core/enums/roles';
 import { getUser } from './../../../store/selectors/auth.selectors';
 import { updateOrder } from './../../store/actions/orders.actions';
@@ -21,6 +22,7 @@ import { getOrder, getOrders, getOrdersById, getOrdersLoggedUser } from '../../s
 import { Order } from 'src/app/shared/models/order.model';
 import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
+import { isObject } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-orders',
@@ -37,29 +39,68 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   displayedColumns = ['id', 'customer_id', 'car_id', 'delivery_date', 'deadline', 'user_id', 'status', 'notes', 'test_drive_agree'];
-  orders = new MatTableDataSource<any>();
+  orders = new MatTableDataSource<Order>();
+  workers$: Observable<User[]>;
 
-  constructor(private store: Store<fromRoot.State>, private userService: UserService) {
+  // filteredColumns = [
+  //   {
+  //     label: 'All columns',
+  //     field: 'all'
+  //   },
+  //   {
+  //     label: 'Worker',
+  //     field: 'user.displayName',
+  //   },
+  //   {
+  //     label: 'Status',
+  //     field: 'status',
+  //   },
+  //   {
+  //     label: 'Notes',
+  //     field: 'notes'
+  //   }
+  // ];
+  // defaulFilteredColumn = 'all';
+  defaulWorker: string;
+
+
+  filterGroup: FormGroup;
+
+  filterValues: any = {
+    worker: '',
+    status: ''
+  };
+
+  constructor(private store: Store<fromRoot.State>,
+              private userService: UserService,
+              private fb: FormBuilder
+            ) {
 
   }
 
   ngOnInit(): void {
-    combineLatest([
-      this.store.select(getOrders),
-      this.store.select(getUser)
-    ]).pipe(
-      takeUntil(this.destroySubject$),
-      map(([orders, user]) => {
-        const isEmployee = user.roles.includes(Role.CUSTOMER);
-        if ( isEmployee ) {
-          return orders.filter(order => order.user?.uid === user.uid);
-        } else {
-          return orders;
-        }
-      })
-    ).subscribe((orders: Order[]) => {
-      this.orders.data = orders;
-    });
+    // this.orders.filterPredicate = (data: Order, f: string) => {
+    //   return data.id === Number(f) ||
+    //          data.user?.displayName.toLowerCase().includes(f) ||
+    //          data.status.toLowerCase().includes(f) ||
+    //          data.notes.toLowerCase().includes(f);
+    //  };
+    // combineLatest([
+    //   this.store.select(getOrders),
+    //   this.store.select(getUser)
+    // ]).pipe(
+    //   takeUntil(this.destroySubject$),
+    //   map(([orders, user]) => {
+    //     const isEmployee = user.roles.includes(Role.EMPLOYEE);
+    //     if ( isEmployee ) {
+    //       return orders.filter(order => order.user?.uid === user.uid);
+    //     } else {
+    //       return orders;
+    //     }
+    //   })
+    // ).subscribe((orders: Order[]) => {
+    //   this.orders.data = orders;
+    // });
 
     // this.store.select(getUser).pipe(
     //   takeUntil(this.destroySubject$),
@@ -67,6 +108,34 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     // ).subscribe(orders => {
     //   this.orders.data = orders;
     // });
+
+    this.store.select(getOrders).pipe(
+      takeUntil(this.destroySubject$)
+    ).subscribe(orders => {
+      this.orders.data = orders;
+    });
+
+    this.filterGroup = this.fb.group({
+      worker: '',
+      status: '',
+      default: ''
+    });
+
+    this.store.select(getUser).subscribe(user => {
+      const name = user.displayName;
+      const roles = user.roles;
+      if ( roles.includes(Role.CUSTOMER) ) {
+        this.defaulWorker = name;
+        this.filterValues.worker = name;
+        this.filterGroup.get('worker').setValue(name);
+        this.orders.filter = JSON.stringify(this.filterValues);
+      }
+    });
+
+    this.orders.filterPredicate = this.createFilter();
+    this.fieldListener();
+
+    this.workers$ = this.store.select(getUsers);
 
     this.statuses$ = this.store.select(getStatuses);
   }
@@ -94,9 +163,10 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.orders.paginator = this.paginator;
   }
 
-  applyFilter(filterValue: string) {
-    this.orders.filter = filterValue.trim().toLowerCase();
-  }
+  // applyFilter(filterValue: string) {
+  //   this.filterValues.default = filterValue;
+  //   this.orders.filter = JSON.stringify(this.filterValues);
+  // }
 
   updateOrder(status: string, id: number) {
     this.store.select(getOrder, { id }).pipe(
@@ -109,6 +179,64 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
       };
       this.store.dispatch(updateOrder({ order: newOrder }));
     });
+  }
+
+  changeFilteredColumn(event) {
+    const columnName = event.value ? event.value.split('.') : event.split('.');
+
+    this.orders.filterPredicate = (data: Order, f: string) => {
+      if ( columnName[1] ) {
+        return data[columnName[0]] && data[columnName[0]][columnName[1]].toLowerCase().includes(f);
+      } else {
+        return data[columnName[0]] && data[columnName[0]].toLowerCase().includes(f);
+      }
+    };
+  }
+
+  clearFilter(field: string) {
+    this.filterGroup.get(field).setValue(null);
+    this.filterValues[field] = '';
+    this.orders.filter = JSON.stringify(this.filterValues);
+  }
+
+  private fieldListener() {
+    this.filterGroup.get('worker').valueChanges
+      .subscribe(
+        worker => {
+          this.filterValues.worker = worker;
+          this.orders.filter = JSON.stringify(this.filterValues);
+        }
+      );
+    this.filterGroup.get('status').valueChanges
+      .subscribe(
+        status => {
+          this.filterValues.status = status;
+          this.orders.filter = JSON.stringify(this.filterValues);
+        }
+      );
+  }
+
+  private createFilter(): (order: Order, filter: string) => boolean {
+    const filterFunction = (order: Order, f: string): boolean => {
+      const searchTerms = JSON.parse(f);
+
+      if ( !Object.values(searchTerms).some(t => t) ) return true;
+
+      if ( searchTerms.worker && searchTerms.status ) {
+        return  order.user?.displayName.includes(searchTerms.worker) &&
+                order.status.indexOf(searchTerms.status) !== -1;
+      }
+
+      if ( searchTerms.worker ) {
+        return  order.user?.displayName.includes(searchTerms.worker);
+      }
+
+      if ( searchTerms.status ) {
+        return  order.status.indexOf(searchTerms.status) !== -1;
+      }
+    };
+
+    return filterFunction;
   }
 
   ngOnDestroy() {

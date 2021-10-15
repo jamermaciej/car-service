@@ -1,0 +1,58 @@
+<section *ngIf="orders$ | async as orders" class="orders">
+    <div class="orders__button">
+        <!-- <button mat-raised-button color="primary" [routerLink]='flowRoutes.ADD_ORDERS'>
+            <mat-icon>add</mat-icon>
+            {{ 'orders.button.add_order' | transloco }}
+        </button> -->
+    </div>
+    <div class="orders__list">
+        <mat-table [dataSource]="orders">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.id' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;">{{ element.id }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="customer_id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.customer' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;"></mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="car_id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.car' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;"></mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="delivery_date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.delivery_date' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;">{{ element.delivery_date | date }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="deadline">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.deadline' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;">{{ element.deadline | date }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.status' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;">{{ element.status }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="notes">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.notes' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;">{{ element.notes }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="test_drive_agree">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.test_drive' | transloco }}</mat-header-cell>
+                <mat-cell *matCellDef="let element;">
+                    <div class="test-drive-agree" [ngClass]="element.test_drive_agree ? 'agreement' : 'disagreement'">
+                        <mat-icon>{{ element.test_drive_agree ? 'check' : 'close' }}</mat-icon>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns; let element" [routerLink]="[flowRoutes.ORDERS, element.id]"></mat-row>
+        </mat-table>
+    </div>
+</section>

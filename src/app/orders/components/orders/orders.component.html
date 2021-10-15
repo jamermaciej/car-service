@@ -6,11 +6,46 @@
         </button>
     </div>
     <div class="orders__list">
-        <!-- <div class="table-filter">
-            <mat-form-field>
+        <div class="table-filter" [formGroup]="filterGroup">
+            <div class="active-filters">
+                <ng-container *ngFor="let item of filterValues | keyvalue">
+                    <button mat-raised-button
+                            color="accent"
+                            (click)="clearFilter(item.key)"
+                            *ngIf="item.value">
+                        {{ item.value }}
+                        <mat-icon color="warn">close</mat-icon>
+                    </button>
+                </ng-container>
+            </div>
+            <!-- <mat-form-field>
                 <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field> -->
+            <!-- <mat-form-field>
+                <mat-select name="filteredColumn" id="filteredColumn" [value]="defaulFilteredColumn" (selectionChange)="changeFilteredColumn($event)">
+                    <mat-option *ngFor="let c of filteredColumns" [value]="c.field">
+                        {{ c.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <mat-form-field>
+                <mat-select name="filterByWorker"
+                            id="filterByWorker"
+                            formControlName="worker" 
+                            placeholder="Filter by worker">
+                    <mat-option *ngFor="let worker of workers$ | async" [value]="worker.displayName">{{ worker.displayName }}</mat-option>
+                </mat-select>
             </mat-form-field>
-        </div> -->
+            <mat-form-field>
+                <mat-select name="filterByStatus"
+                            id="filterByStatus"
+                            formControlName="status" 
+                            placeholder="Filter by status">
+                    <mat-option *ngFor="let status of statuses$ | async" [value]="status.label">{{ status.label }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            {{ orders.data.length }} service orders
+        </div>
         
         <mat-table [dataSource]="orders" matSort matSortActive="id" matSortDirection="desc">
             <ng-container matColumnDef="id">
