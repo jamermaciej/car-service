@@ -26,8 +26,7 @@ export class ProfileEffects {
                 mergeMap(() => {
                     const user = action.user;
                     return [
-                        profileActions.updateUserSuccess({ user }),
-                        // profileActions.getUser({ uid }),
+                        profileActions.updateUserSuccess({ user })
                     ];
                 }),
                 catchError(error => of(profileActions.updateUserFailure(error)))
