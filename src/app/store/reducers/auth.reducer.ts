@@ -58,7 +58,7 @@ const authReducer = createReducer(
         user: null,
         errorMessage: null
     })),
-    on(authActions.updateEmailSuccess, (state, { user } ) => ({
+    on(authActions.updateEmailSuccess, profileActions.updateUserSuccess, (state, { user } ) => ({
         ...state,
         user
     })),

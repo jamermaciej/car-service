@@ -14,3 +14,18 @@ export const getUsersFailure = createAction(
     '[Users] Get Users Failure',
     props<{ error: any }>()
 );
+
+export const updateUser = createAction(
+    '[Users] Update User',
+    props<{ user: User }>()
+);
+
+export const updateUserSuccess = createAction(
+    '[Users] Update User Success',
+    props<{ user: User }>()
+);
+
+export const updateUserFailure = createAction(
+    '[Users] Updatet User Failure',
+    props<{ error: any }>()
+);

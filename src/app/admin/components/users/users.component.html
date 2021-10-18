@@ -22,12 +22,12 @@
 
     <ng-container matColumnDef="email">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+        <mat-cell *matCellDef="let element"><a href="mailto:{{ element.email }}">{{ element.email }}</a></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="phoneNumber">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Phone number</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.phoneNumber }}</mat-cell>
+        <mat-cell *matCellDef="let element"><a href="tel:{{ element.phoneNumber }}">{{ element.phoneNumber }}</a></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="createdAt">
@@ -42,7 +42,14 @@
 
     <ng-container matColumnDef="roles">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Roles</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.roles }}</mat-cell>
+        <mat-cell *matCellDef="let element">
+            <span *ngIf="showRolesSelect !== element.uid" class="role">{{ element.roles }}</span>
+            <mat-icon *ngIf="!element.roles" class="add-icon" (click)="addRole()">add</mat-icon>
+            <mat-icon *ngIf="(loggedInUser | async).uid !== element.uid && showRolesSelect !== element.uid" class="edit-icon" (click)="editRole(element.uid)">edit</mat-icon>
+            <mat-select *ngIf="showRolesSelect === element.uid" name="roles" id="roles" [value]="element.roles[0]" (selectionChange)="updateRole($event.value, element)">
+                <mat-option *ngFor="let role of roles | keyvalue" [value]="role.value">{{ role.value }}</mat-option>
+            </mat-select>
+        </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="emailVerified">

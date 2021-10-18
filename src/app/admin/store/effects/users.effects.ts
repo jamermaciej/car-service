@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import * as usersActions from './../actions/users.actions';
 import * as authActions from './../../../store/actions/auth.actions';
 
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, pluck, switchMap, tap } from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -42,6 +42,17 @@ export class UsersEffects {
             this.alertService.showAlert(errorMessage, 'error');
             return authActions.authError({error: errorMessage});
         })
+    ), {
+        dispatch: true
+    });
+
+    updateUser$ = createEffect(() => this.actions$.pipe(
+        ofType(usersActions.updateUser),
+        pluck('user'),
+        switchMap(user => from(this.userService.updateUserData(user)).pipe(
+            map(() => usersActions.updateUserSuccess({ user })),
+            catchError((error) => of(usersActions.updateUserFailure({ error })))
+        ))
     ), {
         dispatch: true
     });

@@ -9,7 +9,7 @@ export const updateUser = createAction(
 
 export const updateUserSuccess = createAction(
     '[Profile] Update User Success',
-    props<{ uid: string }>()
+    props<{ user: User }>()
 );
 
 export const updateUserFailure = createAction(

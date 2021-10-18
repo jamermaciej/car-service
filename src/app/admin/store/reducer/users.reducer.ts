@@ -23,6 +23,10 @@ const usersReducer = createReducer(
     on(authActions.confirmEmailSuccess, (state, { user }) => ({
         ...state,
         users: state.users.map(u => u.uid === user.uid ? { ...u, emailVerified: true } : u)
+    })),
+    on(usersActions.updateUserSuccess, (state, { user }) => ({
+        ...state,
+        users: state.users.map(u => u.uid === user.uid ? user : u)
     }))
 );
 

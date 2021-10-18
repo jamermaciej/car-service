@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -35,7 +36,8 @@ import { StatusEditModalComponent } from './components/status-edit-modal/status-
     ReactiveFormsModule,
     MatListModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ]
 })
 export class AdminModule { }

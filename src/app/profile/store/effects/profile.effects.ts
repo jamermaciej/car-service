@@ -24,10 +24,10 @@ export class ProfileEffects {
         ofType(profileActions.updateUser),
         switchMap(action => from(this.userService.updateUserData(action.user)).pipe(
                 mergeMap(() => {
-                    const uid = action.user.uid;
+                    const user = action.user;
                     return [
-                        profileActions.updateUserSuccess({ uid }),
-                        profileActions.getUser({ uid }),
+                        profileActions.updateUserSuccess({ user }),
+                        // profileActions.getUser({ uid }),
                     ];
                 }),
                 catchError(error => of(profileActions.updateUserFailure(error)))
