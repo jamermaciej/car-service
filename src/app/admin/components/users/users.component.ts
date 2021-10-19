@@ -1,7 +1,7 @@
 import { getUser } from 'src/app/store/selectors/auth.selectors';
 import { Role } from './../../../core/enums/roles';
 import { updateUser } from './../../store/actions/users.actions';
-import { Observable, Subject } from 'rxjs';
+import { combineLatest, Observable, Subject } from 'rxjs';
 import {
   Component,
   OnInit,
@@ -28,6 +28,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   users$: Observable<User[]>;
   roles = Role;
   showRolesSelect: string;
+  currentUserId: string;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -45,14 +46,17 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   users = new MatTableDataSource<User>();
 
   constructor(private store: Store<fromRoot.State>) {
-    this.store
-      .select(getUsers)
+    combineLatest([this.store.select(getUser), this.store.select(getUsers)])
       .pipe(
         takeUntil(this.destroySubject$),
-        filter((data) => !!data)
+        filter(([user, users]) => !!user && !!users)
       )
-      .subscribe((users: User[]) => {
-        this.users.data = users;
+      .subscribe(([user, users]) => {
+        this.currentUserId = user.uid;
+        this.users.data = [
+          users.find((u) => u.uid === user.uid),
+          ...users.filter((u) => u.uid !== user.uid),
+        ];
       });
   }
 
@@ -72,10 +76,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.store.dispatch(updateUser({ user: updatedUser }));
     this.showRolesSelect = null;
-  }
-
-  get loggedInUser() {
-    return this.store.select(getUser);
   }
 
   ngAfterViewInit() {

@@ -1,68 +1,122 @@
 <div class="table-filter">
-    <mat-form-field>
-        <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      (keyup)="applyFilter($event.target.value)"
+      placeholder="Filter"
+    />
+  </mat-form-field>
 </div>
 
 <mat-table [dataSource]="users" matSort>
-    <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
-        <mat-cell *matCellDef="let element; let i = index;">{{ i + 1 }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="photoURL">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Photo</mat-header-cell>
-        <mat-cell *matCellDef="let element"><div class="user-photo" [style.background-image]="element.photoURL ? 'url(' + element.photoURL + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div></mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="photoURL">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Photo</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><div
+        class="user-photo"
+        [style.background-image]="
+          element.photoURL
+            ? 'url(' + element.photoURL + ')'
+            : 'url(../../../../assets/images/user-placeholder.jpg)'
+        "
+      ></div
+    ></mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="displayName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.displayName }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="displayName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.displayName }}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a href="mailto:{{ element.email }}">{{ element.email }}</a></mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><a href="mailto:{{ element.email }}">{{ element.email }}</a></mat-cell
+    >
+  </ng-container>
 
-    <ng-container matColumnDef="phoneNumber">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Phone number</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a href="tel:{{ element.phoneNumber }}">{{ element.phoneNumber }}</a></mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="phoneNumber">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Phone number</mat-header-cell
+    >
+    <mat-cell *matCellDef="let element"
+      ><a href="tel:{{ element.phoneNumber }}">{{
+        element.phoneNumber
+      }}</a></mat-cell
+    >
+  </ng-container>
 
-    <ng-container matColumnDef="createdAt">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Account created</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.createdAt | translocoDate }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="createdAt">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Account created</mat-header-cell
+    >
+    <mat-cell *matCellDef="let element">{{
+      element.createdAt | translocoDate
+    }}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="lastLoginAt">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Last login</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.lastLoginAt | translocoDate }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="lastLoginAt">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Last login</mat-header-cell
+    >
+    <mat-cell *matCellDef="let element">{{
+      element.lastLoginAt | translocoDate
+    }}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="roles">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Roles</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <span *ngIf="showRolesSelect !== element.uid" class="role">{{ element.roles }}</span>
-            <mat-icon *ngIf="!element.roles" class="add-icon" (click)="addRole()">add</mat-icon>
-            <mat-icon *ngIf="(loggedInUser | async).uid !== element.uid && showRolesSelect !== element.uid" class="edit-icon" (click)="editRole(element.uid)">edit</mat-icon>
-            <mat-select *ngIf="showRolesSelect === element.uid" name="roles" id="roles" [value]="element.roles[0]" (selectionChange)="updateRole($event.value, element)">
-                <mat-option *ngFor="let role of roles | keyvalue" [value]="role.value">{{ role.value }}</mat-option>
-            </mat-select>
-        </mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="roles">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Roles</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <span *ngIf="showRolesSelect !== element.uid" class="role">{{
+        element.roles
+      }}</span>
+      <mat-icon *ngIf="!element.roles" class="add-icon" (click)="addRole()"
+        >add</mat-icon
+      >
+      <mat-icon
+        *ngIf="currentUserId !== element.uid && showRolesSelect !== element.uid"
+        class="edit-icon"
+        (click)="editRole(element.uid)"
+        >edit</mat-icon
+      >
+      <mat-select
+        *ngIf="showRolesSelect === element.uid"
+        name="roles"
+        id="roles"
+        [value]="element.roles[0]"
+        (selectionChange)="updateRole($event.value, element)"
+      >
+        <mat-option
+          *ngFor="let role of roles | keyvalue"
+          [value]="role.value"
+          >{{ role.value }}</mat-option
+        >
+      </mat-select>
+    </mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="emailVerified">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Email verified</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <div class="email-verify" [ngClass]="element.emailVerified ? 'verified' : 'unverified'">
-                <mat-icon>{{ element.emailVerified ? 'check' : 'close' }}</mat-icon>
-              </div>
-        </mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="emailVerified">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Email verified</mat-header-cell
+    >
+    <mat-cell *matCellDef="let element">
+      <div
+        class="email-verify"
+        [ngClass]="element.emailVerified ? 'verified' : 'unverified'"
+      >
+        <mat-icon>{{ element.emailVerified ? 'check' : 'close' }}</mat-icon>
+      </div>
+    </mat-cell>
+  </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
 
 <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
