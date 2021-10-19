@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
 import { MatDayjsDateModule, MAT_DAYJS_DATE_ADAPTER_OPTIONS } from '@tabuckner/material-dayjs-adapter';
+import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
 
 /**
  * Custom Date-Formats and Adapter (using https://github.com/iamkun/dayjs)
@@ -63,7 +64,8 @@ export const MAT_DAYJS_DATE_FORMATS: MatDateFormats = {
     MatNativeDateModule,
     SharedModule,
     TranslocoModule,
-    MatDayjsDateModule
+    MatDayjsDateModule,
+    TranslocoLocaleModule
   ],
   providers: [
     {

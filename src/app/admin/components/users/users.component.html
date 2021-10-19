@@ -32,12 +32,12 @@
 
     <ng-container matColumnDef="createdAt">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Account created</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.createdAt | date }}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ element.createdAt | translocoDate }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="lastLoginAt">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Last login</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.lastLoginAt | date }}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ element.lastLoginAt | translocoDate }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="roles">

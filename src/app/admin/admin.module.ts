@@ -1,3 +1,4 @@
+import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -37,7 +38,8 @@ import { StatusEditModalComponent } from './components/status-edit-modal/status-
     MatListModule,
     MatCardModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    TranslocoLocaleModule
   ]
 })
 export class AdminModule { }

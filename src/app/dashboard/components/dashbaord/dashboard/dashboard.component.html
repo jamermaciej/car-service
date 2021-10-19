@@ -24,12 +24,12 @@
 
             <ng-container matColumnDef="delivery_date">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.delivery_date' | transloco }}</mat-header-cell>
-                <mat-cell *matCellDef="let element;">{{ element.delivery_date | date }}</mat-cell>
+                <mat-cell *matCellDef="let element;">{{ element.delivery_date | translocoDate }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="deadline">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'orders.table.headers.deadline' | transloco }}</mat-header-cell>
-                <mat-cell *matCellDef="let element;">{{ element.deadline | date }}</mat-cell>
+                <mat-cell *matCellDef="let element;">{{ element.deadline | translocoDate }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="status">

@@ -1,3 +1,4 @@
+import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatTableModule } from '@angular/material/table';
@@ -13,7 +14,8 @@ import { DashboardComponent } from './components/dashbaord/dashboard/dashboard.c
     DashboardRoutingModule,
     MatTableModule,
     TranslocoModule,
-    MatIconModule
+    MatIconModule,
+    TranslocoLocaleModule
   ]
 })
 export class DashboardModule { }

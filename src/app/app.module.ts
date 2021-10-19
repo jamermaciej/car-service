@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,14 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { effects, reducers, metaReducers } from './store';
 import { HttpErrorInterceptor } from './core/interceptors/http/http.interceptor';
+
+import localePl from '@angular/common/locales/pl';
+import localeEn from '@angular/common/locales/en';
+import { registerLocaleData } from '@angular/common';
+
+// register locales
+registerLocaleData(localePl);
+registerLocaleData(localeEn);
 
 export function initApp(appInitService: AppInitService) {
   return (): Promise<any> => appInitService.Init();
@@ -60,6 +68,10 @@ export function initApp(appInitService: AppInitService) {
       deps: [AppInitService],
       multi: true
     },
+    // {
+    //   provide: LOCALE_ID,
+    //   useValue: 'pl'
+    // },
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: HttpErrorInterceptor,

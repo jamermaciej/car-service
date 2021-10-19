@@ -16,6 +16,7 @@ import {
   PERSIST_TRANSLATIONS_STORAGE
 } from '@ngneat/transloco-persist-translations';
 import { TranslocoPersistLangModule, TRANSLOCO_PERSIST_LANG_STORAGE } from '@ngneat/transloco-persist-lang';
+import { LocaleFormatOptions, TranslocoLocaleModule } from '@ngneat/transloco-locale';
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
@@ -32,6 +33,12 @@ export function getLangFn({ cachedLang, browserLang, cultureLang, defaultLang })
   const lang = isBrowserLangSupported ? browserLang : defaultLang;
   return cachedLang ? cachedLang : lang;
 }
+
+const globalFormatConfig: LocaleFormatOptions = {
+  date: {
+    dateStyle: 'medium'
+  }
+};
 
 @NgModule({
   exports: [ TranslocoModule ],
@@ -60,7 +67,16 @@ export function getLangFn({ cachedLang, browserLang, cultureLang, defaultLang })
         provide: TRANSLOCO_PERSIST_LANG_STORAGE,
         useValue: localStorage
       }
+    }),
+    TranslocoLocaleModule.init({
+      langToLocaleMapping: {
+        en: 'en-US',
+        pl: 'pl-PL'
+      },
+      localeConfig: {
+        global: globalFormatConfig
+      }
     })
-],
+  ],
 })
 export class TranslocoRootModule {}
