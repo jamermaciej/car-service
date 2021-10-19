@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/core/services/user/user.service';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
 import { Role } from './../../../core/enums/roles';
 import { updateUser } from './../../store/actions/users.actions';
@@ -11,6 +12,7 @@ import {
 } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
 import * as fromRoot from './../../../store/index';
+import * as fromUsers from './../../../admin/store/actions';
 import { Store } from '@ngrx/store';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -42,10 +44,14 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     'lastLoginAt',
     'roles',
     'emailVerified',
+    'actions',
   ];
   users = new MatTableDataSource<User>();
 
-  constructor(private store: Store<fromRoot.State>) {
+  constructor(
+    private store: Store<fromRoot.State>,
+    private userService: UserService
+  ) {
     combineLatest([this.store.select(getUser), this.store.select(getUsers)])
       .pipe(
         takeUntil(this.destroySubject$),
@@ -85,6 +91,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   applyFilter(filterValue: string) {
     this.users.filter = filterValue.trim().toLowerCase();
+  }
+
+  deleteUser(user: User) {
+    this.store.dispatch(fromUsers.deleteUser({ user }));
   }
 
   ngOnDestroy() {

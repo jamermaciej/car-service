@@ -16,44 +16,89 @@ import { User } from 'src/app/shared/models/user.model';
 
 @Injectable()
 export class UsersEffects {
+  constructor(
+    private actions$: Actions,
+    private userService: UserService,
+    private alertService: AlertService,
+    private translocoService: TranslocoService
+  ) {}
 
-    constructor(
-        private actions$: Actions,
-        private userService: UserService,
-        private alertService: AlertService,
-        private translocoService: TranslocoService
-    ) {}
-
-    getUsers$ = createEffect(() => this.actions$.pipe(
+  getUsers$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(usersActions.getUsers),
-        switchMap(() => from(this.userService.getUsersData()).pipe(
+        switchMap(() =>
+          from(this.userService.getUsersData()).pipe(
             map((users: User[]) => usersActions.getUsersSuccess({ users })),
             catchError((error) => of(usersActions.getUsersFailure({ error })))
-        ))
-    ), {
-        dispatch: true
-    });
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
 
-    getUsersFailure$ = createEffect(() => this.actions$.pipe(
+  getUsersFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(usersActions.getUsersFailure),
         map((payload) => {
-            const errorKey = FirebaseErrors.Parse(payload.error.code);
-            const errorMessage = this.translocoService.translate(errorKey);
-            this.alertService.showAlert(errorMessage, 'error');
-            return authActions.authError({error: errorMessage});
+          const errorKey = FirebaseErrors.Parse(payload.error.code);
+          const errorMessage = this.translocoService.translate(errorKey);
+          this.alertService.showAlert(errorMessage, 'error');
+          return authActions.authError({ error: errorMessage });
         })
-    ), {
-        dispatch: true
-    });
+      ),
+    {
+      dispatch: true,
+    }
+  );
 
-    updateUser$ = createEffect(() => this.actions$.pipe(
+  updateUser$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(usersActions.updateUser),
         pluck('user'),
-        switchMap(user => from(this.userService.updateUserData(user)).pipe(
+        switchMap((user) =>
+          from(this.userService.updateUserData(user)).pipe(
             map(() => usersActions.updateUserSuccess({ user })),
             catchError((error) => of(usersActions.updateUserFailure({ error })))
-        ))
-    ), {
-        dispatch: true
-    });
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
+  deleteUser$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(usersActions.deleteUser),
+        pluck('user'),
+        switchMap((user) =>
+          from(this.userService.deleteUserData(user.uid)).pipe(
+            map(() => usersActions.deleteUserSuccess({ user })),
+            catchError((error) => of(usersActions.deleteUserFailure({ error })))
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
+  deleteUserSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(usersActions.deleteUserSuccess),
+        tap(() =>
+          this.alertService.showAlert('User has been deleted', 'success')
+        )
+      ),
+    {
+      dispatch: false,
+    }
+  );
 }

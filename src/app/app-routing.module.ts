@@ -8,7 +8,6 @@ import { LayoutComponent } from './core/components/layout/layout.component';
 import { Role } from './core/enums/roles';
 import { UserRoleGuard } from './core/services/user-role-guard/user-role-guard.service';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -18,91 +17,102 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+        loadChildren: () =>
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
         data: {
-          title: 'Dashboard'
-        }
+          title: 'Dashboard',
+        },
       },
       {
         path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        loadChildren: () =>
+          import('./admin/admin.module').then((m) => m.AdminModule),
         canLoad: [UserRoleGuard],
         data: {
           title: 'Admin',
-          roles: Role.ADMIN
-        }
+          roles: Role.ADMIN,
+        },
       },
       {
         path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+        loadChildren: () =>
+          import('./profile/profile.module').then((m) => m.ProfileModule),
         data: {
-          title: 'Profile'
-        }
+          title: 'Profile',
+        },
       },
       {
         path: 'account',
-        loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        loadChildren: () =>
+          import('./account/account.module').then((m) => m.AccountModule),
         data: {
-          title: 'Account'
-        }
+          title: 'Account',
+        },
       },
       {
         path: 'orders',
-        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+        loadChildren: () =>
+          import('./orders/orders.module').then((m) => m.OrdersModule),
         data: {
-          title: 'Orders'
-        }
+          title: 'Orders',
+        },
       },
       {
         path: 'cars',
-        loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
+        loadChildren: () =>
+          import('./cars/cars.module').then((m) => m.CarsModule),
         data: {
-          title: 'Cars'
-        }
+          title: 'Cars',
+        },
       },
       {
         path: 'customers',
-        loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule),
+        loadChildren: () =>
+          import('./customers/customers.module').then((m) => m.CustomersModule),
         data: {
-          title: 'Customers'
-        }
-      }
-    ]
+          title: 'Customers',
+        },
+      },
+    ],
   },
   {
     path: 'registration',
-    loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule),
+    loadChildren: () =>
+      import('./registration/registration.module').then(
+        (m) => m.RegistrationModule
+      ),
     canLoad: [LoggedInAuthGuard],
     data: {
-      title: 'Registration'
-    }
+      title: 'Registration',
+    },
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
     data: {
-      title: 'Login'
-    }
+      title: 'Login',
+    },
   },
   {
     path: 'terms',
     component: TermsComponent,
     data: {
-      title: 'Terms'
-    }
+      title: 'Terms',
+    },
   },
   {
     path: '**',
-    component: PageNotFoundComponent
-  }
+    component: PageNotFoundComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { enableTracing: false })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

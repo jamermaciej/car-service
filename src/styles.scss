@@ -1,10 +1,9 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Ubuntu, sans-serif'
+  $font-family: 'Ubuntu, sans-serif',
 );
 
 // Plus imports for other components in your app.
@@ -24,7 +23,11 @@ $car-service-accent: mat-palette($mat-blue-grey, A200, A100, A400);
 $car-service-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$car-service-theme: mat-light-theme($car-service-primary, $car-service-accent, $car-service-warn);
+$car-service-theme: mat-light-theme(
+  $car-service-primary,
+  $car-service-accent,
+  $car-service-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -33,58 +36,68 @@ $car-service-theme: mat-light-theme($car-service-primary, $car-service-accent, $
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Ubuntu', sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Ubuntu', sans-serif;
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active  {
-    -webkit-box-shadow: 0 0 0 30px #FFF inset;
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #fff inset;
 }
 
 .mat-snack-bar-container {
-    &.error {
-        background: #bd2130;
-        color: #FFF;
-    }
+  &.error {
+    background: #bd2130;
+    color: #fff;
+  }
 
-    &.success {
-        background: #28a745;
-        color: #FFF;
-    }
+  &.success {
+    background: #28a745;
+    color: #fff;
+  }
+
+  .mat-simple-snackbar {
+    justify-content: center;
+  }
 }
 
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 a {
-    color: #2C2C2C;
+  color: #2c2c2c;
 
-    &:hover {
-        text-decoration: none;
-        color: #2C2C2C;
-    }
+  &:hover {
+    text-decoration: none;
+    color: #2c2c2c;
+  }
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 .delete-account-dialog,
 .change-email-dialog,
 .change-password-dialog {
-    max-width: 400px !important;
+  max-width: 400px !important;
 }
 
 .mat-column-id {
-    flex: 0 0 100px;
+  flex: 0 0 100px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
 }

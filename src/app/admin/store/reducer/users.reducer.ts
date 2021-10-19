@@ -4,32 +4,38 @@ import * as usersActions from '../actions/users.actions';
 import * as authActions from '../../../store/actions/auth.actions';
 
 export interface State {
-    users: User[];
+  users: User[];
 }
 
 export const initialState: State = {
-    users: null
+  users: null,
 };
 
 const usersReducer = createReducer(
-    initialState,
-    on(usersActions.getUsersSuccess, (state, { users }) => ({
-        ...state,
-        users
-    })),
-    on(usersActions.getUsersFailure, state => ({
-        ...state
-    })),
-    on(authActions.confirmEmailSuccess, (state, { user }) => ({
-        ...state,
-        users: state.users.map(u => u.uid === user.uid ? { ...u, emailVerified: true } : u)
-    })),
-    on(usersActions.updateUserSuccess, (state, { user }) => ({
-        ...state,
-        users: state.users.map(u => u.uid === user.uid ? user : u)
-    }))
+  initialState,
+  on(usersActions.getUsersSuccess, (state, { users }) => ({
+    ...state,
+    users,
+  })),
+  on(usersActions.getUsersFailure, (state) => ({
+    ...state,
+  })),
+  on(authActions.confirmEmailSuccess, (state, { user }) => ({
+    ...state,
+    users: state.users.map((u) =>
+      u.uid === user.uid ? { ...u, emailVerified: true } : u
+    ),
+  })),
+  on(usersActions.updateUserSuccess, (state, { user }) => ({
+    ...state,
+    users: state.users.map((u) => (u.uid === user.uid ? user : u)),
+  })),
+  on(usersActions.deleteUserSuccess, (state, { user }) => ({
+    ...state,
+    users: state.users.filter((u) => u.uid !== user.uid),
+  }))
 );
 
 export function reducer(state: State | undefined, action: Action) {
-    return usersReducer(state, action);
+  return usersReducer(state, action);
 }

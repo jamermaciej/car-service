@@ -1,63 +1,72 @@
 .mat-row {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 .mat-column-id {
-    flex: 0 1 75px;
+  flex: 0 1 75px;
 }
 
 .mat-column-photoURL {
-    flex: 0 1 100px;
+  flex: 0 1 100px;
 }
 
 .mat-column-displayName {
-    flex: 0 1 175px;
+  flex: 0 1 175px;
+}
+
+.mat-column-actions {
+  flex: 0 1 100px;
+  justify-content: center;
+
+  mat-icon {
+    cursor: pointer;
+    color: red;
+  }
 }
 
 .user-photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .mat-column-emailVerified {
-    justify-content: center;
+  justify-content: center;
 }
 
 .role {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .add-icon {
-    color: #e91e63;
-    font-size: 20px;
+  color: #e91e63;
+  font-size: 20px;
 }
 
 .edit-icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .email-verify {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
+  .mat-icon {
+    margin-right: 5px;
+  }
+
+  &.verified {
     .mat-icon {
-        margin-right: 5px;
+      color: green;
     }
-    
-    &.verified {
-        .mat-icon {
-            color: green;
-        }
-    }
+  }
 
-    &.unverified {
-        .mat-icon {
-            color: red;
-        }
+  &.unverified {
+    .mat-icon {
+      color: red;
     }
+  }
 }
