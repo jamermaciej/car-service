@@ -83,7 +83,10 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     //   return data.id === Number(f) ||
     //          data.user?.displayName.toLowerCase().includes(f) ||
     //          data.status.toLowerCase().includes(f) ||
-    //          data.notes.toLowerCase().includes(f);
+    //          data.notes.toLowerCase().includes(f) ||
+    //          data.car?.brand.toLowerCase().includes(f) ||
+    //          data.car?.model.toLowerCase().includes(f) ||
+    //          data.customer?.name.toLowerCase().includes(f);
     //  };
     // combineLatest([
     //   this.store.select(getOrders),

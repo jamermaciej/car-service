@@ -5,10 +5,18 @@ import { RequiredValidator } from './../../../shared/validators/required-validat
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCustomerModalComponent } from 'src/app/customers/components/add-customer-modal/add-customer-modal.component';
-import { getCustomer, getCustomers } from 'src/app/customers/store/selectors/customers.selectors';
+import {
+  getCustomer,
+  getCustomers,
+} from 'src/app/customers/store/selectors/customers.selectors';
 import { Customer } from 'src/app/shared/models/customer.model';
 import { MatSelect } from '@angular/material/select';
 import { map } from 'rxjs/internal/operators/map';
@@ -22,11 +30,12 @@ import { Status } from 'src/app/shared/models/status.model';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 import { MatInput } from '@angular/material/input';
 import * as dayjs from 'dayjs';
+import { Order } from 'src/app/shared/models/order.model';
 
 @Component({
   selector: 'app-add-order',
   templateUrl: './add-order.component.html',
-  styleUrls: ['./add-order.component.scss']
+  styleUrls: ['./add-order.component.scss'],
 })
 export class AddOrderComponent implements OnInit {
   @ViewChild('customersSelect') customersSelect: MatSelect;
@@ -48,21 +57,22 @@ export class AddOrderComponent implements OnInit {
 
   statuses$: Observable<Status[]>;
 
-  constructor(private formBuilder: FormBuilder,
-              private dialog: MatDialog,
-              private store: Store<fromOrders.State>
-  ) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
+    private store: Store<fromOrders.State>
+  ) {}
 
   ngOnInit(): void {
     this.orderForm = this.formBuilder.group({
-      customer_id: ['', Validators.required],
-      car_id: ['', Validators.required],
+      customer: ['', Validators.required],
+      car: ['', Validators.required],
       delivery_date: [new Date()],
       deadline: [new Date()],
       user: [''],
       status: ['Order accepted', Validators.required],
       notes: [''],
-      test_drive_agree: [true]
+      test_drive_agree: [true],
     });
 
     this.customers$ = this.store.select(getCustomers);
@@ -80,19 +90,47 @@ export class AddOrderComponent implements OnInit {
   }
 
   validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
+    Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
-      if ( control instanceof FormControl ) {
+      if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
-      } else if ( control instanceof FormGroup ) {
+      } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
       }
     });
   }
 
   onSubmit() {
-    if ( this.orderForm.valid ) {
-      const order = this.orderForm.value;
+    if (this.orderForm.valid) {
+      const {
+        customer,
+        car,
+        delivery_date,
+        deadline,
+        user,
+        status,
+        notes,
+        test_drive_agree,
+      } = this.orderForm.value;
+      const order = {
+        id: null,
+        customer: {
+          id: customer.id,
+          name: customer.name,
+          surname: customer.surname,
+        },
+        car: {
+          id: car.id,
+          brand: car.brand,
+          model: car.model,
+        },
+        delivery_date,
+        deadline,
+        user,
+        status,
+        notes,
+        test_drive_agree,
+      };
       this.store.dispatch(fromOrders.addOrder({ order }));
     } else {
       this.validateAllFormFields(this.orderForm);
@@ -100,13 +138,16 @@ export class AddOrderComponent implements OnInit {
   }
 
   changeCustomer() {
-    const id = this.customersSelect.value;
-    this.selectedCustomer = this.store.select(getCustomer, { id });
+    const customer = this.customersSelect.value;
+    // const { id } = customer;
+    this.selectedCustomer = this.store.select(getCustomer, {
+      id: customer?.id,
+    });
     // this.store.select(getCustomer, { id }).subscribe((customer: Customer) => {
     //   this.selectedCustomer = customer;
     //   this.orderForm.get('customer_id').setValue(id);
     // });
-    this.orderForm.get('customer_id').setValue(id);
+    this.orderForm.get('customer').setValue(customer);
   }
 
   closeCarSelect(searchCarInput: MatInput) {
@@ -115,27 +156,28 @@ export class AddOrderComponent implements OnInit {
   }
 
   changeCar() {
-    const id = this.carsSelect.value;
+    const car = this.carsSelect.value;
+    const { id } = car;
     this.selectedCar = this.store.select(getCar, { id });
     // this.store.select(getCar, { id }).subscribe((car: Car) => {
     //   this.selectedCar = car;
     //   this.orderForm.get('car_id').setValue(id);
     // });
-    this.orderForm.get('car_id').setValue(id);
+    this.orderForm.get('car').setValue(car);
   }
 
   addCustomer() {
     const dialogRef = this.dialog.open(AddCustomerModalComponent, {
       panelClass: 'add-customer-dialog',
-      autoFocus: false
+      autoFocus: false,
     });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         const idNumber = res.customer.idNumber;
         this.selectedCustomer = this.customers$.pipe(
-          map(customers => customers.find(c => c.idNumber === idNumber)),
-          tap(customer => this.orderForm.get('customer_id').setValue(customer?.id))
+          map((customers) => customers.find((c) => c.idNumber === idNumber)),
+          tap((customer) => this.orderForm.get('customer').setValue(customer))
         );
         this.searchCustomerInput.nativeElement.value = null;
         this.filteredCustomers$ = this.customers$;
@@ -159,15 +201,15 @@ export class AddOrderComponent implements OnInit {
   addCar() {
     const dialogRef = this.dialog.open(AddCarModalComponent, {
       panelClass: 'add-car-dialog',
-      autoFocus: false
+      autoFocus: false,
     });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         const vin = res.car.vin;
         this.selectedCar = this.cars$.pipe(
-          map(cars => cars.find(c => c.vin === vin)),
-          tap(car => this.orderForm.get('car_id').setValue(car?.id))
+          map((cars) => cars.find((c) => c.vin === vin)),
+          tap((car) => this.orderForm.get('car').setValue(car))
         );
         // this.cars$.pipe(
         //   map(cars => cars.find(c => c.vin === vin)),
@@ -194,13 +236,23 @@ export class AddOrderComponent implements OnInit {
 
   filterCustomers(value) {
     this.filteredCustomers$ = this.customers$.pipe(
-      map(customers => customers.filter(customer => customer.surname.toLowerCase().startsWith(value)))
+      map((customers) =>
+        customers.filter((customer) =>
+          customer.surname.toLowerCase().startsWith(value)
+        )
+      )
     );
   }
 
   filterCars(value) {
     this.filteredCars$ = this.cars$.pipe(
-      map(cars => cars.filter(car => (car.brand.toLowerCase().startsWith(value)) || car.registration.toLowerCase().startsWith(value)))
+      map((cars) =>
+        cars.filter(
+          (car) =>
+            car.brand.toLowerCase().startsWith(value) ||
+            car.registration.toLowerCase().startsWith(value)
+        )
+      )
     );
   }
 
