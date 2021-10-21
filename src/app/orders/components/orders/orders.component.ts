@@ -4,11 +4,28 @@ import { getUser } from './../../../store/selectors/auth.selectors';
 import { updateOrder } from './../../store/actions/orders.actions';
 import { updateStatus } from './../../../admin/store/actions/statuses.actions';
 import { Status } from './../../../shared/models/status.model';
-import { getCustomer, getCustomers } from './../../../customers/store/selectors/customers.selectors';
+import {
+  getCustomer,
+  getCustomers,
+} from './../../../customers/store/selectors/customers.selectors';
 import { FlowRoutes } from 'src/app/core/enums/flow';
-import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
-import { filter, first, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import {
+  filter,
+  first,
+  map,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -18,7 +35,12 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from './../../../store';
 import * as fromUsers from './../../../admin/store';
-import { getOrder, getOrders, getOrdersById, getOrdersLoggedUser } from '../../store/selectors/orders.selectors';
+import {
+  getOrder,
+  getOrders,
+  getOrdersById,
+  getOrdersLoggedUser,
+} from '../../store/selectors/orders.selectors';
 import { Order } from 'src/app/shared/models/order.model';
 import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
@@ -27,7 +49,7 @@ import { isObject } from '@ngneat/transloco';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   destroySubject$: Subject<any> = new Subject();
@@ -36,9 +58,19 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   orders$: Observable<Order[]>;
   statuses$: Observable<Status[]>;
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns = ['id', 'customer_id', 'car_id', 'delivery_date', 'deadline', 'user_id', 'status', 'notes', 'test_drive_agree'];
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  displayedColumns = [
+    'id',
+    'customer_id',
+    'car_id',
+    'delivery_date',
+    'deadline',
+    'user_id',
+    'status',
+    'notes',
+    'test_drive_agree',
+  ];
   orders = new MatTableDataSource<Order>();
   workers$: Observable<User[]>;
 
@@ -63,20 +95,19 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   // defaulFilteredColumn = 'all';
   defaulWorker: string;
 
-
   filterGroup: FormGroup;
 
   filterValues: any = {
     worker: '',
-    status: ''
+    status: '',
+    default: '',
   };
 
-  constructor(private store: Store<fromRoot.State>,
-              private userService: UserService,
-              private fb: FormBuilder
-            ) {
-
-  }
+  constructor(
+    private store: Store<fromRoot.State>,
+    private userService: UserService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     // this.orders.filterPredicate = (data: Order, f: string) => {
@@ -112,22 +143,23 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     //   this.orders.data = orders;
     // });
 
-    this.store.select(getOrders).pipe(
-      takeUntil(this.destroySubject$)
-    ).subscribe(orders => {
-      this.orders.data = orders;
-    });
+    this.store
+      .select(getOrders)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe((orders) => {
+        this.orders.data = orders;
+      });
 
     this.filterGroup = this.fb.group({
       worker: '',
       status: '',
-      default: ''
+      default: '',
     });
 
-    this.store.select(getUser).subscribe(user => {
+    this.store.select(getUser).subscribe((user) => {
       const name = user.displayName;
       const roles = user.roles;
-      if ( roles.includes(Role.CUSTOMER) ) {
+      if (roles.includes(Role.CUSTOMER)) {
         this.defaulWorker = name;
         this.filterValues.worker = name;
         this.filterGroup.get('worker').setValue(name);
@@ -145,20 +177,23 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getCustomerData(id: number): Observable<string> {
     return this.store.select(getCustomer, { id }).pipe(
-      filter(customer => !!customer),
-      map(customer => `${customer.name} ${customer.surname}`));
+      filter((customer) => !!customer),
+      map((customer) => `${customer.name} ${customer.surname}`)
+    );
   }
 
   getCarData(id: number) {
     return this.store.select(getCar, { id }).pipe(
-      filter(car => !!car),
-      map(car => `${car.model} ${car.brand}`));
+      filter((car) => !!car),
+      map((car) => `${car.model} ${car.brand}`)
+    );
   }
 
   getUserData(uid: string) {
     return this.store.select(getUser, uid).pipe(
-      filter(user => !!user),
-      map(user => `${user.displayName}`));
+      filter((user) => !!user),
+      map((user) => `${user.displayName}`)
+    );
   }
 
   ngAfterViewInit() {
@@ -166,32 +201,32 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.orders.paginator = this.paginator;
   }
 
-  // applyFilter(filterValue: string) {
-  //   this.filterValues.default = filterValue;
-  //   this.orders.filter = JSON.stringify(this.filterValues);
-  // }
-
   updateOrder(status: string, id: number) {
-    this.store.select(getOrder, { id }).pipe(
-      take(1),
-      takeUntil(this.destroySubject$)
-    ).subscribe(order => {
-      const newOrder = {
-        ...order,
-        status
-      };
-      this.store.dispatch(updateOrder({ order: newOrder }));
-    });
+    this.store
+      .select(getOrder, { id })
+      .pipe(take(1), takeUntil(this.destroySubject$))
+      .subscribe((order) => {
+        const newOrder = {
+          ...order,
+          status,
+        };
+        this.store.dispatch(updateOrder({ order: newOrder }));
+      });
   }
 
   changeFilteredColumn(event) {
     const columnName = event.value ? event.value.split('.') : event.split('.');
 
     this.orders.filterPredicate = (data: Order, f: string) => {
-      if ( columnName[1] ) {
-        return data[columnName[0]] && data[columnName[0]][columnName[1]].toLowerCase().includes(f);
+      if (columnName[1]) {
+        return (
+          data[columnName[0]] &&
+          data[columnName[0]][columnName[1]].toLowerCase().includes(f)
+        );
       } else {
-        return data[columnName[0]] && data[columnName[0]].toLowerCase().includes(f);
+        return (
+          data[columnName[0]] && data[columnName[0]].toLowerCase().includes(f)
+        );
       }
     };
   }
@@ -203,39 +238,53 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private fieldListener() {
-    this.filterGroup.get('worker').valueChanges
-      .subscribe(
-        worker => {
-          this.filterValues.worker = worker;
-          this.orders.filter = JSON.stringify(this.filterValues);
-        }
-      );
-    this.filterGroup.get('status').valueChanges
-      .subscribe(
-        status => {
-          this.filterValues.status = status;
-          this.orders.filter = JSON.stringify(this.filterValues);
-        }
-      );
+    this.filterGroup.get('worker').valueChanges.subscribe((worker) => {
+      this.filterValues.worker = worker;
+      this.orders.filter = JSON.stringify(this.filterValues);
+    });
+    this.filterGroup.get('status').valueChanges.subscribe((status) => {
+      this.filterValues.status = status;
+      this.orders.filter = JSON.stringify(this.filterValues);
+    });
+    this.filterGroup.get('default').valueChanges.subscribe((v) => {
+      this.filterValues.default = v;
+      this.orders.filter = JSON.stringify(this.filterValues);
+    });
   }
 
   private createFilter(): (order: Order, filter: string) => boolean {
     const filterFunction = (order: Order, f: string): boolean => {
       const searchTerms = JSON.parse(f);
 
-      if ( !Object.values(searchTerms).some(t => t) ) return true;
-
-      if ( searchTerms.worker && searchTerms.status ) {
-        return  order.user?.displayName.includes(searchTerms.worker) &&
-                order.status.indexOf(searchTerms.status) !== -1;
+      if (searchTerms.default) {
+        const v = searchTerms.default;
+        return (
+          order.id === Number(v) ||
+          order.user?.displayName.toLowerCase().includes(v) ||
+          order.status.toLowerCase().includes(v) ||
+          order.notes.toLowerCase().includes(v) ||
+          order.car?.brand.toLowerCase().includes(v) ||
+          order.car?.model.toLowerCase().includes(v) ||
+          order.customer?.name.toLowerCase().includes(v) ||
+          order.customer?.surname.toLowerCase().includes(v)
+        );
       }
 
-      if ( searchTerms.worker ) {
-        return  order.user?.displayName.includes(searchTerms.worker);
+      if (!Object.values(searchTerms).some((t) => t)) return true;
+
+      if (searchTerms.worker && searchTerms.status) {
+        return (
+          order.user?.displayName.includes(searchTerms.worker) &&
+          order.status.indexOf(searchTerms.status) !== -1
+        );
       }
 
-      if ( searchTerms.status ) {
-        return  order.status.indexOf(searchTerms.status) !== -1;
+      if (searchTerms.worker) {
+        return order.user?.displayName.includes(searchTerms.worker);
+      }
+
+      if (searchTerms.status) {
+        return order.status.indexOf(searchTerms.status) !== -1;
       }
     };
 
@@ -246,5 +295,4 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.destroySubject$.next();
     this.destroySubject$.complete();
   }
-
 }

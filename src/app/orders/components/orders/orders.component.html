@@ -24,9 +24,14 @@
           </button>
         </ng-container>
       </div>
-      <!-- <mat-form-field>
-                <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-            </mat-form-field> -->
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="default"
+          placeholder="Filter"
+        />
+      </mat-form-field>
       <!-- <mat-form-field>
                 <mat-select name="filteredColumn" id="filteredColumn" [value]="defaulFilteredColumn" (selectionChange)="changeFilteredColumn($event)">
                     <mat-option *ngFor="let c of filteredColumns" [value]="c.field">
