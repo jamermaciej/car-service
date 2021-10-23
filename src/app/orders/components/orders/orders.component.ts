@@ -255,37 +255,35 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   private createFilter(): (order: Order, filter: string) => boolean {
     const filterFunction = (order: Order, f: string): boolean => {
       const searchTerms = JSON.parse(f);
-
-      if (searchTerms.default) {
-        const v = searchTerms.default;
-        return (
-          order.id === Number(v) ||
-          order.user?.displayName.toLowerCase().includes(v) ||
-          order.status.toLowerCase().includes(v) ||
-          order.notes.toLowerCase().includes(v) ||
-          order.car?.brand.toLowerCase().includes(v) ||
-          order.car?.model.toLowerCase().includes(v) ||
-          order.customer?.name.toLowerCase().includes(v) ||
-          order.customer?.surname.toLowerCase().includes(v)
-        );
-      }
+      const filteredFields = [];
 
       if (!Object.values(searchTerms).some((t) => t)) return true;
 
-      if (searchTerms.worker && searchTerms.status) {
-        return (
-          order.user?.displayName.includes(searchTerms.worker) &&
-          order.status.indexOf(searchTerms.status) !== -1
+      if (searchTerms.default) {
+        const v = searchTerms.default;
+        filteredFields.push(
+          order.id === Number(v) ||
+            order.user?.displayName.toLowerCase().includes(v) ||
+            order.status.toLowerCase().includes(v) ||
+            order.notes.toLowerCase().includes(v) ||
+            order.car?.brand.toLowerCase().includes(v) ||
+            order.car?.model.toLowerCase().includes(v) ||
+            order.customer?.name.toLowerCase().includes(v) ||
+            order.customer?.surname.toLowerCase().includes(v)
         );
       }
 
       if (searchTerms.worker) {
-        return order.user?.displayName.includes(searchTerms.worker);
+        filteredFields.push(
+          order.user?.displayName.includes(searchTerms.worker)
+        );
       }
 
       if (searchTerms.status) {
-        return order.status.indexOf(searchTerms.status) !== -1;
+        filteredFields.push(order.status.indexOf(searchTerms.status) !== -1);
       }
+
+      return filteredFields.every((v) => v);
     };
 
     return filterFunction;
