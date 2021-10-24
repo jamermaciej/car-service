@@ -157,8 +157,8 @@ export class AddOrderComponent implements OnInit {
 
   changeCar() {
     const car = this.carsSelect.value;
-    const { id } = car;
-    this.selectedCar = this.store.select(getCar, { id });
+    // const { id } = car;
+    this.selectedCar = this.store.select(getCar, { id: car?.id });
     // this.store.select(getCar, { id }).subscribe((car: Car) => {
     //   this.selectedCar = car;
     //   this.orderForm.get('car_id').setValue(id);
@@ -194,8 +194,8 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
-  compareCustomer(value: number, customer: Customer) {
-    return value === +customer?.id;
+  compareCustomer(value: Customer, customer: Customer) {
+    return value.id === customer?.id;
   }
 
   addCar() {
@@ -222,8 +222,8 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
-  compareCar(value: number, car: Car) {
-    return value === car?.id;
+  compareCar(value: Car, car: Car) {
+    return value.id === car?.id;
   }
 
   clearSelectCustomer() {
