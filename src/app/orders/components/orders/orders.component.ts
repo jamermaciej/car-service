@@ -74,25 +74,42 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   orders = new MatTableDataSource<Order>();
   workers$: Observable<User[]>;
 
-  // filteredColumns = [
-  //   {
-  //     label: 'All columns',
-  //     field: 'all'
-  //   },
-  //   {
-  //     label: 'Worker',
-  //     field: 'user.displayName',
-  //   },
-  //   {
-  //     label: 'Status',
-  //     field: 'status',
-  //   },
-  //   {
-  //     label: 'Notes',
-  //     field: 'notes'
-  //   }
-  // ];
-  // defaulFilteredColumn = 'all';
+  filteredColumns = [
+    {
+      label: 'All columns',
+      field: 'default',
+    },
+    {
+      label: 'Worker',
+      field: 'user.displayName',
+    },
+    {
+      label: 'Status',
+      field: 'status',
+    },
+    {
+      label: 'Notes',
+      field: 'notes',
+    },
+    {
+      label: 'Customer name',
+      field: 'customer.name',
+    },
+    {
+      label: 'Customer surname',
+      field: 'customer.surname',
+    },
+    {
+      label: 'Car model',
+      field: 'car.model',
+    },
+    {
+      label: 'Car brand',
+      field: 'car.brand',
+    },
+  ];
+  defaulFilteredColumn = 'default';
+  filteredColumn;
   defaulWorker: string;
 
   filterGroup: FormGroup;
@@ -215,20 +232,11 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changeFilteredColumn(event) {
-    const columnName = event.value ? event.value.split('.') : event.split('.');
-
-    this.orders.filterPredicate = (data: Order, f: string) => {
-      if (columnName[1]) {
-        return (
-          data[columnName[0]] &&
-          data[columnName[0]][columnName[1]].toLowerCase().includes(f)
-        );
-      } else {
-        return (
-          data[columnName[0]] && data[columnName[0]].toLowerCase().includes(f)
-        );
-      }
+    this.filterValues = {
+      ...this.filterValues,
+      [event.value]: '',
     };
+    this.filteredColumn = event.value;
   }
 
   clearFilter(field: string) {
@@ -261,16 +269,26 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (searchTerms.default) {
         const v = searchTerms.default;
-        filteredFields.push(
-          order.id === Number(v) ||
-            order.user?.displayName.toLowerCase().includes(v) ||
-            order.status.toLowerCase().includes(v) ||
-            order.notes.toLowerCase().includes(v) ||
-            order.car?.brand.toLowerCase().includes(v) ||
-            order.car?.model.toLowerCase().includes(v) ||
-            order.customer?.name.toLowerCase().includes(v) ||
-            order.customer?.surname.toLowerCase().includes(v)
-        );
+        if (this.filteredColumn && this.filteredColumn !== 'default') {
+          const k = this.filteredColumn.split('.');
+          if (!order[k[0]]) return;
+          if (k[1]) {
+            filteredFields.push(order[k[0]][k[1]].toLowerCase().includes(v));
+          } else {
+            filteredFields.push(order[k[0]].toLowerCase().includes(v));
+          }
+        } else {
+          filteredFields.push(
+            order.id === Number(v) ||
+              order.user?.displayName.toLowerCase().includes(v) ||
+              order.status.toLowerCase().includes(v) ||
+              order.notes.toLowerCase().includes(v) ||
+              order.car?.brand.toLowerCase().includes(v) ||
+              order.car?.model.toLowerCase().includes(v) ||
+              order.customer?.name.toLowerCase().includes(v) ||
+              order.customer?.surname.toLowerCase().includes(v)
+          );
+        }
       }
 
       if (searchTerms.worker) {
