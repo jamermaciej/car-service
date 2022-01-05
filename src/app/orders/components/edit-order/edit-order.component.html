@@ -161,7 +161,7 @@
                 >
               </section>
               <button
-                type="submit"
+                type="button"
                 mat-raised-button
                 color="accent"
                 (click)="back()"
@@ -176,6 +176,18 @@
                 class="btn-add-order"
               >
                 {{ 'orders.button.update_order' | transloco }}
+              </button>
+
+              <button
+                type="button"
+                mat-raised-button
+                (click)="back()"
+                class="btn-add-order float-right"
+              >
+                <mat-icon color="warn" (click)="removeOrder(order, $event)"
+                  >delete</mat-icon
+                >
+                Remove
               </button>
             </form>
           </mat-card-content>

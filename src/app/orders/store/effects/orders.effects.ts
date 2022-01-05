@@ -156,4 +156,15 @@ export class CarsEffects {
       dispatch: true,
     }
   );
+
+  removeOrderSuccess = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ordersActions.removeOrderSuccess),
+        map(() => routerActions.go({ path: [FlowRoutes.ORDERS] }))
+      ),
+    {
+      dispatch: true,
+    }
+  );
 }

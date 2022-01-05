@@ -19,6 +19,8 @@ import { Car } from 'src/app/shared/models/car.model';
 import { getCars } from 'src/app/cars/store/selectors/cars.selectors';
 import * as dayjs from 'dayjs';
 import { Location } from '@angular/common';
+import { removeOrder } from './../../store/';
+import * as routerActions from './../../../store/actions/router.actions';
 
 @Component({
   selector: 'app-edit-order',
@@ -144,5 +146,10 @@ export class EditOrderComponent implements OnInit, OnDestroy {
 
   back(): void {
     this.location.back();
+  }
+
+  removeOrder(order: Order, event: MouseEvent) {
+    event.stopPropagation();
+    this.store.dispatch(removeOrder({ order }));
   }
 }
