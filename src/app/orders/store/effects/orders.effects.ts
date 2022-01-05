@@ -104,10 +104,13 @@ export class CarsEffects {
     () =>
       this.actions$.pipe(
         ofType(ordersActions.updateOrderSuccess),
-        switchMap((paylaod) => this.messageService.sendMessage(paylaod.order))
+        map(() => {
+          this.alertService.showAlert('Order updated', 'success');
+          return routerActions.go({ path: [FlowRoutes.ORDERS] });
+        })
       ),
     {
-      dispatch: false,
+      dispatch: true,
     }
   );
 

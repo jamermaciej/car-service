@@ -1,396 +1,398 @@
 {
-	"sidebar": {
-		"nav_item": {
-			"dashboard": "Dashboard",
-			"admin": "Admin",
-			"users": "Users",
-			"statuses": "Statuses",
-			"profile": "Profile",
-			"account": "Account",
-			"orders_service": "Orders service",
-			"cars": "Cars",
-			"customers": "Customers",
-			"settings": "Settings"
-		}
-	},
-	"confirm_email": {
-		"message": {
-			"success": "Your email address has been verified successfully."
-		}
-	},
-	"firebase_errors": {
-		"cannot_delete_own_user_account": "You cannot delete your own user account.",
-		"email_already_exists": "Email address is already in use by an existing user.",
-		"email_already_in_use": "Email address is already in use by an existing user.",
-		"invalid_action_code": "The activation code is invalid!",
-		"invalid_email": "The email address is not a valid email address!",
-		"invalid_phone_number": "The phone number is not a valid phone number!",
-		"network_request_failed": "Please check your internet connection.",
-		"phone_number_already_exists": "The phone number is already in use by an existing user.",
-		"requires_recent_login": "Please login again and try again!",
-		"too_many_requests": "We have detected too many requests from your device. Take a break please!",
-		"user_disabled": "Your account has been disabled or deleted. Please contact the system administrator.",
-		"user_not_found": "We could not find user account associated with the email address or phone number.",
-		"wrong_password": "Invalid login credentials."
-	},
-	"forgot_password": {
-		"button": {
-			"back": "Back",
-			"recover": "Recover password",
-			"reset": "Reset password"
-		},
-		"label": {
-			"email": "Your Email *",
-			"password": "New password *",
-			"repeat_password": "Repeat new password *"
-		},
-		"message": {
-			"success": {
-				"send": "The email with further instructions was sent to the submitted email address {{ email }}. If you don’t receive a message in 5 minutes, check the junk folder.If you are still experiencing any problems, contact support at support@domain.com.",
-				"update": "Your password has been changed successfully, you can login now."
-			}
-		},
-		"subtitle": {
-			"new_password": "Please enter and confirm your new password"
-		},
-		"title": {
-			"forgot_password": "Password assistance",
-			"new_password": "Set a new password"
-		}
-	},
-	"login": {
-		"button": {
-			"login": "Login"
-		},
-		"create_account": "Create a new account",
-		"forgot_password": "Forgot your password?",
-		"label": {
-			"email": "Yor Email *",
-			"password": "Your password *",
-			"newPassword": "Your new password *"
-		},
-		"no_account": "Don't have an account?",
-		"title": "Sign in"
-	},
-	"register": {
-		"button": {
-			"login": "Log in",
-			"register": "Register"
-		},
-		"error": {
-			"confirm_password": {
-				"password_mismatch": "Passwords must be the same.",
-				"required": "Repeat password."
-			},
-			"email": {
-				"domain": "We accept only {{ domain }} domain.",
-				"invalid": "Invalid email address.",
-				"required": "Email is required."
-			},
-			"name": {
-				"required": "Name is required.",
-				"maxLength": "Name must be less than {{ requiredLength }} characters.",
-				"minLength": "Name must be greater than {{ requiredLength }} characters."
-			},
-			"password": {
-				"minLength": "Password must be greater than {{ requiredLength }} characters.",
-				"noAlphanumeric": "Password must contain at least one special character.",
-				"noLowercase": "Password must contain at least one lowercase letter.",
-				"noNumber": "Password must contain at least one number.",
-				"noUppercase": "Password must contain at least uppercase letter.",
-				"required": "Password is required.",
-				"whitespace": "Password has white space on start or end."
-			},
-			"terms": {
-				"required": "Accept terms of service is required."
-			}
-		},
-		"have_account": "Have an account?",
-		"hint": {
-			"password": "Password must contain at least 8 characters, one uppercase, lowercase, number and non aplhanumeric."
-		},
-		"label": {
-			"email": "Your email *",
-			"name": "Your Name",
-			"password": "Password *",
-			"repeat_password": "Repeat your password *",
-			"terms": "I agree all statements in"
-		},
-		"link": {
-			"terms": "Terms of service"
-		},
-		"message": {
-			"success": "You have successfully registered and logged in. Please verify your email address."
-		},
-		"title": "Sing up"
-	},
-	"profile": {
-		"update_profile": {
-			"header": "Edit Profile",
-			"label": {
-				"name": "Name",
-				"phone_number": "Phone number"
-			},
-			"button": {
-				"update_profile": "Update profile",
-				"change_photo": "Change photo",
-				"add_photo": "Add photo"
-			}
-		},
-		"edit_photo": {
-			"header": {
-				"add_photo": "Add photo",
-				"edit_photo": "Edit photo"
-			},
-			"button": {
-				"upload": "Upload",
-				"close": "Close"
-			}
-		},
-		"email_status": {
-			"verified": "Email verified",
-			"unverified": "Email unverified"
-		}
-	},
-	"account": {
-		"header": {
-			"my_account": "My account",
-			"verify_email": "Verify your email",
-			"change_email_password": "Change email / password",
-			"delete_account": "Delete account"
-		},
-		"subheader": {
-			"verify_email": {
-				"verified": "Your email is already verified.",
-				"unverified": "Your email is not verified yet. Please proceed at your convenience."
-			},
-			"change_email_password": "This will change the credentials used for signin-in.",
-			"delete_account": "By proceeding you'll permanently delete all your data."	
-		},
-		"button": {
-			"verify_email": "Verify your email",
-			"change_email": "Change your email",
-			"change_password": "Change your password",
-			"delete_account": "Delete your account"
-		},
-		"message": {
-			"success": {
-				"verify_email": "Email verification has been send."
-			}
-		},
-		"created_at": "Your account has been created on",
-		"logout": {
-			"message": {
-				"success": "You have been logged out."
-			}
-		},
-		"change_password": {
-			"header": "Change password",
-			"subheader": "Please confirm by re-authenticating",
-			"button": {
-				"change_password": "Change password"
-			},
-			"message": {
-				"success": "Password updated!"
-			},
-			"error": {
-				"new_password": {
-					"same_passwords": "Passwords must be different."
-				}
-			}
-		},
-		"update_email": {
-			"header": "Change email",
-			"subheader": "Please confirm by re-authenticating",
-			"button": {
-				"change_email": "Change email"
-			},
-			"message": {
-				"success": "Email updated!",
-				"error": "The email provided is the same as the current email."
-			}
-		},
-		"delete_account": {
-			"header": "Delete account",
-			"subheader": "WARNING! Confirmimg with your password the account will be permanently deleted",
-			"button": {
-				"delete_account": "Delete account"
-			},
-			"message": {
-				"success": "Account deleted!"
-			}
-		}
-	},
-	"customer": {
-		"add_customer": {
-			"header": "Add new customer",
-			"subheader": "After add new customer you see him on customers list and in customer select on order service screen."
-		},
-		"button": {
-			"add_customer": "Add customer"
-		},
-		"label": {
-			"name": "Name *",
-			"surname": "Surname *",
-			"phone_number": "Phone number *",
-			"id_number": "ID number *",
-			"email": "Email *",
-			"street": "Street",
-			"city": "City",
-			"province": "Province",
-			"postcode": "Postcode"
-		},
-		"error": {
-			"name": {
-				"onlyAlpha": "The name can only contain letters."
-			},
-			"surname": {
-				"required": "Surname is required.",
-				"onlyAlpha": "The name can only contain letters."
-			},
-			"phoneNumber": {
-				"required": "Phone number is required.",
-				"invalidPhoneNumber": "Valid phone number is required."
-			},
-			"idNumber": {
-				"required": "ID number is required.",
-				"invalidIdNumber": "Invalid ID number"
-			},
-			"postcode": {
-				"invalidPostcode": "Postalcode must be in the XX-XXX format."
-			}
-		},
-		"success": {
-			"add_customer": "New customer added."
-		}
-	},
-	"car": {
-		"add_car": {
-			"header": "Add new car",
-			"subheader": "After add new car you see him on cars <br> list and in car select on order service screen."
-		},
-		"button": {
-			"add_car": "Add car"
-		},
-		"label": {
-			"brand": "Brand *",
-			"model": "Model *",
-			"type": "Type *",
-			"year": "Year *",
-			"registration": "Registration *",
-			"vin": "VIN *",
-			"mileage": "Mileage *",
-			"capacity": "Capacity *",
-			"power": "Power *",
-			"fuel": "Fuel *"
-		},
-		"error": {
-			"brand": {
-				"required": "Brand is required"
-			},
-			"model": {
-				"required": "Model is required"
-			},
-			"type": {
-				"required": "Type is required"
-			},
-			"year": {
-				"required": "Year is required"
-			},
-			"registration": {
-				"required": "Registration is required",
-				"minLength": "Registration must have more than 5 characters.",
-				"maxLength": "Registration must have less than 7 characters."
-			},
-			"vin": {
-				"required": "VIN is required",
-				"invalidFormat": "Invalid VIN format"
-			},
-			"mileage": {
-				"required": "Mileage is required"
-			},
-			"capacity": {
-				"required": "Capacity is required"
-			},
-			"power": {
-				"required": "Power is required"
-			},
-			"fuel": {
-				"required": "Fuel is required"
-			}
-		},
-		"success": {
-			"add_car": "New car added."
-		},
-		"fuel": {
-			"petrol": "Petrol",
-			"petrol_cng": "Petrol+CNG",
-			"petrol_lpg": "Petrol+LPG",
-			"diesel": "Diesel",
-			"electric": "Electric",
-			"ethanol": "Ethanol", 
-			"hybrid": "Hybrid", 
-			"hydrogen": "Hydrogen"
-		},
-		"car_type": {
-			"small_cars": "Small cars",
-			"city_cars": "City cars",
-			"coupe": "Coupe",
-			"cabrio": "Cabrio",
-			"combi": "Combi",
-			"compact": "Compact",
-			"minivan": "Minivan",
-			"sedan": "Sedan",
-			"suv": "SUV"
-		}
-	},
-	"orders": {
-		"header": {
-			"add_customer": "Add new customer or select existing from select list",
-			"add_car": "Add new car or select existing from select list"
-		},
-		"button": {
-			"add_order": "Add order",
-			"add_customer": "Add new customer",
-			"add_car": "Add new car"
-		},
-		"placeholder": {
-			"add_customer": "Add customer or select exist",
-			"search_customer": "Search customer...",
-			"add_car": "Add car or select exist",
-			"search_car": "Search by car brand or registration..."
-		},
-		"label": {
-			"delivery_date": "Delivery Date",
-			"deadline": "Deadline",
-			"worker": "Worker",
-			"notes": "Notes",
-			"status": "Status",
-			"test_drive": "Test drive agree"
-		},
-		"error": {
-			"customer": {
-				"required": "Choose customer from list or add new"
-			},
-			"car": {
-				"required": "Choose car from list or add new"
-			},
-			"worker": {
-				"required": "Worker is required"
-			}
-		},
-		"table": {
-			"headers": {
-				"id": "ID",
-				"customer": "Customer" ,
-				"car": "Car",
-				"delivery_date": "Delivery date",
-				"deadline": "Deadline",
-				"worker": "Worker",
-				"status": "Status",
-				"notes": "Notes",
-				"test_drive": "Test drive"
-			}
-		}
-	}
+  "sidebar": {
+    "nav_item": {
+      "dashboard": "Dashboard",
+      "admin": "Admin",
+      "users": "Users",
+      "statuses": "Statuses",
+      "profile": "Profile",
+      "account": "Account",
+      "orders_service": "Orders service",
+      "cars": "Cars",
+      "customers": "Customers",
+      "settings": "Settings"
+    }
+  },
+  "confirm_email": {
+    "message": {
+      "success": "Your email address has been verified successfully."
+    }
+  },
+  "firebase_errors": {
+    "cannot_delete_own_user_account": "You cannot delete your own user account.",
+    "email_already_exists": "Email address is already in use by an existing user.",
+    "email_already_in_use": "Email address is already in use by an existing user.",
+    "invalid_action_code": "The activation code is invalid!",
+    "invalid_email": "The email address is not a valid email address!",
+    "invalid_phone_number": "The phone number is not a valid phone number!",
+    "network_request_failed": "Please check your internet connection.",
+    "phone_number_already_exists": "The phone number is already in use by an existing user.",
+    "requires_recent_login": "Please login again and try again!",
+    "too_many_requests": "We have detected too many requests from your device. Take a break please!",
+    "user_disabled": "Your account has been disabled or deleted. Please contact the system administrator.",
+    "user_not_found": "We could not find user account associated with the email address or phone number.",
+    "wrong_password": "Invalid login credentials."
+  },
+  "forgot_password": {
+    "button": {
+      "back": "Back",
+      "recover": "Recover password",
+      "reset": "Reset password"
+    },
+    "label": {
+      "email": "Your Email *",
+      "password": "New password *",
+      "repeat_password": "Repeat new password *"
+    },
+    "message": {
+      "success": {
+        "send": "The email with further instructions was sent to the submitted email address {{ email }}. If you don’t receive a message in 5 minutes, check the junk folder.If you are still experiencing any problems, contact support at support@domain.com.",
+        "update": "Your password has been changed successfully, you can login now."
+      }
+    },
+    "subtitle": {
+      "new_password": "Please enter and confirm your new password"
+    },
+    "title": {
+      "forgot_password": "Password assistance",
+      "new_password": "Set a new password"
+    }
+  },
+  "login": {
+    "button": {
+      "login": "Login"
+    },
+    "create_account": "Create a new account",
+    "forgot_password": "Forgot your password?",
+    "label": {
+      "email": "Yor Email *",
+      "password": "Your password *",
+      "newPassword": "Your new password *"
+    },
+    "no_account": "Don't have an account?",
+    "title": "Sign in"
+  },
+  "register": {
+    "button": {
+      "login": "Log in",
+      "register": "Register"
+    },
+    "error": {
+      "confirm_password": {
+        "password_mismatch": "Passwords must be the same.",
+        "required": "Repeat password."
+      },
+      "email": {
+        "domain": "We accept only {{ domain }} domain.",
+        "invalid": "Invalid email address.",
+        "required": "Email is required."
+      },
+      "name": {
+        "required": "Name is required.",
+        "maxLength": "Name must be less than {{ requiredLength }} characters.",
+        "minLength": "Name must be greater than {{ requiredLength }} characters."
+      },
+      "password": {
+        "minLength": "Password must be greater than {{ requiredLength }} characters.",
+        "noAlphanumeric": "Password must contain at least one special character.",
+        "noLowercase": "Password must contain at least one lowercase letter.",
+        "noNumber": "Password must contain at least one number.",
+        "noUppercase": "Password must contain at least uppercase letter.",
+        "required": "Password is required.",
+        "whitespace": "Password has white space on start or end."
+      },
+      "terms": {
+        "required": "Accept terms of service is required."
+      }
+    },
+    "have_account": "Have an account?",
+    "hint": {
+      "password": "Password must contain at least 8 characters, one uppercase, lowercase, number and non aplhanumeric."
+    },
+    "label": {
+      "email": "Your email *",
+      "name": "Your Name",
+      "password": "Password *",
+      "repeat_password": "Repeat your password *",
+      "terms": "I agree all statements in"
+    },
+    "link": {
+      "terms": "Terms of service"
+    },
+    "message": {
+      "success": "You have successfully registered and logged in. Please verify your email address."
+    },
+    "title": "Sing up"
+  },
+  "profile": {
+    "update_profile": {
+      "header": "Edit Profile",
+      "label": {
+        "name": "Name",
+        "phone_number": "Phone number"
+      },
+      "button": {
+        "update_profile": "Update profile",
+        "change_photo": "Change photo",
+        "add_photo": "Add photo"
+      }
+    },
+    "edit_photo": {
+      "header": {
+        "add_photo": "Add photo",
+        "edit_photo": "Edit photo"
+      },
+      "button": {
+        "upload": "Upload",
+        "close": "Close"
+      }
+    },
+    "email_status": {
+      "verified": "Email verified",
+      "unverified": "Email unverified"
+    }
+  },
+  "account": {
+    "header": {
+      "my_account": "My account",
+      "verify_email": "Verify your email",
+      "change_email_password": "Change email / password",
+      "delete_account": "Delete account"
+    },
+    "subheader": {
+      "verify_email": {
+        "verified": "Your email is already verified.",
+        "unverified": "Your email is not verified yet. Please proceed at your convenience."
+      },
+      "change_email_password": "This will change the credentials used for signin-in.",
+      "delete_account": "By proceeding you'll permanently delete all your data."
+    },
+    "button": {
+      "verify_email": "Verify your email",
+      "change_email": "Change your email",
+      "change_password": "Change your password",
+      "delete_account": "Delete your account"
+    },
+    "message": {
+      "success": {
+        "verify_email": "Email verification has been send."
+      }
+    },
+    "created_at": "Your account has been created on",
+    "logout": {
+      "message": {
+        "success": "You have been logged out."
+      }
+    },
+    "change_password": {
+      "header": "Change password",
+      "subheader": "Please confirm by re-authenticating",
+      "button": {
+        "change_password": "Change password"
+      },
+      "message": {
+        "success": "Password updated!"
+      },
+      "error": {
+        "new_password": {
+          "same_passwords": "Passwords must be different."
+        }
+      }
+    },
+    "update_email": {
+      "header": "Change email",
+      "subheader": "Please confirm by re-authenticating",
+      "button": {
+        "change_email": "Change email"
+      },
+      "message": {
+        "success": "Email updated!",
+        "error": "The email provided is the same as the current email."
+      }
+    },
+    "delete_account": {
+      "header": "Delete account",
+      "subheader": "WARNING! Confirmimg with your password the account will be permanently deleted",
+      "button": {
+        "delete_account": "Delete account"
+      },
+      "message": {
+        "success": "Account deleted!"
+      }
+    }
+  },
+  "customer": {
+    "add_customer": {
+      "header": "Add new customer",
+      "subheader": "After add new customer you see him on customers list and in customer select on order service screen."
+    },
+    "button": {
+      "add_customer": "Add customer"
+    },
+    "label": {
+      "name": "Name *",
+      "surname": "Surname *",
+      "phone_number": "Phone number *",
+      "id_number": "ID number *",
+      "email": "Email *",
+      "street": "Street",
+      "city": "City",
+      "province": "Province",
+      "postcode": "Postcode"
+    },
+    "error": {
+      "name": {
+        "onlyAlpha": "The name can only contain letters."
+      },
+      "surname": {
+        "required": "Surname is required.",
+        "onlyAlpha": "The name can only contain letters."
+      },
+      "phoneNumber": {
+        "required": "Phone number is required.",
+        "invalidPhoneNumber": "Valid phone number is required."
+      },
+      "idNumber": {
+        "required": "ID number is required.",
+        "invalidIdNumber": "Invalid ID number"
+      },
+      "postcode": {
+        "invalidPostcode": "Postalcode must be in the XX-XXX format."
+      }
+    },
+    "success": {
+      "add_customer": "New customer added."
+    }
+  },
+  "car": {
+    "add_car": {
+      "header": "Add new car",
+      "subheader": "After add new car you see him on cars <br> list and in car select on order service screen."
+    },
+    "button": {
+      "add_car": "Add car"
+    },
+    "label": {
+      "brand": "Brand *",
+      "model": "Model *",
+      "type": "Type *",
+      "year": "Year *",
+      "registration": "Registration *",
+      "vin": "VIN *",
+      "mileage": "Mileage *",
+      "capacity": "Capacity *",
+      "power": "Power *",
+      "fuel": "Fuel *"
+    },
+    "error": {
+      "brand": {
+        "required": "Brand is required"
+      },
+      "model": {
+        "required": "Model is required"
+      },
+      "type": {
+        "required": "Type is required"
+      },
+      "year": {
+        "required": "Year is required"
+      },
+      "registration": {
+        "required": "Registration is required",
+        "minLength": "Registration must have more than 5 characters.",
+        "maxLength": "Registration must have less than 7 characters."
+      },
+      "vin": {
+        "required": "VIN is required",
+        "invalidFormat": "Invalid VIN format"
+      },
+      "mileage": {
+        "required": "Mileage is required"
+      },
+      "capacity": {
+        "required": "Capacity is required"
+      },
+      "power": {
+        "required": "Power is required"
+      },
+      "fuel": {
+        "required": "Fuel is required"
+      }
+    },
+    "success": {
+      "add_car": "New car added."
+    },
+    "fuel": {
+      "petrol": "Petrol",
+      "petrol_cng": "Petrol+CNG",
+      "petrol_lpg": "Petrol+LPG",
+      "diesel": "Diesel",
+      "electric": "Electric",
+      "ethanol": "Ethanol",
+      "hybrid": "Hybrid",
+      "hydrogen": "Hydrogen"
+    },
+    "car_type": {
+      "small_cars": "Small cars",
+      "city_cars": "City cars",
+      "coupe": "Coupe",
+      "cabrio": "Cabrio",
+      "combi": "Combi",
+      "compact": "Compact",
+      "minivan": "Minivan",
+      "sedan": "Sedan",
+      "suv": "SUV"
+    }
+  },
+  "orders": {
+    "header": {
+      "add_customer": "Add new customer or select existing from select list",
+      "add_car": "Add new car or select existing from select list"
+    },
+    "button": {
+      "add_order": "Add order",
+      "update_order": "Update order",
+      "add_customer": "Add new customer",
+      "add_car": "Add new car",
+      "back": "Back"
+    },
+    "placeholder": {
+      "add_customer": "Add customer or select exist",
+      "search_customer": "Search customer...",
+      "add_car": "Add car or select exist",
+      "search_car": "Search by car brand or registration..."
+    },
+    "label": {
+      "delivery_date": "Delivery Date",
+      "deadline": "Deadline",
+      "worker": "Worker",
+      "notes": "Notes",
+      "status": "Status",
+      "test_drive": "Test drive agree"
+    },
+    "error": {
+      "customer": {
+        "required": "Choose customer from list or add new"
+      },
+      "car": {
+        "required": "Choose car from list or add new"
+      },
+      "worker": {
+        "required": "Worker is required"
+      }
+    },
+    "table": {
+      "headers": {
+        "id": "ID",
+        "customer": "Customer",
+        "car": "Car",
+        "delivery_date": "Delivery date",
+        "deadline": "Deadline",
+        "worker": "Worker",
+        "status": "Status",
+        "notes": "Notes",
+        "test_drive": "Test drive"
+      }
+    }
+  }
 }

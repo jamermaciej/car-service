@@ -1,0 +1,36 @@
+.edit-order {
+  padding-top: 70px;
+
+  .card {
+    border-radius: 6px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14) !important;
+  }
+
+  .mat-card-header {
+    border-radius: 3px;
+    margin-top: -40px;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+      0 7px 10px -5px rgba(244, 67, 54, 0.4);
+    background: #e91e63;
+    padding: 15px;
+
+    .mat-card-title {
+      margin: 0;
+      color: #fff;
+    }
+  }
+
+  .mat-card-content {
+    margin-top: 30px;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .row {
+      flex-wrap: wrap-reverse;
+    }
+  }
+}
