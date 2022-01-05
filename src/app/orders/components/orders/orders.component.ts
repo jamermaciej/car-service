@@ -1,7 +1,7 @@
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Role } from './../../../core/enums/roles';
 import { getUser } from './../../../store/selectors/auth.selectors';
-import { updateOrder } from './../../store/actions/orders.actions';
+import { removeOrder, updateOrder } from './../../store/actions/orders.actions';
 import { updateStatus } from './../../../admin/store/actions/statuses.actions';
 import { Status } from './../../../shared/models/status.model';
 import {
@@ -70,6 +70,7 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     'status',
     'notes',
     'test_drive_agree',
+    'actions',
   ];
   orders = new MatTableDataSource<Order>();
   workers$: Observable<User[]>;
@@ -305,6 +306,11 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     return filterFunction;
+  }
+
+  removeOrder(order: Order, event: MouseEvent) {
+    event.stopPropagation();
+    this.store.dispatch(removeOrder({ order }));
   }
 
   ngOnDestroy() {

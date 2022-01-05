@@ -132,4 +132,28 @@ export class CarsEffects {
       dispatch: true,
     }
   );
+
+  removeOrder$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ordersActions.removeOrder),
+        switchMap((paylaod) =>
+          this.orderService.removeOrder(paylaod.order).pipe(
+            map((order) => {
+              this.alertService.showAlert(
+                `Order ${order.id} has been removed`,
+                'success'
+              );
+              return ordersActions.removeOrderSuccess({ order });
+            }),
+            catchError((error) =>
+              of(ordersActions.removeOrderFailure({ error }))
+            )
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
 }
