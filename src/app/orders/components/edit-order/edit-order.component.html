@@ -181,12 +181,10 @@
               <button
                 type="button"
                 mat-raised-button
-                (click)="back()"
+                (click)="removeOrder(order, $event)"
                 class="btn-add-order float-right"
               >
-                <mat-icon color="warn" (click)="removeOrder(order, $event)"
-                  >delete</mat-icon
-                >
+                <mat-icon color="warn">delete</mat-icon>
                 Remove
               </button>
             </form>
