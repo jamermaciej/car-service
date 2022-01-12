@@ -3,27 +3,31 @@ import { Action, createReducer, on } from '@ngrx/store';
 import * as carsActions from '../actions/cars.actions';
 
 export interface State {
-    cars: Car[];
+  cars: Car[];
 }
 
 export const initialState: State = {
-    cars: []
+  cars: [],
 };
 
 const carsReducer = createReducer(
-    initialState,
-    on(carsActions.addCarSuccess, (state, { car } ) => ({
-        ...state,
-        cars: [...state.cars, car]
-    })),
-    on(carsActions.laodCarsSuccess, (state, { cars } ) => ({
-        ...state,
-        cars
-    }))
+  initialState,
+  on(carsActions.addCarSuccess, (state, { car }) => ({
+    ...state,
+    cars: [...state.cars, car],
+  })),
+  on(carsActions.laodCarsSuccess, (state, { cars }) => ({
+    ...state,
+    cars,
+  })),
+  on(carsActions.removeCarSuccess, (state, { car }) => ({
+    ...state,
+    cars: state.cars.filter((c) => c.id !== car.id),
+  }))
 );
 
 export function reducer(state: State | undefined, action: Action) {
-    return carsReducer(state, action);
+  return carsReducer(state, action);
 }
 
 export const getCars = (state: State) => state.cars;

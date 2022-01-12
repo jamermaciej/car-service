@@ -17,31 +17,64 @@ import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable()
 export class CarsEffects {
+  constructor(
+    private actions$: Actions,
+    private carService: CarService,
+    private alertService: AlertService,
+    private translocoService: TranslocoService
+  ) {}
 
-    constructor(
-        private actions$: Actions,
-        private carService: CarService,
-        private alertService: AlertService,
-        private translocoService: TranslocoService
-    ) {}
-
-    addCar$ = createEffect(() => this.actions$.pipe(
+  addCar$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(carsActions.addCar),
-        switchMap((paylaod) => this.carService.addCar(paylaod.car).pipe(
+        switchMap((paylaod) =>
+          this.carService.addCar(paylaod.car).pipe(
             map((car: Car) => carsActions.addCarSuccess({ car })),
             catchError((error) => of(carsActions.addCarFailure({ error })))
-        ))
-    ), {
-        dispatch: true
-    });
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
 
-    getCars$ = createEffect(() => this.actions$.pipe(
+  getCars$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(carsActions.loadCars),
-        switchMap(() => this.carService.getCars().pipe(
+        switchMap(() =>
+          this.carService.getCars().pipe(
             map((cars) => carsActions.laodCarsSuccess({ cars })),
             catchError((error) => of(carsActions.loadCarsFailre({ error })))
-        ))
-    ), {
-        dispatch: true
-    });
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
+  removeCar$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(carsActions.removeCar),
+        switchMap((payload) =>
+          this.carService.deleteCar(payload.car).pipe(
+            map((car) => {
+              this.alertService.showAlert(
+                `Car ${car.id} has been removed`,
+                'success'
+              );
+              return carsActions.removeCarSuccess({ car });
+            }),
+            catchError((error) => of(carsActions.removeCarFailure({ error })))
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
 }

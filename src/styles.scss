@@ -101,3 +101,9 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
+
+.status {
+  &.order_accepted {
+    color: red;
+  }
+}
