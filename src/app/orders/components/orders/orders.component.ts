@@ -165,6 +165,18 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
       .select(getOrders)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((orders) => {
+        const sortOrder = [
+          'Order accepted',
+          'Awaiting parts',
+          'Repairing',
+          'Repaired',
+        ];
+
+        orders = [...orders].sort((a, b) => {
+          console.log(a);
+          return sortOrder.indexOf(a.status) - sortOrder.indexOf(b.status);
+        });
+
         this.orders.data = orders;
       });
 

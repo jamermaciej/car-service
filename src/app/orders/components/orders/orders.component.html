@@ -75,12 +75,7 @@
       {{ orders.data.length }} service orders
     </div>
 
-    <mat-table
-      [dataSource]="orders"
-      matSort
-      matSortActive="id"
-      matSortDirection="desc"
-    >
+    <mat-table [dataSource]="orders" matSort>
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{
           'orders.table.headers.id' | transloco
