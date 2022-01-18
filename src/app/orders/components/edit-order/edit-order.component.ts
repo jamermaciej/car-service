@@ -76,6 +76,8 @@ export class EditOrderComponent implements OnInit, OnDestroy {
         if (order) {
           this.order = order;
           this.orderForm.patchValue(order);
+          this.todayDate = order.delivery_date;
+          this.minDeadline = dayjs(order.deadline).format();
         } else {
           this.store.dispatch(go({ path: [FlowRoutes.ORDERS] }));
         }
