@@ -1,3 +1,4 @@
+import { FlowRoutes } from 'src/app/core/enums/flow';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -16,6 +17,7 @@ import { getCars } from '../../store/selectors/cars.selectors';
   styleUrls: ['./cars.component.scss'],
 })
 export class CarsComponent implements OnInit, AfterViewInit {
+  flowRoutes = FlowRoutes;
   cars$: Observable<Car[]>;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

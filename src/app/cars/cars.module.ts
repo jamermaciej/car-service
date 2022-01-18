@@ -1,3 +1,6 @@
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
@@ -12,9 +15,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
+import { EditCarComponent } from './components/cars/edit-car/edit-car.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [CarsComponent, AddCarModalComponent],
+  declarations: [CarsComponent, AddCarModalComponent, EditCarComponent],
   imports: [
     CommonModule,
     CarsRoutingModule,
@@ -27,6 +32,10 @@ import { MatSortModule } from '@angular/material/sort';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatInputModule,
   ],
 })
 export class CarsModule {}

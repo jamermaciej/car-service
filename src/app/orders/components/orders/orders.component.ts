@@ -172,10 +172,9 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
           'Repaired',
         ];
 
-        orders = [...orders].sort((a, b) => {
-          console.log(a);
-          return sortOrder.indexOf(a.status) - sortOrder.indexOf(b.status);
-        });
+        orders = [...orders].sort(
+          (a, b) => sortOrder.indexOf(a.status) - sortOrder.indexOf(b.status)
+        );
 
         this.orders.data = orders;
       });

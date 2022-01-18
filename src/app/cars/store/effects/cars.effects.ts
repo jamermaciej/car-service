@@ -1,3 +1,5 @@
+import { updateCarFailure } from './../actions/cars.actions';
+import { updateOrderFailure } from './../../../orders/store/actions/orders.actions';
 import { Car } from 'src/app/shared/models/car.model';
 import { CarService } from './../../services/car.service';
 import { Customer } from '../../../shared/models/customer.model';
@@ -7,13 +9,16 @@ import { Injectable } from '@angular/core';
 import * as carsActions from '../actions/cars.actions';
 import * as authActions from '../../../store/actions/auth.actions';
 
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, pluck, switchMap, tap } from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert/alert-service';
 import { TranslocoService } from '@ngneat/transloco';
+
+import * as routerActions from './../../../store/actions/router.actions';
+import { FlowRoutes } from 'src/app/core/enums/flow';
 
 @Injectable()
 export class CarsEffects {
@@ -50,6 +55,40 @@ export class CarsEffects {
             catchError((error) => of(carsActions.loadCarsFailre({ error })))
           )
         )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
+  updateCar$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(carsActions.updateCar),
+        switchMap((payload) =>
+          this.carService.updateCar(payload.car).pipe(
+            map((car) => carsActions.updateCarSuccess({ car })),
+            catchError((error) => of(carsActions.updateCarFailure({ error })))
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
+  updateCarrSuccess = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(carsActions.updateCarSuccess),
+        pluck('car'),
+        map((car) => {
+          this.alertService.showAlert(
+            `Car ${car.id} has been updated`,
+            'success'
+          );
+          return routerActions.go({ path: [FlowRoutes.CARS] });
+        })
       ),
     {
       dispatch: true,

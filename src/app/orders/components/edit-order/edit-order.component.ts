@@ -1,5 +1,5 @@
 import * as fromOrders from './../../store/';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FlowRoutes } from './../../../core/enums/flow';
 import { Store } from '@ngrx/store';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -99,6 +99,17 @@ export class EditOrderComponent implements OnInit, OnDestroy {
     this.destroySubject$.complete();
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
   onSubmit() {
     if (this.orderForm.valid) {
       const {
@@ -133,7 +144,7 @@ export class EditOrderComponent implements OnInit, OnDestroy {
       };
       this.store.dispatch(fromOrders.updateOrder({ order }));
     } else {
-      // this.validateAllFormFields(this.orderForm);
+      this.validateAllFormFields(this.orderForm);
     }
   }
 

@@ -20,6 +20,10 @@ const carsReducer = createReducer(
     ...state,
     cars,
   })),
+  on(carsActions.updateCarSuccess, (state, { car }) => ({
+    ...state,
+    cars: state.cars.map((c) => (c.id === car.id ? car : c)),
+  })),
   on(carsActions.removeCarSuccess, (state, { car }) => ({
     ...state,
     cars: state.cars.filter((c) => c.id !== car.id),

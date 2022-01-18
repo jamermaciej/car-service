@@ -1,53 +1,60 @@
-import { VinValidator } from './../../../validators/vin-validator';
-import { Car } from '../../../models/car.model';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { updateCar } from './../../../store/actions/cars.actions';
+import { FlowRoutes } from 'src/app/core/enums/flow';
+import { Store } from '@ngrx/store';
 import {
   Component,
-  EventEmitter,
-  Input,
   OnInit,
-  Output,
+  OnDestroy,
   ViewChild,
   ElementRef,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
+import { map, startWith, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { Car } from 'src/app/shared/models/car.model';
+import { go } from 'src/app/store';
+import {
+  FormBuilder,
+  Validators,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
+import { Location } from '@angular/common';
+import { removeCar } from '../../../store';
+import * as routerActions from './../../../../store/actions/router.actions';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { VinValidator } from 'src/app/shared/validators/vin-validator';
 import { fuel, carTypes } from 'src/assets/config.json';
 
 @Component({
-  selector: 'app-add-car-form',
-  templateUrl: './add-car-form.component.html',
-  styleUrls: ['./add-car-form.component.scss'],
+  selector: 'app-edit-car',
+  templateUrl: './edit-car.component.html',
+  styleUrls: ['./edit-car.component.scss'],
 })
-export class AddCarFormComponent implements OnInit {
+export class EditCarComponent implements OnInit, OnDestroy {
   @ViewChild('capacity') capacity: ElementRef;
   @ViewChild('mileage') mileage: ElementRef;
+  flotwRoutes: FlowRoutes;
+  destroySubject$: Subject<any> = new Subject();
+  car: Car;
   carForm: FormGroup;
-  private _car: Car;
-  fuel = fuel;
   filteredFuels: Observable<string[]>;
-  carTypes = carTypes;
   filteredCarTypes: Observable<string[]>;
   filteredYears: Observable<string[]>;
+
+  fuel = fuel;
+  carTypes = carTypes;
   years: string[] = [];
-  @Output() triggerSubmit = new EventEmitter();
-  @Input() set car(car: Car) {
-    this.carForm.patchValue(car);
-    this.carForm.disable();
-    this._car = car;
-  }
 
-  get car() {
-    return this._car;
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+    private location: Location,
+    private formBuilder: FormBuilder
+  ) {}
 
-  constructor(private formBuilder: FormBuilder) {
+  ngOnInit(): void {
     this.carForm = this.formBuilder.group({
       brand: ['', [RequiredValidator.required]],
       model: ['', [RequiredValidator.required]],
@@ -67,9 +74,20 @@ export class AddCarFormComponent implements OnInit {
       power: ['', [RequiredValidator.required]],
       fuel: ['', [RequiredValidator.required]],
     });
-  }
 
-  ngOnInit(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.store
+      .select(getCar, { id })
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe((car) => {
+        if (car) {
+          this.car = car;
+          this.carForm.patchValue(car);
+        } else {
+          this.store.dispatch(go({ path: [FlowRoutes.CARS] }));
+        }
+      });
+
     this.filteredFuels = this.carForm.get('fuel').valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(this.fuel, value))
@@ -96,17 +114,6 @@ export class AddCarFormComponent implements OnInit {
     return list.filter((v) => v.toLowerCase().includes(filterValue));
   }
 
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
-  }
-
   addCapacitySeparator() {
     const value = this.capacity.nativeElement.value.replace(/\s/g, '');
     this.capacity.nativeElement.value = value
@@ -129,11 +136,41 @@ export class AddCarFormComponent implements OnInit {
     }
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
   onSubmit() {
     if (this.carForm.valid) {
-      this.triggerSubmit.emit(this.carForm.value);
+      const { id } = this.car;
+      const car = {
+        id,
+        ...this.carForm.value,
+      };
+      this.store.dispatch(updateCar({ car }));
     } else {
       this.validateAllFormFields(this.carForm);
     }
+  }
+
+  back(): void {
+    this.location.back();
+  }
+
+  removeCar(car: Car) {
+    this.store.dispatch(removeCar({ car }));
+    this.store.dispatch(go({ path: [FlowRoutes.CARS] }));
+  }
+
+  ngOnDestroy() {
+    this.destroySubject$.next();
+    this.destroySubject$.complete();
   }
 }

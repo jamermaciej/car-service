@@ -30,6 +30,21 @@ export const loadCarsFailre = createAction(
   props<{ error: any[] }>()
 );
 
+export const updateCar = createAction(
+  '[Car] Update Car',
+  props<{ car: Car }>()
+);
+
+export const updateCarSuccess = createAction(
+  '[Car] Update Car Success',
+  props<{ car: Car }>()
+);
+
+export const updateCarFailure = createAction(
+  '[Car] Update Car Failure',
+  props<{ error: any }>()
+);
+
 export const removeCar = createAction(
   '[Car] Remove Car',
   props<{ car: Car }>()
