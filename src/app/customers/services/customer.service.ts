@@ -5,12 +5,12 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CustomerService {
   customer$: Observable<Customer>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCustomers(): Observable<Customer[]> {
     return this.http.get<Customer[]>(`${environment.apiUrl}/customers`);
@@ -21,15 +21,22 @@ export class CustomerService {
   }
 
   addCustomer(customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(`${environment.apiUrl}/customers`, customer);
+    return this.http.post<Customer>(
+      `${environment.apiUrl}/customers`,
+      customer
+    );
   }
 
-  updateCustomer(uid: string, customer: Customer): Observable<Customer> {
-    return this.http.put<Customer>(`${environment.apiUrl}/customers/${uid}`, customer);
+  updateCustomer(customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(
+      `${environment.apiUrl}/customers/${customer.id}`,
+      customer
+    );
   }
 
-  deleteCustomer(uid: string): Observable<Customer> {
-    return this.http.delete<Customer>(`${environment.apiUrl}/customers/${uid}`);
+  deleteCustomer(customer: Customer): Observable<Customer> {
+    return this.http.delete<Customer>(
+      `${environment.apiUrl}/customers/${customer.id}`
+    );
   }
-
 }

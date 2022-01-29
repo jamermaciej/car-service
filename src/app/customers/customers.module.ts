@@ -1,3 +1,5 @@
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCardModule } from '@angular/material/card';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -13,9 +15,14 @@ import { CustomersComponent } from './components/customers/customers.component';
 import { CustomersRoutingModule } from './customers-routing.module';
 import { AddCustomerModalComponent } from './components/add-customer-modal/add-customer-modal.component';
 import { MatInputModule } from '@angular/material/input';
+import { EditCustomerComponent } from './components/edit-customer/edit-customer.component';
 
 @NgModule({
-  declarations: [CustomersComponent, AddCustomerModalComponent],
+  declarations: [
+    CustomersComponent,
+    AddCustomerModalComponent,
+    EditCustomerComponent,
+  ],
   imports: [
     CommonModule,
     CustomersRoutingModule,
@@ -28,7 +35,9 @@ import { MatInputModule } from '@angular/material/input';
     MatPaginatorModule,
     SharedModule,
     MatIconModule,
-    TranslocoModule
-  ]
+    TranslocoModule,
+    MatCardModule,
+    MatAutocompleteModule,
+  ],
 })
-export class CustomersModule { }
+export class CustomersModule {}

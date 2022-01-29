@@ -1,0 +1,185 @@
+<section class="edit-customer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        <mat-card class="card">
+          <mat-card-header>
+            <mat-card-title>Customer #{{ customer.id }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col col-6">
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.name' | transloco
+                    }}</mat-label>
+                    <input
+                      type="text"
+                      name="name"
+                      matInput
+                      formControlName="name"
+                    />
+                    <app-error-message
+                      [control]="customerForm.get('name')"
+                    ></app-error-message>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.surname' | transloco
+                    }}</mat-label>
+                    <input
+                      type="text"
+                      name="surname"
+                      matInput
+                      formControlName="surname"
+                    />
+                    <app-error-message
+                      [control]="customerForm.get('surname')"
+                    ></app-error-message>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.phone_number' | transloco
+                    }}</mat-label>
+                    <input
+                      type="tel"
+                      name="phoneNumber"
+                      matInput
+                      formControlName="phoneNumber"
+                    />
+                    <app-error-message
+                      [control]="customerForm.get('phoneNumber')"
+                    ></app-error-message>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.id_number' | transloco
+                    }}</mat-label>
+                    <input
+                      type="text"
+                      name="idNumber"
+                      matInput
+                      formControlName="idNumber"
+                      #idNumber
+                      (input)="idNumber.value = idNumber.value.toUpperCase()"
+                      placeholder="ABC123456"
+                      maxlength="9"
+                    />
+                    <app-error-message
+                      [control]="customerForm.get('idNumber')"
+                    ></app-error-message>
+                  </mat-form-field>
+                  <mat-form-field class="w100">
+                    <mat-label>{{
+                      'customer.label.email' | transloco
+                    }}</mat-label>
+                    <input
+                      type="email"
+                      name="email"
+                      matInput
+                      formControlName="email"
+                    />
+                    <app-error-message
+                      [control]="customerForm.get('email')"
+                    ></app-error-message>
+                  </mat-form-field>
+                </div>
+                <div class="col col-6" formGroupName="address">
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.street' | transloco
+                    }}</mat-label>
+                    <input
+                      type="text"
+                      name="street"
+                      matInput
+                      formControlName="street"
+                    />
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.city' | transloco
+                    }}</mat-label>
+                    <input
+                      type="text"
+                      name="city"
+                      matInput
+                      formControlName="city"
+                    />
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.province' | transloco
+                    }}</mat-label>
+                    <input
+                      type="text"
+                      name="province"
+                      matInput
+                      formControlName="province"
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let province of filteredProvinces | async"
+                        [value]="province"
+                      >
+                        {{ province }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{
+                      'customer.label.postcode' | transloco
+                    }}</mat-label>
+                    <input
+                      type="text"
+                      name="postcode"
+                      matInput
+                      #postcode
+                      formControlName="postcode"
+                      maxlength="6"
+                      (keypress)="validPostcode($event)"
+                    />
+                    <app-error-message
+                      [control]="customerForm.get('address.postcode')"
+                    ></app-error-message>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                mat-raised-button
+                color="accent"
+                (click)="back()"
+                class="btn-add-order mr-3"
+              >
+                {{ 'orders.button.back' | transloco }}
+              </button>
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                class="btn-add-order"
+                [disabled]="customerForm.pristine"
+              >
+                {{ 'orders.button.update_order' | transloco }}
+              </button>
+
+              <button
+                type="button"
+                mat-raised-button
+                (click)="removeCustomer(customer)"
+                class="btn-add-order float-right"
+              >
+                <mat-icon color="warn">delete</mat-icon>
+                Remove
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>
