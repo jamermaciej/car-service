@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -15,7 +16,8 @@ import { DashboardComponent } from './components/dashbaord/dashboard/dashboard.c
     MatTableModule,
     TranslocoModule,
     MatIconModule,
-    TranslocoLocaleModule
-  ]
+    TranslocoLocaleModule,
+    SharedModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

@@ -6,7 +6,12 @@
         </button> -->
   </div>
   <div class="orders__list">
-    <mat-table [dataSource]="orders">
+    <app-car-service-table
+      [tableData]="orders"
+      [tableColumns]="displayedColumns"
+    ></app-car-service-table>
+
+    <!-- <mat-table [dataSource]="orders">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{
           'orders.table.headers.id' | transloco
@@ -86,6 +91,6 @@
         *matRowDef="let row; columns: displayedColumns; let element"
         [routerLink]="[flowRoutes.ORDERS, element.id]"
       ></mat-row>
-    </mat-table>
+    </mat-table> -->
   </div>
 </section>
