@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FirebaseModeContainerComponent } from './firebase-mode-container.component';
 
@@ -6,7 +6,7 @@ describe('FirebaseModeContainerComponent', () => {
   let component: FirebaseModeContainerComponent;
   let fixture: ComponentFixture<FirebaseModeContainerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FirebaseModeContainerComponent ]
     })

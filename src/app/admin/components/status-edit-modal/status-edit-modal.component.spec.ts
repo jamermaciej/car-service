@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { StatusEditModalComponent } from './status-edit-modal.component';
 
@@ -6,7 +6,7 @@ describe('StatusEditModalComponent', () => {
   let component: StatusEditModalComponent;
   let fixture: ComponentFixture<StatusEditModalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ StatusEditModalComponent ]
     })
