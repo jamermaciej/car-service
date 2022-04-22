@@ -25,7 +25,7 @@ import { removeCar } from '../../../store';
 import * as routerActions from './../../../../store/actions/router.actions';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 import { VinValidator } from 'src/app/shared/validators/vin-validator';
-import { fuel, carTypes } from 'src/assets/config.json';
+import config from 'src/assets/config.json';
 
 @Component({
   selector: 'app-edit-car',
@@ -43,8 +43,8 @@ export class EditCarComponent implements OnInit, OnDestroy {
   filteredCarTypes: Observable<string[]>;
   filteredYears: Observable<string[]>;
 
-  fuel = fuel;
-  carTypes = carTypes;
+  fuel = config.fuel;
+  carTypes = config.carTypes;
   years: string[] = [];
 
   constructor(

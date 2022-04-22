@@ -9,7 +9,7 @@ import {
 } from '@ngneat/transloco';
 import { Injectable, NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
-import { locales } from './../assets/config.json';
+import config from './../assets/config.json';
 
 import {
   TranslocoPersistTranslationsModule,
@@ -29,7 +29,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 
 export function getLangFn({ cachedLang, browserLang, cultureLang, defaultLang }) {
   // default return cachedLang or defaultLang
-  const isBrowserLangSupported = locales.supported_locales.some((local => local === browserLang));
+  const isBrowserLangSupported = config.locales.supported_locales.some((local => local === browserLang));
   const lang = isBrowserLangSupported ? browserLang : defaultLang;
   return cachedLang ? cachedLang : lang;
 }
@@ -46,8 +46,8 @@ const globalFormatConfig: LocaleFormatOptions = {
     {
       provide: TRANSLOCO_CONFIG,
       useValue: translocoConfig({
-        availableLangs: locales.supported_locales,
-        defaultLang: locales.default_locale,
+        availableLangs: config.locales.supported_locales,
+        defaultLang: config.locales.default_locale,
         reRenderOnLangChange: true,
         prodMode: environment.production,
       })

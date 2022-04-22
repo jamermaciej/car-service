@@ -9,7 +9,7 @@ import { Customer } from './../../../models/customer.model';
 import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
-import { provinces } from 'src/assets/config.json';
+import config from 'src/assets/config.json';
 import { map, startWith, tap } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +21,7 @@ export class AddCustomerFormComponent implements OnInit {
   @ViewChild('postcode') postcode: ElementRef;
   customerForm: FormGroup;
   private _customer: Customer;
-  provinces = provinces;
+  provinces = config.provinces;
   filteredProvinces: Observable<string[]>;
   @Output() triggerSubmit = new EventEmitter();
   @Input() set customer(customer: Customer) {

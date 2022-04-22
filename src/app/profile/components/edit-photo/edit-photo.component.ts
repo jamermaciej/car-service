@@ -5,9 +5,9 @@ import { UserService } from './../../../core/services/user/user.service';
 import { DialogData } from './../profile/profile.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as fromRoot from './../../../store/reducers';
 
 @Component({

@@ -18,7 +18,7 @@ import {
 import { RequiredValidator } from 'src/app/shared/validators/required-validator';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { fuel, carTypes } from 'src/assets/config.json';
+import config from 'src/assets/config.json';
 
 @Component({
   selector: 'app-add-car-form',
@@ -30,9 +30,9 @@ export class AddCarFormComponent implements OnInit {
   @ViewChild('mileage') mileage: ElementRef;
   carForm: FormGroup;
   private _car: Car;
-  fuel = fuel;
+  fuel = config.fuel;
   filteredFuels: Observable<string[]>;
-  carTypes = carTypes;
+  carTypes = config.carTypes;
   filteredCarTypes: Observable<string[]>;
   filteredYears: Observable<string[]>;
   years: string[] = [];

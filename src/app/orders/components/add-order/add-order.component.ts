@@ -19,13 +19,11 @@ import {
 } from 'src/app/customers/store/selectors/customers.selectors';
 import { Customer } from 'src/app/shared/models/customer.model';
 import { MatSelect } from '@angular/material/select';
-import { map } from 'rxjs/internal/operators/map';
-import { tap } from 'rxjs/internal/operators/tap';
 import { Car } from 'src/app/shared/models/car.model';
 import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
 import { User } from 'src/app/shared/models/user.model';
 import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
-import { filter, find, switchMap, take, delay, timeout } from 'rxjs/operators';
+import { filter, find, switchMap, take, delay, timeout, map, tap } from 'rxjs/operators';
 import { Status } from 'src/app/shared/models/status.model';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 import { MatInput } from '@angular/material/input';

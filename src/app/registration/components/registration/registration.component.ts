@@ -8,7 +8,7 @@ import { PasswordValidator } from './../../../shared/validators/password-validat
 import { EmailDomainValidator } from '../../../shared/validators/email-domain-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl, FormControl } from '@angular/forms';
-import { emailDomain } from '../../../../assets/config.json';
+import config from '../../../../assets/config.json';
 import { Platform } from '@angular/cdk/platform';
 import { register } from '../../../store/actions';
 import * as fromRoot from './../../../store/reducers';
@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
       name: ['', [Validators.minLength(3), Validators.maxLength(15)]],
-      email: ['', [RequiredValidator.required, Validators.email, EmailDomainValidator.matchEmailDomain(emailDomain)]],
+      email: ['', [RequiredValidator.required, Validators.email, EmailDomainValidator.matchEmailDomain(config.emailDomain)]],
       password: ['',
         [
           RequiredValidator.required,

@@ -4,16 +4,16 @@ import { Role } from './../../enums/roles';
 import { FlowRoutes } from './../../enums/flow';
 import { FirebaseErrors } from './../firebase-errors/firebase-errors.service';
 import { RegisterData } from './../../../shared/models/register-data.model';
-import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '../../../shared/models/user.model';
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { auth } from 'firebase';
+// import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as firebase from 'firebase';
+import firebase from 'firebase/compat/app';
 import * as routerActions from './../../../store/actions/router.actions';
 import * as fromRoot from './../../../store/reducers';
 
@@ -72,10 +72,10 @@ export class UserService {
   }
 
   async signInWithGoogle() {
-    const provider = new auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    const user = await this.af.signInWithPopup(provider);
+    // const provider = new auth.GoogleAuthProvider();
+    // provider.addScope('profile');
+    // provider.addScope('email');
+    // const user = await this.af.signInWithPopup(provider);
     this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
   }
 

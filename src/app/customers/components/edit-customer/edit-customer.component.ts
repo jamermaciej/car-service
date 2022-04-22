@@ -28,7 +28,7 @@ import { AlphaOnlyValidator } from 'src/app/shared/validators/alpha-only-validat
 import { PhoneNumberValidator } from 'src/app/shared/validators/phone-number-validator';
 import { PostcodeValidator } from 'src/app/shared/validators/postcode-validation';
 import { EmailValidator } from 'src/app/shared/validators/email-validator';
-import { provinces } from 'src/assets/config.json';
+import config from 'src/assets/config.json';
 import { Location } from '@angular/common';
 
 @Component({
@@ -42,7 +42,7 @@ export class EditCustomerComponent implements OnInit, OnDestroy {
   customerForm: FormGroup;
   customer: Customer;
   @ViewChild('postcode') postcode: ElementRef;
-  provinces = provinces;
+  provinces = config.provinces;
   filteredProvinces: Observable<string[]>;
 
   constructor(
