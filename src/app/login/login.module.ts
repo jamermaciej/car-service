@@ -14,6 +14,7 @@ import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.
 import { ConfirmPasswordResetComponent } from './components/confirm-password-reset/confirm-password-reset.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
+import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     SharedModule,
     MatIconModule,
     MatTooltipModule,
-    TranslocoModule
+    TranslocoModule,
+    LocalizeRouterModule
   ]
 })
 export class LoginModule { }

@@ -8,6 +8,7 @@ import { tap, map } from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
+import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
 
 @Injectable()
 export class RouterEffect {
@@ -15,13 +16,15 @@ export class RouterEffect {
     constructor(
         private actions$: Actions,
         private router: Router,
-        private location: Location
+        private location: Location,
+        private localize: LocalizeRouterService
     ) {}
 
     navigate$ = createEffect(() => this.actions$.pipe(
         ofType(routerActions.go),
         tap(({ path, query: queryParams, extras }) => {
-            this.router.navigate(path, { queryParams, ...extras });
+            const translatedPath = this.localize.translateRoute(path[0]);
+            this.router.navigate([translatedPath], { queryParams, ...extras });
         })
         ), {
             dispatch: false

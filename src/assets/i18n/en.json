@@ -394,5 +394,23 @@
         "test_drive": "Test drive"
       }
     }
-  }
+  },
+	"ROUTES": {
+    "registration": "registration",
+    "login": "login",
+		"dashboard": "dashboard",
+    "admin": "admin",
+    "users": "users",
+    "statuses": "statuses",
+		"profile": "profile",
+    "account": "account",
+    "orders": "orders",
+    "add_orders": "orders/add",
+    "cars": "cars",
+    "customers": "customers",
+    "settings": "settings",
+    "forgot_password": "login/forgot-password",
+    "terms": "terms",
+    "contact": "contact"
+	}
 }

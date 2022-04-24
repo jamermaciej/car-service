@@ -44,6 +44,7 @@
     "@ngrx/router-store": "^13.1.0",
     "@ngrx/store": "^13.1.0",
     "@ngrx/store-devtools": "^9.2.0",
+    "@penleychan/ngx-transloco-router": "^1.1.1",
     "@tabuckner/material-dayjs-adapter": "^2.0.0",
     "bootstrap": "^4.5.0",
     "c": "^1.1.1",

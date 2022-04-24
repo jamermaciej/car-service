@@ -64,7 +64,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
         *matRowDef="let row; columns: displayedColumns; let element"
-        [routerLink]="[flowRoutes.CARS, element.id]"
+        [routerLink]="[flowRoutes.CARS, element.id] | localize"
       ></mat-row>
     </mat-table>
 

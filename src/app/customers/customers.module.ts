@@ -16,6 +16,7 @@ import { CustomersRoutingModule } from './customers-routing.module';
 import { AddCustomerModalComponent } from './components/add-customer-modal/add-customer-modal.component';
 import { MatInputModule } from '@angular/material/input';
 import { EditCustomerComponent } from './components/edit-customer/edit-customer.component';
+import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { EditCustomerComponent } from './components/edit-customer/edit-customer.
     TranslocoModule,
     MatCardModule,
     MatAutocompleteModule,
+    LocalizeRouterModule
   ],
 })
 export class CustomersModule {}

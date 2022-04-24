@@ -47,7 +47,7 @@
             <div class="signup-image-content">
                 <app-logo color="white"></app-logo>
                 <h2>{{'register.have_account' | transloco}}</h2>
-                <a [routerLink]="flowRoutes.LOGIN" mat-stroked-button>{{'register.button.login' | transloco}}</a>
+                <a [routerLink]="flowRoutes.LOGIN | localize" mat-stroked-button>{{'register.button.login' | transloco}}</a>
             </div>
         </div>
     </div>

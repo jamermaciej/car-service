@@ -7,6 +7,7 @@ import { Routes, RouterModule, CanActivate, CanLoad } from '@angular/router';
 import { LayoutComponent } from './core/components/layout/layout.component';
 import { Role } from './core/enums/roles';
 import { UserRoleGuard } from './core/services/user-role-guard/user-role-guard.service';
+import { localizeRouterConfig, LocalizeRouterModule, LOCALIZE_ROUTER_CONFIG } from '@penleychan/ngx-transloco-router';
 
 const routes: Routes = [
   {
@@ -112,7 +113,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: false, relativeLinkResolution: 'legacy' })],
-  exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false, relativeLinkResolution: 'legacy' }), LocalizeRouterModule.forRoot(routes)],
+  exports: [RouterModule, LocalizeRouterModule],
+  providers: [
+    {
+      provide: LOCALIZE_ROUTER_CONFIG,
+      useValue: localizeRouterConfig({
+        translateRoute: true
+      })
+    }
+  ]
 })
 export class AppRoutingModule {}

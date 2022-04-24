@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@ngneat/transloco';
+import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
 
 @NgModule({
   declarations: [RegistrationComponent],
@@ -25,7 +26,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     MatIconModule,
     SharedModule,
     MatTooltipModule,
-    TranslocoModule
+    TranslocoModule,
+    LocalizeRouterModule
   ]
 })
 export class RegistrationModule { }

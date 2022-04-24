@@ -2,6 +2,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { TranslocoService } from '@ngneat/transloco';
+import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
 
 @Component({
   selector: 'app-lang',
@@ -13,7 +14,7 @@ export class LangComponent implements OnInit {
   currentLang: string;
   langs: string[] | object[];
 
-  constructor(public translocoService: TranslocoService) { }
+  constructor(public translocoService: TranslocoService, private localize: LocalizeRouterService) { }
 
   ngOnInit(): void {
     this.currentLang = this.translocoService.getActiveLang();
@@ -24,5 +25,6 @@ export class LangComponent implements OnInit {
     const lang = this.langSelect.value;
     this.currentLang = lang;
     this.translocoService.setActiveLang(lang);
+    this.localize.changeLanguage(this.localize.parser.currentLang === 'pl' ? 'en' : 'pl', { replaceUrl: true });
   }
 }

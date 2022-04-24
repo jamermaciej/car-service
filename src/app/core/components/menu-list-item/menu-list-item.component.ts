@@ -6,6 +6,8 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
 import { NavItem } from 'src/app/shared/models/nav-item.model';
 import * as routerActions from './../../../store/actions/router.actions';
 import * as fromRoot from './../../../store/reducers';
+import { TranslocoService } from '@ngneat/transloco';
+import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
 
 @Component({
   selector: 'app-menu-list-item',
@@ -27,7 +29,10 @@ export class MenuListItemComponent implements OnInit {
   @Input() item: NavItem;
   @Input() depth = 0;
 
-  constructor(public router: Router, private sidenavService: SidenavService, private store: Store<fromRoot.State>) {}
+  constructor(public router: Router,
+              private sidenavService: SidenavService,
+              private store: Store<fromRoot.State>
+            ) {}
 
   ngOnInit(): void {
     this.sidenavService.currentUrlSubject$.subscribe((url: string) => {

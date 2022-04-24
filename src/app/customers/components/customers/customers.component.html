@@ -69,7 +69,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
         *matRowDef="let row; columns: displayedColumns; let element"
-        [routerLink]="[flowRoutes.CUSTOMERS, element.id]"
+        [routerLink]="[flowRoutes.CUSTOMERS, element.id] | localize"
       ></mat-row>
     </mat-table>
 

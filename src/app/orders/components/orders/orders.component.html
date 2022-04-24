@@ -3,7 +3,7 @@
     <button
       mat-raised-button
       color="primary"
-      [routerLink]="flowRoutes.ADD_ORDERS"
+      [routerLink]="flowRoutes.ADD_ORDERS | localize"
     >
       <mat-icon>add</mat-icon>
       {{ 'orders.button.add_order' | transloco }}
@@ -185,7 +185,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
         *matRowDef="let row; columns: displayedColumns; let element"
-        [routerLink]="[flowRoutes.ORDERS, element.id]"
+        [routerLink]="[flowRoutes.ORDERS, element.id] | localize"
       ></mat-row>
     </mat-table>
 

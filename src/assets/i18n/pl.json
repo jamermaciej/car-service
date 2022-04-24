@@ -274,5 +274,23 @@
 		"minivan": "Minivan",
 		"sedan": "Sedan",
 		"suv": "SUV"
+	},
+	"ROUTES": {
+		"registration": "rejestracja",
+		"login": "logowanie",
+		"dashboard": "panel-glowny",
+		"admin": "admin",
+		"users": "uzytkownicy",
+		"statuses": "statusy",
+		"profile": "profil",
+		"account": "moje-konto",
+		"orders": "zamowienia",
+		"add_orders": "zamowienia/dodaj",
+		"cars": "samochody",
+		"customers": "klienci",
+		"settings": "ustawienia",
+		"forgot_password": "logowanie/przypomnij-haslo",
+		"terms": "regulamin",
+		"contact": "kontakt"
 	}
 }

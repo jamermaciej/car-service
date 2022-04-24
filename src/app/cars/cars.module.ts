@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
 import { EditCarComponent } from './components/cars/edit-car/edit-car.component';
 import { MatInputModule } from '@angular/material/input';
+import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
 
 @NgModule({
   declarations: [CarsComponent, AddCarModalComponent, EditCarComponent],
@@ -36,6 +37,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatAutocompleteModule,
     MatInputModule,
+    LocalizeRouterModule
   ],
 })
 export class CarsModule {}
