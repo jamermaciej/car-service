@@ -31,7 +31,8 @@ export class MenuListItemComponent implements OnInit {
 
   constructor(public router: Router,
               private sidenavService: SidenavService,
-              private store: Store<fromRoot.State>
+              private store: Store<fromRoot.State>,
+              private localize: LocalizeRouterService
             ) {}
 
   ngOnInit(): void {
@@ -43,7 +44,8 @@ export class MenuListItemComponent implements OnInit {
     });
   }
 
-  onItemSelected(item: NavItem) {
+  onItemSelected(event: Event, item: NavItem) {
+    event.preventDefault();
     if ( !item.children || !item.children.length ) {
       this.store.dispatch(routerActions.go({ path: [item.route] }));
 
@@ -56,5 +58,10 @@ export class MenuListItemComponent implements OnInit {
       this.expanded = !this.expanded;
       this.ariaExpanded = this.expanded;
     }
+  }
+
+  public isLinkActive(url: string): boolean {
+    const translatedRoute = this.localize.translateRoute(url);
+    return this.router.url === translatedRoute;
   }
 }
