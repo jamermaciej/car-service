@@ -161,9 +161,9 @@ export class EditOrderComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  removeOrder(order: Order, event: MouseEvent) {
+  removeOrder(id: number, event: MouseEvent) {
     event.stopPropagation();
-    this.store.dispatch(removeOrder({ order }));
+    this.store.dispatch(removeOrder({ id }));
     routerActions.go({ path: [FlowRoutes.ORDERS] });
   }
 }

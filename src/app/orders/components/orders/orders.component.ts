@@ -1,8 +1,7 @@
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Role } from './../../../core/enums/roles';
 import { getUser } from './../../../store/selectors/auth.selectors';
-import { removeOrder, updateOrder } from './../../store/actions/orders.actions';
-import { updateStatus } from './../../../admin/store/actions/statuses.actions';
+import { removeOrder, updateOrder, updateStatus } from './../../store/actions/orders.actions';
 import { Status } from './../../../shared/models/status.model';
 import {
   getCustomer,
@@ -26,8 +25,8 @@ import {
   takeUntil,
   tap,
 } from 'rxjs/operators';
-import { combineLatest, Observable, Subject } from 'rxjs';
-import { MatSort } from '@angular/material/sort';
+import { combineLatest, Observable, of, Subject } from 'rxjs';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
@@ -45,121 +44,165 @@ import { Order } from 'src/app/shared/models/order.model';
 import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
 import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 import { isObject } from '@ngneat/transloco';
+import { TableColumnType } from 'src/app/core/enums/table-column-type';
+import { Router } from '@angular/router';
+import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
 })
-export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
+export class OrdersComponent implements OnInit, OnDestroy {
   destroySubject$: Subject<any> = new Subject();
   flowRoutes = FlowRoutes;
   users$: Observable<User[]>;
   orders$: Observable<Order[]>;
+  orders: Order[];
   statuses$: Observable<Status[]>;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns = [
-    'id',
-    'customer_id',
-    'car_id',
-    'delivery_date',
-    'deadline',
-    'user_id',
-    'status',
-    'notes',
-    'test_drive_agree',
-    'actions',
-  ];
-  orders = new MatTableDataSource<Order>();
+  displayedColumns;
+
   workers$: Observable<User[]>;
 
-  filteredColumns = [
-    {
-      label: 'All columns',
-      field: 'default',
-    },
-    {
-      label: 'Worker',
-      field: 'user.displayName',
-    },
-    {
-      label: 'Status',
-      field: 'status',
-    },
-    {
-      label: 'Notes',
-      field: 'notes',
-    },
-    {
-      label: 'Customer name',
-      field: 'customer.name',
-    },
-    {
-      label: 'Customer surname',
-      field: 'customer.surname',
-    },
-    {
-      label: 'Car model',
-      field: 'car.model',
-    },
-    {
-      label: 'Car brand',
-      field: 'car.brand',
-    },
-  ];
-  defaulFilteredColumn = 'default';
-  filteredColumn;
-  defaulWorker: string;
-
-  filterGroup: FormGroup;
-
-  filterValues: any = {
-    worker: '',
-    status: '',
-    default: '',
-  };
+  filterConfig;
 
   constructor(
     private store: Store<fromRoot.State>,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
+    private localize: LocalizeRouterService
   ) {}
 
   ngOnInit(): void {
-    // this.orders.filterPredicate = (data: Order, f: string) => {
-    //   return data.id === Number(f) ||
-    //          data.user?.displayName.toLowerCase().includes(f) ||
-    //          data.status.toLowerCase().includes(f) ||
-    //          data.notes.toLowerCase().includes(f) ||
-    //          data.car?.brand.toLowerCase().includes(f) ||
-    //          data.car?.model.toLowerCase().includes(f) ||
-    //          data.customer?.name.toLowerCase().includes(f);
-    //  };
-    // combineLatest([
-    //   this.store.select(getOrders),
-    //   this.store.select(getUser)
-    // ]).pipe(
-    //   takeUntil(this.destroySubject$),
-    //   map(([orders, user]) => {
-    //     const isEmployee = user.roles.includes(Role.EMPLOYEE);
-    //     if ( isEmployee ) {
-    //       return orders.filter(order => order.user?.uid === user.uid);
-    //     } else {
-    //       return orders;
-    //     }
-    //   })
-    // ).subscribe((orders: Order[]) => {
-    //   this.orders.data = orders;
-    // });
+    this.workers$ = this.store.select(getUsers);
 
-    // this.store.select(getUser).pipe(
-    //   takeUntil(this.destroySubject$),
-    //   switchMap((user: User) => this.store.select(getOrdersById, { id: user.uid }))
-    // ).subscribe(orders => {
-    //   this.orders.data = orders;
-    // });
+    this.statuses$ = this.store.select(getStatuses);
+
+    this.filterConfig = {
+      defaultFilter: 'default',
+      filteredColumns: [
+        {
+          label: 'All columns',
+          field: 'default',
+        },
+        {
+          label: 'Worker',
+          field: 'user.displayName',
+        },
+        {
+          label: 'Status',
+          field: 'status',
+        },
+        {
+          label: 'Notes',
+          field: 'notes',
+        },
+        {
+          label: 'Customer name',
+          field: 'customer.name',
+        },
+        {
+          label: 'Customer surname',
+          field: 'customer.surname',
+        },
+        {
+          label: 'Car model',
+          field: 'car.model',
+        },
+        {
+          label: 'Car brand',
+          field: 'car.brand',
+        }
+      ],
+      filters: [
+        {
+          name: 'user',
+          placeholder: 'Filter by worker',
+          data: this.workers$,
+          labelKey: 'displayName'
+        },
+        {
+          name: 'status',
+          placeholder: 'Filter by status',
+          data: this.statuses$,
+          labelKey: 'label'
+        }
+      ]
+    };
+
+
+    this.displayedColumns = [
+      {
+        name: 'orders.table.headers.id',
+        dataKey: ['id'],
+        position: 'left',
+        isSortable: true,
+        type: TableColumnType.TEXT
+      },
+      {
+        name: 'orders.table.headers.customer',
+        dataKey: ['customer.name', 'customer.surname'],
+        position: 'right',
+        isSortable: false,
+        type: TableColumnType.TEXT
+      },
+      {
+        name: 'orders.table.headers.car',
+        dataKey: ['car.brand', 'car.model'],
+        position: 'right',
+        isSortable: false,
+        type: TableColumnType.TEXT
+      },
+      {
+        name: 'orders.table.headers.worker',
+        dataKey: ['user.displayName'],
+        position: 'right',
+        isSortable: false,
+        type: TableColumnType.TEXT
+      },
+      {
+        name: 'orders.table.headers.delivery_date',
+        dataKey: ['delivery_date'],
+        position: 'right',
+        isSortable: false,
+        type: TableColumnType.DATE
+      },
+      {
+        name: 'orders.table.headers.deadline',
+        dataKey: ['deadline'],
+        position: 'right',
+        isSortable: true,
+        type: TableColumnType.DATE
+      },
+      {
+        name: 'orders.table.headers.status',
+        dataKey: ['status'],
+        position: 'right',
+        isSortable: false,
+        type: TableColumnType.SELECT,
+        options: this.statuses$
+      },
+      {
+        name: 'orders.table.headers.notes',
+        dataKey: ['notes'],
+        position: 'right',
+        isSortable: false,
+        type: TableColumnType.TEXT
+      },
+      {
+        name: 'orders.table.headers.test_drive',
+        dataKey: ['test_drive_agree'],
+        position: 'right',
+        isSortable: true,
+        type: TableColumnType.CHECKMARK
+      },
+      {
+        position: 'right',
+        type: TableColumnType.ACTION
+      },
+    ];
 
     this.store
       .select(getOrders)
@@ -176,32 +219,20 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
           (a, b) => sortOrder.indexOf(a.status) - sortOrder.indexOf(b.status)
         );
 
-        this.orders.data = orders;
+        this.orders = orders;
       });
 
-    this.filterGroup = this.fb.group({
-      worker: '',
-      status: '',
-      default: '',
-    });
+    // this.store.select(getUser).subscribe((user) => {
+    //   const name = user.displayName;
+    //   const roles = user.roles;
 
-    this.store.select(getUser).subscribe((user) => {
-      const name = user.displayName;
-      const roles = user.roles;
-      if (roles.includes(Role.CUSTOMER)) {
-        this.defaulWorker = name;
-        this.filterValues.worker = name;
-        this.filterGroup.get('worker').setValue(name);
-        this.orders.filter = JSON.stringify(this.filterValues);
-      }
-    });
-
-    this.orders.filterPredicate = this.createFilter();
-    this.fieldListener();
-
-    this.workers$ = this.store.select(getUsers);
-
-    this.statuses$ = this.store.select(getStatuses);
+    //   if (roles.includes(Role.ADMIN)) {
+    //     this.defaulWorker = name;
+    //     this.filterValues.worker = name;
+    //     this.filterGroup.get('worker').setValue(name);
+    //     this.orders.filter = JSON.stringify(this.filterValues);
+    //   }
+    // });
   }
 
   getCustomerData(id: number): Observable<string> {
@@ -225,9 +256,9 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  ngAfterViewInit() {
-    this.orders.sort = this.sort;
-    this.orders.paginator = this.paginator;
+  editOrder(event: MouseEvent, id: number) {
+    const translatedRoute = this.localize.translateRoute([this.flowRoutes.ORDERS, id]);
+    this.router.navigate([...translatedRoute]);
   }
 
   updateOrder(status: string, id: number) {
@@ -243,85 +274,47 @@ export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  changeFilteredColumn(event) {
-    this.filterValues = {
-      ...this.filterValues,
-      [event.value]: '',
-    };
-    this.filteredColumn = event.value;
+  onSelect(event) {
+    const status = event.value;
+    const { id } = event;
+    this.store
+      .select(getOrder, { id })
+      .pipe(take(1))
+      .subscribe((order) => {
+        const newOrder = {
+          ...order,
+          status,
+        };
+        this.store.dispatch(updateStatus({ order: newOrder }));
+      });
   }
 
-  clearFilter(field: string) {
-    this.filterGroup.get(field).setValue(null);
-    this.filterValues[field] = '';
-    this.orders.filter = JSON.stringify(this.filterValues);
-  }
-
-  private fieldListener() {
-    this.filterGroup.get('worker').valueChanges.subscribe((worker) => {
-      this.filterValues.worker = worker;
-      this.orders.filter = JSON.stringify(this.filterValues);
-    });
-    this.filterGroup.get('status').valueChanges.subscribe((status) => {
-      this.filterValues.status = status;
-      this.orders.filter = JSON.stringify(this.filterValues);
-    });
-    this.filterGroup.get('default').valueChanges.subscribe((v) => {
-      this.filterValues.default = v;
-      this.orders.filter = JSON.stringify(this.filterValues);
-    });
-  }
-
-  private createFilter(): (order: Order, filter: string) => boolean {
-    const filterFunction = (order: Order, f: string): boolean => {
-      const searchTerms = JSON.parse(f);
-      const filteredFields = [];
-
-      if (!Object.values(searchTerms).some((t) => t)) return true;
-
-      if (searchTerms.default) {
-        const v = searchTerms.default;
-        if (this.filteredColumn && this.filteredColumn !== 'default') {
-          const k = this.filteredColumn.split('.');
-          if (!order[k[0]]) return;
-          if (k[1]) {
-            filteredFields.push(order[k[0]][k[1]].toLowerCase().includes(v));
-          } else {
-            filteredFields.push(order[k[0]].toLowerCase().includes(v));
-          }
+  sortData(sortParameters: Sort) {
+    const keyName = sortParameters.active;
+    if (sortParameters.direction === 'asc') {
+      this.orders = this.orders.sort((a: Order, b: Order) => {
+        if (a[keyName] >= b[keyName]) {
+          return 1;
         } else {
-          filteredFields.push(
-            order.id === Number(v) ||
-              order.user?.displayName.toLowerCase().includes(v) ||
-              order.status.toLowerCase().includes(v) ||
-              order.notes.toLowerCase().includes(v) ||
-              order.car?.brand.toLowerCase().includes(v) ||
-              order.car?.model.toLowerCase().includes(v) ||
-              order.customer?.name.toLowerCase().includes(v) ||
-              order.customer?.surname.toLowerCase().includes(v)
-          );
+          return -1;
         }
-      }
-
-      if (searchTerms.worker) {
-        filteredFields.push(
-          order.user?.displayName.includes(searchTerms.worker)
-        );
-      }
-
-      if (searchTerms.status) {
-        filteredFields.push(order.status.indexOf(searchTerms.status) !== -1);
-      }
-
-      return filteredFields.every((v) => v);
-    };
-
-    return filterFunction;
+      });
+    } else if (sortParameters.direction === 'desc') {
+      this.orders = this.orders.sort((a: Order, b: Order) => {
+        if (a[keyName] <= b[keyName]) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    } else {
+      return this.orders;
+    }
   }
 
-  removeOrder(order: Order, event: MouseEvent) {
+  removeOrder(id: number, event: MouseEvent) {
     event.stopPropagation();
-    this.store.dispatch(removeOrder({ order }));
+    this.store.dispatch(removeOrder({ id }));
   }
 
   ngOnDestroy() {

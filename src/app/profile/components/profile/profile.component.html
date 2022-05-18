@@ -29,10 +29,9 @@
                     <div mat-card-avatar (click)="editPhoto()" class="header-image" [style.background-image]="user.photoURL ? 'url(' + user.photoURL + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
                     <mat-card-title>{{ user.displayName }}</mat-card-title>
                     <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-                    <div class="email-verify" [ngClass]="user.emailVerified ? 'verified' : 'unverified'">
-                      <mat-icon>{{ user.emailVerified ? 'check' : 'close' }}</mat-icon>
-                      <span>{{emailStatus| transloco}}</span>
-                    </div>
+                    <app-checkmark [isChecked]="user.emailVerified" [classes]="'email-verify'">
+                      <span>{{ emailStatus | transloco }}</span>
+                    </app-checkmark>
                     <div class="roles">
                       <ul>
                         <li *ngFor="let role of user.roles">{{ role }}</li>

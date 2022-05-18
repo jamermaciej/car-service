@@ -10,7 +10,24 @@
     </button>
   </div>
   <div class="orders__list">
-    <div class="table-filter" [formGroup]="filterGroup">
+    <app-car-service-table
+    [tableData]="orders"
+    [tableColumns]="displayedColumns"
+    [filterConfig]="filterConfig"
+    [isFilterable]="true"
+    [isPageable]="true"
+    [paginationSizes]="[5, 10, 15, 20]"
+    [defaultPageSize]="10"
+    (sort)="sortData($event)"
+    (selectOption)="onSelect($event)"
+  >
+    <ng-template #tdAction let-id>
+      <mat-icon class="cursor-pointer" color="warn" (click)="removeOrder($event, id)">delete</mat-icon>
+      <mat-icon class="cursor-pointer" (click)="editOrder($event, id)">edit</mat-icon>
+    </ng-template>
+  </app-car-service-table>
+
+    <!-- <div class="table-filter" [formGroup]="filterGroup">
       <div class="active-filters">
         <ng-container *ngFor="let item of filterValues | keyvalue">
           <button
@@ -72,7 +89,7 @@
           >
         </mat-select>
       </mat-form-field>
-      {{ orders.data.length }} service orders
+      <app-orders-amount [amount]="orders.data.length" [text]="'service orders'"></app-orders-amount>
     </div>
 
     <mat-table [dataSource]="orders" matSort>
@@ -162,21 +179,14 @@
           'orders.table.headers.test_drive' | transloco
         }}</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <div
-            class="test-drive-agree"
-            [ngClass]="element.test_drive_agree ? 'agreement' : 'disagreement'"
-          >
-            <mat-icon>{{
-              element.test_drive_agree ? 'check' : 'close'
-            }}</mat-icon>
-          </div>
+          <app-checkmark [isChecked]="element.test_drive_agree" [classes]="'test-drive-agree'"></app-checkmark>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <mat-icon color="warn" (click)="removeOrder(element, $event)"
+          <mat-icon color="warn" (click)="removeOrder(element.id, $event)"
             >delete</mat-icon
           >
         </mat-cell>
@@ -192,6 +202,6 @@
     <mat-paginator
       [pageSize]="10"
       [pageSizeOptions]="[5, 10, 20]"
-    ></mat-paginator>
+    ></mat-paginator> -->
   </div>
 </section>

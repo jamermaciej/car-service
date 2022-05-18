@@ -17,8 +17,12 @@ import { MatInputModule } from '@angular/material/input';
 import { AddCarFormComponent } from './components/cars/add-customer-form/add-customer-car.component';
 import { StatusFormComponent } from './components/statuses/status-form/status-form.component';
 import { MatOptionModule } from '@angular/material/core';
-import { CarServiceTableComponent } from './components/car-service-table/car-service-table.component';
-import { DataPropertyGetterPipe } from './data-property-getter.pipe';
+import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
+import { MatSelectModule } from '@angular/material/select';
+import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
+import { RouterModule } from '@angular/router';
+import { CarServiceTableModule } from './car-service-table/car-service-table.module';
+import { OrdersAmountComponent } from './components/orders-amount/orders-amount.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +32,7 @@ import { DataPropertyGetterPipe } from './data-property-getter.pipe';
     AddCustomerFormComponent,
     AddCarFormComponent,
     StatusFormComponent,
-    CarServiceTableComponent,
-    DataPropertyGetterPipe,
+    OrdersAmountComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,10 @@ import { DataPropertyGetterPipe } from './data-property-getter.pipe';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    TranslocoLocaleModule,
+    MatSelectModule,
+    LocalizeRouterModule,
+    RouterModule
   ],
   exports: [
     CommonModule,
@@ -55,7 +62,8 @@ import { DataPropertyGetterPipe } from './data-property-getter.pipe';
     AddCarFormComponent,
     StatusFormComponent,
     TranslocoModule,
-    CarServiceTableComponent,
+    CarServiceTableModule,
+    OrdersAmountComponent
   ],
 })
 export class SharedModule {}

@@ -106,11 +106,44 @@ export class CarsEffects {
         ofType(ordersActions.updateOrderSuccess),
         map(() => {
           this.alertService.showAlert('Order updated', 'success');
-          return routerActions.go({ path: [FlowRoutes.ORDERS] });
+          return routerActions.back();
         })
       ),
     {
       dispatch: true,
+    }
+  );
+
+  updateStatus$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ordersActions.updateStatus),
+        pluck('order'),
+        switchMap((order) =>
+          this.orderService.updateOrder(order).pipe(
+            map((order: Order) => ordersActions.updateStatusSuccess({ order })),
+            catchError((error) =>
+              of(ordersActions.updateStatusFailure({ error }))
+            )
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
+  updateStatusSuccess = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ordersActions.updateStatusSuccess),
+        pluck('order'),
+        map((order) => {
+          this.alertService.showAlert(`Status in order #${order.id} updated`, 'success');
+        })
+      ),
+    {
+      dispatch: false,
     }
   );
 
@@ -137,14 +170,15 @@ export class CarsEffects {
     () =>
       this.actions$.pipe(
         ofType(ordersActions.removeOrder),
-        switchMap((paylaod) =>
-          this.orderService.removeOrder(paylaod.order).pipe(
-            map((order) => {
+        pluck('id'),
+        switchMap((id: number) =>
+          this.orderService.removeOrder(id).pipe(
+            map(() => {
               this.alertService.showAlert(
-                `Order ${order.id} has been removed`,
+                `Order ${id} has been removed`,
                 'success'
               );
-              return ordersActions.removeOrderSuccess({ order });
+              return ordersActions.removeOrderSuccess({ id });
             }),
             catchError((error) =>
               of(ordersActions.removeOrderFailure({ error }))

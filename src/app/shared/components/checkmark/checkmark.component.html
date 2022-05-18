@@ -1,0 +1,5 @@
+<div class="checkmark" [class]="classes"
+    [ngClass]="isChecked ? 'checked' : 'unchecked'">
+    <mat-icon>{{ isChecked ? 'check' : 'close' }}</mat-icon>
+    <ng-content></ng-content>
+</div>

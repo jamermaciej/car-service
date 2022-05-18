@@ -93,10 +93,10 @@ export class ValidationService {
       'newPassword': {
         'samePasswords': 'account.change_password.error.new_password.same_passwords'
       },
-      'customer_id': {
+      'customer': {
         'required': 'orders.error.customer.required'
       },
-      'car_id': {
+      'car': {
         'required': 'orders.error.car.required'
       },
       'user': {

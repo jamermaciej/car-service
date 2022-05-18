@@ -51,34 +51,6 @@
         margin: -70px auto 40px;
     }
 
-    .email-verify {
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-
-        .mat-icon {
-            margin-right: 5px;
-        }
-
-        span {
-            font-size: 12px;
-        }
-        
-        &.verified {
-            .mat-icon,
-            span {
-                color: green;
-            }
-        }
-
-        &.unverified {
-            .mat-icon,
-            span {
-                color: red;
-            }
-        }
-    }
-
     .roles {
         margin-bottom: 15px;
 

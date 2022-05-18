@@ -1,0 +1,23 @@
+.checkmark {
+  &.checked {
+    color: green;
+  }
+
+  &.unchecked {
+    color: red;
+  }
+
+  &.email-verify {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  
+    .mat-icon {
+        margin-right: 5px;
+    }
+  
+    span {
+        font-size: 12px;
+    }
+  }
+}

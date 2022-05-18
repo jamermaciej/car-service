@@ -1,0 +1,16 @@
+.active-filters {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+
+  button {
+    margin: 0 15px;
+    color: #fff;
+
+    mat-icon {
+      margin-left: 10px;
+      position: relative;
+      top: -1px;
+    }
+  }
+}

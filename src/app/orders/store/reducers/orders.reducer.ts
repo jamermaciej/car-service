@@ -24,13 +24,13 @@ const orderReducer = createReducer(
       orders,
     })
   ),
-  on(orderActions.updateOrderSuccess, (state, { order }) => ({
+  on(orderActions.updateOrderSuccess, orderActions.updateStatusSuccess, (state, { order }) => ({
     ...state,
     orders: state.orders.map((o) => (o.id === order.id ? order : o)),
   })),
-  on(orderActions.removeOrderSuccess, (state, { order }) => ({
+  on(orderActions.removeOrderSuccess, (state, { id }) => ({
     ...state,
-    orders: state.orders.filter((o) => o.id !== order.id),
+    orders: state.orders.filter((o) => o.id !== id),
   }))
 );
 

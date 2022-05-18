@@ -115,7 +115,8 @@
         "check-type",
         "check-typecast"
       ]
-    }
+    },
+    "no-shadowed-variable": false
   },
   "rulesDirectory": ["codelyzer"]
 }

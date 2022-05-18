@@ -60,15 +60,30 @@ export const updateOrderFailure = createAction(
 
 export const removeOrder = createAction(
   '[Order] Remove Order',
-  props<{ order: Order }>()
+  props<{ id: number }>()
 );
 
 export const removeOrderSuccess = createAction(
   '[Order] Remove Order Success',
-  props<{ order: Order }>()
+  props<{ id: number }>()
 );
 
 export const removeOrderFailure = createAction(
   '[Order] Remove Order Failure',
+  props<{ error: any }>()
+);
+
+export const updateStatus = createAction(
+  '[Order] Update Status',
+  props<{ order: Order }>()
+);
+
+export const updateStatusSuccess = createAction(
+  '[Order] Update Status Success',
+  props<{ order: Order }>()
+);
+
+export const updateStatusFailure = createAction(
+  '[Order] Update Status Failure',
   props<{ error: any }>()
 );

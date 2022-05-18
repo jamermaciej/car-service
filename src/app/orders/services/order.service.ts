@@ -33,7 +33,7 @@ export class OrderService {
     );
   }
 
-  removeOrder(order: Order): Observable<Order> {
-    return this.http.delete<Order>(`${environment.apiUrl}/orders/${order.id}`);
+  removeOrder(id: number): Observable<Order> {
+    return this.http.delete<Order>(`${environment.apiUrl}/orders/${id}`);
   }
 }

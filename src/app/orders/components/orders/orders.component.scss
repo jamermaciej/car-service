@@ -8,20 +8,6 @@
       &:focus {
         outline: none;
       }
-
-      .test-drive-agree {
-        &.agreement {
-          .mat-icon {
-            color: green;
-          }
-        }
-
-        &.disagreement {
-          .mat-icon {
-            color: red;
-          }
-        }
-      }
     }
 
     .table-filter {

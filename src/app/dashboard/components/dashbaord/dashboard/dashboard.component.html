@@ -1,4 +1,4 @@
-<section *ngIf="orders$ | async as orders" class="orders">
+<section *ngIf="orders" class="orders">
   <div class="orders__button">
     <!-- <button mat-raised-button color="primary" [routerLink]='flowRoutes.ADD_ORDERS'>
             <mat-icon>add</mat-icon>
@@ -6,10 +6,24 @@
         </button> -->
   </div>
   <div class="orders__list">
+    <app-orders-amount [amount]="orders.length" [text]="'service orders for logged user'"></app-orders-amount>
     <app-car-service-table
       [tableData]="orders"
       [tableColumns]="displayedColumns"
-    ></app-car-service-table>
+      [isFilterable]="true"
+      [filterConfig]="filterConfig"
+      (deleteAction)="removeOrder($event)"
+      [deleteActionIcon]="'delete'"
+      (selectOption)="onSelect($event)"
+      (sort)="sortData($event)"
+      [isPageable]="true"
+      [paginationSizes]="[5, 10, 15, 20]"
+      [defaultPageSize]="5"
+    >
+      <ng-template #tdAction let-id>
+        <mat-icon class="cursor-pointer" (click)="editOrder($event, id)">edit</mat-icon>
+      </ng-template>
+    </app-car-service-table>
 
     <!-- <mat-table [dataSource]="orders">
       <ng-container matColumnDef="id">
