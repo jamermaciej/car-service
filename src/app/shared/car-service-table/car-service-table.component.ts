@@ -21,9 +21,9 @@ import { getUsers } from 'src/app/admin/store/selectors/users.selectors';
 import { FlowRoutes } from 'src/app/core/enums/flow';
 import { TableColumnType } from 'src/app/core/enums/table-column-type';
 import { Status } from '../models/status.model';
-import { TableColumn } from '../models/table-column.model';
 import { User } from '../models/user.model';
 import * as fromRoot from './../../store';
+import { TableColumn } from './models/table-column.model';
 
 @Component({
   selector: 'app-car-service-table',
@@ -133,7 +133,7 @@ export class CarServiceTableComponent implements OnInit, AfterViewInit {
   sortTable(sortParameters: Sort) {
     sortParameters.active = this.tableColumns.find(
       (column) => column.name === sortParameters.active
-    ).dataKey;
+    ).dataKey[0];
     this.sort.emit(sortParameters);
   }
 

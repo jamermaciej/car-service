@@ -14,6 +14,8 @@ import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
 import { take, takeUntil } from 'rxjs/operators';
 import { Sort } from '@angular/material/sort';
 import { User } from 'src/app/shared/models/user.model';
+import { TableColumn } from 'src/app/shared/car-service-table/models/table-column.model';
+import { TableFilterConfig } from 'src/app/shared/car-service-table/models/table-filter-config.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,20 +23,18 @@ import { User } from 'src/app/shared/models/user.model';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-
-  constructor(private router: Router, private store: Store<fromOrders.State>,  private localize: LocalizeRouterService) {}
   destroySubject$: Subject<any> = new Subject();
   flowRoutes = FlowRoutes;
-  displayedColumns;
   orders: Order[];
   statuses$: Observable<Status[]>;
   workers$: Observable<User[]>;
+  displayedColumns: TableColumn[];
+  filterConfig: TableFilterConfig;
 
-  filterConfig;
+  constructor(private router: Router, private store: Store<fromOrders.State>,  private localize: LocalizeRouterService) {}
 
   orderButtonSettings = [
     {
-      // title: 'Open',
       icon: 'edit',
       params: ['id'],
       func: (id: number) => {
@@ -43,7 +43,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     },
     {
-      // title: 'Open',
       icon: 'delete',
       params: ['id'],
       func: (id: number) => {

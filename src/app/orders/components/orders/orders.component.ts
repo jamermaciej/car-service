@@ -47,6 +47,8 @@ import { isObject } from '@ngneat/transloco';
 import { TableColumnType } from 'src/app/core/enums/table-column-type';
 import { Router } from '@angular/router';
 import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
+import { TableColumn } from 'src/app/shared/car-service-table/models/table-column.model';
+import { TableFilterConfig } from 'src/app/shared/car-service-table/models/table-filter-config.model';
 
 @Component({
   selector: 'app-orders',
@@ -61,11 +63,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
   orders: Order[];
   statuses$: Observable<Status[]>;
 
-  displayedColumns;
+  displayedColumns: TableColumn[];
 
   workers$: Observable<User[]>;
 
-  filterConfig;
+  filterConfig: TableFilterConfig;
 
   constructor(
     private store: Store<fromRoot.State>,
