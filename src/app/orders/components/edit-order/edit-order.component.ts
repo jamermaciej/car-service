@@ -70,7 +70,7 @@ export class EditOrderComponent implements OnInit, OnDestroy {
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.store
-      .select(getOrder, { id })
+      .select(getOrder(id))
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((order) => {
         if (order) {

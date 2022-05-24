@@ -136,16 +136,13 @@ export class AddOrderComponent implements OnInit {
   }
 
   changeCustomer() {
-    const customer = this.customersSelect.value;
-    // const { id } = customer;
-    this.selectedCustomer = this.store.select(getCustomer, {
-      id: customer?.id,
-    });
+    const { id } = this.customersSelect.value;
+    this.selectedCustomer = this.store.select(getCustomer(id));
     // this.store.select(getCustomer, { id }).subscribe((customer: Customer) => {
     //   this.selectedCustomer = customer;
     //   this.orderForm.get('customer_id').setValue(id);
     // });
-    this.orderForm.get('customer').setValue(customer);
+    this.orderForm.get('customer').setValue(this.customersSelect.value);
   }
 
   closeCarSelect(searchCarInput: MatInput) {
@@ -155,8 +152,8 @@ export class AddOrderComponent implements OnInit {
 
   changeCar() {
     const car = this.carsSelect.value;
-    // const { id } = car;
-    this.selectedCar = this.store.select(getCar, { id: car?.id });
+    const { id } = car;
+    this.selectedCar = this.store.select(getCar(id));
     // this.store.select(getCar, { id }).subscribe((car: Car) => {
     //   this.selectedCar = car;
     //   this.orderForm.get('car_id').setValue(id);

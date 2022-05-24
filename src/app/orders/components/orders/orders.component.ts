@@ -238,25 +238,25 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   getCustomerData(id: number): Observable<string> {
-    return this.store.select(getCustomer, { id }).pipe(
+    return this.store.select(getCustomer(id)).pipe(
       filter((customer) => !!customer),
       map((customer) => `${customer.name} ${customer.surname}`)
     );
   }
 
-  getCarData(id: number) {
-    return this.store.select(getCar, { id }).pipe(
+  getCarData(id: number): Observable<string> {
+    return this.store.select(getCar(id)).pipe(
       filter((car) => !!car),
       map((car) => `${car.model} ${car.brand}`)
     );
   }
 
-  getUserData(uid: string) {
-    return this.store.select(getUser, uid).pipe(
-      filter((user) => !!user),
-      map((user) => `${user.displayName}`)
-    );
-  }
+  // getUserData(uid: string) {
+  //   return this.store.select(getUser, uid).pipe(
+  //     filter((user) => !!user),
+  //     map((user) => `${user.displayName}`)
+  //   );
+  // }
 
   editOrder(event: MouseEvent, id: number) {
     const translatedRoute = this.localize.translateRoute([this.flowRoutes.ORDERS, id]);
@@ -265,7 +265,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   updateOrder(status: string, id: number) {
     this.store
-      .select(getOrder, { id })
+      .select(getOrder(id))
       .pipe(take(1), takeUntil(this.destroySubject$))
       .subscribe((order) => {
         const newOrder = {
@@ -280,7 +280,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     const status = event.value;
     const { id } = event;
     this.store
-      .select(getOrder, { id })
+      .select(getOrder(id))
       .pipe(take(1))
       .subscribe((order) => {
         const newOrder = {

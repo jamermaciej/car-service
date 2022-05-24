@@ -9,7 +9,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { getCar } from 'src/app/cars/store/selectors/cars.selectors';
+import { getCar, getCars } from 'src/app/cars/store/selectors/cars.selectors';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { Car } from 'src/app/shared/models/car.model';
@@ -77,7 +77,7 @@ export class EditCarComponent implements OnInit, OnDestroy {
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.store
-      .select(getCar, { id })
+      .select(getCar(id))
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((car) => {
         if (car) {

@@ -5,9 +5,6 @@ import * as fromCustomers from '../index';
 export const getUsersState = createFeatureSelector<fromCustomers.State>('customers');
 
 export const getCustomers = createSelector(getUsersState, (state: fromCustomers.State) => state.customers);
-export const getCustomer = createSelector(
-    getCustomers,
-    (customers: Customer[], { id }) => {
-        return customers.find((customer: Customer) => customer.id === id);
-    }
-);
+export const getCustomer = (id: number) =>
+    createSelector(
+        getCustomers, (customers: Customer[]) => customers.find((customer: Customer) => customer.id === id));

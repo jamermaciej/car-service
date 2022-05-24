@@ -170,7 +170,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const status = event.value;
     const { id } = event;
     this.store
-      .select(getOrder, { id })
+      .select(getOrder(id))
       .pipe(take(1))
       .subscribe((order) => {
         const newOrder = {

@@ -86,7 +86,7 @@ export class EditCustomerComponent implements OnInit, OnDestroy {
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.store
-      .select(getCustomer, { id })
+      .select(getCustomer(id))
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((customer) => {
         if (customer) {
