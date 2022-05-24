@@ -314,7 +314,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeOrder(id: number, event: MouseEvent) {
+  removeOrder(event: MouseEvent, id: number) {
     event.stopPropagation();
     this.store.dispatch(removeOrder({ id }));
   }

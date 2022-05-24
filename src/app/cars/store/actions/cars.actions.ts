@@ -47,12 +47,12 @@ export const updateCarFailure = createAction(
 
 export const removeCar = createAction(
   '[Car] Remove Car',
-  props<{ car: Car }>()
+  props<{ id: number }>()
 );
 
 export const removeCarSuccess = createAction(
   '[Car] Remove Car Success',
-  props<{ car: Car }>()
+  props<{ id: number }>()
 );
 
 export const removeCarFailure = createAction(

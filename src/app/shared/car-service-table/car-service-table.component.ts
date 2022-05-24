@@ -92,10 +92,12 @@ export class CarServiceTableComponent implements OnInit, AfterViewInit {
       default: ''
     };
 
-    this.filterConfig['filters'].forEach(filter => {
-      group[filter.name] = new FormControl('');
-      this.filterValues[filter.name] = '';
-    });
+    if (this.filterConfig) {
+      this.filterConfig['filters'].forEach(filter => {
+        group[filter.name] = new FormControl('');
+        this.filterValues[filter.name] = '';
+      });
+    }
 
     this.filterGroup = this.fb.group(group);
 

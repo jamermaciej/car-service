@@ -1,76 +1,19 @@
 <section class="customers">
   <div class="orders__list">
-    <mat-table [dataSource]="cars" matSort>
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
-      </ng-container>
+    <app-car-service-table
+      [tableData]="cars"
+      [tableColumns]="displayedColumns"
 
-      <ng-container matColumnDef="brand">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Brand</mat-header-cell
-        >
-        <mat-cell *matCellDef="let element"
-          >{{ element.brand }} {{ element.model }}</mat-cell
-        >
-      </ng-container>
+      (sort)="sortData($event)"
 
-      <ng-container matColumnDef="model">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Model</mat-header-cell
-        >
-        <mat-cell *matCellDef="let element">{{ element.model }}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="type">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Type</mat-header-cell
-        >
-        <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="year">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Year</mat-header-cell
-        >
-        <mat-cell *matCellDef="let element">{{ element.year }}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="registration">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Registration</mat-header-cell
-        >
-        <mat-cell *matCellDef="let element">
-          {{ element.registration }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="fuel">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >Fuel</mat-header-cell
-        >
-        <mat-cell *matCellDef="let element">{{ element.fuel }}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <mat-icon color="warn" (click)="removeCar(element, $event)"
-            >delete</mat-icon
-          >
-        </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row
-        *matRowDef="let row; columns: displayedColumns; let element"
-        [routerLink]="[flowRoutes.CARS, element.id] | localize"
-      ></mat-row>
-    </mat-table>
-
-    <mat-paginator
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
-    ></mat-paginator>
+      [isPageable]="true"
+      [paginationSizes]="[5, 10, 15, 20]"
+      [defaultPageSize]="10"
+    >
+      <ng-template #tdAction let-id>
+        <mat-icon class="cursor-pointer" color="warn" (click)="removeCar($event, id)">delete</mat-icon>
+        <mat-icon class="cursor-pointer" (click)="editCar($event, id)">edit</mat-icon>
+      </ng-template>
+    </app-car-service-table>
   </div>
 </section>

@@ -342,6 +342,17 @@
       "minivan": "Minivan",
       "sedan": "Sedan",
       "suv": "SUV"
+    },
+    "table": {
+      "headers": {
+        "id": "ID",
+        "brand": "Brand",
+        "model": "Model",
+        "type": "Type",
+        "year": "Year",
+        "registration": "Registration",
+        "fuel": "Fuel"
+      }
     }
   },
   "orders": {

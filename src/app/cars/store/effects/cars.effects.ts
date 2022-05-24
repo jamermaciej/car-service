@@ -99,14 +99,15 @@ export class CarsEffects {
     () =>
       this.actions$.pipe(
         ofType(carsActions.removeCar),
-        switchMap((payload) =>
-          this.carService.deleteCar(payload.car).pipe(
-            map((car) => {
+        pluck('id'),
+        switchMap((id: number) =>
+          this.carService.deleteCar(id).pipe(
+            map(() => {
               this.alertService.showAlert(
-                `Car ${car.id} has been removed`,
+                `Car ${id} has been removed`,
                 'success'
               );
-              return carsActions.removeCarSuccess({ car });
+              return carsActions.removeCarSuccess({ id });
             }),
             catchError((error) => of(carsActions.removeCarFailure({ error })))
           )

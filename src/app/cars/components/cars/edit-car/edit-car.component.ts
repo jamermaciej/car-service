@@ -164,8 +164,8 @@ export class EditCarComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  removeCar(car: Car) {
-    this.store.dispatch(removeCar({ car }));
+  removeCar(id: number) {
+    this.store.dispatch(removeCar({ id }));
     this.store.dispatch(go({ path: [FlowRoutes.CARS] }));
   }
 
