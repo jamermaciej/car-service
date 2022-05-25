@@ -24,9 +24,9 @@ const customersReducer = createReducer(
     ...state,
     customers,
   })),
-  on(customersActions.removeCustomerSuccess, (state, { customer }) => ({
+  on(customersActions.removeCustomerSuccess, (state, { id }) => ({
     ...state,
-    customers: state.customers.filter((c) => c.id !== customer.id),
+    customers: state.customers.filter((c) => c.id !== id),
   })),
   on(customersActions.updateCustomerSuccess, (state, { customer }) => ({
     ...state,

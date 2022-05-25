@@ -35,12 +35,12 @@ export const loadCustomersFailre = createAction(
 
 export const removeCustomer = createAction(
   '[Customer] Remove Customer',
-  props<{ customer: Customer }>()
+  props<{ id: number }>()
 );
 
 export const removeCustomerSuccess = createAction(
   '[Customer] Remove Customer Success',
-  props<{ customer: Customer }>()
+  props<{ id: number }>()
 );
 
 export const removeCustomerFailre = createAction(

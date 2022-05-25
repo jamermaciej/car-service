@@ -1,7 +1,6 @@
 import { FlowRoutes } from 'src/app/core/enums/flow';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -22,8 +21,6 @@ import { Router } from '@angular/router';
 export class CarsComponent implements OnInit {
   flowRoutes = FlowRoutes;
   cars$: Observable<Car[]>;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: TableColumn[];
   cars: Car[];
 

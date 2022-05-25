@@ -262,6 +262,17 @@
     },
     "success": {
       "add_customer": "New customer added."
+    },
+    "table": {
+      "headers": {
+        "id": "ID",
+        "name": "Name",
+        "surname": "Surname",
+        "phoneNumber": "Phone Number",
+        "idNumber": "ID Number",
+        "email": "Email",
+        "address": "Address"
+      }
     }
   },
   "car": {

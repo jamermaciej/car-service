@@ -91,6 +91,18 @@
             {{ element | dataPropertyGetter: tableColumn.dataKey | translocoDate }}
           </ng-container>
 
+          <ng-container *ngSwitchCase="type.PHONE_NUMBER">
+            <a href="tel: {{ element | dataPropertyGetter: tableColumn.dataKey }}">{{ element | dataPropertyGetter: tableColumn.dataKey }}</a>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="type.EMAIL">
+            <a href="mailto: {{ element | dataPropertyGetter: tableColumn.dataKey }}">{{ element | dataPropertyGetter: tableColumn.dataKey }}</a>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="type.ADDRESS">
+            <address [innerHTML]="element | dataPropertyGetter: tableColumn.dataKey"></address>
+          </ng-container>
+          
           <ng-container *ngSwitchCase="type.SELECT">
             <mat-select (click)="$event.stopPropagation()"
                         [attr.name]="tableColumn.dataKey"

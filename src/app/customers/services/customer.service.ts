@@ -34,9 +34,9 @@ export class CustomerService {
     );
   }
 
-  deleteCustomer(customer: Customer): Observable<Customer> {
+  deleteCustomer(id: number): Observable<Customer> {
     return this.http.delete<Customer>(
-      `${environment.apiUrl}/customers/${customer.id}`
+      `${environment.apiUrl}/customers/${id}`
     );
   }
 }

@@ -1,13 +1,16 @@
 export enum TableColumnType {
     ACTION,
+    ADDRESS,
     BOOLEAN,
     CHECKMARK,
     CURRENCY,
     CUSTOM,
     DATE,
     DATE_TIME,
+    EMAIL,
     NUMBER,
     ORDINARY,
+    PHONE_NUMBER,
     SELECT,
     TEXT,
   }

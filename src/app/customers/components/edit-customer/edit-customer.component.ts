@@ -153,8 +153,8 @@ export class EditCustomerComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  removeCustomer(customer: Customer) {
-    this.store.dispatch(removeCustomer({ customer }));
+  removeCustomer(id: number) {
+    this.store.dispatch(removeCustomer({ id }));
     this.store.dispatch(go({ path: [FlowRoutes.CUSTOMERS] }));
   }
 

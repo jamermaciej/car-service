@@ -123,10 +123,11 @@ export class CustomersEffects {
     () =>
       this.actions$.pipe(
         ofType(customersActions.removeCustomer),
-        switchMap((payload) =>
-          this.customerService.deleteCustomer(payload.customer).pipe(
-            map((customer) =>
-              customersActions.removeCustomerSuccess({ customer })
+        pluck('id'),
+        switchMap((id) =>
+          this.customerService.deleteCustomer(id).pipe(
+            map(() =>
+              customersActions.removeCustomerSuccess({ id })
             ),
             catchError((error) =>
               of(customersActions.removeCustomerFailre({ error }))
