@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidenavService } from '../../services/sidenav/sidenav.service';
 import { trigger, state, transition, animate, style } from '@angular/animations';
@@ -38,7 +38,8 @@ export class MenuListItemComponent implements OnInit {
   ngOnInit(): void {
     this.sidenavService.currentUrlSubject$.subscribe((url: string) => {
       if (this.item.route && url ) {
-        this.expanded = url.indexOf(`${this.item.route}`) === 0;
+        const translatedRoute = this.localize.translateRoute(this.item.route);
+        this.expanded = url.indexOf(`${translatedRoute}`) === 0;
         this.ariaExpanded = this.expanded;
       }
     });
@@ -61,7 +62,8 @@ export class MenuListItemComponent implements OnInit {
   }
 
   public isLinkActive(url: string): boolean {
-    const translatedRoute = this.localize.translateRoute(url);
-    return this.router.url === translatedRoute;
+    const translatedRoute = this.localize.translateRoute(url) as string;
+    return this.router.url.includes(translatedRoute);
+    // return this.router.url === translatedRoute;
   }
 }

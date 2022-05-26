@@ -1,4 +1,4 @@
-<mat-list-item [ngStyle]="{'padding-left': (25 * depth) + 'px' }" [ngClass]="{'expanded': expanded, 'active': item.route ? isLinkActive(item.route) : false}">
+<mat-list-item [ngStyle]="{'padding-left': (25 * depth) + 'px' }" [ngClass]="{'expanded': expanded, 'active': item.route ? isLinkActive(item.route) : false, 'hasChildren': item.children}">
     <a href="#" (click)="onItemSelected($event, item)">
         <button mat-icon-button>
             <mat-icon>{{ item.iconName }}</mat-icon>

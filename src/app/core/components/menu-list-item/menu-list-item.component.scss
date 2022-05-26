@@ -17,21 +17,25 @@ mat-list-item.active {
 
     a {
         color: #ef8157;
+    }
 
-        @media (min-width: 768px) {
-            &:after {
-                content: '';
-                display: inline-block;
-                position: absolute;
-                border-right: 17px solid #f4f3ef;
-                border-top: 17px solid transparent;
-                border-bottom: 17px solid transparent;
-                right: 0;
-                top: 7px;
+    &:not(.hasChildren) {
+        a {
+            @media (min-width: 768px) {
+                &:after {
+                    content: '';
+                    display: inline-block;
+                    position: absolute;
+                    border-right: 17px solid #f4f3ef;
+                    border-top: 17px solid transparent;
+                    border-bottom: 17px solid transparent;
+                    right: 0;
+                    top: 7px;
+                }
             }
         }
     }
-
+    
     mat-icon {
         color: #ef8157;
     }
