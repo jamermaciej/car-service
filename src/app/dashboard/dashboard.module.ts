@@ -7,9 +7,20 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './components/dashbaord/dashboard/dashboard.component';
+import {
+  AgendaService,
+  DayService,
+  MonthAgendaService,
+  MonthService,
+  TimelineMonthService,
+  TimelineViewsService,
+  WeekService,
+  WorkWeekService
+} from '@syncfusion/ej2-angular-schedule';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, ScheduleComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -19,5 +30,15 @@ import { DashboardComponent } from './components/dashbaord/dashboard/dashboard.c
     TranslocoLocaleModule,
     SharedModule,
   ],
+  providers: [
+    AgendaService,
+    DayService,
+    MonthAgendaService,
+    MonthService,
+    TimelineMonthService,
+    TimelineViewsService,
+    WeekService,
+    WorkWeekService
+  ]
 })
 export class DashboardModule {}

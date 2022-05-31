@@ -23,6 +23,7 @@ import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
 import { RouterModule } from '@angular/router';
 import { CarServiceTableModule } from './car-service-table/car-service-table.module';
 import { OrdersAmountComponent } from './components/orders-amount/orders-amount.component';
+import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { OrdersAmountComponent } from './components/orders-amount/orders-amount.
     TranslocoLocaleModule,
     MatSelectModule,
     LocalizeRouterModule,
-    RouterModule
+    RouterModule,
+    ScheduleModule
   ],
   exports: [
     CommonModule,
@@ -63,7 +65,8 @@ import { OrdersAmountComponent } from './components/orders-amount/orders-amount.
     StatusFormComponent,
     TranslocoModule,
     CarServiceTableModule,
-    OrdersAmountComponent
+    OrdersAmountComponent,
+    ScheduleModule
   ],
 })
 export class SharedModule {}

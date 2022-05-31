@@ -1,4 +1,6 @@
-<section *ngIf="orders" class="orders">
+<app-schedule [data]="orders"></app-schedule>
+
+<section *ngIf="orders" class="orders mt-5">
   <div class="orders__button">
     <!-- <button mat-raised-button color="primary" [routerLink]='flowRoutes.ADD_ORDERS'>
             <mat-icon>add</mat-icon>
