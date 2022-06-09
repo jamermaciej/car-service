@@ -22,6 +22,7 @@ import { of } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert/alert-service';
 import { TranslocoService } from '@ngneat/transloco';
 import { FlowRoutes } from 'src/app/core/enums/flow';
+import { Update } from '@ngrx/entity';
 
 @Injectable()
 export class CarsEffects {
@@ -86,9 +87,18 @@ export class CarsEffects {
     () =>
       this.actions$.pipe(
         ofType(ordersActions.updateOrder),
-        switchMap((paylaod) =>
-          this.orderService.updateOrder(paylaod.order).pipe(
-            map((order) => ordersActions.updateOrderSuccess({ order })),
+        pluck('order'),
+        switchMap((order) =>
+          this.orderService.updateOrder(order).pipe(
+            map((order: Order) => {
+              const updatedOrder: Update<Order> = {
+                id: order.id,
+                changes: {
+                  ...order
+                }
+              };
+              return ordersActions.updateOrderSuccess({ order: updatedOrder })
+            }), 
             catchError((error) =>
               of(ordersActions.updateOrderFailure({ error }))
             )
@@ -121,7 +131,15 @@ export class CarsEffects {
         pluck('order'),
         switchMap((order) =>
           this.orderService.updateOrder(order).pipe(
-            map((order: Order) => ordersActions.updateStatusSuccess({ order })),
+            map((order: Order) => {
+              const updatedOrder: Update<Order> = {
+                id: order.id,
+                changes: {
+                  ...order
+                }
+              };
+              return ordersActions.updateStatusSuccess({ order: updatedOrder });
+            }),
             catchError((error) =>
               of(ordersActions.updateStatusFailure({ error }))
             )

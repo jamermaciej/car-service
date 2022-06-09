@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   displayedColumns: TableColumn[];
   filterConfig: TableFilterConfig;
 
-  constructor(private router: Router, private store: Store<fromOrders.State>,  private localize: LocalizeRouterService) {}
+  constructor(private router: Router, private store: Store<fromOrders.OrdersState>,  private localize: LocalizeRouterService) {}
 
   orderButtonSettings = [
     {
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.store
       .select(getOrdersLoggedUser)
       .pipe(takeUntil(this.destroySubject$))
-      .subscribe(orders => this.orders = orders);
+      .subscribe(orders => this.orders = orders as any);
 
     this.statuses$ = this.store.select(getStatuses);
 

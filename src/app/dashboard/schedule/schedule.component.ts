@@ -27,7 +27,7 @@ export class ScheduleComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.eventObject.dataSource = this.data.map((order: Order) => {
+    this.eventObject.dataSource = this.data?.map((order: Order) => {
       const user = order.user.displayName ? `(${order.user.displayName})` : '';
       return {
         ...order,

@@ -72,7 +72,7 @@ export class EditOrderComponent implements OnInit, OnDestroy {
     this.store
       .select(getOrder(id))
       .pipe(takeUntil(this.destroySubject$))
-      .subscribe((order) => {
+      .subscribe((order: Order) => {
         if (order) {
           this.order = order;
           this.orderForm.patchValue(order);

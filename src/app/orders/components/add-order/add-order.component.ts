@@ -58,7 +58,7 @@ export class AddOrderComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private store: Store<fromOrders.State>
+    private store: Store<fromOrders.OrdersState>
   ) {}
 
   ngOnInit(): void {

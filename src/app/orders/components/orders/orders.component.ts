@@ -36,9 +36,7 @@ import * as fromRoot from './../../../store';
 import * as fromUsers from './../../../admin/store';
 import {
   getOrder,
-  getOrders,
-  getOrdersById,
-  getOrdersLoggedUser,
+  getOrders
 } from '../../store/selectors/orders.selectors';
 import { Order } from 'src/app/shared/models/order.model';
 import { getCar } from 'src/app/cars/store/selectors/cars.selectors';

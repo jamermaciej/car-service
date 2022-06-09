@@ -1,5 +1,6 @@
 import { Order } from '../../../shared/models/order.model';
 import { createAction, props } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 
 export const addOrder = createAction(
   '[Order] Add Order',
@@ -50,7 +51,7 @@ export const updateOrder = createAction(
 
 export const updateOrderSuccess = createAction(
   '[Order] Update Order Success',
-  props<{ order: Order }>()
+  props<{ order: Update<Order> }>()
 );
 
 export const updateOrderFailure = createAction(
@@ -80,7 +81,7 @@ export const updateStatus = createAction(
 
 export const updateStatusSuccess = createAction(
   '[Order] Update Status Success',
-  props<{ order: Order }>()
+  props<{ order: Update<Order> }>()
 );
 
 export const updateStatusFailure = createAction(
