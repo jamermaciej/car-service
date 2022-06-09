@@ -1,21 +1,250 @@
 {
-	"sidebar": {
-		"nav_item": {
-			"dashboard": "Panel główny",
-			"admin": "Panel administracyjny",
-			"users": "Użytkownicy",
-			"statuses": "Statuses",
-			"profile": "Mój profil",
-			"account": "Moje konto",
-			"orders_service": "Zlecenia",
-			"cars": "Samochody",
-			"customers": "Klienci",
-			"settings": "Ustawienia"
+	"ROUTES": {
+		"account": "moje-konto",
+		"add_orders": "zamowienia/dodaj",
+		"admin": "admin",
+		"cars": "samochody",
+		"contact": "kontakt",
+		"customers": "klienci",
+		"dashboard": "panel-glowny",
+		"forgot_password": "logowanie/przypomnij-haslo",
+		"login": "logowanie",
+		"orders": "zamowienia",
+		"profile": "profil",
+		"registration": "rejestracja",
+		"settings": "ustawienia",
+		"statuses": "statusy",
+		"terms": "regulamin",
+		"users": "uzytkownicy"
+	},
+	"account": {
+		"button": {
+			"change_email": "Zmień email",
+			"change_password": "Zmień hasło",
+			"delete_account": "Usuń konto",
+			"verify_email": "Weryfikuje email"
+		},
+		"change_password": {
+			"button": {
+				"change_password": "Zmień email"
+			},
+			"error": {
+				"new_password": {
+					"same_passwords": "Hasła muszą być różne."
+				}
+			},
+			"header": "Zmień email",
+			"message": {
+				"success": "Hasło zaktualizowane."
+			},
+			"subheader": "Podaj swoje hasło aby potwierdzić twoje dane"
+		},
+		"created_at": "Twoje konto zostało założone",
+		"delete_account": {
+			"button": {
+				"delete_account": "Usuń"
+			},
+			"header": "Usuń konto",
+			"message": {
+				"success": "Konto usunięte!"
+			},
+			"subheader": "OSTRZEŻENIE! Potwierdź OSTRZEŻENIE! Potwierdź swoje hasło, konto zostanie trwale usunięte"
+		},
+		"header": {
+			"change_email_password": "Zmień email / hasło",
+			"delete_account": "Usuń konto",
+			"my_account": "Moje konto",
+			"verify_email": "Zweryfikuj swój email"
+		},
+		"logout": {
+			"message": {
+				"success": "Zostałeś wylogowany."
+			}
+		},
+		"message": {
+			"success": {
+				"verify_email": "Email eryfikacyjny został wysłany."
+			}
+		},
+		"subheader": {
+			"change_email_password": "Dane logowania do twojego konta zostana zmienione.",
+			"delete_account": "Postępując w ten sposób trwale usuniesz wszystkie swoje dane.",
+			"verify_email": {
+				"unverified": "Twój adres email nie został jeszcze zweryfikowany. Proszę to zrobić w dowolnym momencie.",
+				"verified": "Twój adres email jest juz zweryfikowany."
+			}
+		},
+		"update_email": {
+			"button": {
+				"change_email": "Zmień email"
+			},
+			"header": "Zmień email",
+			"message": {
+				"error": "Podany email jest taki sam jak obecny.",
+				"success": "Email zaktualizowany!"
+			},
+			"subheader": "Podaj swoje hasło aby potwierdzić twoje dane"
 		}
+	},
+	"car": {
+		"add_car": {
+			"header": "Dodaj nowy samochów",
+			"subheader": "Po dodaniu nowego auta zobaczysz go na liście samochodów <br> i w aucie wybierz na ekranie serwisu zamówienia."
+		},
+		"button": {
+			"add_car": "Dodaj samochód"
+		},
+		"car_type": {
+			"cabrio": "Cabrio",
+			"city_cars": "Samochód miejski",
+			"combi": "Kombi",
+			"compact": "Kompakt",
+			"coupe": "Coupe",
+			"minivan": "Minivan",
+			"sedan": "Sedan",
+			"small_cars": "",
+			"suv": ""
+		},
+		"error": {
+			"brand": {
+				"required": "Marka jest wymagana"
+			},
+			"capacity": {
+				"required": "Pojemność jest wymagana"
+			},
+			"fuel": {
+				"required": "Paliwo jest wymagane"
+			},
+			"mileage": {
+				"required": "Przebieg  jest wymagany"
+			},
+			"model": {
+				"required": "Model jest wymagana"
+			},
+			"power": {
+				"required": "Moc jest wymagana"
+			},
+			"registration": {
+				"maxLength": "Rejestracja musi zawierać mniej niż 7 znaków.",
+				"minLength": "Rejestracja musi zawierać więcej niż 5 znaków.",
+				"required": "Registration jest wymagana"
+			},
+			"type": {
+				"required": "Typ jest wymagany"
+			},
+			"vin": {
+				"invalidFormat": "",
+				"required": ""
+			},
+			"year": {
+				"required": ""
+			}
+		},
+		"fuel": {
+			"diesel": "Diesel",
+			"electric": "Elektryczny",
+			"ethanol": "Etanol",
+			"hybrid": "Hybryda",
+			"hydrogen": "Wodór",
+			"petrol": "Benzyna",
+			"petrol_cng": "Benzyna+CNG",
+			"petrol_lpg": "Benzyna+LPG"
+		},
+		"label": {
+			"brand": "",
+			"capacity": "",
+			"fuel": "",
+			"mileage": "Przebieg *",
+			"model": "Model *",
+			"power": "Mod *",
+			"registration": "Rejestracja *",
+			"type": "Type *",
+			"vin": "VIN *",
+			"year": "Rok *"
+		},
+		"success": {
+			"add_car": "Nowy samochód dodany."
+		},
+		"table": {
+			"headers": {
+				"brand": "Marka",
+				"fuel": "Paliwo",
+				"id": "ID",
+				"model": "Model",
+				"registration": "Rejestracja",
+				"type": "Typ",
+				"year": "Rok"
+			}
+		}
+	},
+	"car_type": {
+		"cabrio": "Kabriolet",
+		"city_cars": "Auta miejskie",
+		"combi": "Kombi",
+		"compact": "Kompakt",
+		"coupe": "Coupe",
+		"minivan": "Minivan",
+		"sedan": "Sedan",
+		"small_cars": "Auta małe",
+		"suv": "SUV"
 	},
 	"confirm_email": {
 		"message": {
 			"success": "Twój adres email został pomyślnie zweryfikowany."
+		}
+	},
+	"customer": {
+		"add_customer": {
+			"header": "Dodaj nowego klienta",
+			"subheader": "Po dodaniu nowego klienta zaobczysz go na liście oraz zostanie automatycznie dodany do zgłoszenia serwisowego."
+		},
+		"button": {
+			"add_customer": "Dodaj klienta"
+		},
+		"error": {
+			"idNumber": {
+				"invalidIdNumber": "Niepoprawny nr dowodu",
+				"required": "Number dowodu osobistego jest wymagany."
+			},
+			"name": {
+				"onlyAlpha": "Nazwa może zawierać tylko litery."
+			},
+			"phoneNumber": {
+				"invalidPhoneNumber": "Numer telefonu jest wymagany.",
+				"required": "Numer telefonu jest wymagany."
+			},
+			"postcode": {
+				"invalidPostcode": "Podaj kod pocztowy w formacie XX-XXX."
+			},
+			"surname": {
+				"onlyAlpha": "Nazwisko może zawierać tylko litery.",
+				"required": "Nazwisko jest wymagane."
+			}
+		},
+		"label": {
+			"city": "Miasto",
+			"email": "Email *",
+			"id_number": "Number dowodu *",
+			"name": "Imię *",
+			"phone_number": "Number telefonu *",
+			"postcode": "Kod pocztowy",
+			"province": "Województwo",
+			"street": "Ulica",
+			"surname": "Nazwisko *"
+		},
+		"success": {
+			"add_customer": "Nowy klient dodany."
+		},
+		"table": {
+			"headers": {
+				"address": "Adres",
+				"email": "Email",
+				"id": "ID",
+				"idNumber": "Numer dowodu",
+				"name": "Imię",
+				"phoneNumber": "Numer telefonu",
+				"surname": "Nazwisko"
+			}
 		}
 	},
 	"firebase_errors": {
@@ -66,11 +295,90 @@
 		"forgot_password": "Nie pamiętasz hasła?",
 		"label": {
 			"email": "Twój adres email *",
-			"password": "Twoje hasło *",
-			"newPassword": "Twoje nowe hasło *"
+			"newPassword": "Twoje nowe hasło *",
+			"password": "Twoje hasło *"
 		},
 		"no_account": "Nie masz konta?",
 		"title": "Zaloguj się"
+	},
+	"orders": {
+		"button": {
+			"add_car": "Dodaj nowy samochów",
+			"add_customer": "Dodaj nowego klienta",
+			"add_order": "Dodaj zlecenie",
+			"back": "Cofnij",
+			"update_order": "Zaktualizuj zlecenie"
+		},
+		"error": {
+			"car": {
+				"required": "Wybierz samochód z listy lub dodaj nowe"
+			},
+			"customer": {
+				"required": "Wybierz klienta z listy lub dodaj nowego"
+			},
+			"worker": {
+				"required": "Pracownik jest wymagany"
+			}
+		},
+		"header": {
+			"add_car": "Dodaj nowy samochów lub wybierz z listy",
+			"add_customer": "Dodaj nowego klienta lub wybierz z listy"
+		},
+		"label": {
+			"deadline": "Data odbioru",
+			"delivery_date": "Data przyjęcia",
+			"notes": "Notatki",
+			"status": "Status",
+			"test_drive": "Pozwolenie na jazdę testową",
+			"worker": "Pracownik"
+		},
+		"placeholder": {
+			"add_car": "Dodaj samochód lub wybierz z listy",
+			"add_customer": "Dodaj klienta lub wybierz z listy",
+			"search_car": "Wyszukaj markę samochodu lub rejestrację...",
+			"search_customer": "Wyszukaj klienta..."
+		},
+		"table": {
+			"headers": {
+				"car": "Samochód",
+				"customer": "Klient",
+				"deadline": "Data odbioru",
+				"delivery_date": "Data przyjęcia",
+				"id": "ID",
+				"notes": "Notatki",
+				"status": "Status",
+				"test_drive": "Jazda testowa",
+				"worker": "Pracownik"
+			}
+		}
+	},
+	"profile": {
+		"edit_photo": {
+			"button": {
+				"close": "Zamknij",
+				"upload": "Wyślij"
+			},
+			"header": {
+				"add_photo": "Dodaj zdjęcie",
+				"edit_photo": "Edytuj zdjęcie"
+			}
+		},
+		"email_status": {
+			"unverified": "Email niezweryfikowany",
+			"verified": "Email zweryfikowany"
+		},
+		"update_profile": {
+			"button": {
+				"add_photo": "Dodaj zdjęcie",
+				"change_photo": "Edytuj zdjęcie",
+				"update_profile": "Aktualizuj"
+			},
+			"header": "Edytuj profil",
+			"label": {
+				"name": "Imię",
+				"phone_number": "Numer telefonu"
+			}
+		}
 	},
 	"register": {
 		"button": {
@@ -88,9 +396,9 @@
 				"required": "Adres email jest wymagany."
 			},
 			"name": {
-				"required": "Imię jest wymagane.",
 				"maxLength": "Imię może mieć maksymalnie {{ requiredLength }} znaków.",
-				"minLength": "Imię musi mieć minimum {{ requiredLength }} znaki."
+				"minLength": "Imię musi mieć minimum {{ requiredLength }} znaki.",
+				"required": "Imię jest wymagane."
 			},
 			"password": {
 				"minLength": "Hasło musi mieć minimum {{ requiredLength }} znaków.",
@@ -124,173 +432,40 @@
 		},
 		"title": "Zarejestruj się"
 	},
-	"profile": {
-		"update_profile": {
-			"header": "Edytuj profil",
-			"label": {
-				"name": "Imię",
-				"phone_number": "Numer telefonu"
-			},
-			"button": {
-				"update_profile": "Aktualizuj",
-				"change_photo": "Edytuj zdjęcie",
-				"add_photo": "Dodaj zdjęcie"
-			}
-		},
-		"edit_photo": {
-			"header": {
-				"add_photo": "Dodaj zdjęcie",
-				"edit_photo": "Edytuj zdjęcie"
-			},
-			"button": {
-				"upload": "Wyślij",
-				"close": "Zamknij"
-			}
-		},
-		"email_status": {
-			"verified": "Email zweryfikowany",
-			"unverified": "Email niezweryfikowany"
+	"sidebar": {
+		"nav_item": {
+			"account": "Moje konto",
+			"admin": "Panel administracyjny",
+			"cars": "Samochody",
+			"customers": "Klienci",
+			"dashboard": "Panel główny",
+			"orders_service": "Zlecenia",
+			"profile": "Mój profil",
+			"settings": "Ustawienia",
+			"statuses": "Statuses",
+			"users": "Użytkownicy"
 		}
 	},
-	"account": {
+	"status": {
+		"button": {
+			"add": "dodaj",
+			"close": "zamknij",
+			"edit": "edytuj"
+		},
 		"header": {
-			"my_account": "Moje konto",
-			"verify_email": "Zweryfikuj swój email",
-			"change_email_password": "Zmień email / hasło",
-			"delete_account": "Usuń konto"
+			"add": "Dodaj nowy status",
+			"avaible": "Dostępne statusy",
+			"edit": "Edytuj satus"
 		},
-		"subheader": {
-			"verify_email": {
-				"verified": "Twój adres email jest juz zweryfikowany.",
-				"unverified": "Twój adres email nie został jeszcze zweryfikowany. Proszę to zrobić w dowolnym momencie."
-			},
-			"change_email_password": "Dane logowania do twojego konta zostana zmienione.",
-			"delete_account": "Postępując w ten sposób trwale usuniesz wszystkie swoje dane."	
-		},
-		"button": {
-			"verify_email": "Weryfikuje email",
-			"change_email": "Zmień email",
-			"change_password": "Zmień hasło",
-			"delete_account": "Usuń konto"
-		},
-		"message": {
-			"success": {
-				"verify_email": "Email eryfikacyjny został wysłany."
-			}
-		},
-		"created_at": "Twoje konto zostało założone",
-		"logout": {
-			"message": {
-				"success": "Zostałeś wylogowany."
-			}
-		},
-		"change_password": {
-			"header": "Zmień email",
-			"subheader": "Podaj swoje hasło aby potwierdzić twoje dane",
-			"button": {
-				"change_password": "Zmień email"
-			},
-			"message": {
-				"success": "Hasło zaktualizowane."
-			},
-			"error": {
-				"new_password": {
-					"same_passwords": "Hasła muszą być różne."
-				}
-			}
-		},
-		"update_email": {
-			"header": "Zmień email",
-			"subheader": "Podaj swoje hasło aby potwierdzić twoje dane",
-			"button": {
-				"change_email": "Zmień email"
-			},
-			"message": {
-				"success": "Email zaktualizowany!",
-				"error": "Podany email jest taki sam jak obecny."
-			}
-		},
-		"delete_account": {
-			"header": "Usuń konto",
-			"subheader": "OSTRZEŻENIE! Potwierdź OSTRZEŻENIE! Potwierdź swoje hasło, konto zostanie trwale usunięte",
-			"button": {
-				"delete_account": "Usuń"
-			},
-			"message": {
-				"success": "Konto usunięte!"
-			}
-		}
-	},
-	"customer": {
-		"add_customer": {
-			"header": "Dodaj nowego klienta",
-			"subheader": "Po dodaniu nowego klienta zaobczysz go na liście oraz zostanie automatycznie dodany do zgłoszenia serwisowego."
-		},
-		"button": {
-			"add_customer": "Dodaj klienta"
+		"hint": {
+			"value": "Tworzone automatycznie"
 		},
 		"label": {
-			"name": "Imię *",
-			"surname": "Nazwisko *",
-			"phone_number": "Number telefonu *",
-			"id_number": "Number dowodu *",
-			"email": "Email *",
-			"street": "Ulica",
-			"city": "Miasto",
-			"province": "Województwo",
-			"postcode": "Kod pocztowy"
+			"name": "Nazwa statusu *",
+			"value": "Wartość statusu *"
 		},
-		"error": {
-			"surname": {
-				"required": "Nazwisko jest wymagane."
-			},
-			"phoneNumber": {
-				"required": "Numer telefonu jest wymagany."
-			},
-			"idNumber": {
-				"required": "Number dowodu osobistego jest wymagany."
-			}
+		"subheader": {
+			"edit": "Edytuj nazwę statusu, wartość zostanie automatycznie zaktualizowana."
 		}
-	},
-	"car": {
-		"fuel": {
-			"petrol": "Benzyna",
-			"petrol_cng": "Benzyna+CNG",
-			"petrol_lpg": "Benzyna+LPG",
-			"diesel": "Diesel",
-			"electric": "Elektryczny",
-			"ethanol": "Etanol", 
-			"hybrid": "Hybryda", 
-			"hydrogen": "Wodór"
-		}
-	},
-	"car_type": {
-		"small_cars": "Auta małe",
-		"city_cars": "Auta miejskie",
-		"coupe": "Coupe",
-		"cabrio": "Kabriolet",
-		"combi": "Kombi",
-		"compact": "Kompakt",
-		"minivan": "Minivan",
-		"sedan": "Sedan",
-		"suv": "SUV"
-	},
-	"ROUTES": {
-		"registration": "rejestracja",
-		"login": "logowanie",
-		"dashboard": "panel-glowny",
-		"admin": "admin",
-		"users": "uzytkownicy",
-		"statuses": "statusy",
-		"profile": "profil",
-		"account": "moje-konto",
-		"orders": "zamowienia",
-		"add_orders": "zamowienia/dodaj",
-		"cars": "samochody",
-		"customers": "klienci",
-		"settings": "ustawienia",
-		"forgot_password": "logowanie/przypomnij-haslo",
-		"terms": "regulamin",
-		"contact": "kontakt"
 	}
 }

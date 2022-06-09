@@ -1,6 +1,6 @@
 <div class="edit-status">
-    <h2 mat-dialog-title>Edit status</h2>
-    <p>Edit status name, value will be automatically updated.</p>
+    <h2 mat-dialog-title>{{ 'status.header.edit' | transloco }}</h2>
+    <p>{{ 'status.subheader.edit' | transloco }}</p>
     <mat-dialog-content class="mat-typography">
         <app-status-form [status]="data" (triggerSubmit)="editStatus($event)" (triggerClose)="closeDialog()"></app-status-form>
     </mat-dialog-content>

@@ -14,14 +14,14 @@ export class StatusFormComponent implements OnInit {
   @Input() set status(status: Status) {
     this._status = status;
     this.statusForm.patchValue(status);
-    this.btnLabel = 'edit status';
+    this.btnLabel = 'status.button.edit';
   }
   get status() {
     return this._status;
   }
   @Output() triggerSubmit = new EventEmitter();
   @Output() triggerClose = new EventEmitter();
-  btnLabel = 'add status';
+  btnLabel = 'status.button.add';
 
   constructor(private formBuilder: FormBuilder) {
     this.statusForm = this.formBuilder.group({
