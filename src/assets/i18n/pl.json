@@ -454,7 +454,7 @@
 		},
 		"header": {
 			"add": "Dodaj nowy status",
-			"avaible": "Dostępne statusy",
+			"available": "Dostępne statusy",
 			"edit": "Edytuj satus"
 		},
 		"hint": {

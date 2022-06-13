@@ -454,7 +454,7 @@
 		},
 		"header": {
 			"add": "Add new status",
-			"avaible": "Available statuses",
+			"available": "Available statuses",
 			"edit": "Edit status"
 		},
 		"hint": {
