@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Status } from 'src/app/shared/models/status.model';
 
@@ -7,7 +7,7 @@ import { Status } from 'src/app/shared/models/status.model';
   templateUrl: './status-form.component.html',
   styleUrls: ['./status-form.component.scss']
 })
-export class StatusFormComponent implements OnInit {
+export class StatusFormComponent {
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
   statusForm: FormGroup;
   private _status: Status;
@@ -37,10 +37,6 @@ export class StatusFormComponent implements OnInit {
   createValue(value: string) {
     const label = value?.toLowerCase().split(' ').join('_');
     this.statusForm.get('value').setValue(label);
-  }
-
-  ngOnInit(): void {
-
   }
 
   onSubmit() {

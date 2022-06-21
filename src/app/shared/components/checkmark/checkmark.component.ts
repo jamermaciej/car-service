@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-checkmark',
@@ -6,13 +6,10 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
   styleUrls: ['./checkmark.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckmarkComponent implements OnInit {
+export class CheckmarkComponent {
   @Input() isChecked: boolean;
   @Input() classes: string;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

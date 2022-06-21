@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { MatSidenav } from '@angular/material/sidenav';
 import { SidenavService } from '../../services/sidenav/sidenav.service';
@@ -8,7 +8,7 @@ import { SidenavService } from '../../services/sidenav/sidenav.service';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit, AfterViewInit {
+export class LayoutComponent implements AfterViewInit {
   isMenuOpen = true;
   contentMargin = 260;
   animateNavbar = false;
@@ -21,9 +21,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.isMobile = this.platform.IOS || this.platform.ANDROID;
     this.mode = this.isMobile ? '' : 'side';
     this.opened = this.isMobile ? false : true;
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit() {

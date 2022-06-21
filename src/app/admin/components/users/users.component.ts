@@ -5,7 +5,6 @@ import { updateUser } from './../../store/actions/users.actions';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import {
   Component,
-  OnInit,
   AfterViewInit,
   ViewChild,
   OnDestroy,
@@ -25,7 +24,7 @@ import { filter, takeUntil } from 'rxjs/operators';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UsersComponent implements AfterViewInit, OnDestroy {
   destroySubject$: Subject<any> = new Subject();
   users$: Observable<User[]>;
   roles = Role;
@@ -65,8 +64,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         ];
       });
   }
-
-  ngOnInit(): void {}
 
   addRole() {}
 

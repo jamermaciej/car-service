@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-hint',
@@ -6,11 +6,8 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
   styleUrls: ['./hint.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HintComponent implements OnInit {
+export class HintComponent {
   @Input() text: string;
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

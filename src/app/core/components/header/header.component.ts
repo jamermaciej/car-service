@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { logout } from 'src/app/store/actions';
 import * as fromRoot from './../../../store/reducers';
@@ -8,14 +8,11 @@ import * as fromRoot from './../../../store/reducers';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Output() toolbarMenuToggle = new EventEmitter<boolean>();
   isMenuOpen = true;
 
   constructor(private store: Store<fromRoot.State>) { }
-
-  ngOnInit(): void {
-  }
 
   onToolbarMenuToggle() {
     this.isMenuOpen = !this.isMenuOpen;

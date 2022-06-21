@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-orders-amount',
@@ -6,13 +6,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   styleUrls: ['./orders-amount.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrdersAmountComponent implements OnInit {
+export class OrdersAmountComponent {
   @Input() amount: number;
   @Input() text: string;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
