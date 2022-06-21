@@ -1,4 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire/compat';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslocoModule } from '@ngneat/transloco';
+import { provideMockStore } from '@ngrx/store/testing';
+import { environment } from 'src/environments/environment';
 
 import { UsersComponent } from './users.component';
 
@@ -8,7 +14,9 @@ describe('UsersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersComponent ]
+      declarations: [ UsersComponent ],
+      imports: [ AngularFireModule.initializeApp(environment.firebase), RouterTestingModule, MatSnackBarModule, TranslocoModule ],
+      providers: [ provideMockStore({}) ]
     })
     .compileComponents();
   }));

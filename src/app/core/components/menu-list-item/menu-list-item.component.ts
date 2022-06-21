@@ -37,7 +37,7 @@ export class MenuListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.sidenavService.currentUrlSubject$.subscribe((url: string) => {
-      if (this.item.route && url ) {
+      if (this.item && this.item.route && url ) {
         const translatedRoute = this.localize.translateRoute(this.item.route);
         this.expanded = url.indexOf(`${translatedRoute}`) === 0;
         this.ariaExpanded = this.expanded;
@@ -47,15 +47,15 @@ export class MenuListItemComponent implements OnInit {
 
   onItemSelected(event: Event, item: NavItem) {
     event.preventDefault();
-    if ( !item.children || !item.children.length ) {
-      this.store.dispatch(routerActions.go({ path: [item.route] }));
+    if ( !item?.children || !item.children?.length ) {
+      this.store.dispatch(routerActions.go({ path: [item?.route] }));
 
       if ( !this.sidenavService.sidenav.mode ) {
         this.sidenavService.closeSidenav();
       }
     }
 
-    if ( item.children && item.children.length ) {
+    if ( item?.children && item?.children?.length ) {
       this.expanded = !this.expanded;
       this.ariaExpanded = this.expanded;
     }

@@ -76,7 +76,8 @@ export class EditCarComponent implements OnInit, OnDestroy {
     });
 
     const id = +this.route.snapshot.paramMap.get('id');
-    this.store
+    if (id) {
+      this.store
       .select(getCar(id))
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((car) => {
@@ -87,6 +88,7 @@ export class EditCarComponent implements OnInit, OnDestroy {
           this.store.dispatch(go({ path: [FlowRoutes.CARS] }));
         }
       });
+    }
 
     this.filteredFuels = this.carForm.get('fuel').valueChanges.pipe(
       startWith(''),

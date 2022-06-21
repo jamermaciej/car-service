@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { TranslocoModule } from '@ngneat/transloco';
 import { LangComponent } from './lang.component';
+import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LangComponent', () => {
   let component: LangComponent;
@@ -8,7 +10,8 @@ describe('LangComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LangComponent ]
+      declarations: [ LangComponent ],
+      imports: [ LocalizeRouterModule, TranslocoModule, RouterTestingModule ]
     })
     .compileComponents();
   }));

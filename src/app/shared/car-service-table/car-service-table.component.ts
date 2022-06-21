@@ -111,17 +111,19 @@ export class CarServiceTableComponent implements OnInit, AfterViewInit {
     this.tableDataSource.paginator = this.matPaginator;
 
     setTimeout(() => {
-      const columnNames = this.tableColumns.filter(tableColumn => !!tableColumn.name).map(
-        (tableColumn: TableColumn) => tableColumn.name
-      );
-      if (this.rowActionIcon) {
-        this.displayedColumns = [...columnNames, this.rowActionIcon];
-      } else if (this.deleteActionIcon) {
-        this.displayedColumns = [...columnNames, this.deleteActionIcon];
-      } else if (this.tdAction) {
-        this.displayedColumns = [...columnNames, 'actions'];
-      } else {
-        this.displayedColumns = columnNames;
+      if (this.tableColumns) {
+        const columnNames = this.tableColumns.filter(tableColumn => !!tableColumn.name).map(
+          (tableColumn: TableColumn) => tableColumn.name
+        );
+        if (this.rowActionIcon) {
+          this.displayedColumns = [...columnNames, this.rowActionIcon];
+        } else if (this.deleteActionIcon) {
+          this.displayedColumns = [...columnNames, this.deleteActionIcon];
+        } else if (this.tdAction) {
+          this.displayedColumns = [...columnNames, 'actions'];
+        } else {
+          this.displayedColumns = columnNames;
+        }
       }
     });
   }

@@ -1,7 +1,6 @@
 import { Customer } from './../../../shared/models/customer.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CustomerService } from '../../services/customer.service';
 import * as fromCustomers from '../../store';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ofType, Actions } from '@ngrx/effects';
@@ -16,8 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 export class AddCustomerModalComponent implements OnInit, OnDestroy {
   destroySubject$: Subject<any> = new Subject();
 
-  constructor(private customerService: CustomerService,
-              private store: Store<fromCustomers.State>,
+  constructor(private store: Store<fromCustomers.State>,
               private dialogRef: MatDialogRef<AddCustomerModalComponent>,
               private actions$: Actions
             ) { }

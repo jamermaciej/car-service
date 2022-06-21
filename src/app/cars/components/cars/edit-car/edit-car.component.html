@@ -4,7 +4,7 @@
       <div class="col-12 col-lg-8">
         <mat-card class="card">
           <mat-card-header>
-            <mat-card-title>Car #{{ car.id }}</mat-card-title>
+            <mat-card-title>Car #{{ car?.id }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <form [formGroup]="carForm" (ngSubmit)="onSubmit()">
@@ -204,7 +204,7 @@
               <button
                 type="button"
                 mat-raised-button
-                (click)="removeCar(car.id)"
+                (click)="removeCar(car?.id)"
                 class="btn-add-order float-right"
               >
                 <mat-icon color="warn">delete</mat-icon>

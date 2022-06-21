@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { FirebaseModeContainerComponent } from './firebase-mode-container.component';
 
 describe('FirebaseModeContainerComponent', () => {
@@ -8,7 +8,8 @@ describe('FirebaseModeContainerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FirebaseModeContainerComponent ]
+      declarations: [ FirebaseModeContainerComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   }));

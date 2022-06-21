@@ -25,4 +25,4 @@ export function reducer(state: State | undefined, action: Action) {
     return uiReducer(state, action);
 }
 
-export const isLoading = (state: State) => state.isLoading;
+export const isLoading = (state: State) => state?.isLoading;

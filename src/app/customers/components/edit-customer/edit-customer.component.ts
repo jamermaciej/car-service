@@ -84,7 +84,7 @@ export class EditCustomerComponent implements OnInit, OnDestroy {
       email: ['', [RequiredValidator.required, EmailValidator.validateEmail]],
     });
 
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = +this.route?.snapshot?.paramMap?.get('id');
     this.store
       .select(getCustomer(id))
       .pipe(takeUntil(this.destroySubject$))

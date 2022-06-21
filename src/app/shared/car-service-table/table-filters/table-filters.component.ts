@@ -80,7 +80,9 @@ export class TableFiltersComponent implements OnInit {
     this.workers$ = this.store.select(getUsers);
     this.statuses$ = this.store.select(getStatuses);
 
-    this.data.filterPredicate = this.createFilter();
+    if (this.data) {
+      this.data.filterPredicate = this.createFilter();
+    }
     this.fieldListener();
   }
 

@@ -1,5 +1,3 @@
-import { StatusService } from './../../services/status.service';
-
 import { Status } from 'src/app/shared/models/status.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,7 +13,6 @@ import { State } from './../../store/reducer/statuses.reducer';
 export class StatusEditModalComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Status,
-              private statusService: StatusService,
               private store: Store<State>,
               private dialogRef: MatDialogRef<StatusEditModalComponent>) { }
 

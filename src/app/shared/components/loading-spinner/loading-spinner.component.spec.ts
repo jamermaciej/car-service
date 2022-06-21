@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { provideMockStore } from '@ngrx/store/testing';
 import { LoadingSpinnerComponent } from './loading-spinner.component';
 
 describe('LoadingSpinnerComponent', () => {
@@ -8,7 +8,8 @@ describe('LoadingSpinnerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoadingSpinnerComponent ]
+      declarations: [ LoadingSpinnerComponent ],
+      providers: [ provideMockStore({}) ]
     })
     .compileComponents();
   }));

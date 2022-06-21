@@ -1,14 +1,17 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCarFormComponent } from './add-customer-car.component';
+import { TranslocoModule } from '@ngneat/transloco';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-describe('AddCustomerFormComponent', () => {
+describe('AddCarFormComponent', () => {
   let component: AddCarFormComponent;
   let fixture: ComponentFixture<AddCarFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCarFormComponent ]
+      declarations: [ AddCarFormComponent ],
+      imports: [ FormsModule, ReactiveFormsModule, TranslocoModule, MatAutocompleteModule ]
     })
     .compileComponents();
   }));

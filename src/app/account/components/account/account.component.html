@@ -7,8 +7,8 @@
   <div class="account-block">
     <h2>{{'account.header.verify_email' | transloco}}</h2>
     <mat-divider></mat-divider>
-    <p>{{emailStatus(user.emailVerified) | transloco}}</p>
-    <button mat-stroked-button color="primary" [disabled]="user.emailVerified" (click)="sendEmailVerification()">
+    <p>{{emailStatus(user?.emailVerified) | transloco}}</p>
+    <button mat-stroked-button color="primary" [disabled]="user?.emailVerified" (click)="sendEmailVerification()">
       {{'account.button.verify_email' | transloco}}
     </button>
   </div>

@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { AngularFireModule } from '@angular/fire/compat';
 import { SidebarComponent } from './sidebar.component';
+import { environment } from 'src/environments/environment';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslocoModule } from '@ngneat/transloco';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -8,7 +13,9 @@ describe('SidebarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidebarComponent ]
+      declarations: [ SidebarComponent ],
+      imports: [ AngularFireModule.initializeApp(environment.firebase), RouterTestingModule, TranslocoModule, MatSnackBarModule ],
+      providers: [ provideMockStore({}) ]
     })
     .compileComponents();
   }));

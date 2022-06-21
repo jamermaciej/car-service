@@ -184,7 +184,7 @@
             >
               <mat-option
                 *ngFor="let status of statuses$ | async"
-                [value]="status.label"
+                [value]="status?.label"
               >
                 {{ status.label }}
               </mat-option>

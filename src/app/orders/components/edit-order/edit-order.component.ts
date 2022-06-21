@@ -68,7 +68,7 @@ export class EditOrderComponent implements OnInit, OnDestroy {
     this.customers$ = this.store.select(getCustomers);
     this.cars$ = this.store.select(getCars);
 
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = +this.route?.snapshot?.paramMap?.get('id');
     this.store
       .select(getOrder(id))
       .pipe(takeUntil(this.destroySubject$))

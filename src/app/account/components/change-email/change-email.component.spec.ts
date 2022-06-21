@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { ChangeEmailComponent } from './change-email.component';
 
@@ -8,7 +12,9 @@ describe('ChangeEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangeEmailComponent ]
+      declarations: [ ChangeEmailComponent ],
+      imports: [ ReactiveFormsModule, MatDialogModule, TranslocoTestingModule ],
+      providers: [ provideMockStore({}), {provide: MatDialogRef, useValue: {}} ]
     })
     .compileComponents();
   }));

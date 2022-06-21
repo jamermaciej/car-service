@@ -15,7 +15,7 @@ export class ErrorMessageComponent {
   get errorMessage() {
     const controlName = this.getControlName(this.control);
 
-    for (const key in this.control.errors) {
+    for (const key in this.control?.errors) {
       if (this.control.errors.hasOwnProperty(key) && this.control.invalid && this.control.touched) {
         switch (key) {
           case 'emailDomain':
@@ -42,7 +42,7 @@ export class ErrorMessageComponent {
   }
 
   getControlName(control: AbstractControl): string | null {
-    const formGroup = control.parent.controls;
-    return Object.keys(formGroup).find(name => formGroup[name] === control);
+    const formGroup = control?.parent?.controls;
+    return formGroup ? Object.keys(formGroup).find(name => formGroup[name] === control) : null;
   }
 }

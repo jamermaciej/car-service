@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { StatusFormComponent } from './status-form.component';
 
@@ -8,7 +10,8 @@ describe('StatusFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatusFormComponent ]
+      declarations: [ StatusFormComponent ],
+      imports: [ ReactiveFormsModule, TranslocoModule ],
     })
     .compileComponents();
   }));

@@ -31,7 +31,7 @@ export class EditPhotoComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.data.user;
-    this.photoURL = this.user.photoURL;
+    this.photoURL = this.user?.photoURL;
   }
 
   uploadFile() {

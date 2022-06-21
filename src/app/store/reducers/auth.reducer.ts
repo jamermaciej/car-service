@@ -75,6 +75,6 @@ export function reducer(state: State | undefined, action: Action) {
     return authReducer(state, action);
 }
 
-export const isLoggedIn = (state: State) => state.isLoggedIn;
-export const getUser = (state: State) => state.user;
+export const isLoggedIn = (state: State) => state?.isLoggedIn;
+export const getUser = (state: State) => state?.user;
 export const getErrorMessage = (state: State) => state.errorMessage;

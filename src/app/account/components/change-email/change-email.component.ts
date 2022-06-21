@@ -1,5 +1,4 @@
 import { Store } from '@ngrx/store';
-import { UserService } from './../../../core/services/user/user.service';
 import { RequiredValidator } from './../../../shared/validators/required-validator';
 import { EmailDomainValidator } from '../../../shared/validators/email-domain-validator';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +17,6 @@ export class ChangeEmailComponent implements OnInit {
   changeEmail: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
               private dialogRef: MatDialogRef<ChangeEmailComponent>,
               private store: Store<fromRoot.State>) { }
 

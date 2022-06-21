@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslocoModule } from '@ngneat/transloco';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { CarServiceTableComponent } from './car-service-table.component';
 
@@ -8,7 +11,9 @@ describe('CarServiceTableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CarServiceTableComponent ]
+      declarations: [ CarServiceTableComponent ],
+      imports: [ ReactiveFormsModule, TranslocoModule ],
+      providers: [ provideMockStore({}) ]
     })
     .compileComponents();
   }));

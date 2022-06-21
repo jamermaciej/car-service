@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { CustomersComponent } from './customers.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslocoModule } from '@ngneat/transloco';
 
 describe('CustomersComponent', () => {
   let component: CustomersComponent;
@@ -8,7 +10,9 @@ describe('CustomersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomersComponent ]
+      declarations: [ CustomersComponent ],
+      imports: [ RouterTestingModule, TranslocoModule ],
+      providers: [ provideMockStore({}) ]
     })
     .compileComponents();
   }));

@@ -4,7 +4,7 @@
       <div class="col-12 col-lg-8">
         <mat-card class="card">
           <mat-card-header>
-            <mat-card-title>Customer #{{ customer.id }}</mat-card-title>
+            <mat-card-title>Customer #{{ customer?.id }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
@@ -170,7 +170,7 @@
               <button
                 type="button"
                 mat-raised-button
-                (click)="removeCustomer(customer.id)"
+                (click)="removeCustomer(customer?.id)"
                 class="btn-add-order float-right"
               >
                 <mat-icon color="warn">delete</mat-icon>

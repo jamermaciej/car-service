@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { SidenavService } from './sidenav.service';
 
@@ -6,7 +7,9 @@ describe('SidenavService', () => {
   let service: SidenavService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ]
+    });
     service = TestBed.inject(SidenavService);
   });
 
