@@ -33,7 +33,7 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
     AddCustomerFormComponent,
     AddCarFormComponent,
     StatusFormComponent,
-    OrdersAmountComponent,
+    OrdersAmountComponent
   ],
   imports: [
     CommonModule,

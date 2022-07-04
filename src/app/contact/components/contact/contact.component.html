@@ -5,7 +5,18 @@
                 <app-contact-form></app-contact-form>
             </div>
             <div class="col-8">
-                <app-contact-info></app-contact-info>
+                <mat-card class="customer-card h-100">
+                    <mat-card-content class="h-100">
+                        <div class="row h-100">
+                            <div class="col-3">
+                                <app-contact-info></app-contact-info>
+                            </div>
+                            <div class="col-9">
+                                <app-map [location]="location" [zoom]="zoom"></app-map>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </div>

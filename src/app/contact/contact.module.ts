@@ -6,6 +6,7 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
 import { SharedModule } from '../shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
+import { MapModule } from '../shared/map/map.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ContactInfoComponent } from './components/contact-info/contact-info.com
     CommonModule,
     ContactRoutingModule,
     SharedModule,
-    MatCardModule
+    MatCardModule,
+    MapModule
   ]
 })
 export class ContactModule { }
