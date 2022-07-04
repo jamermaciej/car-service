@@ -32,6 +32,7 @@ import * as fromAdmin from './../admin/store';
 import * as usersReducer from './../admin/store/reducer/users.reducer';
 import * as statusesReducer from './../admin/store/reducer/statuses.reducer';
 import * as fromOrders from './../orders/store';
+import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,7 @@ import * as fromOrders from './../orders/store';
         HeaderComponent,
         SidebarComponent,
         MenuListItemComponent,
-        LoadingSpinnerComponent
+        LoadingSpinnerComponent,
     ],
     imports: [
         CommonModule,
@@ -63,7 +64,8 @@ import * as fromOrders from './../orders/store';
         StoreModule.forFeature('users', usersReducer.reducer),
         StoreModule.forFeature('statuses', statusesReducer.reducer),
         StoreModule.forFeature('orders', fromOrders.reducer),
-        EffectsModule.forFeature([CustomersEffects, CarsEffects, UsersEffects, StatusesEffects, fromOrders.CarsEffects])
+        EffectsModule.forFeature([CustomersEffects, CarsEffects, UsersEffects, StatusesEffects, fromOrders.CarsEffects]),
+        LocalizeRouterModule
     ],
     exports: [LangComponent, LoadingSpinnerComponent]
 })

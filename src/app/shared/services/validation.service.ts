@@ -101,6 +101,12 @@ export class ValidationService {
       },
       'user': {
         'required': 'orders.error.worker.required'
+      },
+      'subject': {
+        'required': 'contact.error.subject.required'
+      },
+      'message': {
+        'required': 'contact.error.message.required'
       }
     };
 

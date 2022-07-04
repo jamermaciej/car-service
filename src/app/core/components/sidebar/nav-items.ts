@@ -48,9 +48,9 @@ export const navItem = [
         iconName: 'people',
         route: FlowRoutes.CUSTOMERS
       },
-      {
-        displayName: 'sidebar.nav_item.settings',
-        iconName: 'settings',
-        route: FlowRoutes.SETTINGS
-      }
+      // {
+      //   displayName: 'sidebar.nav_item.settings',
+      //   iconName: 'settings',
+      //   route: FlowRoutes.SETTINGS
+      // }
 ];

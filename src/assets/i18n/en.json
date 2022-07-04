@@ -193,6 +193,29 @@
 			"success": "Your email address has been verified successfully."
 		}
 	},
+	"contact": {
+		"button": {
+			"send": "Send"
+		},
+		"error": {
+			"message": {
+				"required": "Message is required."
+			},
+			"subject": {
+				"required": "Subject is required."
+			}
+		},
+		"header": {
+			"contact_us": "Contact Us"
+		},
+		"label": {
+			"email": "Email *",
+			"message": "Message *",
+			"name": "Name *",
+			"phone": "Phone",
+			"subject": "Message Subject *"
+		}
+	},
 	"customer": {
 		"add_customer": {
 			"header": "Add new customer",

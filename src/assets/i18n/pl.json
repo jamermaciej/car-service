@@ -193,6 +193,29 @@
 			"success": "Twój adres email został pomyślnie zweryfikowany."
 		}
 	},
+	"contact": {
+		"button": {
+			"send": "Wyślij"
+		},
+		"error": {
+			"message": {
+				"required": "Treść wiadomości jest wymagana."
+			},
+			"subject": {
+				"required": "Tytuł wiadomości jest wymagany."
+			}
+		},
+		"header": {
+			"contact_us": "Skontaktuj się z nami"
+		},
+		"label": {
+			"email": "Adres email *",
+			"message": "Treść *",
+			"name": "Imię i Nazwisko *",
+			"phone": "Telefon",
+			"subject": "Temat wiadomości *"
+		}
+	},
 	"customer": {
 		"add_customer": {
 			"header": "Dodaj nowego klienta",

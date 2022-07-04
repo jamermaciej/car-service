@@ -66,7 +66,12 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
     TranslocoModule,
     CarServiceTableModule,
     OrdersAmountComponent,
-    ScheduleModule
+    ScheduleModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
   ],
 })
 export class SharedModule {}

@@ -8,6 +8,7 @@ import { LayoutComponent } from './core/components/layout/layout.component';
 import { Role } from './core/enums/roles';
 import { UserRoleGuard } from './core/services/user-role-guard/user-role-guard.service';
 import { localizeRouterConfig, LocalizeRouterModule, LOCALIZE_ROUTER_CONFIG } from '@penleychan/ngx-transloco-router';
+import { ContactComponent } from './contact/components/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,21 @@ const routes: Routes = [
           title: 'Customers',
         },
       },
+      {
+        path: 'terms',
+        component: TermsComponent,
+        data: {
+          title: 'Terms',
+        },
+      },
+      {
+        path: 'contact',
+        loadChildren: () =>
+          import('./contact/contact.module').then((m) => m.ContactModule),
+        data: {
+          title: 'Contact',
+        },
+      },
     ],
   },
   {
@@ -97,13 +113,6 @@ const routes: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
     data: {
       title: 'Login',
-    },
-  },
-  {
-    path: 'terms',
-    component: TermsComponent,
-    data: {
-      title: 'Terms',
     },
   },
   {
