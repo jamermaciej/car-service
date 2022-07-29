@@ -16,8 +16,8 @@ export class CarService {
     return this.http.get<Car[]>(`${environment.apiUrl}/cars`);
   }
 
-  getCar(uid: string): Observable<Car> {
-    return this.http.get<Car>(`${environment.apiUrl}/${uid}`);
+  getCar(id: number): Observable<Car> {
+    return this.http.get<Car>(`${environment.apiUrl}/cars/${id}`);
   }
 
   addCar(car: Car): Observable<Car> {
