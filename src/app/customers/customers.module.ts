@@ -17,12 +17,14 @@ import { AddCustomerModalComponent } from './components/add-customer-modal/add-c
 import { MatInputModule } from '@angular/material/input';
 import { EditCustomerComponent } from './components/edit-customer/edit-customer.component';
 import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
+import { CustomersCardListComponent } from './components/customers-card-list/customers-card-list.component';
 
 @NgModule({
   declarations: [
     CustomersComponent,
     AddCustomerModalComponent,
     EditCustomerComponent,
+    CustomersCardListComponent,
   ],
   imports: [
     CommonModule,

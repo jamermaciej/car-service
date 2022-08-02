@@ -1,0 +1,8 @@
+<mat-card *ngFor="let customer of customers" class="customer-card">
+    <mat-card-header>
+      <mat-card-title>{{ customer.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        {{ customer.email }}
+    </mat-card-content>
+</mat-card>
