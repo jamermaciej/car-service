@@ -151,6 +151,16 @@ export class UserService {
     }
   }
 
+  async updateProfile(name: string) {
+    try {
+      await this.userFirebase.updateProfile({
+        displayName: name
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async changePassword(oldPassword: string, newPassword: string) {
     try {
       await this.refresh(oldPassword);

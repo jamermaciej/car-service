@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
 import * as fromRoot from './../../../store/reducers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ import * as fromRoot from './../../../store/reducers';
 export class ProfileComponent implements OnInit {
   user: User;
   profileForm: FormGroup;
+  users: User[];
 
   constructor(private userService: UserService,
               private dialog: MatDialog,
@@ -38,6 +40,13 @@ export class ProfileComponent implements OnInit {
         name: user?.displayName
       });
     });
+
+    // code added only for learn test component
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      this.userService.getUserData(user.uid).subscribe(user => this.user = user);
+    }
+    this.userService.getUsersData().subscribe(user => this.users = user);
   }
 
   editPhoto() {
@@ -62,9 +71,7 @@ export class ProfileComponent implements OnInit {
       };
       this.store.dispatch(profileActions.updateUser({ user }));
 
-      this.userService.userFirebase.updateProfile({
-        displayName: name
-      });
+      this.userService.updateProfile(name);
       this.profileForm.markAsPristine();
     } else {
       this.profileForm.markAllAsTouched();
