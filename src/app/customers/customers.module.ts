@@ -42,6 +42,6 @@ import { CustomersCardListComponent } from './components/customers-card-list/cus
     MatCardModule,
     MatAutocompleteModule,
     LocalizeRouterModule
-  ],
+  ]
 })
 export class CustomersModule {}

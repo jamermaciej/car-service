@@ -3,6 +3,8 @@ import { AddOrderComponent } from './components/add-order/add-order.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddCustomerModalComponent } from '../customers/components/add-customer-modal/add-customer-modal.component';
+import { ModalContainerComponent } from './components/modal-container/modal-container.component';
 
 const routes: Routes = [
     {
@@ -11,7 +13,18 @@ const routes: Routes = [
     },
     {
       path: 'add',
-      component: AddOrderComponent
+      component: AddOrderComponent,
+      // children: [
+      //   {
+      //     path: 'new-customer',
+      //     component: ModalContainerComponent,
+      //     data: {
+      //       component: AddCustomerModalComponent,
+      //       panelClass: 'add-customer-dialog',
+      //       autoFocus: false
+      //     }
+      //   }
+      // ]
     },
     {
       path: ':id',

@@ -23,6 +23,7 @@ import { EditOrderComponent } from './components/edit-order/edit-order.component
 import { MatDayjsDateModule, MAT_DAYJS_DATE_ADAPTER_OPTIONS } from '@tabuckner/material-dayjs-adapter';
 import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
 import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
+import { ModalContainerComponent } from './components/modal-container/modal-container.component';
 
 /**
  * Custom Date-Formats and Adapter (using https://github.com/iamkun/dayjs)
@@ -40,7 +41,7 @@ export const MAT_DAYJS_DATE_FORMATS: MatDateFormats = {
 };
 
 @NgModule({
-  declarations: [OrdersComponent, AddOrderComponent, EditOrderComponent],
+  declarations: [OrdersComponent, AddOrderComponent, EditOrderComponent, ModalContainerComponent],
   imports: [
     CommonModule,
     OrdersRoutingModule,

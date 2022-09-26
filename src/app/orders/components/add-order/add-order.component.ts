@@ -29,6 +29,8 @@ import { getStatuses } from 'src/app/admin/store/selectors/statuses.selectors';
 import { MatInput } from '@angular/material/input';
 import * as dayjs from 'dayjs';
 import { Order } from 'src/app/shared/models/order.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
 
 @Component({
   selector: 'app-add-order',
@@ -58,7 +60,10 @@ export class AddOrderComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private store: Store<fromOrders.OrdersState>
+    private store: Store<fromOrders.OrdersState>,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private localize: LocalizeRouterService
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +90,13 @@ export class AddOrderComponent implements OnInit {
 
     const deadlineDate = dayjs().add(1, 'day').format();
     this.orderForm.get('deadline').setValue(deadlineDate);
+
+    // if (this.activatedRoute.snapshot.queryParams['dialog']) {
+    //   this.dialog.open(AddCustomerModalComponent, {
+    //     panelClass: 'add-customer-dialog',
+    //     autoFocus: false,
+    //   });
+    // }
   }
 
   validateAllFormFields(formGroup: FormGroup) {
@@ -162,6 +174,9 @@ export class AddOrderComponent implements OnInit {
   }
 
   addCustomer() {
+    // const translatedRoute = this.localize.translateRoute(['/orders/add/new-customer']);
+    // this.router.navigate([...translatedRoute]);
+
     const dialogRef = this.dialog.open(AddCustomerModalComponent, {
       panelClass: 'add-customer-dialog',
       autoFocus: false,
