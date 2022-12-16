@@ -62,7 +62,7 @@ export class UsersEffects {
         pluck('user'),
         switchMap((user) =>
           from(this.userService.updateUserData(user)).pipe(
-            map(() => usersActions.updateUserSuccess({ user })),
+            map(() => usersActions.updateUserSuccess({ user, alert: false })),
             catchError((error) => of(usersActions.updateUserFailure({ error })))
           )
         )

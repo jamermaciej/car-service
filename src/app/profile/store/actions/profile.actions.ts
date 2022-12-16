@@ -4,12 +4,12 @@ import { createAction, props } from '@ngrx/store';
 
 export const updateUser = createAction(
     '[Profile] Update User',
-    props<{ user: User }>()
+    props<{ user: User, alert: boolean }>()
 );
 
 export const updateUserSuccess = createAction(
     '[Profile] Update User Success',
-    props<{ user: User }>()
+    props<{ user: User, alert: boolean }>()
 );
 
 export const updateUserFailure = createAction(

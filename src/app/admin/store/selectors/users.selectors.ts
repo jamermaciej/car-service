@@ -9,6 +9,6 @@ export const getUsers = createSelector(getUsersState, (state: usersReducer.State
 export const getUser = createSelector(
     getUsers,
     (users: User[], uid: string) => {
-        return users.find((user: User) => user?.uid === uid);
+        return users?.find((user: User) => user?.uid === uid);
     }
 );

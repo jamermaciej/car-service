@@ -77,7 +77,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
       roles: [role],
     };
 
-    this.store.dispatch(updateUser({ user: updatedUser }));
+    this.store.dispatch(updateUser({ user: updatedUser, alert: false }));
     this.showRolesSelect = null;
   }
 

@@ -33,6 +33,7 @@ import * as usersReducer from './../admin/store/reducer/users.reducer';
 import * as statusesReducer from './../admin/store/reducer/statuses.reducer';
 import * as fromOrders from './../orders/store';
 import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
+import { ClickOutsideDirective } from '../shared/directives/click-outside/click-outside.directive';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
         SidebarComponent,
         MenuListItemComponent,
         LoadingSpinnerComponent,
+        ClickOutsideDirective
     ],
     imports: [
         CommonModule,

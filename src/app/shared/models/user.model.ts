@@ -8,4 +8,17 @@ export interface User {
     createdAt?: string;
     lastLoginAt?: string;
     roles: string[];
+    notifications?: Notification[];
+    notificationsCounter?: number;
+}
+
+export interface Notification {
+    message: string;
+    notificationType: string;
+    receiverType: string;
+    receivers: string[];
+    sender: string;
+    date: Date;
+    id: string;
+    readed: boolean;
 }

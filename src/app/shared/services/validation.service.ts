@@ -107,6 +107,12 @@ export class ValidationService {
       },
       'message': {
         'required': 'contact.error.message.required'
+      },
+      'receiverType': {
+        'required': 'contact.error.message.required'
+      },
+      'receivers': {
+        'required': 'contact.error.message.required'
       }
     };
 

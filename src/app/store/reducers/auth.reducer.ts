@@ -58,10 +58,14 @@ const authReducer = createReducer(
         user: null,
         errorMessage: null
     })),
-    on(authActions.updateEmailSuccess, profileActions.updateUserSuccess, (state, { user } ) => ({
-        ...state,
+    on(authActions.updateEmailSuccess, profileActions.updateUserSuccess, (state, { user } ) => 
+    {
+// console.log(user)
+        return {
+            ...state,
         user
-    })),
+        }
+    }),
     on(authActions.confirmEmailSuccess, state => ({
         ...state,
         user: {

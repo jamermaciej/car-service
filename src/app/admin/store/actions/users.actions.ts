@@ -15,12 +15,12 @@ export const getUsersFailure = createAction(
 
 export const updateUser = createAction(
   '[Users] Update User',
-  props<{ user: User }>()
+  props<{ user: User, alert: boolean }>()
 );
 
 export const updateUserSuccess = createAction(
   '[Users] Update User Success',
-  props<{ user: User }>()
+  props<{ user: User, alert: boolean }>()
 );
 
 export const updateUserFailure = createAction(

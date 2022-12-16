@@ -13,13 +13,18 @@ export const navItem = [
         children: [
           {
             displayName: 'sidebar.nav_item.users',
-            iconName: 'list',
+            iconName: 'people',
             route: FlowRoutes.USERS,
           },
           {
             displayName: 'sidebar.nav_item.statuses',
             iconName: 'list',
             route: FlowRoutes.STATUSES,
+          },
+          {
+            displayName: 'sidebar.nav_item.notifications',
+            iconName: 'notifications',
+            route: FlowRoutes.NOTIFICATIONS,
           }
         ]
       },

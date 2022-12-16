@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorMessageComponent } from './components/error-message/error-message/error-message.component';
+import { ErrorMessageComponent } from './error-message/components/error-message/error-message.component';
 import { HintComponent } from './components/hint/hint/hint.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -24,10 +24,10 @@ import { RouterModule } from '@angular/router';
 import { CarServiceTableModule } from './car-service-table/car-service-table.module';
 import { OrdersAmountComponent } from './components/orders-amount/orders-amount.component';
 import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
+import { ErrorMessageModule } from './error-message/error-message.module';
 
 @NgModule({
   declarations: [
-    ErrorMessageComponent,
     HintComponent,
     LogoComponent,
     AddCustomerFormComponent,
@@ -52,12 +52,12 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
     MatSelectModule,
     LocalizeRouterModule,
     RouterModule,
-    ScheduleModule
+    ScheduleModule,
+    ErrorMessageModule
   ],
   exports: [
     CommonModule,
     FormsModule,
-    ErrorMessageComponent,
     HintComponent,
     LogoComponent,
     AddCustomerFormComponent,
@@ -71,7 +71,8 @@ import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    ErrorMessageModule
   ],
 })
 export class SharedModule {}

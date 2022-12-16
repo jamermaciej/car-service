@@ -6,6 +6,7 @@ export enum FlowRoutes {
     ADMIN = '/admin',
     USERS = '/admin/users',
     STATUSES = '/admin/statuses',
+    NOTIFICATIONS = '/admin/notifications',
     PROFILE = '/profile',
     ACCOUNT = '/account',
     ORDERS = '/orders',

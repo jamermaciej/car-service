@@ -74,6 +74,11 @@ input:-webkit-autofill:active {
     color: #fff;
   }
 
+  &.info {
+    background: #4853e2;
+    color: #fff;
+  }
+
   .mat-simple-snackbar {
     justify-content: center;
   }

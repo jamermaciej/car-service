@@ -83,7 +83,7 @@ export class EditPhotoComponent implements OnInit {
               photoURL: url
             };
 
-            this.store.dispatch(updateUser({ user }));
+            this.store.dispatch(updateUser({ user, alert: true }));
 
             this.dialogRef.close({ data: 'success' });
           });

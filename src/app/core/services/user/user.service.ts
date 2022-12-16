@@ -62,7 +62,9 @@ export class UserService {
         phoneNumber: user.phoneNumber || userData.get('phoneNumber'),
         createdAt: user.metadata.creationTime,
         lastLoginAt: user.metadata.lastSignInTime,
-        roles: userData.get('roles')
+        roles: userData.get('roles'),
+        notifications: userData.get('notifications') || [],
+        notificationsCounter: userData.get('notificationsCounter') || 0
       };
     }
 

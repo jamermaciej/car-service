@@ -324,6 +324,30 @@
 		"no_account": "Nie masz konta?",
 		"title": "Zaloguj się"
 	},
+	"notifications": {
+		"button": {
+			"send": "Wyślij"
+		},
+		"header": {
+			"add": "Wyślij nowe powiadomienie"
+		},
+		"label": {
+			"message": "Wpisz treść powiadomienia *",
+			"notificationType": "Wybierz typ powiadomienia *",
+			"receiverType": "Wybierz grupę docelową powiadomienia",
+			"receivers": "Wybierz osobę lub grupę do której chcesz wysłać powiadomienie"
+		},
+		"notificationType": {
+			"danger": "Ostrzeżenie",
+			"info": "Info",
+			"success": "Sukces"
+		},
+		"receiverType": {
+			"customer": "Klient",
+			"employee": "Pracownik",
+			"group": "Grupa"
+		}
+	},
 	"orders": {
 		"button": {
 			"add_car": "Dodaj nowy samochów",
@@ -462,6 +486,7 @@
 			"cars": "Samochody",
 			"customers": "Klienci",
 			"dashboard": "Panel główny",
+			"notifications": "Powiadomienia",
 			"orders_service": "Zlecenia",
 			"profile": "Mój profil",
 			"settings": "Ustawienia",

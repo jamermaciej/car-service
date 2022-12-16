@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
         displayName: name,
         phoneNumber
       };
-      this.store.dispatch(profileActions.updateUser({ user }));
+      this.store.dispatch(profileActions.updateUser({ user, alert: true }));
 
       this.userService.updateProfile(name);
       this.profileForm.markAsPristine();

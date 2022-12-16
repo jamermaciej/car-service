@@ -324,6 +324,30 @@
 		"no_account": "Don't have an account?",
 		"title": "Sign in"
 	},
+	"notifications": {
+		"button": {
+			"send": "Send"
+		},
+		"header": {
+			"add": "Send new notification"
+		},
+		"label": {
+			"message": "Enter the content of the notification *",
+			"notificationType": "Select a notification type *",
+			"receiverType": "Select the target group of the notification",
+			"receivers": "Select the person or group you want to send the notification to"
+		},
+		"notificationType": {
+			"danger": "Danger",
+			"info": "Info",
+			"success": "Success"
+		},
+		"receiverType": {
+			"customer": "Customer",
+			"employee": "Employee",
+			"group": "Group"
+		}
+	},
 	"orders": {
 		"button": {
 			"add_car": "Add new car",
@@ -462,6 +486,7 @@
 			"cars": "Cars",
 			"customers": "Customers",
 			"dashboard": "Dashboard",
+			"notifications": "Notifications",
 			"orders_service": "Orders service",
 			"profile": "Profile",
 			"settings": "Settings",

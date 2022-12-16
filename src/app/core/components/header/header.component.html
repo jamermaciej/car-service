@@ -1,6 +1,19 @@
 <header class="header">
     <mat-icon (click)="onToolbarMenuToggle()">subject</mat-icon>
     <div class="header__right">
+        <div class="position-relative" appClickOutside (clickOutside)="clikedOutside()">
+            <mat-icon (click)="toggleNotifications()" [matBadge]="notificationsCounter ? notificationsCounter : null">notifications</mat-icon>
+            <div *ngIf="notifications?.length && showNotifications" class="header__notifications">
+                <p class="text-center my-2">You have {{ unreadedNotifications ? unreadedNotifications : 0 }} unread notification</p>
+                <ul>
+                    <li class="cursor-pointer" [class]="notification.notificationType" [class]="notification.readed ? 'readed' : ''" *ngFor="let notification of notifications" (click)="markAsReaded(notification)">
+                        <p class="m-0">{{ notification.message }}</p>
+                        <span *ngIf="notification.date">{{ notification.date | date: 'MMM d YYYY H:mm a' }}</span>
+                        <mat-icon (click)="deleteNotification(notification)">delete</mat-icon>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <button mat-icon-button color="accent" aria-label="Logout" (click)="logout()">
             <mat-icon>logout</mat-icon>
         </button>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { from, of } from 'rxjs';
-import { catchError, map, switchMap, tap, mergeMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap, mergeMap, pluck, filter } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert/alert-service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { User } from 'src/app/shared/models/user.model';
@@ -26,7 +26,7 @@ export class ProfileEffects {
                 mergeMap(() => {
                     const user = action.user;
                     return [
-                        profileActions.updateUserSuccess({ user })
+                        profileActions.updateUserSuccess({ user, alert: action.alert })
                     ];
                 }),
                 catchError(error => of(profileActions.updateUserFailure(error)))
@@ -38,6 +38,8 @@ export class ProfileEffects {
 
     updateUserSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(profileActions.updateUserSuccess),
+        pluck('alert'),
+        filter(alert => alert),
         tap(() => this.alertService.showAlert('Profile updated.', 'success'))
     ), {
         dispatch: false

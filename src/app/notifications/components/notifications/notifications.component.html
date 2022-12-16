@@ -1,0 +1,92 @@
+<section class="notifications">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 notifications__form">
+                <mat-card>
+                    <mat-card-header class="mb-4">
+                        <mat-card-title>{{ 'notifications.header.add' | transloco }}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form [formGroup]="notificationsForm" (ngSubmit)="onSubmit()">
+                            <mat-form-field>
+                                <mat-label>{{ 'notifications.label.receiverType' | transloco }}</mat-label>
+                                <mat-select
+                                    formControlName="receiverType"
+                                    name="receiverType"
+                                    [(ngModel)]="defaultNotificationType"
+                                >
+                                  <mat-option *ngFor="let type of notificationReceiverType | keyvalue" [value]="type.value">
+                                    {{ 'notifications.receiverType.' + [type.value] | transloco }}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <ng-container *ngIf="receiverType.value === notificationReceiverType.EMPLOYEE">
+                                <mat-form-field>
+                                    <mat-label>{{ 'notifications.label.receivers' | transloco }}</mat-label>
+                                    <mat-select
+                                        formControlName="receivers"
+                                        name="receivers"
+                                        multiple="true"
+                                  >
+                                    <mat-option *ngFor="let user of users$ | async" [value]="user.uid">
+                                      {{ user.displayName }}
+                                    </mat-option>
+                                  </mat-select>
+                                    <app-error-message [control]="notificationsForm.get('receivers')"></app-error-message>
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="receiverType.value === notificationReceiverType.CUSTOMER">
+                                <mat-form-field>
+                                    <mat-label>{{ 'notifications.label.receivers' | transloco }}</mat-label>
+                                    <mat-select
+                                        formControlName="receivers"
+                                        name="receivers"
+                                        multiple="true"
+                                  >
+                                    <mat-option *ngFor="let customer of customers$ | async" [value]="customer._id">
+                                      {{ customer.name }} {{ customer.surname }}
+                                    </mat-option>
+                                  </mat-select>
+                                    <app-error-message [control]="notificationsForm.get('receivers')"></app-error-message>
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="receiverType.value === notificationReceiverType.GROUP">
+                                <mat-form-field>
+                                    <mat-label>{{ 'notifications.label.receivers' | transloco }}</mat-label>
+                                    <mat-select
+                                        formControlName="receivers"
+                                        name="receivers"
+                                        multiple="true"
+                                  >
+                                    <mat-option *ngFor="let role of roles | keyvalue" [value]="role.value">
+                                      {{ role.value }}
+                                    </mat-option>
+                                  </mat-select>
+                                    <app-error-message [control]="notificationsForm.get('receivers')"></app-error-message>
+                                </mat-form-field>
+                            </ng-container>
+                            <mat-form-field>
+                                <mat-label>{{ 'notifications.label.notificationType' | transloco }}</mat-label>
+                                <mat-select
+                                    formControlName="notificationType"
+                                    name="notificationType"
+                              >
+                                <mat-option *ngFor="let type of notificationType | keyvalue" [value]="type.value">
+                                  {{ 'notifications.notificationType.' + [type.value] | transloco }}
+                                </mat-option>
+                              </mat-select>
+                                <app-error-message [control]="notificationsForm.get('notificationType')"></app-error-message>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{ 'notifications.label.message' | transloco }}</mat-label>
+                                <input type="text" name="message" matInput formControlName="message">
+                                <app-error-message [control]="notificationsForm.get('message')"></app-error-message>
+                            </mat-form-field>
+                            <button [disabled]="notificationsForm.invalid || notificationsForm.untouched" type="submit" mat-raised-button color="primary" class="btn-add-order">{{ 'notifications.button.send' | transloco }}</button>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</section>

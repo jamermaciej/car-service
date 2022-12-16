@@ -29,6 +29,7 @@ import { HttpErrorInterceptor } from './core/interceptors/http/http.interceptor'
 import localePl from '@angular/common/locales/pl';
 import localeEn from '@angular/common/locales/en';
 import { registerLocaleData } from '@angular/common';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 // register locales
 registerLocaleData(localePl);
@@ -37,6 +38,13 @@ registerLocaleData(localeEn);
 export function initApp(appInitService: AppInitService) {
   return (): Promise<any> => appInitService.Init();
 }
+
+const config: SocketIoConfig = {
+  url: environment.socketIoUrl,
+  options: {
+    path: environment.socketIoPath
+  }
+};
 
 @NgModule({
   declarations: [
@@ -58,7 +66,8 @@ export function initApp(appInitService: AppInitService) {
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer
     }),
-    EffectsModule.forRoot(effects)
+    EffectsModule.forRoot(effects),
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     AppInitService,
