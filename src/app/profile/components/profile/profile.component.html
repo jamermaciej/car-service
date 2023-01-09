@@ -26,7 +26,7 @@
             <div class="col-12 col-lg-4 profile__preview">
               <mat-card class="card" *ngIf="user">
                   <mat-card-header>
-                    <div mat-card-avatar (click)="editPhoto()" class="header-image" [style.background-image]="user?.photoURL ? 'url(' + user?.photoURL + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
+                    <div mat-card-avatar (click)="editPhoto()" class="header-image" [style.background-image]="user?.photo ? 'url(' + user?.photo + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
                     <mat-card-title>{{ user?.displayName }}</mat-card-title>
                     <mat-card-subtitle>{{ user?.email }}</mat-card-subtitle>
                     <app-checkmark [isChecked]="user?.emailVerified" [classes]="'email-verify'">

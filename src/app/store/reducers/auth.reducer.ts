@@ -2,7 +2,6 @@ import { updateEmailSuccess, confirmEmailSuccess } from './../actions/auth.actio
 import { Action, createReducer, on } from '@ngrx/store';
 import { User } from '../../shared/models/user.model';
 import * as authActions from '../actions/auth.actions';
-import * as profileActions from '../../profile/store/actions/profile.actions';
 
 export interface State {
     isLoggedIn: boolean;
@@ -21,7 +20,7 @@ const authReducer = createReducer(
     on(authActions.login, (state, { email, password }) => ({
         ...state
     })),
-    on(authActions.loginSuccess, profileActions.getUserSuccess, (state, { user } ) => ({
+    on(authActions.loginSuccess, (state, { user } ) => ({
         ...state,
         isLoggedIn: true,
         user,
@@ -33,7 +32,7 @@ const authReducer = createReducer(
         user: null,
         errorMessage: null
     })),
-    on(authActions.logout, (state) => ({
+    on(authActions.logoutSuccess, (state) => ({
         ...state,
         isLoggedIn: false,
         user: null,
@@ -48,31 +47,29 @@ const authReducer = createReducer(
     })),
     on(authActions.registerSuccess, (state, { user } ) => ({
         ...state,
-        isLoggedIn: true,
-        user,
         errorMessage: null
     })),
     on(authActions.registerFailure, (state, { error } ) => ({
         ...state,
         isLoggedIn: false,
         user: null,
-        errorMessage: null
+        errorMessage: error
     })),
-    on(authActions.updateEmailSuccess, profileActions.updateUserSuccess, (state, { user } ) => 
-    {
-// console.log(user)
-        return {
-            ...state,
-        user
-        }
-    }),
-    on(authActions.confirmEmailSuccess, state => ({
+    on(authActions.updateEmailSuccess, (state, { user } ) => ({
         ...state,
-        user: {
-            ...state.user,
-            emailVerified: true
-        }
-    }))
+        user
+    })),
+    // on(authActions.confirmEmailSuccess, state => ({
+    //     ...state,
+    //     user: {
+    //         ...state.user,
+    //         emailVerified: true
+    //     }
+    // }))
+    on(authActions.updateUserSuccess, (state, { user } ) => ({
+        ...state,
+        user
+    })),
   );
 
 export function reducer(state: State | undefined, action: Action) {

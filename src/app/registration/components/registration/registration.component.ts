@@ -44,7 +44,7 @@ export class RegistrationComponent implements OnInit {
           NoWhitespaceValidator.checkWhitespace,
           PasswordValidator.validatePassword]
         ],
-      confirmPassword: ['', RequiredValidator.required],
+      passwordConfirm: ['', RequiredValidator.required],
       terms: ['', [Validators.requiredTrue]]
     }, { validator: PasswordValidator.matchPassword });
   }
@@ -64,13 +64,14 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
 
     if (this.registrationForm.valid) {
-      const { name, email, password } = this.registrationForm.value;
+      const { name, email, password, passwordConfirm } = this.registrationForm.value;
       const registerData: RegisterData = {
         name,
         email,
-        password
+        password,
+        passwordConfirm
       };
-      this.store.dispatch(register(registerData));
+      this.store.dispatch(register({ registerData }));
     } else {
       // alternative for validateAllFormFields, markAllAsTouched mark form as toutch too
       this.registrationForm.markAllAsTouched();

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
 import * as fromRoot from './../../../store/reducers';
 import { Store } from '@ngrx/store';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-account',
@@ -19,6 +20,7 @@ import { Store } from '@ngrx/store';
 })
 export class AccountComponent implements OnInit {
   user$: Observable<User>;
+  email: string;
 
   constructor(private dialog: MatDialog,
               private store: Store<fromRoot.State>,
@@ -26,11 +28,13 @@ export class AccountComponent implements OnInit {
               private translocoService: TranslocoService) { }
 
   ngOnInit(): void {
-    this.user$ = this.store.select(getUser);
+    this.user$ = this.store.select(getUser).pipe(
+      tap((user: User) => this.email = user.email)
+    );
   }
 
   sendEmailVerification() {
-    this.store.dispatch(sendEmailVerification());
+    this.store.dispatch(sendEmailVerification({ email: this.email }));
     const successMessage = this.translocoService.translate('account.message.success.verify_email');
     this.alertService.showAlert(successMessage, 'success');
   }

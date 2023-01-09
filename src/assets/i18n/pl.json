@@ -56,6 +56,7 @@
 			"my_account": "Moje konto",
 			"verify_email": "Zweryfikuj swój email"
 		},
+		"last_login_at": "Ostatnie logowanie do konta:",
 		"logout": {
 			"message": {
 				"success": "Zostałeś wylogowany."
@@ -475,7 +476,7 @@
 			"terms": "Warunki świadczenia usług"
 		},
 		"message": {
-			"success": "Twoje konto zostało założone pomyślnie i zostałeś zalogowany. Prosimy zweryfikować adres email."
+			"success": "Twoje konto zostało założone pomyślnie i może się teraz zalogować. Prosimy zweryfikować adres email."
 		},
 		"title": "Zarejestruj się"
 	},

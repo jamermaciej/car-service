@@ -1,4 +1,9 @@
 export interface User {
+    _id?: string;
+    name?: string;
+    photo?: string;
+    created_at?: string;
+    last_login_at?: string;
     uid: string;
     displayName: string;
     email: string;

@@ -29,6 +29,7 @@ import {
   filter,
   concatMap,
   withLatestFrom,
+  pluck,
 } from 'rxjs/operators';
 
 import { createEffect, Actions } from '@ngrx/effects';
@@ -38,6 +39,7 @@ import { FlowRoutes } from 'src/app/core/enums/flow';
 import { FirebaseErrors } from 'src/app/core/services/firebase-errors/firebase-errors.service';
 import * as fromRoot from './../reducers';
 import { getUser } from '../selectors/auth.selectors';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -48,7 +50,8 @@ export class AuthEffects {
     private translocoService: TranslocoService,
     private snackBar: MatSnackBar,
     private alertService: AlertService,
-    private store: Store<fromRoot.State>
+    private store: Store<fromRoot.State>,
+    private authService: AuthService
   ) {}
 
   login$ = createEffect(
@@ -56,11 +59,10 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.login),
         switchMap((creditionals) =>
-          from(
-            this.userService.login(creditionals.email, creditionals.password)
-          ).pipe(
+            this.authService.login(creditionals.email, creditionals.password)
+          .pipe(
             map((user: User) => authActions.loginSuccess({ user })),
-            catchError((error) => of(authActions.loginFailure({ error })))
+            catchError((error) => of(authActions.loginFailure(error)))
           )
         )
       ),
@@ -104,10 +106,8 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.loginFailure),
         map((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
-          return authActions.authError({ error: errorMessage });
+          this.alertService.showAlert(payload.error, 'error');
+          return authActions.authError({ error: payload.error });
         })
       ),
     {
@@ -119,12 +119,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.logout),
-        switchMap(() => {
-          return from(this.userService.signOut()).pipe(
-            map((response) => authActions.logoutSuccess()),
-            catchError((error) => of(authActions.logoutFailure()))
-          );
-        })
+        map(() => authActions.logoutSuccess())
       ),
     {
       dispatch: true,
@@ -153,10 +148,10 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.register),
-        switchMap((registerData: RegisterData) =>
-          from(this.userService.register(registerData)).pipe(
+        switchMap((payload) => 
+          this.authService.register(payload.registerData).pipe(
             map((user) => authActions.registerSuccess({ user })),
-            catchError((error) => of(authActions.registerFailure({ error })))
+            catchError((error) => of(authActions.registerFailure(error)))
           )
         )
       ),
@@ -165,20 +160,17 @@ export class AuthEffects {
     }
   );
 
-  registerSuccess$ = createEffect(
+    registerSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(authActions.registerSuccess),
-        tap(({ user }) => localStorage.setItem('user', JSON.stringify(user))),
-        mergeMap(({ user }) => {
+        mergeMap(() => {
           const errorMessage = this.translocoService.translate(
             'register.message.success'
           );
           this.alertService.showAlert(errorMessage, 'success');
           return [
-            authActions.loginSuccess({ user }),
-            routerActions.go({ path: [FlowRoutes.DASHBOARD] }),
-            authActions.sendEmailVerification(),
+            routerActions.go({ path: [FlowRoutes.LOGIN] }),
           ];
         })
       ),
@@ -192,10 +184,8 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.registerFailure),
         map((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
-          return authActions.authError({ error: errorMessage });
+          this.alertService.showAlert(payload.error, 'error');
+          return authActions.authError({ error: payload.error });
         })
       ),
     {
@@ -207,8 +197,9 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.sendEmailVerification),
-        switchMap(() =>
-          from(this.userService.sendEmailVerification()).pipe(
+        pluck('email'),
+        switchMap(email =>
+          this.authService.sendVerifiyEmail(email).pipe(
             map(() => authActions.sendEmailVerificationSuccess()),
             catchError((error) =>
               of(authActions.sendEmailVerificationFailure({ error }))
@@ -226,9 +217,9 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.sendEmailVerificationFailure),
         map((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
+          // const errorKey = FirebaseErrors.Parse(payload.error.code);
+          // const errorMessage = this.translocoService.translate(errorKey);
+          this.alertService.showAlert(payload.error, 'error');
         })
       ),
     {
@@ -345,19 +336,23 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.confirmEmail),
-        switchMap((payload) =>
-          from(this.userService.confirmEmail(payload.code)).pipe(
-            map(() => {
-              const user = JSON.parse(localStorage.getItem('user'));
-              const updatedUser = {
-                ...user,
-                emailVerified: true,
-              };
-              localStorage.setItem('user', JSON.stringify(updatedUser));
-              return authActions.confirmEmailSuccess({ user });
+        switchMap(({ userId, code }) =>
+          this.authService.verifyEmail(userId, code).pipe(
+            concatMap(user => {
+              const actions = [];
+              const isLogged = !!JSON.parse(localStorage.getItem('user'));
+
+              if (isLogged) {
+                localStorage.setItem('user', JSON.stringify(user));
+                actions.push(authActions.updateUserSuccess({ user }));
+              }
+
+              actions.push(authActions.confirmEmailSuccess({ user }));
+
+              return actions;
             }),
             catchError((error) =>
-              of(authActions.confirmEmailFailure({ error }))
+              of(authActions.confirmEmailFailure(error))
             )
           )
         )
@@ -374,8 +369,8 @@ export class AuthEffects {
         tap(() =>
           this.store.dispatch(routerActions.go({ path: [FlowRoutes.PROFILE] }))
         ),
-        delay(100),
-        map(() => {
+        // delay(100),
+        map((user) => {
           const successMessage = this.translocoService.translate(
             'confirm_email.message.success'
           );
@@ -396,12 +391,12 @@ export class AuthEffects {
             routerActions.go({ path: [FlowRoutes.DASHBOARD] })
           )
         ),
-        delay(100),
+        // delay(100),
         mergeMap((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
-          return [authActions.authError({ error: errorMessage })];
+          // const errorKey = FirebaseErrors.Parse(payload.error.code);
+          // const errorMessage = this.translocoService.translate(errorKey);
+          this.alertService.showAlert(payload.error, 'error');
+          return [authActions.authError({ error: payload.error })];
         })
       ),
     {
@@ -574,4 +569,39 @@ export class AuthEffects {
       dispatch: true,
     }
   );
+
+  updateUser$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.updateUser),
+        switchMap((payload) =>
+            this.authService.updateUser(payload.user).pipe(
+            map((user) => {
+              return authActions.updateUserSuccess({ user });
+            }),
+            catchError((error) =>
+              of(authActions.updateUserFailure({ error }))
+            )
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
+  updateUserSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.updateUser),
+        map((payload) => {
+          this.alertService.showAlert('Profile updated.', 'success')
+          localStorage.setItem('user', JSON.stringify(payload.user));
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
 }

@@ -2,7 +2,8 @@
   <div class="account-block">
     <h2>{{'account.header.my_account' | transloco}}</h2>
     <mat-divider></mat-divider>
-    <p>{{'account.created_at' | transloco}}<b> {{ user.createdAt | date }}</b>.</p>
+    <p *ngIf="user.created_at">{{'account.created_at' | transloco}}<b> {{ user.created_at | date }}</b>.</p>
+    <p *ngIf="user.last_login_at">{{'account.last_login_at' | transloco}}<b> {{ user.last_login_at | date: 'MMM d, YYYY H:mm a' }}</b>.</p>
   </div>
   <div class="account-block">
     <h2>{{'account.header.verify_email' | transloco}}</h2>

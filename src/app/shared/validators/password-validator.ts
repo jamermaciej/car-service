@@ -3,13 +3,13 @@ import { FormControl, ValidationErrors, FormGroup } from '@angular/forms';
 export class PasswordValidator {
     static matchPassword(formGroup: FormGroup) {
         const password = formGroup.get('password');
-        const confirmPassword = formGroup.get('confirmPassword');
+        const passwordConfirm = formGroup.get('passwordConfirm');
 
-        if (confirmPassword.errors && !confirmPassword.errors.passwordMismatch) return;
+        if (passwordConfirm.errors && !passwordConfirm.errors.passwordMismatch) return;
 
-        password && confirmPassword && password.value !== confirmPassword.value ?
-            confirmPassword.setErrors({ passwordMismatch: true }) :
-            confirmPassword.setErrors(null);
+        password && passwordConfirm && password.value !== passwordConfirm.value ?
+            passwordConfirm.setErrors({ passwordMismatch: true }) :
+            passwordConfirm.setErrors(null);
     }
 
     static differentPasswords(formGroup: FormGroup) {

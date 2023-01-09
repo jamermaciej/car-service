@@ -83,7 +83,7 @@ export class ValidationService {
         'noAplhanumberic': 'register.error.password.noAlphanumeric',
         'whitespace': 'register.error.password.whitespace'
       },
-      'confirmPassword': {
+      'passwordConfirm': {
         'required': 'register.error.confirm_password.required',
         'passwordMismatch': 'register.error.confirm_password.password_mismatch'
       },

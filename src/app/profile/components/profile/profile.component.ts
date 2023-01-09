@@ -1,4 +1,3 @@
-import * as profileActions from './../../store/actions/profile.actions';
 import { Store } from '@ngrx/store';
 import { EditPhotoComponent } from './../edit-photo/edit-photo.component';
 import { User } from './../../../shared/models/user.model';
@@ -8,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
 import * as fromRoot from './../../../store/reducers';
-import { Observable } from 'rxjs';
+import * as authActions from './../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +28,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.profileForm = this.formBuilder.group({
       name: ['', [Validators.minLength(3), Validators.maxLength(15)]],
-      phoneNumber: ['']
+      phoneNumber: [''],
+      photo: [null]
     });
 
     this.store.select(getUser).subscribe(user => {
@@ -37,16 +37,16 @@ export class ProfileComponent implements OnInit {
 
       this.profileForm.patchValue({
         ...user,
-        name: user?.displayName
+        name: user?.name
       });
     });
 
     // code added only for learn test component
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      this.userService.getUserData(user.uid).subscribe(user => this.user = user);
-    }
-    this.userService.getUsersData().subscribe(user => this.users = user);
+    // const user = JSON.parse(localStorage.getItem('user'));
+    // if (user) {
+    //   this.userService.getUserData(user.uid).subscribe(user => this.user = user);
+    // }
+    // this.userService.getUsersData().subscribe(user => this.users = user);
   }
 
   editPhoto() {
@@ -57,21 +57,29 @@ export class ProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result.data}`);
+      console.log(`Dialog result: ${result?.photo}`);
+      
+      if (result?.photo) {
+        this.profileForm.patchValue({
+          photo: result.photo
+        });
+        this.profileForm.markAsDirty();
+      }
     });
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      const { name, phoneNumber } = this.profileForm.value;
+      const { name, phoneNumber, photo } = this.profileForm.value;
       const user = {
         ...this.user,
-        displayName: name,
-        phoneNumber
+        name,
+        phoneNumber,
+        photo
       };
-      this.store.dispatch(profileActions.updateUser({ user, alert: true }));
+    
+      this.store.dispatch(authActions.updateUser({ user }));
 
-      this.userService.updateProfile(name);
       this.profileForm.markAsPristine();
     } else {
       this.profileForm.markAllAsTouched();
@@ -83,7 +91,7 @@ export class ProfileComponent implements OnInit {
   }
 
   get button() {
-    return this.user.photoURL ? 'profile.update_profile.button.change_photo' : 'profile.update_profile.button.add_photo';
+    return this.user.photo ? 'profile.update_profile.button.change_photo' : 'profile.update_profile.button.add_photo';
   }
 }
 

@@ -3,7 +3,7 @@
     <h1>Car Service</h1>
 </div>
 <div class="user" *ngIf="user$ | async as user">
-    <div class="avatar" [style.background-image]="user?.photoURL ? 'url(' + user.photoURL + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
+    <div class="avatar" [style.background-image]="user?.photo ? 'url(' + user.photo + ')' : 'url(../../../../assets/images/user-placeholder.jpg)'"></div>
     <div class="name">{{ user?.displayName }}</div>
     <div class="email">{{ user?.email }}</div>
 </div>

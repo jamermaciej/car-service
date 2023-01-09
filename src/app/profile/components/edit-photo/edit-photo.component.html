@@ -1,15 +1,15 @@
 <h2 mat-dialog-title>{{ header | transloco}}</h2>
 <mat-dialog-content class="mat-typography">
-    <div class="image-preview" [style.background-image]="downloadURL ? 'url(' + downloadURL + ')' : 'url(' + (photoURL ? photoURL : '') + ')'"></div>
-    <ul>
+    <div class="image-preview mb-5" (click)="uploadFile()" [style.background-image]="'url(' + (photoURL ? photoURL : '') + ')'"></div>
+    <!-- <ul>
         <li *ngFor="let file of files">
             <mat-progress-bar [value]="file.progress"></mat-progress-bar>
         </li>
-    </ul>
+    </ul> -->
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>{{'profile.edit_photo.button.close' | transloco}}</button>
-    <button type="button" mat-raised-button color="primary" (click)="uploadFile();">
+    <button [disabled]="!file" type="button" mat-raised-button (click)="updatePhoto();" color="primary">
         <mat-icon>file_upload</mat-icon>  
         {{'profile.edit_photo.button.upload' | transloco}}
     </button>

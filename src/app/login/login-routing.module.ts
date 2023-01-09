@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FirebaseModeContainerComponent } from './components/firebase-mode-container/firebase-mode-container.component';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,12 @@ const routes: Routes = [
           },
           {
             path: 'auth',
-            component: FirebaseModeContainerComponent
+            children: [
+              {
+                path: 'verify/:userId/:code',
+                component: ConfirmEmailComponent,
+              }
+            ]
           }
         ]
     },

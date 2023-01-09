@@ -56,6 +56,7 @@
 			"my_account": "My account",
 			"verify_email": "Verify your email"
 		},
+		"last_login_at": "Last login to the account:",
 		"logout": {
 			"message": {
 				"success": "You have been logged out."
@@ -475,7 +476,7 @@
 			"terms": "Terms of service"
 		},
 		"message": {
-			"success": "You have successfully registered and logged in. Please verify your email address."
+			"success": "Your account has been successfully created and can log in now. Please verify your email address."
 		},
 		"title": "Sing up"
 	},

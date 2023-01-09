@@ -12,6 +12,17 @@ abstract class GlobalFunctions {
       });
   }
 
+  public static convertToFormData( data: any): FormData {
+    const formData = new FormData();
+
+    for ( const key of Object.keys(data) ) {
+      const value = data[key];
+      formData.append(key, value);
+    }
+
+    return formData;
+  }
+
 }
 
 export default GlobalFunctions;

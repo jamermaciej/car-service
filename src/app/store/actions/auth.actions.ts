@@ -1,5 +1,6 @@
 import { User } from './../../shared/models/user.model';
 import { createAction, props } from '@ngrx/store';
+import { RegisterData } from 'src/app/shared/models/register-data.model';
 
 export const login = createAction(
     '[Auth] Login',
@@ -35,7 +36,7 @@ export const authError = createAction(
 
 export const register = createAction(
     '[Auth] Register',
-    props<{ name: string, email: string, password: string }>()
+    props<{ registerData: RegisterData }>()
 );
 
 export const registerSuccess = createAction(
@@ -49,7 +50,8 @@ export const registerFailure = createAction(
 );
 
 export const sendEmailVerification = createAction(
-    '[Auth] Send Email Verification'
+    '[Auth] Send Email Verification',
+    props<{ email: string }>()
 );
 
 export const sendEmailVerificationSuccess = createAction(
@@ -92,7 +94,7 @@ export const updatePasswordFailure = createAction(
 
 export const confirmEmail = createAction(
     '[Auth] Confirm Email',
-    props<{ code: string }>()
+    props<{ userId: string, code: string }>()
 );
 
 export const confirmEmailSuccess = createAction(
@@ -145,5 +147,20 @@ export const updateEmailSuccess = createAction(
 
 export const updateEmailFailure = createAction(
     '[Auth] Update Email Failure',
+    props<{ error: any }>()
+);
+
+export const updateUser = createAction(
+    '[Auth] Update User',
+    props<{ user: User }>()
+)
+
+export const updateUserSuccess = createAction(
+    '[Auth] Update User Success',
+    props<{ user: User }>()
+);
+
+export const updateUserFailure = createAction(
+    '[Auth] Update User Failure',
     props<{ error: any }>()
 );

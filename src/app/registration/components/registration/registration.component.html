@@ -27,13 +27,13 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{'register.label.repeat_password' | transloco}}</mat-label>
-                    <input [type]="hideConfirmPassword ? 'password' : 'text'" name="confirmPassword" formControlName="confirmPassword"
+                    <input [type]="hideConfirmPassword ? 'password' : 'text'" name="passwordConfirm" formControlName="passwordConfirm"
                         matInput>
                     <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
                         <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <app-error-message [control]="registrationForm.get('confirmPassword')"></app-error-message>
+                    <app-error-message [control]="registrationForm.get('passwordConfirm')"></app-error-message>
                 </mat-form-field>
                 <div class="checkbox-container">
                     <mat-checkbox color="primary" formControlName="terms">{{'register.label.terms' | transloco}} <a [routerLink]="flowRoutes.TERMS">{{'register.link.terms' | transloco}}</a></mat-checkbox>
