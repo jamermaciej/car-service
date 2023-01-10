@@ -33,6 +33,8 @@ export class SidebarComponent implements OnInit {
   }
 
   get isAdmin(): Observable<boolean> {
-    return of(true)
+    return this.user$.pipe(
+      map(user => user && user.roles.some(role => role === Role.ADMIN))
+    );
   }
 }

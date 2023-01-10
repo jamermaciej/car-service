@@ -12,21 +12,29 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 private store: Store<fromCustomer.State>
             ) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-        return next.handle(req).pipe(
-            retry(1),
-            catchError((error: HttpErrorResponse) => {
-                if (error instanceof HttpErrorResponse) {
-                    // server-side error
-                    if ( error.status === 400 ) {
-                        this.alertService.showAlert(error.error.message, 'error');
-                        // this.store.dispatch(fromCustomer.addCustomerFailure({error}));
-                    }
-                    return throwError(error);
-                } else {
-                    // client-side error
-                    return throwError(error);
-                }
-                })
-            );
+        req = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))?.token}`
+            }
+        });
+
+        return next.handle(req);
+
+        // return next.handle(clonedReq).pipe(
+        //     retry(1),
+        //     catchError((error: HttpErrorResponse) => {
+        //         if (error instanceof HttpErrorResponse) {
+        //             // server-side error
+        //             if ( error.status === 400 ) {
+        //                 this.alertService.showAlert(error.error.message, 'error');
+        //                 // this.store.dispatch(fromCustomer.addCustomerFailure({error}));
+        //             }
+        //             return throwError(error);
+        //         } else {
+        //             // client-side error
+        //             return throwError(error);
+        //         }
+        //         })
+        //     );
     }
 }

@@ -148,7 +148,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.register),
-        switchMap((payload) => 
+        switchMap((payload) =>
           this.authService.register(payload.registerData).pipe(
             map((user) => authActions.registerSuccess({ user })),
             catchError((error) => of(authActions.registerFailure(error)))
@@ -219,7 +219,7 @@ export class AuthEffects {
         map((payload) => {
           // const errorKey = FirebaseErrors.Parse(payload.error.code);
           // const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(payload.error, 'error');
+          this.alertService.showAlert(payload.error.error, 'error');
         })
       ),
     {
@@ -595,7 +595,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.updateUser),
         map((payload) => {
-          this.alertService.showAlert('Profile updated.', 'success')
+          this.alertService.showAlert('Profile updated.', 'success');
           localStorage.setItem('user', JSON.stringify(payload.user));
         })
       ),

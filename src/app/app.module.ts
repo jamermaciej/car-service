@@ -81,11 +81,11 @@ const config: SocketIoConfig = {
     //   provide: LOCALE_ID,
     //   useValue: 'pl'
     // },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HttpErrorInterceptor,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
