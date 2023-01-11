@@ -55,6 +55,7 @@ export class UserService {
     if (userData.exists) {
       data = {
         uid: user.uid,
+        token: null,
         email: user.email,
         displayName: user.displayName || userData.get('displayName'),
         photoURL: user.photoURL,
@@ -89,6 +90,7 @@ export class UserService {
 
       const data = {
         uid: user.uid,
+        token: null,
         email: user.email,
         displayName: name || user.displayName,
         photoURL: user.photoURL,

@@ -30,6 +30,7 @@ import localePl from '@angular/common/locales/pl';
 import localeEn from '@angular/common/locales/en';
 import { registerLocaleData } from '@angular/common';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { TokenInterceptor } from './core/interceptors/token/token.interceptor';
 
 // register locales
 registerLocaleData(localePl);
@@ -77,15 +78,20 @@ const config: SocketIoConfig = {
       deps: [AppInitService],
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
     // {
     //   provide: LOCALE_ID,
     //   useValue: 'pl'
     // },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: HttpErrorInterceptor,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

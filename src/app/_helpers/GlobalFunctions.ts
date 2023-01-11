@@ -17,7 +17,14 @@ abstract class GlobalFunctions {
 
     for ( const key of Object.keys(data) ) {
       const value = data[key];
-      formData.append(key, value);
+
+      if (Array.isArray(value)) {
+        value.forEach(val => {
+          formData.append(`${key}[]`, val);
+        });
+      } else {
+        formData.append(key, value);
+      }
     }
 
     return formData;

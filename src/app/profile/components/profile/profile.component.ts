@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result?.photo}`);
-      
+
       if (result?.photo) {
         this.profileForm.patchValue({
           photo: result.photo
@@ -75,9 +75,9 @@ export class ProfileComponent implements OnInit {
         ...this.user,
         name,
         phoneNumber,
-        photo
+        photo: photo ? photo : ''
       };
-    
+
       this.store.dispatch(authActions.updateUser({ user }));
 
       this.profileForm.markAsPristine();
