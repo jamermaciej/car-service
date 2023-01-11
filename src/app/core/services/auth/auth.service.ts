@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(registerData: RegisterData): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/auth/register`, registerData)
+    return this.http.post<User>(`${environment.apiUrl}/auth/register`, registerData);
   }
 
   login(email: string, password: string): Observable<User> {
@@ -33,5 +33,9 @@ export class AuthService {
     const formData: FormData = GlobalFunctions.convertToFormData(user);
 
     return this.http.put<User>(`${environment.apiUrl}/auth/users/${user._id}`, formData);
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
 }

@@ -13,6 +13,7 @@ import { AlertService } from 'src/app/core/services/alert/alert-service';
 import { TranslocoService } from '@ngneat/transloco';
 import { FirebaseErrors } from 'src/app/core/services/firebase-errors/firebase-errors.service';
 import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Injectable()
 export class UsersEffects {
@@ -20,7 +21,8 @@ export class UsersEffects {
     private actions$: Actions,
     private userService: UserService,
     private alertService: AlertService,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
+    private authService: AuthService
   ) {}
 
   getUsers$ = createEffect(
@@ -28,7 +30,7 @@ export class UsersEffects {
       this.actions$.pipe(
         ofType(usersActions.getUsers),
         switchMap(() =>
-          from(this.userService.getUsersData()).pipe(
+          this.authService.getUsers().pipe(
             map((users: User[]) => usersActions.getUsersSuccess({ users })),
             catchError((error) => of(usersActions.getUsersFailure({ error })))
           )
@@ -39,21 +41,21 @@ export class UsersEffects {
     }
   );
 
-  getUsersFailure$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(usersActions.getUsersFailure),
-        map((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
-          return authActions.authError({ error: errorMessage });
-        })
-      ),
-    {
-      dispatch: true,
-    }
-  );
+  // getUsersFailure$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(usersActions.getUsersFailure),
+  //       map((payload) => {
+  //         const errorKey = FirebaseErrors.Parse(payload.error.code);
+  //         const errorMessage = this.translocoService.translate(errorKey);
+  //         this.alertService.showAlert(errorMessage, 'error');
+  //         return authActions.authError({ error: errorMessage });
+  //       })
+  //     ),
+  //   {
+  //     dispatch: true,
+  //   }
+  // );
 
   updateUser$ = createEffect(
     () =>

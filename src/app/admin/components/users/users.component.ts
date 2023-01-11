@@ -1,4 +1,3 @@
-import { UserService } from 'src/app/core/services/user/user.service';
 import { getUser } from 'src/app/store/selectors/auth.selectors';
 import { Role } from './../../../core/enums/roles';
 import { updateUser } from './../../store/actions/users.actions';
@@ -35,8 +34,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns = [
     'id',
-    'photoURL',
-    'displayName',
+    'photo',
+    'name',
     'email',
     'phoneNumber',
     'createdAt',
@@ -48,8 +47,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
   users = new MatTableDataSource<User>();
 
   constructor(
-    private store: Store<fromRoot.State>,
-    private userService: UserService
+    private store: Store<fromRoot.State>
   ) {
     combineLatest([this.store.select(getUser), this.store.select(getUsers)])
       .pipe(
@@ -59,8 +57,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
       .subscribe(([user, users]) => {
         this.currentUserId = user.uid;
         this.users.data = [
-          users.find((u) => u.uid === user.uid),
-          ...users.filter((u) => u.uid !== user.uid),
+          users.find((u) => u._id === user._id),
+          ...users.filter((u) => u._id !== user._id),
         ];
       });
   }

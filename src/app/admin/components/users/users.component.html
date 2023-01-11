@@ -15,23 +15,23 @@
     <mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="photoURL">
+  <ng-container matColumnDef="photo">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Photo</mat-header-cell>
     <mat-cell *matCellDef="let element"
       ><div
         class="user-photo"
         [style.background-image]="
-          element?.photoURL
-            ? 'url(' + element?.photoURL + ')'
+          element?.photo
+            ? 'url(' + element?.photo + ')'
             : 'url(../../../../assets/images/user-placeholder.jpg)'
         "
       ></div
     ></mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="displayName">
+  <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element?.displayName }}</mat-cell>
+    <mat-cell *matCellDef="let element">{{ element?.name }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="email">
@@ -57,7 +57,7 @@
       >Account created</mat-header-cell
     >
     <mat-cell *matCellDef="let element">{{
-      element?.createdAt | translocoDate
+      element?.created_at | translocoDate
     }}</mat-cell>
   </ng-container>
 
@@ -66,7 +66,7 @@
       >Last login</mat-header-cell
     >
     <mat-cell *matCellDef="let element">{{
-      element?.lastLoginAt | translocoDate
+      element?.last_login_at | translocoDate
     }}</mat-cell>
   </ng-container>
 
