@@ -10,7 +10,7 @@ import * as fromAuth from '../../../store';
 import { getToken } from 'src/app/store/selectors/auth.selectors';
 import { Store } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
-import { exhaustMap } from 'rxjs/operators';
+import { exhaustMap, take } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -19,6 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return this.store.select(getToken).pipe(
+      take(1),
       exhaustMap(token => {
         const isApiUrl = request.url.startsWith(environment.apiUrl) && !request.url.endsWith('/login');
         if (!token && !isApiUrl) {
