@@ -33,7 +33,7 @@ const usersReducer = createReducer(
   ),
   on(usersActions.deleteUserSuccess, (state, { user }) => ({
     ...state,
-    users: state.users.filter((u) => u.uid !== user.uid),
+    users: state.users.filter((u) => u._id !== user._id),
   }))
 );
 

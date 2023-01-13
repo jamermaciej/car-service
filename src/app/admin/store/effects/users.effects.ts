@@ -78,10 +78,10 @@ export class UsersEffects {
     () =>
       this.actions$.pipe(
         ofType(usersActions.deleteUser),
-        pluck('user'),
-        switchMap((user) =>
-          from(this.userService.deleteUserData(user.uid)).pipe(
-            map(() => usersActions.deleteUserSuccess({ user })),
+        pluck('userId'),
+        switchMap((userId: string) =>
+          this.authService.deleteUser(userId).pipe(
+            map(user => usersActions.deleteUserSuccess({ user })),
             catchError((error) => of(usersActions.deleteUserFailure({ error })))
           )
         )
@@ -95,8 +95,9 @@ export class UsersEffects {
     () =>
       this.actions$.pipe(
         ofType(usersActions.deleteUserSuccess),
-        tap(() =>
-          this.alertService.showAlert('User has been deleted', 'success')
+        pluck('user'),
+        tap((user) =>
+          this.alertService.showAlert(`User ${user.name} (${user.email}) has been deleted`, 'success')
         )
       ),
     {

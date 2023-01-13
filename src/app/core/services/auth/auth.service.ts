@@ -38,4 +38,8 @@ export class AuthService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
+
+  deleteUser(userId: string): Observable<User> {
+    return this.http.delete<User>(`${environment.apiUrl}/users/${userId}`);
+  }
 }

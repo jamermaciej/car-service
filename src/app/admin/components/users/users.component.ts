@@ -88,8 +88,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
     this.users.filter = filterValue.trim().toLowerCase();
   }
 
-  deleteUser(user: User) {
-    this.store.dispatch(fromUsers.deleteUser({ user }));
+  deleteUser(userId: string) {
+    this.store.dispatch(fromUsers.deleteUser({ userId }));
   }
 
   ngOnDestroy() {
