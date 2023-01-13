@@ -73,20 +73,22 @@
   <ng-container matColumnDef="roles">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Roles</mat-header-cell>
     <mat-cell *matCellDef="let element">
-      <span *ngIf="showRolesSelect !== element?.uid" class="role">{{
+      <span *ngIf="showRolesSelect !== element?._id" class="role">{{
         element?.roles
       }}</span>
-      <mat-icon *ngIf="!element?.roles" class="add-icon" (click)="addRole()"
+      <!-- todo -->
+      <mat-icon *ngIf="!element?.roles.length && false" class="add-icon" (click)="addRole()"
         >add</mat-icon
       >
+      <!-- todo -->
       <mat-icon
-        *ngIf="currentUserId !== element?.uid && showRolesSelect !== element?.uid"
+        *ngIf="currentUserId !== element?._id && showRolesSelect !== element?._id"
         class="edit-icon"
-        (click)="editRole(element?.uid)"
+        (click)="editRole(element?._id)"
         >edit</mat-icon
       >
       <mat-select
-        *ngIf="showRolesSelect === element?.uid"
+        *ngIf="showRolesSelect === element?._id"
         name="roles"
         id="roles"
         [value]="element?.roles[0]"
@@ -119,7 +121,7 @@
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let element">
       <mat-icon
-        *ngIf="currentUserId !== element?.uid && element?.roles[0] !== 'Admin'"
+        *ngIf="currentUserId !== element?._id && element?.roles[0] !== 'Admin'"
         (click)="deleteUser(element)"
         >delete</mat-icon
       >

@@ -26,14 +26,11 @@ const usersReducer = createReducer(
   //     u.uid === user.uid ? { ...u, emailVerified: true } : u
   //   ),
   // })),
-  on(usersActions.updateUserSuccess, (state, { user }) => 
-  {
-    // console.log(user)
-return {
-  ...state,
-  users: state.users.map((u) => (u.uid === user.uid ? user : u))
-}
-  }),
+  on(usersActions.updateUserSuccess, (state, { user }) => ({
+    ...state,
+    users: state.users.map((u) => (u._id === user._id ? user : u))
+  })
+  ),
   on(usersActions.deleteUserSuccess, (state, { user }) => ({
     ...state,
     users: state.users.filter((u) => u.uid !== user.uid),

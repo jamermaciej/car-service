@@ -55,7 +55,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
         filter(([user, users]) => !!user && !!users)
       )
       .subscribe(([user, users]) => {
-        this.currentUserId = user.uid;
+        this.currentUserId = user._id;
         this.users.data = [
           users.find((u) => u._id === user._id),
           ...users.filter((u) => u._id !== user._id),
