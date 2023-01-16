@@ -30,7 +30,7 @@ export class UsersEffects {
       this.actions$.pipe(
         ofType(usersActions.getUsers),
         switchMap(() =>
-          this.authService.getUsers().pipe(
+          this.userService.getUsers().pipe(
             map((users: User[]) => usersActions.getUsersSuccess({ users })),
             catchError((error) => of(usersActions.getUsersFailure({ error })))
           )
@@ -63,7 +63,7 @@ export class UsersEffects {
         ofType(usersActions.updateUser),
         pluck('user'),
         switchMap((user) =>
-          this.authService.updateUser(user).pipe(
+          this.userService.updateUser(user).pipe(
             map(() => usersActions.updateUserSuccess({ user, alert: false })),
             catchError((error) => of(usersActions.updateUserFailure({ error })))
           )
@@ -80,7 +80,7 @@ export class UsersEffects {
         ofType(usersActions.deleteUser),
         pluck('userId'),
         switchMap((userId: string) =>
-          this.authService.deleteUser(userId).pipe(
+          this.userService.deleteUser(userId).pipe(
             map(user => usersActions.deleteUserSuccess({ user })),
             catchError((error) => of(usersActions.deleteUserFailure({ error })))
           )

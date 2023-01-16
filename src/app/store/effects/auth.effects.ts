@@ -575,7 +575,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.updateUser),
         switchMap((payload) =>
-            this.authService.updateUser(payload.user).pipe(
+            this.userService.updateUser(payload.user).pipe(
             map((user) => {
               return authActions.updateUserSuccess({ user });
             }),
