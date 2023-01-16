@@ -227,23 +227,23 @@ export class AuthEffects {
     }
   );
 
-  sendPasswordResetEmail$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(authActions.sendPasswordResetEmail),
-        switchMap(({ email }) =>
-          from(this.userService.sendPasswordResetEmail(email)).pipe(
-            map(() => authActions.sendPasswordResetEmailSuccess({ email })),
-            catchError((error) =>
-              of(authActions.sendPasswordResetEmailFailure({ error }))
-            )
-          )
-        )
-      ),
-    {
-      dispatch: true,
-    }
-  );
+  // sendPasswordResetEmail$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(authActions.sendPasswordResetEmail),
+  //       switchMap(({ email }) =>
+  //         from(this.userService.sendPasswordResetEmail(email)).pipe(
+  //           map(() => authActions.sendPasswordResetEmailSuccess({ email })),
+  //           catchError((error) =>
+  //             of(authActions.sendPasswordResetEmailFailure({ error }))
+  //           )
+  //         )
+  //       )
+  //     ),
+  //   {
+  //     dispatch: true,
+  //   }
+  // );
 
   sendPasswordResetEmailSuccess$ = createEffect(
     () =>
@@ -279,25 +279,25 @@ export class AuthEffects {
     }
   );
 
-  updatePassword$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(authActions.updatePassword),
-        switchMap((payload) =>
-          from(
-            this.userService.updatePassword(payload.code, payload.password)
-          ).pipe(
-            map(() => authActions.updatePasswordSuccess()),
-            catchError((error) =>
-              of(authActions.updatePasswordFailure({ error }))
-            )
-          )
-        )
-      ),
-    {
-      dispatch: true,
-    }
-  );
+  // updatePassword$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(authActions.updatePassword),
+  //       switchMap((payload) =>
+  //         from(
+  //           this.userService.updatePassword(payload.code, payload.password)
+  //         ).pipe(
+  //           map(() => authActions.updatePasswordSuccess()),
+  //           catchError((error) =>
+  //             of(authActions.updatePasswordFailure({ error }))
+  //           )
+  //         )
+  //       )
+  //     ),
+  //   {
+  //     dispatch: true,
+  //   }
+  // );
 
   updatePasswordSuccess$ = createEffect(
     () =>
@@ -404,28 +404,28 @@ export class AuthEffects {
     }
   );
 
-  changePassword$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(authActions.changePassword),
-        switchMap((payload) =>
-          from(
-            this.userService.changePassword(
-              payload.oldPassword,
-              payload.newPassword
-            )
-          ).pipe(
-            map(() => authActions.changePasswordSuccess()),
-            catchError((error) =>
-              of(authActions.changePasswordFailure({ error }))
-            )
-          )
-        )
-      ),
-    {
-      dispatch: true,
-    }
-  );
+  // changePassword$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(authActions.changePassword),
+  //       switchMap((payload) =>
+  //         from(
+  //           this.userService.changePassword(
+  //             payload.oldPassword,
+  //             payload.newPassword
+  //           )
+  //         ).pipe(
+  //           map(() => authActions.changePasswordSuccess()),
+  //           catchError((error) =>
+  //             of(authActions.changePasswordFailure({ error }))
+  //           )
+  //         )
+  //       )
+  //     ),
+  //   {
+  //     dispatch: true,
+  //   }
+  // );
 
   changePasswordSuccess$ = createEffect(
     () =>
@@ -459,23 +459,23 @@ export class AuthEffects {
     }
   );
 
-  deleteAcctount$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(authActions.deleteAccount),
-        switchMap((payload) =>
-          from(this.userService.deleteAccount(payload.password)).pipe(
-            map(() => authActions.deleteAccountSuccess()),
-            catchError((error) =>
-              of(authActions.deleteAccountFailure({ error }))
-            )
-          )
-        )
-      ),
-    {
-      dispatch: true,
-    }
-  );
+  // deleteAcctount$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(authActions.deleteAccount),
+  //       switchMap((payload) =>
+  //         from(this.userService.deleteAccount(payload.password)).pipe(
+  //           map(() => authActions.deleteAccountSuccess()),
+  //           catchError((error) =>
+  //             of(authActions.deleteAccountFailure({ error }))
+  //           )
+  //         )
+  //       )
+  //     ),
+  //   {
+  //     dispatch: true,
+  //   }
+  // );
 
   deleteAcctountSuccess$ = createEffect(
     () =>
@@ -511,31 +511,31 @@ export class AuthEffects {
     }
   );
 
-  updateEmail$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(authActions.updateEmail),
-        withLatestFrom(this.store.select(getUser)),
-        switchMap(([payload, currentUser]) => {
-          if (currentUser.email === payload.email) {
-            const errorMessage = this.translocoService.translate(
-              'account.update_email.message.error'
-            );
-            this.alertService.showAlert(errorMessage, 'error');
-            return of(authActions.authError({ error: errorMessage }));
-          }
-          return from(
-            this.userService.updateEmail(payload.password, payload.email)
-          ).pipe(
-            map((user: User) => authActions.updateEmailSuccess({ user })),
-            catchError((error) => of(authActions.updateEmailFailure({ error })))
-          );
-        })
-      ),
-    {
-      dispatch: true,
-    }
-  );
+  // updateEmail$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(authActions.updateEmail),
+  //       withLatestFrom(this.store.select(getUser)),
+  //       switchMap(([payload, currentUser]) => {
+  //         if (currentUser.email === payload.email) {
+  //           const errorMessage = this.translocoService.translate(
+  //             'account.update_email.message.error'
+  //           );
+  //           this.alertService.showAlert(errorMessage, 'error');
+  //           return of(authActions.authError({ error: errorMessage }));
+  //         }
+  //         return from(
+  //           this.userService.updateEmail(payload.password, payload.email)
+  //         ).pipe(
+  //           map((user: User) => authActions.updateEmailSuccess({ user })),
+  //           catchError((error) => of(authActions.updateEmailFailure({ error })))
+  //         );
+  //       })
+  //     ),
+  //   {
+  //     dispatch: true,
+  //   }
+  // );
 
   updateEmailSuccess$ = createEffect(
     () =>
