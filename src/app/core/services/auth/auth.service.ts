@@ -28,4 +28,8 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/send-verify-email`, { email });
   }
 
+  changeEmail(password: string, email: string) {
+    return this.http.post(`${environment.apiUrl}/auth/change-email`, { password, email });
+  }
+
 }

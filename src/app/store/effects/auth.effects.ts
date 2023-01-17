@@ -537,6 +537,22 @@ export class AuthEffects {
   //   }
   // );
 
+  changeEmail$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.updateEmail),
+        switchMap((payload) => {
+          return this.authService.changeEmail(payload.password, payload.email).pipe(
+            map((user: User) => authActions.updateEmailSuccess({ user })),
+            catchError((error) => of(authActions.updateEmailFailure({ error })))
+          );
+        })
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
   updateEmailSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -559,10 +575,10 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.updateEmailFailure),
         map((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
-          return authActions.authError({ error: errorMessage });
+          // const errorKey = FirebaseErrors.Parse(payload.error.code);
+          // const errorMessage = this.translocoService.translate(errorKey);
+          this.alertService.showAlert(payload.error.error, 'error');
+          return authActions.authError({ error: payload.error.error });
         })
       ),
     {
