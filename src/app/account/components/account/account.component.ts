@@ -29,7 +29,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.store.select(getUser).pipe(
-      tap((user: User) => this.email = user.email)
+      tap((user: User) => this.email = user?.email)
     );
   }
 

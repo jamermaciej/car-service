@@ -344,7 +344,8 @@ export class AuthEffects {
 
               if (isLogged) {
                 localStorage.setItem('user', JSON.stringify(user));
-                actions.push(authActions.updateUserSuccess({ user }));
+                // todo - token jest kasowany w localstorage
+                // actions.push(authActions.updateUserSuccess({ user }));
               }
 
               actions.push(authActions.confirmEmailSuccess({ user }));
@@ -609,7 +610,7 @@ export class AuthEffects {
   updateUserSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(authActions.updateUser),
+        ofType(authActions.updateUserSuccess),
         map((payload) => {
           this.alertService.showAlert('Profile updated.', 'success');
           localStorage.setItem('user', JSON.stringify(payload.user));

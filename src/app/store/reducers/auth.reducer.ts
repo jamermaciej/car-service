@@ -59,13 +59,13 @@ const authReducer = createReducer(
         ...state,
         user
     })),
-    // on(authActions.confirmEmailSuccess, state => ({
-    //     ...state,
-    //     user: {
-    //         ...state.user,
-    //         emailVerified: true
-    //     }
-    // }))
+    on(authActions.confirmEmailSuccess, (state, { user }) => ({
+        ...state,
+        user: {
+            ...state.user,
+            emailVerified: user.emailVerified
+        }
+    })),
     on(authActions.updateUserSuccess, (state, { user } ) => ({
         ...state,
         user
