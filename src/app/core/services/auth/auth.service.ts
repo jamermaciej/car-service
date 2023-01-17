@@ -32,4 +32,8 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/change-email`, { password, email });
   }
 
+  changePassword(password: string, newPassword: string) {
+    return this.http.post(`${environment.apiUrl}/auth/change-password`, { password, newPassword });
+  }
+
 }

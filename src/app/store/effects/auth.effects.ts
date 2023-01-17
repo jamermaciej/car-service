@@ -428,6 +428,27 @@ export class AuthEffects {
   //   }
   // );
 
+    changePassword$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.changePassword),
+        switchMap((payload) =>
+          this.authService.changePassword(
+              payload.oldPassword,
+              payload.newPassword
+          ).pipe(
+            map(() => authActions.changePasswordSuccess()),
+            catchError((error) =>
+              of(authActions.changePasswordFailure({ error }))
+            )
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
   changePasswordSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -449,10 +470,10 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.changePasswordFailure),
         map((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
-          return authActions.authError({ error: errorMessage });
+          // const errorKey = FirebaseErrors.Parse(payload.error.code);
+          // const errorMessage = this.translocoService.translate(errorKey);
+          this.alertService.showAlert(payload.error.error, 'error');
+          return authActions.authError({ error: payload.error.error });
         })
       ),
     {
