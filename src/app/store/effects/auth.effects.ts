@@ -481,33 +481,33 @@ export class AuthEffects {
     }
   );
 
-  // deleteAcctount$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(authActions.deleteAccount),
-  //       switchMap((payload) =>
-  //         from(this.userService.deleteAccount(payload.password)).pipe(
-  //           map(() => authActions.deleteAccountSuccess()),
-  //           catchError((error) =>
-  //             of(authActions.deleteAccountFailure({ error }))
-  //           )
-  //         )
-  //       )
-  //     ),
-  //   {
-  //     dispatch: true,
-  //   }
-  // );
+  deleteAcctount$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.deleteAccount),
+        switchMap((payload) =>
+          this.authService.deleteAccount(payload.password).pipe(
+            map((response: any) => authActions.deleteAccountSuccess({ message: response.message })),
+            catchError((error) =>
+              of(authActions.deleteAccountFailure({ error: error.error }))
+            )
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
 
   deleteAcctountSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(authActions.deleteAccountSuccess),
-        map(() => {
+        map((payload) => {
           const successMessage = this.translocoService.translate(
             'account.delete_account.message.success'
           );
-          this.alertService.showAlert(successMessage, 'success', 2000);
+          this.alertService.showAlert(payload.message, 'success', 2000);
           localStorage.removeItem('user');
           return routerActions.go({ path: [FlowRoutes.LOGIN] });
         })
@@ -522,10 +522,10 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authActions.deleteAccountFailure),
         map((payload) => {
-          const errorKey = FirebaseErrors.Parse(payload.error.code);
-          const errorMessage = this.translocoService.translate(errorKey);
-          this.alertService.showAlert(errorMessage, 'error');
-          return authActions.authError({ error: errorMessage });
+          // const errorKey = FirebaseErrors.Parse(payload.error.code);
+          // const errorMessage = this.translocoService.translate(errorKey);
+          this.alertService.showAlert(payload.error, 'error');
+          return authActions.authError({ error: payload.error });
         })
       ),
     {

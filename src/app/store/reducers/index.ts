@@ -38,7 +38,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 export function clearState(reducer: ActionReducer<State>): ActionReducer<State> {
   return (state: State, action: Action) => {
 
-    if (action.type === authActions.logout.type) {
+    if (action.type === authActions.logout.type || action.type === authActions.deleteAccountSuccess.type) {
       state = undefined;
     }
 

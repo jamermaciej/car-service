@@ -127,7 +127,8 @@ export const deleteAccount = createAction(
 );
 
 export const deleteAccountSuccess = createAction(
-    '[Auth] Delete Account Success'
+    '[Auth] Delete Account Success',
+    props<{ message: string }>()
 );
 
 export const deleteAccountFailure = createAction(
@@ -153,7 +154,7 @@ export const updateEmailFailure = createAction(
 export const updateUser = createAction(
     '[Auth] Update User',
     props<{ user: User }>()
-)
+);
 
 export const updateUserSuccess = createAction(
     '[Auth] Update User Success',
