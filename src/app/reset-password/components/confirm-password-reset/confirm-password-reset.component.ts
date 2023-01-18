@@ -5,9 +5,9 @@ import { RequiredValidator } from './../../../shared/validators/required-validat
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NoWhitespaceValidator } from 'src/app/shared/validators/no-whitespace-validator';
-import { PasswordValidator } from 'src/app/shared/validators/password-validator';
 import { ActivatedRoute } from '@angular/router';
 import * as fromRoot from './../../../store/reducers';
+import { PasswordValidator } from 'src/app/shared/validators/password-validator';
 
 @Component({
   selector: 'app-confirm-password-reset',
@@ -33,7 +33,7 @@ export class ConfirmPasswordResetComponent implements OnInit {
           NoWhitespaceValidator.checkWhitespace,
           PasswordValidator.validatePassword]
         ],
-      confirmPassword: ['', RequiredValidator.required],
+      passwordConfirm: ['', RequiredValidator.required],
     }, {
       validator: PasswordValidator.matchPassword
     });
@@ -41,9 +41,9 @@ export class ConfirmPasswordResetComponent implements OnInit {
 
   onSubmit() {
     if (this.newPasswordForm.valid) {
-      const code = this.activatedRoute.snapshot.queryParams['oobCode'];
-      const { password } = this.newPasswordForm.value;
-      this.store.dispatch(updatePassword({ code, password }));
+      const token = this.activatedRoute.snapshot.params['token'];
+      const { password, passwordConfirm } = this.newPasswordForm.value;
+      this.store.dispatch(updatePassword({ token, password, passwordConfirm }));
     } else {
       this.newPasswordForm.markAllAsTouched();
     }

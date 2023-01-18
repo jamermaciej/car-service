@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { FirebaseModeContainerComponent } from './components/firebase-mode-container/firebase-mode-container.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
-import { ConfirmPasswordResetComponent } from './components/confirm-password-reset/confirm-password-reset.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
@@ -21,8 +20,7 @@ import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
     LoginComponent,
     ForgotPasswordComponent,
     FirebaseModeContainerComponent,
-    ConfirmEmailComponent,
-    ConfirmPasswordResetComponent
+    ConfirmEmailComponent
   ],
   imports: [
     CommonModule,

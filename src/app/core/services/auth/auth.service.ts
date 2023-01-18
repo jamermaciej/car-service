@@ -28,6 +28,14 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/send-verify-email`, { email });
   }
 
+  forgotPassword(email: string) {
+    return this.http.post(`${environment.apiUrl}/auth/forgot-password`, { email });
+  }
+
+ resetPassword(token: string, password: string, passwordConfirm: string) {
+    return this.http.post(`${environment.apiUrl}/auth/reset-password/${token}`, { password, passwordConfirm });
+  }
+
   changeEmail(password: string, email: string): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/auth/change-email`, { password, email });
   }

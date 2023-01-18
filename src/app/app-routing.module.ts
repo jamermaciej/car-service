@@ -9,6 +9,7 @@ import { Role } from './core/enums/roles';
 import { UserRoleGuard } from './core/services/user-role-guard/user-role-guard.service';
 import { localizeRouterConfig, LocalizeRouterModule, LOCALIZE_ROUTER_CONFIG } from '@penleychan/ngx-transloco-router';
 import { ContactComponent } from './contact/components/contact/contact.component';
+import { ConfirmPasswordResetComponent } from './reset-password/components/confirm-password-reset/confirm-password-reset.component';
 
 const routes: Routes = [
   {
@@ -111,8 +112,18 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
+    canLoad: [LoggedInAuthGuard],
     data: {
       title: 'Login',
+    },
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () =>
+      import('./reset-password/reset-password.module').then((m) => m.ResetPasswordModule),
+    canLoad: [LoggedInAuthGuard],
+    data: {
+      title: 'Reset password',
     },
   },
   {

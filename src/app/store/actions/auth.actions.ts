@@ -80,7 +80,7 @@ export const sendPasswordResetEmailFailure = createAction(
 
 export const updatePassword = createAction(
     '[Auth] Update Password',
-    props<{ code: string, password: string }>()
+    props<{ token: string, password: string, passwordConfirm: string }>()
 );
 
 export const updatePasswordSuccess = createAction(
