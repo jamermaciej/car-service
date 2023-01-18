@@ -115,6 +115,22 @@ export class AuthEffects {
     }
   );
 
+  getMe$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.getMe),
+        switchMap(() =>
+          this.userService.getMe().pipe(
+            map((user: User) => authActions.getMeSuccess({ user })),
+            catchError((error) => of(authActions.getMeFailure({ error })))
+          )
+        )
+      ),
+    {
+      dispatch: true,
+    }
+  );
+
   logout$ = createEffect(
     () =>
       this.actions$.pipe(

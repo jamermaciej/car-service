@@ -18,19 +18,13 @@ export class LoggedInAuthGuard implements CanLoad, CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
-      return of(true);
-      // return this.userService.user$.pipe(
-      //   take(1),
-      //   map(user => {
-      //     const loggedIn = !!user;
-      //     if (loggedIn) {
-      //       this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
-      //       return false;
-      //     } else {
-      //       return true;
-      //     }
-      //   })
-      // );
+      return this.store.select(isLoggedIn).pipe(
+        take(1),
+        map((isLogged) => {
+          if (isLogged) this.store.dispatch(routerActions.go({ path: [FlowRoutes.DASHBOARD] }));
+          return !isLogged;
+        })
+      );
   }
 
   canLoad(route: Route): Observable<boolean> {

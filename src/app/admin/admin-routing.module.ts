@@ -8,20 +8,27 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        component: AdminComponent
-    },
-    {
-      path: 'users',
-      component: UsersComponent
-    },
-    {
-      path: 'statuses',
-      component: StatusesComponent
-    },
-    {
-      path: 'notifications',
-      loadChildren: () =>
-      import('./../notifications/notifications.module').then((m) => m.NotificationsModule),
+        component: AdminComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'users',
+            pathMatch: 'full',
+          },
+          {
+            path: 'users',
+            component: UsersComponent
+          },
+          {
+            path: 'statuses',
+            component: StatusesComponent
+          },
+          {
+            path: 'notifications',
+            loadChildren: () =>
+            import('./../notifications/notifications.module').then((m) => m.NotificationsModule),
+          }
+        ]
     }
 ];
 

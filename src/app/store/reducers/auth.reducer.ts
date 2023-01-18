@@ -32,6 +32,10 @@ const authReducer = createReducer(
         user: null,
         errorMessage: null
     })),
+    on(authActions.getMeSuccess, (state, { user } ) => ({
+        ...state,
+        user
+    })),
     on(authActions.logoutSuccess, (state) => ({
         ...state,
         isLoggedIn: false,
