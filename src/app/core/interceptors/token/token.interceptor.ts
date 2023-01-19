@@ -3,14 +3,15 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import * as fromAuth from '../../../store';
 import { getToken } from 'src/app/store/selectors/auth.selectors';
 import { Store } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
-import { exhaustMap, take } from 'rxjs/operators';
+import { catchError, exhaustMap, retry, take } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -30,7 +31,19 @@ export class TokenInterceptor implements HttpInterceptor {
             Authorization: `Bearer ${token}`
           }
         });
-        return next.handle(clonedReq);
+        return next.handle(clonedReq).pipe(
+          retry(1),
+          catchError((err) => {
+            if (err instanceof HttpErrorResponse) {
+              if (err && err.status === 401) {
+                this.store.dispatch(fromAuth.logout());
+              }
+            }
+            return throwError(err);
+            }
+          )
+        )
+        
       })
     );
   }
