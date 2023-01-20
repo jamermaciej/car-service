@@ -26,7 +26,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         'auth',
         'admin',
         'cars',
-        'users',
+        // 'users',
         'customers',
         'statuses',
         'orders'

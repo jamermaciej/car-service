@@ -3,6 +3,7 @@ import { UsersComponent } from './components/users/users.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { StatusesGuard } from '../core/services/statuses-guard/statuses.guard';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
           },
           {
             path: 'statuses',
-            component: StatusesComponent
+            component: StatusesComponent,
+            canActivate: [StatusesGuard]
           },
           {
             path: 'notifications',

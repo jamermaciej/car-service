@@ -90,7 +90,7 @@ export class AuthEffects {
             customersActions.loadCustomers(),
             carsActions.loadCars(),
             // usersActions.getUsers(),
-            statusesActions.getStatuses(),
+            // statusesActions.getStatuses(),
             routerActions.go({ path: [url ? url : FlowRoutes.DASHBOARD] })
           );
           return actions;
