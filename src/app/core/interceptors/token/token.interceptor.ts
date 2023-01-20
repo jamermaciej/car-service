@@ -37,6 +37,7 @@ export class TokenInterceptor implements HttpInterceptor {
             if (err instanceof HttpErrorResponse) {
               if (err && err.status === 401) {
                 this.store.dispatch(fromAuth.logout());
+                // return this.handle401Error(req, next, error);
               }
             }
             return throwError(err);
@@ -47,4 +48,23 @@ export class TokenInterceptor implements HttpInterceptor {
       })
     );
   }
+
+  // private handle401Error(
+  //   req: HttpRequest<any>,
+  //   next: HttpHandler,
+  //   originalError: any
+  // ) {
+  //   return this.authService.refreshCookie().pipe(
+  //     switchMap(() => {
+  //       return next.handle(req);
+  //     }),
+  //     catchError((error) => {
+  //       localStorage.removeItem('user-profile');
+
+  //       this.route.navigate(['/']);
+  //       return throwError(() => originalError);
+  //     })
+  //   );
+  // }
+
 }

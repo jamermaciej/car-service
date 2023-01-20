@@ -49,6 +49,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
   constructor(
     private store: Store<fromRoot.State>
   ) {
+    this.store.dispatch(fromUsers.getUsers());
+
     combineLatest([this.store.select(getUser), this.store.select(getUsers)])
       .pipe(
         takeUntil(this.destroySubject$),

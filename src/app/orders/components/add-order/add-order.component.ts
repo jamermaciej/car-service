@@ -31,6 +31,7 @@ import * as dayjs from 'dayjs';
 import { Order } from 'src/app/shared/models/order.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalizeRouterService } from '@penleychan/ngx-transloco-router';
+import * as fromUsers from '../../../admin/store';
 
 @Component({
   selector: 'app-add-order',
@@ -84,6 +85,7 @@ export class AddOrderComponent implements OnInit {
     this.cars$ = this.store.select(getCars);
     this.filteredCars$ = this.cars$;
 
+    this.store.dispatch(fromUsers.getUsers());
     this.users$ = this.store.select(getUsers);
 
     this.statuses$ = this.store.select(getStatuses);

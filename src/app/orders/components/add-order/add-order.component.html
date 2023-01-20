@@ -150,7 +150,7 @@
               formControlName="user"
             >
               <mat-option *ngFor="let user of users$ | async" [value]="user">
-                {{ user.displayName }}
+                {{ user.name }}
               </mat-option>
             </mat-select>
             <app-error-message
