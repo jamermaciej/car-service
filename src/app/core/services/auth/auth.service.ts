@@ -20,6 +20,10 @@ export class AuthService {
     return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password });
   }
 
+  refreshToken(refreshToken: string): Observable<{ accessToken: string }> {
+    return this.http.post<{ accessToken: string }>(`${environment.apiUrl}/auth/refresh-token`, { refreshToken });
+  }
+
   verifyEmail(userId: string, code: string): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/auth/verify/${userId}/${code}`);
   }

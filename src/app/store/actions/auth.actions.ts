@@ -19,6 +19,21 @@ export const loginFailure = createAction(
 
 export const getMe = createAction('[Users] Get Me');
 
+export const refreshToken = createAction(
+    '[Auth] Refresh Token',
+    props<{ refreshToken: string }>()
+);
+
+export const refreshTokenSuccess = createAction(
+    '[Auth] Refresh Token Success',
+    props<{ accessToken: string }>()
+);
+
+export const refreshTokenFailure = createAction(
+    '[Auth] Refresh Token Failure',
+    props<{ error: any }>()
+);
+
 export const getMeSuccess = createAction(
   '[Users] Get Me Success',
   props<{ user: User }>()

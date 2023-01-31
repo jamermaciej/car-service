@@ -1,6 +1,8 @@
 export interface User {
     _id?: string;
-    token: string;
+    accessToken: string;
+    refreshToken: string;
+    isRefreshing: boolean;
     name?: string;
     photo?: string;
     created_at?: string;

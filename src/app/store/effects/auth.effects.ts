@@ -131,6 +131,23 @@ export class AuthEffects {
     }
   );
 
+  refreshToken$ = createEffect(
+    () =>
+    this.actions$.pipe(
+      ofType(authActions.refreshToken),
+      pluck('refreshToken'),
+      switchMap((refreshToken) =>
+        this.authService.refreshToken(refreshToken).pipe(
+          map((accessToken: { accessToken: string }) => authActions.refreshTokenSuccess(accessToken)),
+          catchError((error) => of(authActions.refreshTokenFailure({ error })))
+        )
+      )
+    ),
+  {
+    dispatch: true,
+  }
+  )
+
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
