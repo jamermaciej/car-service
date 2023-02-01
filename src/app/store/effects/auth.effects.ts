@@ -151,7 +151,11 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.logout),
-        map(() => authActions.logoutSuccess())
+        switchMap(() => this.authService.logout().pipe(
+          map(() => authActions.logoutSuccess()),
+          catchError((error) => of(authActions.authError({ error })))
+        )
+        )
       ),
     {
       dispatch: true,

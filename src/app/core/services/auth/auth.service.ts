@@ -24,6 +24,10 @@ export class AuthService {
     return this.http.get<{ accessToken: string }>(`${environment.apiUrl}/auth/refresh-token`, { withCredentials: true });
   }
 
+  logout(): Observable<null> {
+    return this.http.get<null>(`${environment.apiUrl}/auth/logout`, { withCredentials: true });
+  }
+
   verifyEmail(userId: string, code: string): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/auth/verify/${userId}/${code}`);
   }
