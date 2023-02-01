@@ -17,11 +17,11 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password });
+    return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password }, { withCredentials: true });
   }
 
-  refreshToken(refreshToken: string): Observable<{ accessToken: string }> {
-    return this.http.post<{ accessToken: string }>(`${environment.apiUrl}/auth/refresh-token`, { refreshToken });
+  refreshToken(): Observable<{ accessToken: string }> {
+    return this.http.get<{ accessToken: string }>(`${environment.apiUrl}/auth/refresh-token`, { withCredentials: true });
   }
 
   verifyEmail(userId: string, code: string): Observable<User> {

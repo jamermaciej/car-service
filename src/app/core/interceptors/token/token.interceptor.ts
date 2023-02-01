@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
       withLatestFrom(this.store.select(getIsRefreshing)),
       exhaustMap(([accessToken, isRefreshing]) => {
         const isApiUrl = request.url.startsWith(environment.apiUrl) && !request.url.endsWith('/login') && !request.url.endsWith('/refresh-token');
-        if (!accessToken && !isApiUrl) {
+        if (!accessToken || !isApiUrl) {
           return next.handle(request);
         }
 
@@ -62,51 +62,51 @@ export class TokenInterceptor implements HttpInterceptor {
     );
   }
 
-  handleAccessTokenExpiredRequest(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		return this.store.select(getRefreshToken)
-			.pipe(
-				take(1),
-				withLatestFrom(this.store.select(getIsRefreshing)),
-				switchMap(([refreshToken, isRefreshing]) => {
-					if (!refreshToken || this.isTokenExpired(refreshToken)) {
+  // handleAccessTokenExpiredRequest(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	// 	return this.store.select(getRefreshToken)
+	// 		.pipe(
+	// 			take(1),
+	// 			withLatestFrom(this.store.select(getIsRefreshing)),
+	// 			switchMap(([refreshToken, isRefreshing]) => {
+	// 				if (!refreshToken || this.isTokenExpired(refreshToken)) {
 
-            this.store.dispatch(fromAuth.logout());
+  //           this.store.dispatch(fromAuth.logout());
 
-						throw new HttpErrorResponse({
-							status: 403,
-							error: 'Refresh token expired',
-							url: request.url
-						});
-					}
+	// 					throw new HttpErrorResponse({
+	// 						status: 403,
+	// 						error: 'Refresh token expired',
+	// 						url: request.url
+	// 					});
+	// 				}
 
-					if (!isRefreshing) {
-						this.store.dispatch(fromAuth.refreshToken({ refreshToken }));
-					}
+	// 				if (!isRefreshing) {
+	// 					this.store.dispatch(fromAuth.refreshToken({ refreshToken }));
+	// 				}
 
-					return this.handleRequestWithNewAccessToken(request, next);
-				})
-			);
-	}
+	// 				return this.handleRequestWithNewAccessToken(request, next);
+	// 			})
+	// 		);
+	// }
 
-  handleRequestWithNewAccessToken(request: HttpRequest<any>, next: HttpHandler, skipCurrent = false): Observable<HttpEvent<any>> {
-		return this.actions.pipe(
-			filter((action) => action.type === fromAuth.refreshTokenSuccess.type ||
-				action.type === fromAuth.refreshTokenFailure.type),
-			// skip(1),
-			switchMap((action) => {
-				if (action.type === fromAuth.refreshTokenSuccess.type) {
-					return next.handle(this.addTokenHeader(request, (action as any).accessToken));
-				} else {
+  // handleRequestWithNewAccessToken(request: HttpRequest<any>, next: HttpHandler, skipCurrent = false): Observable<HttpEvent<any>> {
+	// 	return this.actions.pipe(
+	// 		filter((action) => action.type === fromAuth.refreshTokenSuccess.type ||
+	// 			action.type === fromAuth.refreshTokenFailure.type),
+	// 		// skip(1),
+	// 		switchMap((action) => {
+	// 			if (action.type === fromAuth.refreshTokenSuccess.type) {
+	// 				return next.handle(this.addTokenHeader(request, (action as any).accessToken));
+	// 			} else {
 
-					throw new HttpErrorResponse({
-						status: 403,
-						error: 'Refresh token invalid',
-						url: request.url
-					});
-				}
-			})
-		);
-	}
+	// 				throw new HttpErrorResponse({
+	// 					status: 403,
+	// 					error: 'Refresh token invalid',
+	// 					url: request.url
+	// 				});
+	// 			}
+	// 		})
+	// 	);
+	// }
 
   private addTokenHeader(request: HttpRequest<any>, token: string) {
     return request.clone({
@@ -162,14 +162,14 @@ export class TokenInterceptor implements HttpInterceptor {
       withLatestFrom(this.store.select(getIsRefreshing)),
       switchMap(([refreshToken, isRefreshing]) => {
         if (!isRefreshing) {
-          this.store.dispatch(fromAuth.refreshToken({ refreshToken }));
+          this.store.dispatch(fromAuth.refreshToken());
         }
 
         return this.actions.pipe(
           filter((action) => action.type === fromAuth.refreshTokenSuccess.type || action.type === fromAuth.refreshTokenFailure.type),
           switchMap(action => {
             if (action.type === fromAuth.refreshTokenSuccess.type) {
-              console.log((action as any).accessToken);
+              // console.log((action as any).accessToken);
               return next.handle(this.addTokenHeader(req, (action as any).accessToken));
             } else {
               return throwError(() => originalError);
@@ -200,6 +200,7 @@ export class TokenInterceptor implements HttpInterceptor {
 		}
 
 		const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    // console.log(new Date(expiry * 1000));
 		return (Math.floor((new Date()).getTime() / 1000)) >= expiry;
 	}
 

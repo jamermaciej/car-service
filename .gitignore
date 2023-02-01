@@ -48,3 +48,6 @@ Thumbs.db
 
 # Custom
 /src/environments
+/certificate.cnf
+/localhost.crt
+/localhost.key

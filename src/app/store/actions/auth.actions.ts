@@ -20,8 +20,7 @@ export const loginFailure = createAction(
 export const getMe = createAction('[Users] Get Me');
 
 export const refreshToken = createAction(
-    '[Auth] Refresh Token',
-    props<{ refreshToken: string }>()
+    '[Auth] Refresh Token'
 );
 
 export const refreshTokenSuccess = createAction(

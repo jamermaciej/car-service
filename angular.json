@@ -77,8 +77,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "car-service:build",
-            "host": "car-service.pl",
-            "port": 4200
+            "host": "localhost",
+            "port": 4200,
+            "ssl": true,
+            "sslCert": "./localhost.crt",
+            "sslKey": "./localhost.key"
           },
           "configurations": {
             "production": {
