@@ -40,7 +40,7 @@ export class UserRoleGuard implements CanLoad {
       take(1),
       map((user: User) => {
         const roles = user?.roles;
-        if (route.data && roles.indexOf(route.data.roles) !== -1) {
+        if (roles && route.data && roles.indexOf(route.data.roles) !== -1) {
           return true;
         } else {
           this.store.dispatch(
