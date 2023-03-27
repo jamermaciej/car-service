@@ -480,6 +480,13 @@
 		},
 		"title": "Zarejestruj się"
 	},
+	"session_expiration": {
+		"button": {
+			"extend": "Extend session",
+			"logout": "Wyloguj"
+		},
+		"expire": "Your session is about to expire.<br /> You will be logged out in {{ remainSeconds }} seconds."
+	},
 	"sidebar": {
 		"nav_item": {
 			"account": "Moje konto",

@@ -34,6 +34,9 @@ import * as statusesReducer from './../admin/store/reducer/statuses.reducer';
 import * as fromOrders from './../orders/store';
 import { LocalizeRouterModule } from '@penleychan/ngx-transloco-router';
 import { ClickOutsideDirective } from '../shared/directives/click-outside/click-outside.directive';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SessionExpirationModalComponent } from './components/session-expiration-modal/session-expiration-modal.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +49,8 @@ import { ClickOutsideDirective } from '../shared/directives/click-outside/click-
         SidebarComponent,
         MenuListItemComponent,
         LoadingSpinnerComponent,
-        ClickOutsideDirective
+        ClickOutsideDirective,
+        SessionExpirationModalComponent
     ],
     imports: [
         CommonModule,
@@ -67,7 +71,10 @@ import { ClickOutsideDirective } from '../shared/directives/click-outside/click-
         StoreModule.forFeature('statuses', statusesReducer.reducer),
         StoreModule.forFeature('orders', fromOrders.reducer),
         EffectsModule.forFeature([CustomersEffects, CarsEffects, UsersEffects, StatusesEffects, fromOrders.CarsEffects]),
-        LocalizeRouterModule
+        LocalizeRouterModule,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [LangComponent, LoadingSpinnerComponent]
 })

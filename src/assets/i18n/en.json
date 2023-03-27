@@ -480,6 +480,13 @@
 		},
 		"title": "Sing up"
 	},
+	"session_expiration": {
+		"button": {
+			"extend": "Przedłuż sesję",
+			"logout": "Logout"
+		},
+		"expire": "Your session is about to expire.<br /> You will be logged out in {{ remainSeconds }} seconds."
+	},
 	"sidebar": {
 		"nav_item": {
 			"account": "Account",

@@ -51,7 +51,8 @@ export class TokenInterceptor implements HttpInterceptor {
           catchError((err) => {
             if (err instanceof HttpErrorResponse) {
               if (err && err.status === 401) {
-                return this.handle401Error(clonedReq, next, err);
+                this.store.dispatch(fromAuth.logout());
+                // return this.handle401Error(clonedReq, next, err);
               }
             }
             return throwError(err);

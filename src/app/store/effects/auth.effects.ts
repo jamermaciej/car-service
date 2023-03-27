@@ -40,6 +40,7 @@ import { FirebaseErrors } from 'src/app/core/services/firebase-errors/firebase-e
 import * as fromRoot from './../reducers';
 import { getUser } from '../selectors/auth.selectors';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { SessionTimerService } from 'src/app/core/services/session-timer/session-timer.service';
 
 @Injectable()
 export class AuthEffects {
@@ -51,6 +52,7 @@ export class AuthEffects {
     private snackBar: MatSnackBar,
     private alertService: AlertService,
     private store: Store<fromRoot.State>,
+    private sessionTimerService: SessionTimerService,
     private authService: AuthService
   ) {}
 
@@ -147,6 +149,21 @@ export class AuthEffects {
   }
   )
 
+  refreshTokenSuccess$ = createEffect(
+    () => 
+    this.actions$.pipe(
+      ofType(authActions.refreshTokenSuccess),
+      pluck('accessToken'),
+      tap(accessToken => {
+        const user =  JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('user', JSON.stringify({ ...user, accessToken: accessToken }));
+      })
+    ),
+    {
+      dispatch: false,
+    }
+  )
+
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -172,6 +189,7 @@ export class AuthEffects {
             'account.logout.message.success'
           );
           this.alertService.showAlert(successMessage, 'success');
+          this.sessionTimerService.stopTimer();
           return routerActions.go({ path: [FlowRoutes.LOGIN] });
         })
       ),

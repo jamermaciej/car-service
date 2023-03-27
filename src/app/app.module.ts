@@ -27,6 +27,7 @@ import localeEn from '@angular/common/locales/en';
 import { registerLocaleData } from '@angular/common';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { TokenInterceptor } from './core/interceptors/token/token.interceptor';
+import { SessionExpirationModalComponent } from './core/components/session-expiration-modal/session-expiration-modal.component';
 
 // register locales
 registerLocaleData(localePl);
