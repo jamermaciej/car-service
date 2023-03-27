@@ -52,13 +52,13 @@ export class TokenInterceptor implements HttpInterceptor {
             if (err instanceof HttpErrorResponse) {
               if (err && err.status === 401) {
                 this.store.dispatch(fromAuth.logout());
-                // return this.handle401Error(clonedReq, next, err);
+                return this.handle401Error(clonedReq, next, err);
               }
             }
             return throwError(err);
             }
           )
-        )
+        );
       })
     );
   }
@@ -176,7 +176,7 @@ export class TokenInterceptor implements HttpInterceptor {
               return throwError(() => originalError);
             }
           })
-        )
+        );
 
         // return this.authService.refreshToken(token).pipe(
         //   switchMap(accessToken => {
@@ -192,7 +192,7 @@ export class TokenInterceptor implements HttpInterceptor {
         this.store.dispatch(fromAuth.logout());
         return throwError(() => originalError);
       })
-    )
+    );
   }
 
   private isTokenExpired(token: string) {

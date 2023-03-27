@@ -13,7 +13,7 @@ import { SessionTimerService } from '../../services/session-timer/session-timer.
 })
 export class SessionExpirationModalComponent implements OnInit, AfterViewInit {
 
-  @Input() alertAt? = 30;
+  @Input() alertAt ? = 30;
 
   @ViewChild('sessionExpirationModal', { static: true }) sessionExpirationModal: TemplateRef<any>;
   private sessionExpirationModalRef: MatDialogRef<TemplateRef<any>>;

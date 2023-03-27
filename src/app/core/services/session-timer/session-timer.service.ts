@@ -11,7 +11,7 @@ import { SubscriptionHelperComponent } from 'src/app/_helpers/subscription-helpe
 export class SessionTimerService extends SubscriptionHelperComponent {
 
   private _timeoutSeconds = 1 * 60;
-  private _count: number = 0;
+  private _count = 0;
   private _timerSubscription!: Subscription;
   private _timer: Observable<number> = interval(1000);
   private _remainSeconds = new Subject<number>();

@@ -147,22 +147,22 @@ export class AuthEffects {
   {
     dispatch: true,
   }
-  )
+  );
 
   refreshTokenSuccess$ = createEffect(
-    () => 
+    () =>
     this.actions$.pipe(
       ofType(authActions.refreshTokenSuccess),
       pluck('accessToken'),
       tap(accessToken => {
         const user =  JSON.parse(localStorage.getItem('user'));
-        localStorage.setItem('user', JSON.stringify({ ...user, accessToken: accessToken }));
+        localStorage.setItem('user', JSON.stringify({ ...user, accessToken }));
       })
     ),
     {
       dispatch: false,
     }
-  )
+  );
 
   logout$ = createEffect(
     () =>
